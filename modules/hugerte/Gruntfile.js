@@ -253,7 +253,9 @@ module.exports = function (grunt) {
           },
           files: [
             { src: 'src/plugins/emoticons/main/js/emojis.js', dest: 'js/hugerte/plugins/emoticons/js/emojis.js' },
-            { src: 'src/plugins/emoticons/main/js/emojiimages.js', dest: 'js/hugerte/plugins/emoticons/js/emojiimages.js' }
+            { src: 'src/plugins/emoticons/main/js/emojiimages.js', dest: 'js/hugerte/plugins/emoticons/js/emojiimages.js' },
+            // The onlcicons plugin reuses the very same emoji database
+            { src: 'src/plugins/emoticons/main/js/emojis.js', dest: 'js/hugerte/plugins/onlcicons/js/emojis.js' }
           ]
         }
       },
@@ -262,6 +264,9 @@ module.exports = function (grunt) {
           emoticons: [
             { src: 'src/plugins/emoticons/main/js/emojis.js', dest: 'js/hugerte/plugins/emoticons/js/emojis.min.js' },
             { src: 'src/plugins/emoticons/main/js/emojiimages.js', dest: 'js/hugerte/plugins/emoticons/js/emojiimages.min.js' }
+          ],
+          onlcicons: [
+            { src: 'src/plugins/emoticons/main/js/emojis.js', dest: 'js/hugerte/plugins/onlcicons/js/emojis.min.js' }
           ]
         };
         return {

@@ -426,6 +426,12 @@ module.exports = function (grunt) {
           { src: 'src/plugins/visualblocks/main/css/visualblocks.css', dest: 'js/hugerte/plugins/visualblocks/css/visualblocks.css' }
         ]
       },
+      'onlc-plugins': {
+        files: [
+          { src: 'src/plugins/onlcmedia/main/css/onlcmedia.css', dest: 'js/hugerte/plugins/onlcmedia/css/onlcmedia.css' },
+          { src: 'src/plugins/onlcblocks/main/css/onlcblocks.css', dest: 'js/hugerte/plugins/onlcblocks/css/onlcblocks.css' }
+        ]
+      },
       'html-i18n': {
         files: [
           {
@@ -975,7 +981,8 @@ module.exports = function (grunt) {
     'copy:ui-skins',
     'copy:content-skins',
     'copy:default-icons',
-    'copy:html-i18n'
+    'copy:html-i18n',
+    'copy:onlc-plugins'
   ]);
 
   grunt.registerTask('start', ['webpack-dev-server']);

@@ -2,6 +2,7 @@ import { Arr, Optional, Throttler, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
+import * as Cards from 'hugerte/plugins/onlcshared/ui/Cards';
 
 import * as Options from '../api/Options';
 import * as Actions from '../core/Actions';
@@ -28,14 +29,23 @@ const collectionItems = (editor: Editor, pattern: string): Dialog.CollectionItem
   const items: Dialog.CollectionItem[] = Arr.map(Options.getInsertItems(editor), (item, index) => ({
     value: `${itemPrefix}${index}`,
     text: Type.isString(item.group) ? `${item.group} – ${item.text}` : item.text,
-    icon: item.icon ?? 'plus'
+    icon: Cards.render(editor, {
+      icon: item.icon ?? 'plus',
+      label: item.text,
+      description: item.description ?? ''
+    })
   }));
 
   const total = Options.getGridColumns(editor);
   const layouts: Dialog.CollectionItem[] = Arr.map(Options.getLayouts(editor), (layout) => ({
     value: `${layoutPrefix}${LayoutSchema.valueOf(layout)}`,
     text: `Colonnes ${layout.text}`,
-    icon: LayoutSchema.forLayout(layout, total)
+    icon: Cards.render(editor, {
+      icon: LayoutSchema.forLayout(layout, total),
+      label: `Colonnes ${layout.text}`,
+      description: 'Une ligne de colonnes côte à côte, qui s’empilent sur mobile',
+      wide: true
+    })
   }));
 
   const all = items.concat(layouts);
@@ -78,6 +88,7 @@ const performInsert = (editor: Editor, value: string, reference: Optional<HTMLEl
 
 const open = (editor: Editor, reference: Optional<HTMLElement>, position: Actions.InsertPosition): void => {
   LayoutSchema.ensureStyles(editor);
+  Cards.ensureStyles(editor);
 
   const refresh = Throttler.last((api: Dialog.DialogInstanceApi<InsertDialogData>) => {
     api.setData({ items: collectionItems(editor, api.getData().pattern) });
@@ -85,12 +96,12 @@ const open = (editor: Editor, reference: Optional<HTMLElement>, position: Action
 
   editor.windowManager.open<InsertDialogData>({
     title: 'Ajouter un bloc',
-    size: 'medium',
+    size: 'large',
     body: {
       type: 'panel',
       items: [
-        { type: 'input', name: 'pattern', label: 'Rechercher', placeholder: 'Paragraphe, image, colonnes...' },
-        { type: 'collection', name: 'items' }
+        { type: 'input', name: 'pattern', label: 'Rechercher un bloc', placeholder: 'Paragraphe, image, colonnes…' },
+        { type: 'collection', name: 'items', label: 'Choisissez le bloc à ajouter' }
       ]
     },
     initialData: {

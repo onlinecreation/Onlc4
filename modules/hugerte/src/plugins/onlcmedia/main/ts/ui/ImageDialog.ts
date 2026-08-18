@@ -41,7 +41,7 @@ const toImageData = (data: Record<string, unknown>): ImageData => ({
 });
 
 const toDialogData = (editor: Editor, context: LinkContext, image: ImageData): Record<string, unknown> => ({
-  src: { value: image.src, meta: {}},
+  src: image.src,
   alt: image.alt,
   title: image.title,
   preview: { url: image.src },
@@ -61,21 +61,42 @@ const toDialogData = (editor: Editor, context: LinkContext, image: ImageData): R
 });
 
 const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, image: ImageData): void => {
+  // Choisir le fichier passe d'abord par la médiathèque : l'adresse en ligne reste possible,
+  // mais en second, pour ceux qui collent une url externe.
   const imageTab: Dialog.TabSpec = {
     title: 'Image',
     name: 'image',
     items: [
-      { type: 'urlinput', name: 'src', filetype: 'image', label: 'Fichier' },
+      { type: 'imagepreview', name: 'preview', height: '150px' },
       {
-        type: 'bar',
+        type: 'label',
+        label: 'Fichier de l’image',
         items: [
-          { type: 'button', name: 'browse', text: 'Explorateur de fichiers', icon: 'browse', borderless: true },
-          { type: 'button', name: 'editImage', text: 'Modifier dans Pixel', icon: 'edit-image', borderless: true }
+          {
+            type: 'bar',
+            items: [
+              // Sans icône : un bouton de dialogue n'affiche que son icône dès qu'il en a une,
+              // et le libellé est ici ce qui rend l'action compréhensible.
+              { type: 'button', name: 'browse', text: 'Choisir ou téléverser un média…', buttonType: 'primary' },
+              { type: 'button', name: 'editImage', text: 'Retoucher cette image…', buttonType: 'secondary' }
+            ]
+          }
         ]
       },
-      { type: 'input', name: 'alt', label: 'Texte alternatif (alt)' },
-      { type: 'input', name: 'title', label: 'Titre (title)' },
-      { type: 'imagepreview', name: 'preview', height: '200px' }
+      {
+        type: 'input',
+        name: 'src',
+        label: 'Ou adresse d’une image en ligne (https://…)',
+        placeholder: 'https://exemple.tld/photo.jpg'
+      },
+      {
+        type: 'grid',
+        columns: 2,
+        items: [
+          { type: 'input', name: 'alt', label: 'Texte alternatif (lu par les lecteurs d’écran)' },
+          { type: 'input', name: 'title', label: 'Titre affiché au survol' }
+        ]
+      }
     ]
   };
 
@@ -93,22 +114,26 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
     title: 'Texte par-dessus',
     name: 'overlay',
     items: [
-      { type: 'textarea', name: 'overlayText', label: 'Texte' },
+      { type: 'textarea', name: 'overlayText', label: 'Texte affiché par-dessus l’image' },
       {
         type: 'grid',
         columns: 2,
         items: [
-          { type: 'listbox', name: 'overlayPosition', label: 'Position', items: listItems(Options.getOverlayPositions(editor)) },
+          { type: 'listbox', name: 'overlayPosition', label: 'Position sur l’image', items: listItems(Options.getOverlayPositions(editor)) },
           { type: 'listbox', name: 'overlayFontFamily', label: 'Typographie', items: listItems(Options.getFontList(editor)) },
           { type: 'input', name: 'overlayFontSize', label: 'Taille du texte (ex : 1.5rem)' },
           { type: 'colorinput', name: 'overlayBackground', label: 'Couleur de fond' },
           { type: 'input', name: 'overlayMargin', label: 'Marge extérieure (ex : 0 0 1rem)' },
           { type: 'input', name: 'overlayPadding', label: 'Marge intérieure (ex : .5rem 1rem)' }
         ]
-      },
-      // Couleur simple, dégradé (départ, arrivée, angle) et ombre portée
-      ...TextStyle.getItems('overlay')
+      }
     ]
+  };
+
+  const overlayStyleTab: Dialog.TabSpec = {
+    title: 'Style du texte',
+    name: 'overlaystyle',
+    items: TextStyle.getItems('overlay')
   };
 
   const linkTab: Dialog.TabSpec = {
@@ -119,7 +144,7 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
 
   const body: Dialog.TabPanelSpec = {
     type: 'tabpanel',
-    tabs: [ imageTab, appearanceTab, overlayTab, linkTab ]
+    tabs: [ imageTab, appearanceTab, overlayTab, overlayStyleTab, linkTab ]
   };
 
   editor.windowManager.open({
@@ -138,7 +163,7 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
         Explorer.open(editor, api, {
           onSelect: (file) => {
             dialog.setData({
-              src: { value: file.url, meta: {}},
+              src: file.url,
               preview: { url: file.url },
               alt: readString(dialog.getData() as Record<string, unknown>, 'alt') === '' ? file.name : readString(dialog.getData() as Record<string, unknown>, 'alt')
             });
@@ -153,7 +178,7 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
           title: src === '' ? 'Créer une image' : `Modifier « ${name} »`,
           // The edited image is saved back through the media api, then used as the new source
           onSave: (result) => api.save(Options.getRootPath(editor), result.name, result.data).then((file) => {
-            dialog.setData({ src: { value: file.url, meta: {}}, preview: { url: file.url }});
+            dialog.setData({ src: file.url, preview: { url: file.url }});
           })
         });
       }

@@ -100,6 +100,12 @@ const embedFrame = (src: string, ratio: string, title: string, extra: string): s
   `<div class="onlc-widget__static onlc-embed"${Html.style({ 'padding-bottom': ratio })}>` +
   `<iframe class="onlc-embed__frame"${Html.attr('src', src)}${Html.attr('title', title)}${extra} frameborder="0" loading="lazy" allowfullscreen></iframe></div>`;
 
+/** Convertit une saisie en nombre sûr : les valeurs entrées finissent dans du code javascript. */
+const number = (value: string, fallback: number): number => {
+  const parsed = parseFloat(String(value).replace(',', '.'));
+  return isNaN(parsed) ? fallback : parsed;
+};
+
 const missing = (message: string): string =>
   `<div class="onlc-widget__static onlc-widget__empty">${Html.escape(message)}</div>`;
 
@@ -237,6 +243,7 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
   },
   {
     id: 'video',
+    canonical: true,
     label: 'Vidéo',
     description: 'YouTube, Vimeo, Dailymotion ou toute autre url intégrable',
     category: 'Médias',
@@ -261,6 +268,7 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
   },
   {
     id: 'iframe',
+    canonical: true,
     label: 'Iframe',
     description: 'Intègre une page externe',
     category: 'Médias',
@@ -307,6 +315,7 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
   },
   {
     id: 'map',
+    canonical: true,
     label: 'Carte',
     description: 'Une carte centrée sur une adresse ou des coordonnées',
     category: 'Médias',
@@ -328,6 +337,7 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
   },
   {
     id: 'calendar',
+    canonical: true,
     label: 'Calendrier',
     description: 'Un calendrier partagé (Google Agenda ou autre)',
     category: 'Médias',
@@ -352,6 +362,73 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
         `<iframe class="onlc-embed__frame"${Html.attr('src', src)}${Html.attr('title', c.title)}` +
         `${Html.style({ height: Html.withUnit(c.height), width: '100%' })} frameborder="0" loading="lazy"></iframe></div>`
     )
+  },
+  {
+    id: 'leafletmap',
+    label: 'Carte interactive (Leaflet)',
+    description: 'Une carte OpenStreetMap que le visiteur peut déplacer et zoomer',
+    category: 'Médias',
+    icon: 'home',
+    canonical: true,
+    assets: {
+      css: [ 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css' ],
+      js: [ 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js' ]
+    },
+    fields: [
+      { name: 'latitude', label: 'Latitude', type: 'number', half: true, placeholder: '48.8566' },
+      { name: 'longitude', label: 'Longitude', type: 'number', half: true, placeholder: '2.3522' },
+      { name: 'zoom', label: 'Niveau de zoom (1 à 19)', type: 'number', half: true },
+      { name: 'height', label: 'Hauteur de la carte', type: 'text', half: true, placeholder: '360px' },
+      { name: 'marker', label: 'Texte de l’épingle', type: 'text', placeholder: 'Nos bureaux' },
+      { name: 'scrollZoom', label: 'Zoom à la molette', type: 'checkbox', half: true }
+    ],
+    defaults: { latitude: '48.8566', longitude: '2.3522', zoom: '14', height: '360px', marker: '', scrollZoom: 'false' },
+    render: (c) => {
+      const latitude = number(c.latitude, 48.8566);
+      const longitude = number(c.longitude, 2.3522);
+      const zoom = Math.min(19, Math.max(1, Math.round(number(c.zoom, 14))));
+      const marker = c.marker.trim() === ''
+        ? `window.L.marker([ ${latitude}, ${longitude} ]).addTo(map);`
+        : `window.L.marker([ ${latitude}, ${longitude} ]).addTo(map).bindPopup(${JSON.stringify(c.marker)});`;
+
+      // Le script se rattache à l'élément qui le précède : aucun identifiant à gérer, et
+      // plusieurs cartes peuvent cohabiter sur la même page.
+      const script = `(function () {
+  var element = document.currentScript && document.currentScript.previousElementSibling;
+  if (!element) {
+    var candidates = document.querySelectorAll('.onlc-leaflet:not([data-onlc-ready])');
+    element = candidates[candidates.length - 1];
+  }
+  if (!element) { return; }
+  element.setAttribute('data-onlc-ready', '1');
+  var start = function () {
+    if (!window.L) { return window.setTimeout(start, 120); }
+    var map = window.L.map(element, { scrollWheelZoom: ${Html.isTrue(c.scrollZoom)} }).setView([ ${latitude}, ${longitude} ], ${zoom});
+    window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    ${marker}
+  };
+  start();
+})();`;
+
+      return `<div class="onlc-leaflet"${Html.style({ height: Html.withUnit(c.height), width: '100%' })}></div>` +
+        `<script>${script}<\/script>`;
+    },
+    renderEditor: (c) => {
+      const latitude = number(c.latitude, 48.8566);
+      const longitude = number(c.longitude, 2.3522);
+      const zoom = Math.min(19, Math.max(1, Math.round(number(c.zoom, 14))));
+      // La carte a besoin de javascript : l'éditeur en montre un aperçu statique, tiré des
+      // mêmes coordonnées, et la carte interactive est produite pour la page publiée.
+      const preview = `https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.01},${latitude - 0.01},${longitude + 0.01},${latitude + 0.01}&layer=mapnik&marker=${latitude},${longitude}`;
+      return `<div class="onlc-widget__static onlc-embed onlc-embed--fixed">` +
+        `<iframe class="onlc-embed__frame"${Html.attr('src', preview)} title="Aperçu de la carte"` +
+        `${Html.style({ height: Html.withUnit(c.height), width: '100%' })} frameborder="0" loading="lazy"></iframe>` +
+        `<p class="onlc-widget__note">Carte Leaflet — ${latitude}, ${longitude} (zoom ${zoom}). ` +
+        `La carte interactive et ses dépendances sont produites sur la page publiée.</p></div>`;
+    }
   },
   {
     id: 'separator',

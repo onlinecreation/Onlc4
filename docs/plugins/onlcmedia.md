@@ -26,12 +26,18 @@ mais une largeur en pourcentage et une hauteur automatique.
 1. **Bibliothèque** (`onlcmedialibrary`) : arborescence des dossiers à gauche, vignettes à
    droite, zone de dépôt pour téléverser, boutons *Nouveau dossier*, *Copier*, *Déplacer*,
    *Renommer*, *Supprimer*, *Retoucher* et *Créer une image*.
-2. **Propriétés de l'image** (`onlcimage`) : trois onglets.
-   - *Image* : fichier, texte alternatif, titre, largeur, classe prédéfinie et CSS personnalisé.
-   - *Texte par-dessus* : texte, position (9 ancrages), taille, police, fond, marge, espacement
-     intérieur, puis **couleur, dégradé (départ, arrivée, angle) et ombre portée**.
+2. **Propriétés de l'image** (`onlcimage`) : cinq onglets.
+   - *Image* : aperçu, bouton **Choisir ou téléverser un média…** (l'action principale),
+     bouton *Retoucher cette image…*, puis, en second choix, un champ pour coller l'adresse
+     d'une image en ligne ; texte alternatif et titre.
+   - *Apparence* : classe prédéfinie, largeur, CSS personnalisé.
+   - *Texte par-dessus* : texte, position (9 ancrages), taille, police, fond, marges.
+   - *Style du texte* : couleur, dégradé (départ, arrivée, angle) et ombre portée.
    - *Lien* : lien prédéfini via API, URL personnalisée ou ancre, cible et `rel`
      (voir [API des liens](../api/onlc-link-api.md)).
+
+   Le bouton image reste utilisable quand le curseur se trouve dans le texte posé sur l'image :
+   c'est bien cette image-là qui s'ouvre, et non une nouvelle.
 
 ## Options
 

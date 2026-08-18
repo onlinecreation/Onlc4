@@ -62,7 +62,8 @@ La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
 | Vidéo | Médias | URL YouTube / Vimeo / Dailymotion ou autre, format, lecture auto, boucle, sourdine |
 | Iframe | Médias | adresse, titre, format ou hauteur fixe, défilement |
 | Widget HTML | Avancé | code HTML fourni par un service tiers |
-| Carte | Médias | adresse ou coordonnées, zoom, hauteur |
+| Carte | Médias | adresse ou coordonnées, zoom, hauteur (intégration OpenStreetMap, sans javascript) |
+| Carte interactive (Leaflet) | Médias | latitude, longitude, zoom, épingle, hauteur, zoom à la molette |
 | Calendrier | Médias | adresse du calendrier, affichage, hauteur |
 | Séparateur | Contenu | hauteur, espace ou filet, couleur, largeur |
 | Citation | Contenu | citation, auteur, source |
@@ -70,6 +71,46 @@ La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
 Lorsque les autres plugins ONLC sont chargés, la bibliothèque propose en plus des raccourcis
 vers l'image de la bibliothèque média (`onlcmedia`), les emojis et icônes (`onlcicons`) et le
 séparateur réglable (`onlcspacer`).
+
+### Intégrations : ce qui est publié fait foi
+
+Les blocs d'intégration — vidéo, iframe, carte, calendrier, carte Leaflet — sont marqués
+`canonical` : leur contenu est **reconstruit à partir de leur configuration** au moment de
+l'enregistrement. Deux raisons à cela :
+
+- l'éditeur ajoute un attribut `sandbox` aux iframes (option `sandbox_iframes` du cœur), qui
+  rendrait l'intégration inerte sur le site ;
+- l'aperçu affiché pendant l'édition peut différer du rendu final (voir ci-dessous).
+
+Pour que l'aperçu fonctionne aussi dans l'éditeur, le plugin ajoute les hôtes de ses propres
+intégrations à `sandbox_iframes_exclusions`. Ajoutez-y les vôtres avec
+`onlc_widgets_iframe_exclusions` :
+
+```js
+onlc_widgets_iframe_exclusions: [ 'openstreetmap.org', 'google.com', 'widget.monservice.tld' ]
+```
+
+Une adresse dont l'hôte n'est pas listé s'affiche quand même, mais son javascript est bloqué
+**dans l'éditeur seulement** : la page publiée, elle, reçoit le code tel quel.
+
+### Dépendances CDN et aperçu
+
+Un bloc peut déclarer les feuilles de style et les scripts dont il a besoin. Ils sont écrits en
+tête de son code HTML, de sorte qu'un bloc copié reste autonome :
+
+```html
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" …>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" … defer></script>
+<div class="onlc-leaflet" style="height: 360px; width: 100%"></div>
+<script>/* initialisation de la carte */</script>
+```
+
+Le navigateur ignore une feuille ou un script déjà chargés : plusieurs blocs du même type sur
+une page ne se gênent pas.
+
+Le javascript ne s'exécutant pas dans la zone d'édition, un bloc peut fournir un aperçu
+différent avec `renderEditor` : la carte Leaflet montre par exemple une image de la même zone,
+et la carte interactive n'est produite que pour la page publiée.
 
 ### Style du texte : couleur, dégradé et ombre
 
@@ -118,6 +159,7 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_widgets_video_ratio` | `'56.25%'` | Format vidéo par défaut |
 | `onlc_widgets_map_provider` | `'osm'` | `osm` ou `google` |
 | `onlc_widgets_google_maps_key` | `''` | Clé de l'API Google Maps Embed |
+| `onlc_widgets_iframe_exclusions` | hôtes des intégrations livrées | Hôtes dont les iframes ne sont pas mises en bac à sable dans l'éditeur |
 | `onlc_widgets_inject_styles` | `true` | Charge `onlcwidgets.css` dans la zone d'édition |
 | `onlc_script_default_type` | `'text/javascript'` | Type MIME proposé |
 | `onlc_script_positions` | 3 emplacements | Emplacements proposés pour un script |
@@ -152,6 +194,15 @@ onlc_widgets_custom: [
 Types de champ disponibles : `text`, `textarea`, `number`, `url`, `image`, `select`
 (avec `items`), `checkbox`, `color` et `code` (avec `language` : `html`, `javascript` ou `css`).
 `half: true` place deux champs côte à côte, `tab: 'Nom'` les répartit en onglets.
+
+Champs facultatifs de la définition :
+
+| Champ | Rôle |
+| --- | --- |
+| `description` | Phrase affichée sous le nom dans la bibliothèque : dites à quoi sert le bloc |
+| `renderEditor` | Aperçu affiché dans l'éditeur, quand il doit différer de la page publiée |
+| `canonical` | Reconstruit le bloc depuis sa configuration à l'enregistrement (intégrations) |
+| `assets` | `{ css: [...], js: [...] }` chargés depuis un CDN, écrits en tête du bloc |
 
 Un identifiant identique à un bloc intégré le remplace ; `render` reçoit la configuration
 complétée par `defaults` et doit renvoyer du HTML **déjà échappé**.

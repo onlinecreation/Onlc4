@@ -181,11 +181,21 @@ const readFromImage = (editor: Editor, img: HTMLImageElement): ImageData => {
   };
 };
 
+/**
+ * Image visée par les actions. Le curseur peut se trouver sur l'image, sur la figure, ou dans
+ * le texte posé par-dessus : dans tous les cas, c'est l'image de cette figure qui est ouverte.
+ */
 const getSelectedImage = (editor: Editor): Optional<HTMLImageElement> => {
   const node = editor.selection.getNode();
   if (editor.dom.is<HTMLImageElement>(node, 'img')) {
     return Optional.some(node);
   }
+
+  const figure = editor.dom.getParent(node, `figure.${figureClass}`);
+  if (Type.isNonNullable(figure)) {
+    return Optional.from(editor.dom.select<HTMLImageElement>('img', figure)[0]);
+  }
+
   const inFigure = editor.dom.select<HTMLImageElement>('img', node)[0];
   return isFigure(editor, node) && Type.isNonNullable(inFigure) ? Optional.some(inFigure) : Optional.none();
 };

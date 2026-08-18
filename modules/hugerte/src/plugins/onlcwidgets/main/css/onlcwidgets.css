@@ -222,3 +222,18 @@
 .onlc-script[data-mce-selected] {
   outline: 2px solid #006ce7;
 }
+
+/* Carte Leaflet ----------------------------------------------------------- */
+
+.onlc-leaflet {
+  width: 100%;
+  min-height: 200px;
+  background: #eef1f4;
+  border-radius: 4px;
+}
+
+.onlc-widget__note {
+  margin: 8px 0 0;
+  font-size: 0.8125em;
+  color: #5a6570;
+}

@@ -1,4 +1,4 @@
-import { Type } from '@ephox/katamari';
+import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { EditorOptions } from 'hugerte/core/api/OptionTypes';
@@ -53,6 +53,13 @@ const register = (editor: Editor): void => {
     default: ''
   });
 
+  // Hôtes dont les iframes ne sont pas mises en bac à sable dans l'éditeur : sans cela, la
+  // prévisualisation d'une carte ou d'un calendrier reste vide.
+  registerOption('onlc_widgets_iframe_exclusions', {
+    processor: 'string[]',
+    default: [ 'openstreetmap.org', 'google.com', 'maps.google.com', 'calendar.google.com', 'unpkg.com' ]
+  });
+
   registerOption('onlc_widgets_inject_styles', {
     processor: 'boolean',
     default: true
@@ -95,6 +102,7 @@ const getClassPrefix = option<string>('onlc_widgets_class_prefix');
 const getVideoRatio = option<string>('onlc_widgets_video_ratio');
 const getMapProvider = option<string>('onlc_widgets_map_provider');
 const getGoogleMapsKey = option<string>('onlc_widgets_google_maps_key');
+const getIframeExclusions = option<string[]>('onlc_widgets_iframe_exclusions');
 const shouldInjectStyles = option<boolean>('onlc_widgets_inject_styles');
 const getScriptType = option<string>('onlc_script_default_type');
 const getScriptPositions = option<WidgetFieldItem[]>('onlc_script_positions');
@@ -102,6 +110,18 @@ const allowScriptSrc = option<boolean>('onlc_script_allow_src');
 const getTabSize = option<number>('onlc_code_tab_size');
 const hasLineNumbers = option<boolean>('onlc_code_line_numbers');
 const shouldPrettyPrint = option<boolean>('onlc_source_pretty_print');
+
+/**
+ * Ajoute les hôtes de nos intégrations à la liste du cœur : sans cela, la prévisualisation
+ * d'une carte ou d'un calendrier reste vide dans l'éditeur.
+ */
+const allowIframeHosts = (editor: Editor, hosts: string[]): void => {
+  if (hosts.length === 0) {
+    return;
+  }
+  const current = editor.options.get('sandbox_iframes_exclusions');
+  editor.options.set('sandbox_iframes_exclusions', Arr.unique(current.concat(hosts)));
+};
 
 export {
   register,
@@ -112,6 +132,8 @@ export {
   getVideoRatio,
   getMapProvider,
   getGoogleMapsKey,
+  getIframeExclusions,
+  allowIframeHosts,
   shouldInjectStyles,
   getScriptType,
   getScriptPositions,

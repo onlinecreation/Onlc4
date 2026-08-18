@@ -1,11 +1,21 @@
-import { Arr, Type } from '@ephox/katamari';
+import { Arr, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import { Menu } from 'hugerte/core/api/ui/Ui';
 
+import * as Options from '../api/Options';
+import * as Actions from '../core/Actions';
 import * as Blocks from '../core/Blocks';
 import { Controller } from '../core/Controller';
 import * as Grid from '../core/Grid';
+import * as LayoutSchema from './LayoutSchema';
 import * as RowDialog from './RowDialog';
+
+/** Ligne visée par les actions : celle du bloc actif, sinon celle du curseur. */
+const selectedRow = (editor: Editor, controller: Controller): Optional<HTMLElement> =>
+  controller.getActive()
+    .filter((block) => Grid.isRow(editor, block))
+    .orThunk(() => Grid.getParentRow(editor, editor.selection.getNode() as HTMLElement));
 
 const register = (editor: Editor, controller: Controller): void => {
   editor.ui.registry.addToggleButton('onlcblocks', {
@@ -42,6 +52,34 @@ const register = (editor: Editor, controller: Controller): void => {
     icon: 'table',
     tooltip: 'Ajouter des colonnes',
     onAction: openRowDialog
+  });
+
+  // Chaque disposition devient une icône, pour être reconnaissable dans les menus
+  const layouts = Options.getLayouts(editor);
+  const total = Options.getGridColumns(editor);
+  Arr.each(layouts, (layout) => {
+    editor.ui.registry.addIcon(`onlc-layout-${LayoutSchema.valueOf(layout)}`, LayoutSchema.forLayout(layout, total));
+  });
+
+  /**
+   * Choix de la disposition d'une ligne existante : la liste est fermée, on ne peut donc pas
+   * ajouter des colonnes à l'infini.
+   */
+  editor.ui.registry.addMenuButton('onlcrowlayout', {
+    icon: 'table',
+    text: 'Disposition',
+    tooltip: 'Choisir la disposition des colonnes',
+    fetch: (callback) => {
+      const items: Menu.MenuItemSpec[] = Arr.map(layouts, (layout) => ({
+        type: 'menuitem',
+        text: `Colonnes ${layout.text}`,
+        icon: `onlc-layout-${LayoutSchema.valueOf(layout)}`,
+        onAction: () => {
+          selectedRow(editor, controller).each((row) => Grid.applyLayout(editor, row, layout.columns));
+        }
+      }));
+      callback(items);
+    }
   });
 
   editor.ui.registry.addMenuItem('onlcblocksrow', {
@@ -87,14 +125,31 @@ const register = (editor: Editor, controller: Controller): void => {
     onAction: () => editor.execCommand('OnlcColumnRemove')
   });
 
-  // Column tools appear as soon as the caret sits inside a bootstrap column
-  editor.ui.registry.addContextToolbar('onlcblockscolumn', {
+  // Dès que le curseur entre dans une colonne, la barre de la ligne apparaît : elle propose la
+  // disposition, la duplication et la suppression de la ligne entière.
+  editor.ui.registry.addContextToolbar('onlcblocksrowtools', {
     predicate: (node) => Type.isNonNullable(node)
       && Grid.getParentColumn(editor, node as HTMLElement).isSome()
       && editor.dom.isEditable(node),
-    items: 'onlccolumnnarrow onlccolumnwiden onlccolumnadd onlccolumnremove',
+    items: 'onlcrowlayout | onlcrowduplicate onlcrowremove',
     position: 'node',
     scope: 'node'
+  });
+
+  editor.ui.registry.addButton('onlcrowduplicate', {
+    icon: 'duplicate',
+    tooltip: 'Dupliquer la ligne',
+    onAction: () => {
+      selectedRow(editor, controller).each((row) => Actions.duplicate(editor, row));
+    }
+  });
+
+  editor.ui.registry.addButton('onlcrowremove', {
+    icon: 'remove',
+    tooltip: 'Supprimer la ligne et ses colonnes',
+    onAction: () => {
+      selectedRow(editor, controller).each((row) => Actions.remove(editor, row));
+    }
   });
 };
 

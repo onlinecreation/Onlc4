@@ -43,14 +43,19 @@ const buttons: ToolbarButton[] = [
   { action: 'remove', icon: '✕', label: 'Supprimer le bloc' }
 ];
 
+/** Croix dessinée : un « + » textuel dépend de la police du contenu et se décentre. */
+const plusIcon = (size: number): string =>
+  `<svg viewBox="0 0 24 24" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">` +
+  '<path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg>';
+
 const buttonHtml = (button: ToolbarButton): string =>
   `<button type="button" class="onlc-blocks-btn" data-onlc-action="${button.action}" title="${button.label}" aria-label="${button.label}">${button.icon}</button>`;
 
 const layerHtml = (): string =>
   '<div class="onlc-blocks-outline" data-onlc-part="outline"></div>' +
   `<div class="onlc-blocks-toolbar" data-onlc-part="toolbar">${Arr.map(buttons, buttonHtml).join('')}</div>` +
-  '<button type="button" class="onlc-blocks-add onlc-blocks-add--before" data-onlc-part="add-before" data-onlc-action="insert-before" title="Ajouter un bloc avant">+</button>' +
-  '<button type="button" class="onlc-blocks-add onlc-blocks-add--after" data-onlc-part="add-after" data-onlc-action="insert-after" title="Ajouter un bloc après">+</button>' +
+  `<button type="button" class="onlc-blocks-add onlc-blocks-add--before" data-onlc-part="add-before" data-onlc-action="insert-before" title="Ajouter un bloc avant" aria-label="Ajouter un bloc avant">${plusIcon(16)}</button>` +
+  `<button type="button" class="onlc-blocks-add onlc-blocks-add--after" data-onlc-part="add-after" data-onlc-action="insert-after" title="Ajouter un bloc après" aria-label="Ajouter un bloc après">${plusIcon(16)}</button>` +
   '<div class="onlc-blocks-indicator" data-onlc-part="indicator"></div>';
 
 /**
@@ -59,7 +64,7 @@ const layerHtml = (): string =>
  */
 const edgeZoneHtml = (position: 'start' | 'end'): string =>
   `<button type="button" class="onlc-blocks-edge" data-onlc-action="insert-${position}">` +
-  `<span class="onlc-blocks-edge__plus">+</span>` +
+  `<span class="onlc-blocks-edge__plus">${plusIcon(14)}</span>` +
   `<span>Ajouter un bloc ${position === 'start' ? 'au début' : 'à la fin'}</span></button>`;
 
 /** Diamètre des boutons « + », en pixels. Doit rester synchronisé avec onlcblocks.css. */

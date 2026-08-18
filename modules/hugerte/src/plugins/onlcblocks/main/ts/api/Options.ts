@@ -5,6 +5,8 @@ import { EditorOptions } from 'hugerte/core/api/OptionTypes';
 
 export interface InsertItem {
   readonly text: string;
+  /** Phrase affichée sous le nom, pour expliquer à quoi sert le bloc. */
+  readonly description?: string;
   readonly icon?: string;
   readonly html?: string;
   readonly command?: string;
@@ -39,17 +41,17 @@ const defaultLayouts: GridLayout[] = [
 ];
 
 const defaultInsertItems: InsertItem[] = [
-  { text: 'Paragraphe', icon: 'paragraph', html: '<p>Nouveau paragraphe</p>', group: 'Texte' },
-  { text: 'Titre 2', icon: 'text-size-increase', html: '<h2>Titre</h2>', group: 'Texte' },
-  { text: 'Titre 3', icon: 'text-size-decrease', html: '<h3>Titre</h3>', group: 'Texte' },
-  { text: 'Citation', icon: 'quote', html: '<blockquote><p>Citation</p></blockquote>', group: 'Texte' },
-  { text: 'Liste à puces', icon: 'unordered-list', html: '<ul><li>Élément</li></ul>', group: 'Texte' },
-  { text: 'Liste numérotée', icon: 'ordered-list', html: '<ol><li>Élément</li></ol>', group: 'Texte' },
-  { text: 'Trait horizontal', icon: 'horizontal-rule', html: '<hr>', group: 'Mise en page' },
-  { text: 'Séparateur vertical', icon: 'line-height', command: 'OnlcInsertSpacer', group: 'Mise en page' },
-  { text: 'Image', icon: 'image', command: 'OnlcImage', group: 'Média' },
-  { text: 'Tableau', icon: 'table', command: 'mceInsertTable', value: '{"rows":2,"columns":2}', group: 'Mise en page' },
-  { text: 'Code source', icon: 'sourcecode', html: '<pre>code</pre>', group: 'Texte' }
+  { text: 'Paragraphe', description: 'Un bloc de texte courant', icon: 'paragraph', html: '<p>Nouveau paragraphe</p>', group: 'Texte' },
+  { text: 'Titre de niveau 2', description: 'Titre principal d’une section', icon: 'text-size-increase', html: '<h2>Titre</h2>', group: 'Texte' },
+  { text: 'Titre de niveau 3', description: 'Sous-titre à l’intérieur d’une section', icon: 'text-size-decrease', html: '<h3>Titre</h3>', group: 'Texte' },
+  { text: 'Citation', description: 'Met en avant une phrase, avec un filet sur le côté', icon: 'quote', html: '<blockquote><p>Citation</p></blockquote>', group: 'Texte' },
+  { text: 'Liste à puces', description: 'Énumération sans ordre particulier', icon: 'unordered-list', html: '<ul><li>Élément</li></ul>', group: 'Texte' },
+  { text: 'Liste numérotée', description: 'Énumération dont l’ordre compte : étapes, classement', icon: 'ordered-list', html: '<ol><li>Élément</li></ol>', group: 'Texte' },
+  { text: 'Code source', description: 'Affiche du code sans le formater', icon: 'sourcecode', html: '<pre>code</pre>', group: 'Texte' },
+  { text: 'Trait horizontal', description: 'Sépare visuellement deux parties de la page', icon: 'horizontal-rule', html: '<hr>', group: 'Mise en page' },
+  { text: 'Espace vertical', description: 'Ajoute du vide entre deux blocs, hauteur réglable', icon: 'line-height', command: 'OnlcInsertSpacer', group: 'Mise en page' },
+  { text: 'Tableau', description: 'Grille de cellules pour présenter des données', icon: 'table', command: 'mceInsertTable', value: '{"rows":2,"columns":2}', group: 'Mise en page' },
+  { text: 'Image', description: 'Choisir une image dans la médiathèque ou en téléverser une', icon: 'image', command: 'OnlcImage', group: 'Média' }
 ];
 
 const register = (editor: Editor): void => {

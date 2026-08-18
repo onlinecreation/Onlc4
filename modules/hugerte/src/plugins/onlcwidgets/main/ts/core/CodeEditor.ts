@@ -21,23 +21,25 @@ export interface CodeEditorSpec {
 const styleId = 'onlc-code-editor-styles';
 
 const styles = `
-.onlc-code { position: relative; display: flex; width: 100%; min-height: 260px; max-height: 60vh; overflow: hidden; border: 1px solid rgba(34, 47, 62, 0.2); border-radius: 6px; background: #1f2430; color: #e6e6e6; }
-.onlc-code__gutter { flex: 0 0 auto; padding: 12px 8px; text-align: right; color: rgba(230, 230, 230, 0.35); background: rgba(0, 0, 0, 0.15); user-select: none; overflow: hidden; }
-.onlc-code__scroll { position: relative; flex: 1 1 auto; overflow: auto; }
-.onlc-code__view, .onlc-code__input { margin: 0; padding: 12px; border: 0; font: inherit; white-space: pre; overflow-wrap: normal; tab-size: 2; }
-.onlc-code__view { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.onlc-code__input { position: relative; display: block; width: 100%; min-height: 100%; color: transparent; background: transparent; caret-color: #ffffff; outline: none; resize: none; }
-.onlc-code__input::selection { background: rgba(0, 108, 231, 0.45); }
-.onlc-code, .onlc-code__gutter, .onlc-code__view, .onlc-code__input { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 13px; line-height: 1.5; }
-.onlc-code__t--comment { color: #7f8c9b; font-style: italic; }
-.onlc-code__t--string { color: #a3d977; }
-.onlc-code__t--number { color: #e6b673; }
-.onlc-code__t--keyword { color: #6cb6ff; }
-.onlc-code__t--atom { color: #d19aff; }
-.onlc-code__t--function { color: #f2c7ff; }
-.onlc-code__t--operator, .onlc-code__t--punctuation { color: #b7c2cf; }
-.onlc-code__t--tag { color: #ff8b8b; }
-.onlc-code__t--attribute { color: #ffd479; }
+/* Le thème applique un reset très large - .tox :not(svg):not(rect) - qui remet à zéro fond,
+   bordure et largeur : chaque règle est donc préfixée par .tox pour passer devant lui. */
+.tox .onlc-code { position: relative; display: flex; width: 100%; min-height: 320px; max-height: 55vh; overflow: hidden; border: 1px solid rgba(34, 47, 62, 0.2); border-radius: 6px; background: #1f2430; color: #e6e6e6; }
+.tox .onlc-code__gutter { flex: 0 0 auto; width: 44px; padding: 12px 8px; text-align: right; color: rgba(230, 230, 230, 0.35); background: rgba(0, 0, 0, 0.15); white-space: pre; user-select: none; overflow: hidden; }
+.tox .onlc-code__scroll { position: relative; flex: 1 1 auto; min-width: 0; overflow: auto; }
+.tox .onlc-code__view, .tox .onlc-code__input { box-sizing: border-box; min-height: 100%; margin: 0; padding: 12px; border: 0; font: inherit; white-space: pre; overflow-wrap: normal; tab-size: 2; }
+.tox .onlc-code__view { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; pointer-events: none; overflow: hidden; background: transparent; }
+.tox .onlc-code__input { position: relative; display: block; width: 100%; color: transparent; background: transparent; caret-color: #ffffff; outline: none; resize: none; }
+.tox .onlc-code__input::selection { color: transparent; background: rgba(0, 108, 231, 0.45); }
+.tox .onlc-code, .tox .onlc-code__gutter, .tox .onlc-code__view, .tox .onlc-code__input { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 13px; line-height: 1.5; }
+.tox .onlc-code__t--comment { color: #7f8c9b; font-style: italic; }
+.tox .onlc-code__t--string { color: #a3d977; }
+.tox .onlc-code__t--number { color: #e6b673; }
+.tox .onlc-code__t--keyword { color: #6cb6ff; }
+.tox .onlc-code__t--atom { color: #d19aff; }
+.tox .onlc-code__t--function { color: #f2c7ff; }
+.tox .onlc-code__t--operator, .tox .onlc-code__t--punctuation { color: #b7c2cf; }
+.tox .onlc-code__t--tag { color: #ff8b8b; }
+.tox .onlc-code__t--attribute { color: #ffd479; }
 `;
 
 const injectStyles = (doc: Document): void => {

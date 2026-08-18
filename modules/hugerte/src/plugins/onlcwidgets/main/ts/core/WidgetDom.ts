@@ -4,6 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 
 import * as Options from '../api/Options';
 import { WidgetConfig, WidgetDefinition } from '../api/Types';
+import * as Assets from './Assets';
 import * as Widgets from './Widgets';
 
 /**
@@ -32,11 +33,19 @@ const decode = (value: string | null): WidgetConfig => {
 
 const blockSelector = (editor: Editor): string => `.${Options.getClassPrefix(editor)}[${idAttribute}]`;
 
+/** Markup publié : c'est lui qui fait foi à l'enregistrement. */
+const renderPublished = (definition: WidgetDefinition, config: WidgetConfig): string =>
+  Assets.withAssets(definition, definition.render(config));
+
+/** Aperçu affiché dans l'éditeur, identique au markup publié quand le bloc n'en propose pas. */
+const renderEditing = (definition: WidgetDefinition, config: WidgetConfig): string =>
+  Type.isFunction(definition.renderEditor) ? definition.renderEditor(config) : definition.render(config);
+
 const toHtml = (editor: Editor, definition: WidgetDefinition, config: WidgetConfig): string => {
   const prefix = Options.getClassPrefix(editor);
   const full = Widgets.withDefaults(definition, config);
   return `<div class="${prefix} ${prefix}--${definition.id}" ${idAttribute}="${definition.id}" ` +
-    `${configAttribute}="${encode(full)}">${definition.render(full)}</div>`;
+    `${configAttribute}="${encode(full)}">${renderEditing(definition, full)}</div>`;
 };
 
 const readConfig = (editor: Editor, element: HTMLElement): WidgetConfig =>
@@ -134,6 +143,8 @@ export {
   encode,
   decode,
   toHtml,
+  renderPublished,
+  renderEditing,
   readConfig,
   getDefinition,
   isWidget,

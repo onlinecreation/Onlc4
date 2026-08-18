@@ -90,6 +90,46 @@ const resizeColumn = (editor: Editor, column: HTMLElement, delta: number): void 
   });
 };
 
+/**
+ * Applique une disposition à une ligne existante. Les colonnes en trop sont vidées dans la
+ * dernière colonne conservée - rien n'est perdu - et les colonnes manquantes sont ajoutées.
+ */
+const applyLayout = (editor: Editor, row: HTMLElement, widths: number[]): void => {
+  if (widths.length === 0) {
+    return;
+  }
+
+  editor.undoManager.transact(() => {
+    const columns = getColumns(editor, row);
+
+    // Trop de colonnes : leur contenu rejoint la dernière colonne conservée
+    if (columns.length > widths.length) {
+      const kept = columns[widths.length - 1];
+      Arr.each(columns.slice(widths.length), (column) => {
+        while (column.firstChild !== null) {
+          kept.appendChild(column.firstChild);
+        }
+        editor.dom.remove(column);
+      });
+    }
+
+    // Pas assez de colonnes : on complète
+    for (let index = columns.length; index < widths.length; index++) {
+      row.appendChild(editor.dom.createFragment(columnHtml(editor, widths[index], '<p>Contenu de la colonne</p>')));
+    }
+
+    Arr.each(getColumns(editor, row), (column, index) => {
+      setWidth(editor, column, widths[index] ?? widths[widths.length - 1]);
+    });
+  });
+
+  editor.nodeChanged();
+};
+
+/** Disposition actuelle d'une ligne, exprimée en unités de grille. */
+const layoutOf = (editor: Editor, row: HTMLElement): number[] =>
+  Arr.map(getColumns(editor, row), (column) => getWidth(editor, column));
+
 const addColumn = (editor: Editor, row: HTMLElement): void => {
   const total = Options.getGridColumns(editor);
   const columns = getColumns(editor, row);
@@ -125,6 +165,8 @@ const removeColumn = (editor: Editor, column: HTMLElement): void => {
 };
 
 export {
+  applyLayout,
+  layoutOf,
   isRow,
   isColumn,
   getColumns,

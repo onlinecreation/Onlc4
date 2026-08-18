@@ -186,6 +186,10 @@
     font-style: @dialog-body-font-style;
     font-weight: @dialog-body-font-weight;
     line-height: @dialog-body-line-height;
+    // A flex item never shrinks below its content unless it is told to. Without this, a tall
+    // body pushes the footer - and its save and cancel buttons - outside a dialog of fixed
+    // height, where `overflow: hidden` simply cuts it off.
+    min-height: 0;
     min-width: 0;
     text-align: @dialog-body-text-align;
     text-transform: @dialog-body-text-transform;
@@ -245,6 +249,9 @@
     flex: 1;
     flex-direction: column;
     max-height: ~"min(650px, calc(100vh - 110px))";
+    // Same reason as `.tox-dialog__body`: without this the content refuses to shrink and the
+    // footer ends up outside the dialog.
+    min-height: 0;
     overflow: auto; //overflow controls all scrolling in the dialogs
     -webkit-overflow-scrolling: touch;
     padding: @dialog-body-padding;

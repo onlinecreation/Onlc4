@@ -84,11 +84,7 @@ body.onlc-blocks-enabled {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-family: inherit;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1;
-  text-align: center;
+  line-height: 0;
   background: #006ce7;
   border: 2px solid #fff;
   border-radius: 50%;
@@ -145,10 +141,14 @@ body.onlc-blocks-enabled {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 15px;
-  line-height: 1;
+  line-height: 0;
   background: #006ce7;
   border-radius: 50%;
+}
+
+.onlc-blocks-add svg,
+.onlc-blocks-edge__plus svg {
+  display: block;
 }
 
 .onlc-blocks-edge:hover,

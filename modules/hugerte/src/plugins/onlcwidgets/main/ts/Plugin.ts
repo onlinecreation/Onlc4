@@ -32,6 +32,10 @@ export default (): void => {
       editor.contentCSS.push(`${pluginUrl}/css/onlcwidgets.css`);
     }
 
+    // Les iframes du contenu sont mises en bac à sable par le cœur : les hôtes de nos
+    // intégrations sont ajoutés aux exclusions pour que l'aperçu fonctionne dans l'éditeur.
+    Options.allowIframeHosts(editor, Options.getIframeExclusions(editor));
+
     FilterContent.setup(editor);
     Commands.register(editor);
     Buttons.register(editor);

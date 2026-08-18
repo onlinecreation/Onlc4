@@ -82,6 +82,18 @@ TypeScript. Le raccourci `yarn example-build` enchaîne ces trois commandes.
 Les pages de démonstration de chaque plugin se trouvent dans
 `modules/hugerte/src/plugins/<nom>/demo/html/demo.html`.
 
+## Corrections apportées au cœur et au thème
+
+Le fork corrige quelques défauts rencontrés en développant les plugins ; ils sont signalés ici
+pour faciliter une remontée éventuelle en amont.
+
+| Fichier | Correction |
+| --- | --- |
+| `themes/silver/ui/dialog/ImagePreview.ts` | `imagepreview` acceptait sa valeur uniquement sous forme validée. Dans un panneau à onglets, un onglet relit ses champs puis les réécrit tels quels : la boîte de dialogue plantait au hasard (`data.zoom is undefined`). |
+| `themes/silver/ui/alien/DialogTabHeight.ts` | La hauteur des onglets était calculée d'après la fenêtre, sans tenir compte de la hauteur propre du dialogue : les boutons du bas se retrouvaient coupés. |
+| `oxide/…/dialog.less` | `min-height: 0` sur le corps du dialogue : un contenu haut poussait le pied de page hors du cadre. |
+| `Gruntfile.js` (copie des icônes) | Le pack d'icônes s'enregistrait sur le global `tinymce`, inexistant dans HugeRTE : aucune icône ne se chargeait hors webpack. |
+
 ## Principes d'interface
 
 - **Responsive** : toutes les boîtes de dialogue utilisent les grilles de HugeRTE et restent
@@ -89,4 +101,7 @@ Les pages de démonstration de chaque plugin se trouvent dans
   sélectionné.
 - **Simplicité** : une action = un bouton, les réglages avancés sont regroupés dans des onglets
   secondaires.
+- **Lisibilité pour un nouvel arrivant** : les listes de blocs affichent un nom *et* une phrase
+  qui explique à quoi le bloc sert, les dispositions de colonnes sont montrées par un schéma, et
+  l'action principale d'une boîte de dialogue est un bouton libellé, pas une icône seule.
 - **Langue** : les libellés sont en français, comme le reste de l'interface ONLC.

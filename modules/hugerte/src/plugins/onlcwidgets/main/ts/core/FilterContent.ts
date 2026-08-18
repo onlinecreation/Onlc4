@@ -6,6 +6,7 @@ import AstNode from 'hugerte/core/api/html/Node';
 import * as Options from '../api/Options';
 import * as Script from './Script';
 import * as WidgetDom from './WidgetDom';
+import * as Widgets from './Widgets';
 
 /**
  * Bridges the editable representation and the published html:
@@ -70,18 +71,35 @@ const toScriptNode = (editor: Editor, node: AstNode): void => {
   }
 };
 
-const restoreHtmlWidget = (node: AstNode): void => {
-  const config = WidgetDom.decode(node.attr(WidgetDom.configAttribute) ?? null);
-  const code = WidgetDom.rawCodeOf(config);
+const setRawContent = (node: AstNode, html: string): void => {
   node.empty();
-
-  if (code !== '') {
+  if (html !== '') {
     const text = new AstNode('#text', 3);
     text.raw = true;
-    text.value = code;
+    text.value = html;
     node.append(text);
   }
 };
+
+const restoreHtmlWidget = (node: AstNode): void => {
+  const config = WidgetDom.decode(node.attr(WidgetDom.configAttribute) ?? null);
+  setRawContent(node, WidgetDom.rawCodeOf(config));
+};
+
+/**
+ * Les blocs « canoniques » - intégrations, cartes, calendriers - sont réécrits à partir de leur
+ * configuration : c'est le seul moyen d'obtenir sur le site exactement le code prévu, sans les
+ * attributs que l'éditeur ajoute pour sa propre sécurité (`sandbox` sur les iframes).
+ */
+const restoreCanonicalWidget = (editor: Editor, node: AstNode, id: string): boolean =>
+  Widgets.find(editor, id).exists((definition) => {
+    if (definition.canonical !== true) {
+      return false;
+    }
+    const config = Widgets.withDefaults(definition, WidgetDom.decode(node.attr(WidgetDom.configAttribute) ?? null));
+    setRawContent(node, WidgetDom.renderPublished(definition, config));
+    return true;
+  });
 
 const setup = (editor: Editor): void => {
   editor.on('BeforeSetContent', (e) => {
@@ -124,8 +142,11 @@ const setup = (editor: Editor): void => {
         if (hasClass(node, WidgetDom.staticClass)) {
           node.attr('contenteditable', null);
         }
-        if (node.attr(WidgetDom.idAttribute) === 'html') {
+        const widgetId = node.attr(WidgetDom.idAttribute);
+        if (widgetId === 'html') {
           restoreHtmlWidget(node);
+        } else if (Type.isString(widgetId)) {
+          restoreCanonicalWidget(editor, node, widgetId);
         }
       });
     });

@@ -2,6 +2,7 @@ import { Arr, Optional, Throttler } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
+import * as Cards from 'hugerte/plugins/onlcshared/ui/Cards';
 
 import * as Widgets from '../core/Widgets';
 import * as WidgetDialog from './WidgetDialog';
@@ -28,10 +29,11 @@ const matching = (editor: Editor, category: string, pattern: string): Dialog.Col
   const filtered = needle === '' ? entries : Arr.filter(entries, (entry) =>
     normalize(`${entry.label} ${entry.description} ${entry.category}`).indexOf(needle) !== -1);
 
+  // La « vignette » porte toute la carte : nom du bloc et explication de son usage
   return Arr.map(filtered, (entry) => ({
     value: entry.id,
     text: entry.label,
-    icon: entry.icon
+    icon: Cards.render(editor, { icon: entry.icon, label: entry.label, description: entry.description })
   }));
 };
 
@@ -47,6 +49,8 @@ const choose = (editor: Editor, id: string): void => {
 };
 
 const open = (editor: Editor): void => {
+  Cards.ensureStyles(editor);
+
   let currentTab = allCategory;
 
   const refresh = Throttler.last((api: Dialog.DialogInstanceApi<PickerData>) => {
@@ -54,8 +58,8 @@ const open = (editor: Editor): void => {
   }, 150);
 
   const tabItems: Dialog.BodyComponentSpec[] = [
-    { type: 'input', name: 'pattern', label: 'Rechercher', placeholder: 'Bouton, vidéo, carte…' },
-    { type: 'collection', name: 'items' }
+    { type: 'input', name: 'pattern', label: 'Rechercher un bloc', placeholder: 'Bouton, vidéo, carte…' },
+    { type: 'collection', name: 'items', label: 'Choisissez le bloc à insérer' }
   ];
 
   const body: Dialog.TabPanelSpec = {
@@ -69,7 +73,7 @@ const open = (editor: Editor): void => {
 
   editor.windowManager.open<PickerData>({
     title: 'Blocs prédéfinis',
-    size: 'medium',
+    size: 'large',
     body,
     initialData: {
       pattern: '',

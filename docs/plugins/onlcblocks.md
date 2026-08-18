@@ -51,8 +51,15 @@ dès que le curseur s'y trouve (rétrécir, élargir, ajouter une colonne, suppr
 Les blocs *à l'intérieur* d'une colonne restent bien sûr déplaçables, y compris d'une colonne
 à l'autre.
 
-Le bouton « Ajouter des colonnes » ouvre un choix de dispositions présentées sous forme de
-schémas :
+Dès que le curseur entre dans une colonne, une barre contextuelle apparaît avec trois actions :
+**Disposition** (les sept schémas ci-dessous), **Dupliquer la ligne** et **Supprimer la ligne**.
+Changer de disposition ajoute ou retire des colonnes pour correspondre au schéma choisi ; le
+contenu des colonnes retirées est déplacé dans la dernière colonne conservée, rien n'est perdu.
+Le nombre de colonnes est donc toujours celui d'une disposition connue : il n'est pas possible
+d'en empiler à l'infini.
+
+Le bouton « Ajouter des colonnes » de la barre d'outils ouvre le même choix pour créer une
+nouvelle ligne :
 
 | Schéma | Colonnes (sur 12) |
 | --- | --- |
@@ -125,8 +132,8 @@ Une ligne insérée produit :
 | `OnlcBlockDuplicate` / `OnlcBlockRemove` | Duplique ou supprime le bloc actif |
 | `OnlcBlockSelectParent` | Sélectionne le bloc parent |
 | `OnlcInsertRow` | Insère une ligne de grille (`value` : largeurs, ex. `'8-4'`) |
-| `OnlcColumnAdd` / `OnlcColumnRemove` | Ajoute ou retire une colonne dans la ligne courante |
-| `OnlcColumnResize` | Élargit (`1`) ou rétrécit (`-1`) la colonne courante |
+| `OnlcColumnAdd` / `OnlcColumnRemove` | Ajoute ou retire une colonne (commandes disponibles, absentes de l'interface par défaut) |
+| `OnlcColumnResize` | Élargit (`1`) ou rétrécit (`-1`) la colonne courante (idem) |
 | `OnlcBlocksToggle` | Active ou désactive l'interface en blocs |
 
 ## API du plugin

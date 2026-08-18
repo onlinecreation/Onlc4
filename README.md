@@ -5,7 +5,8 @@ ONLC 4 d'Online Création. Il ajoute, sous forme de plugins, l'espace de travail
 l'explorateur de médias, la gestion des images responsives, des liens, des séparateurs, des
 emojis et icônes, ainsi que les blocs prédéfinis et les éditeurs de code.
 
-**➡ [Documentation des plugins et des API ONLC](docs/README.md)**
+**➡ [Documentation des plugins et des API ONLC](docs/README.md)**  
+**➡ [Exemple complet avec API simulées](example/README.md)** — `node example/server.js`
 
 ---
 

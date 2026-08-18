@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600" role="img" aria-label="Motif">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <text x="300" y="300" font-family="system-ui, sans-serif" font-size="37"
+        fill="#ffffff" text-anchor="middle" font-weight="700">Motif</text>
+  <text x="300" y="327" font-family="system-ui, sans-serif" font-size="15"
+        fill="rgba(255,255,255,.85)" text-anchor="middle">illustrations/motif.svg — 600 × 600</text>
+</svg>

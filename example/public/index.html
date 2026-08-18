@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23006ce7'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E">
+    <title>ONLC 4 — démonstration</title>
+    <link rel="stylesheet" href="/assets/demo.css">
+  </head>
+  <body>
+    <header class="entete">
+      <div>
+        <h1>ONLC 4 — démonstration</h1>
+        <p>Tous les plugins ONLC branchés sur des API simulées : médias, liens, icônes et éditeur d’images.</p>
+      </div>
+      <nav class="entete__liens">
+        <a href="/api/media/list?path=/" target="_blank" rel="noopener">API médias</a>
+        <a href="/api/links" target="_blank" rel="noopener">API liens</a>
+        <a href="/api/icons" target="_blank" rel="noopener">API icônes</a>
+        <a href="/pixel/" target="_blank" rel="noopener">Éditeur Pixel</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="carte carte--astuces">
+        <h2>Que tester ?</h2>
+        <ul>
+          <li><strong>Blocs</strong> : survolez un paragraphe, déplacez-le avec la poignée, utilisez les « + » pour insérer une ligne de colonnes.</li>
+          <li><strong>Médias</strong> : bouton <em>Bibliothèque</em> — téléversez, créez un dossier, déplacez un fichier, retouchez une image dans Pixel.</li>
+          <li><strong>Images responsives</strong> : redimensionnez une image, puis regardez le HTML enregistré : ni <code>width</code> ni <code>height</code>.</li>
+          <li><strong>Liens</strong> : la liste « Lien du site » vient de l’API simulée.</li>
+          <li><strong>Blocs prédéfinis</strong> : bouton d’appel à l’action, vidéo, carte, calendrier, widget HTML… puis re-modifiez-les.</li>
+          <li><strong>Script &amp; source</strong> : insérez un script (coloration syntaxique), puis ouvrez le code source HTML.</li>
+        </ul>
+      </section>
+
+      <textarea id="contenu">
+        &lt;h2&gt;Bienvenue sur la démonstration ONLC 4&lt;/h2&gt;
+        &lt;p&gt;Ce contenu est modifiable. Survolez ce paragraphe : les outils de bloc apparaissent à sa gauche.&lt;/p&gt;
+        &lt;div class="row"&gt;
+          &lt;div class="col-md-6"&gt;&lt;h3&gt;Colonne de gauche&lt;/h3&gt;&lt;p&gt;Glissez la poignée pour déplacer un bloc d’une colonne à l’autre.&lt;/p&gt;&lt;/div&gt;
+          &lt;div class="col-md-6"&gt;&lt;h3&gt;Colonne de droite&lt;/h3&gt;&lt;p&gt;Les lignes utilisent les classes Bootstrap &lt;code&gt;row&lt;/code&gt; et &lt;code&gt;col-md-*&lt;/code&gt;.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p&gt;&lt;img src="/media/photos/plage.svg" alt="Bord de mer" width="800" height="450"&gt;&lt;/p&gt;
+        &lt;p&gt;L’image ci-dessus a été insérée avec des attributs &lt;code&gt;width&lt;/code&gt; et &lt;code&gt;height&lt;/code&gt; : le plugin les a convertis en pourcentage.&lt;/p&gt;
+      </textarea>
+
+      <section class="carte">
+        <div class="carte__entete">
+          <h2>HTML enregistré</h2>
+          <div>
+            <button type="button" id="enregistrer">Enregistrer</button>
+            <button type="button" id="rafraichir">Rafraîchir l’aperçu</button>
+          </div>
+        </div>
+        <p class="carte__note" id="statut">Le contenu envoyé au serveur s’affiche ici, tel qu’il serait stocké en base.</p>
+        <pre id="sortie"><code>—</code></pre>
+      </section>
+    </main>
+
+    <script src="/hugerte/hugerte.js"></script>
+    <script src="/assets/demo.js"></script>
+  </body>
+</html>

@@ -30,15 +30,19 @@ export default (): void => {
     const emojis = initEmojis(editor);
     const icons = initIcons(editor);
 
-    // The icon webfont is needed both in the content and in the dialog previews
+    // The icon webfont is needed both in the content and in the dialog previews. It is loaded
+    // after the editor is ready rather than through `contentCSS`, so that a slow or unreachable
+    // font provider never delays - or blocks - the initialization of the editor.
     const stylesheetUrl = Options.getStylesheetUrl(editor);
     if (stylesheetUrl !== '') {
-      editor.contentCSS.push(stylesheetUrl);
+      const warn = () => {
+        // eslint-disable-next-line no-console
+        console.warn(`[onlc] Impossible de charger la feuille de styles des icônes : ${stylesheetUrl}`);
+      };
+
       editor.on('init', () => {
-        editor.ui.styleSheetLoader.load(stylesheetUrl).catch(() => {
-          // eslint-disable-next-line no-console
-          console.warn(`[onlc] Impossible de charger la feuille de styles des icônes : ${stylesheetUrl}`);
-        });
+        editor.dom.styleSheetLoader.load(stylesheetUrl).catch(warn);
+        editor.ui.styleSheetLoader.load(stylesheetUrl).catch(warn);
       });
     }
 

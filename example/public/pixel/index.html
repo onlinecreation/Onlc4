@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23006ce7'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E">
+    <title>Pixel — simulation</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        color: #e6e6e6;
+        background: #171b22;
+      }
+
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        padding: 10px 14px;
+        background: #222833;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      header strong { margin-right: auto; font-size: 0.9375rem; }
+
+      button, select, input[type="color"], input[type="text"] {
+        padding: 6px 12px;
+        font: inherit;
+        font-size: 0.875rem;
+        color: #e6e6e6;
+        background: #2e3644;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 6px;
+      }
+
+      button { cursor: pointer; }
+      button:hover { background: #3a4457; }
+      button.primaire { color: #fff; background: #006ce7; border-color: #006ce7; }
+      input[type="color"] { width: 44px; padding: 2px; }
+      input[type="text"] { min-width: 160px; }
+
+      main {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow: auto;
+        background:
+          repeating-conic-gradient(#242a34 0% 25%, #1c212a 0% 50%) 50% / 24px 24px;
+      }
+
+      canvas { max-width: 100%; max-height: 100%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+
+      footer {
+        padding: 8px 14px;
+        font-size: 0.8125rem;
+        color: #9aa5b1;
+        background: #222833;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong id="titre">Éditeur d’images (simulation)</strong>
+      <button type="button" data-action="rotate">Pivoter</button>
+      <button type="button" data-action="flip">Miroir</button>
+      <button type="button" data-action="gris">Noir et blanc</button>
+      <button type="button" data-action="sepia">Sépia</button>
+      <select id="echelle" title="Redimensionner">
+        <option value="1">100 %</option>
+        <option value="0.75">75 %</option>
+        <option value="0.5">50 %</option>
+        <option value="0.25">25 %</option>
+      </select>
+      <input type="color" id="fond" value="#006ce7" title="Couleur de fond">
+      <input type="text" id="texte" placeholder="Texte à incruster">
+      <button type="button" data-action="texte">Ajouter le texte</button>
+      <button type="button" data-action="annuler">Annuler</button>
+      <button type="button" class="primaire" data-action="enregistrer">Enregistrer</button>
+    </header>
+
+    <main><canvas id="toile" width="1200" height="600"></canvas></main>
+
+    <footer id="etat">Simulation de https://pixel.onlinecreation.me — communique avec l’éditeur par postMessage.</footer>
+
+    <script>
+      'use strict';
+
+      /**
+       * Simulation de l'éditeur d'images Pixel, conforme au protocole décrit dans
+       * docs/api/onlc-pixel-editor.md :
+       *
+       *   HugeRTE → Pixel : { mceAction: 'onlc:open', url, name }  (aussi en paramètres d'url)
+       *   Pixel → HugeRTE : { mceAction: 'onlc:save', name, mime, data }
+       *   Pixel → HugeRTE : { mceAction: 'onlc:close' }
+       */
+
+      const parametres = new URLSearchParams(window.location.search);
+      const toile = document.getElementById('toile');
+      const contexte = toile.getContext('2d');
+      const etat = document.getElementById('etat');
+      const titre = document.getElementById('titre');
+
+      let nomFichier = parametres.get('name') || 'nouvelle-image.png';
+      let miroir = false;
+
+      const dire = (message) => {
+        etat.textContent = message;
+      };
+
+      const remplirFond = () => {
+        contexte.fillStyle = document.getElementById('fond').value;
+        contexte.fillRect(0, 0, toile.width, toile.height);
+        contexte.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        contexte.font = 'bold 34px system-ui, sans-serif';
+        contexte.textAlign = 'center';
+        contexte.fillText('Nouvelle image', toile.width / 2, toile.height / 2);
+      };
+
+      const charger = (url) => {
+        if (!url) {
+          titre.textContent = 'Création d’une image';
+          remplirFond();
+          dire('Mode création : choisissez une couleur, ajoutez un texte, puis enregistrez.');
+          return;
+        }
+
+        const image = new Image();
+        image.crossOrigin = 'anonymous';
+        image.onload = () => {
+          toile.width = image.naturalWidth || 1200;
+          toile.height = image.naturalHeight || 600;
+          contexte.drawImage(image, 0, 0, toile.width, toile.height);
+          titre.textContent = 'Retouche de ' + nomFichier;
+          dire('Image chargée (' + toile.width + ' × ' + toile.height + ' px).');
+        };
+        image.onerror = () => {
+          titre.textContent = 'Image illisible';
+          remplirFond();
+          dire('Impossible de charger ' + url + ' — mode création activé.');
+        };
+        image.src = url;
+      };
+
+      // Une intégration peut lire l'url ou attendre le message d'ouverture
+      window.addEventListener('message', (event) => {
+        const message = event.data;
+        if (message && message.mceAction === 'onlc:open') {
+          if (message.name) {
+            nomFichier = message.name;
+          }
+          dire('Message « onlc:open » reçu de l’éditeur.');
+        }
+      });
+
+      const versParent = (message) => {
+        window.parent.postMessage(message, '*');
+      };
+
+      const transformer = (dessiner) => {
+        const copie = document.createElement('canvas');
+        copie.width = toile.width;
+        copie.height = toile.height;
+        copie.getContext('2d').drawImage(toile, 0, 0);
+        dessiner(copie);
+      };
+
+      const filtrer = (filtre) => transformer((copie) => {
+        contexte.save();
+        contexte.filter = filtre;
+        contexte.clearRect(0, 0, toile.width, toile.height);
+        contexte.drawImage(copie, 0, 0);
+        contexte.restore();
+      });
+
+      const actions = {
+        rotate: () => transformer((copie) => {
+          toile.width = copie.height;
+          toile.height = copie.width;
+          contexte.save();
+          contexte.translate(toile.width / 2, toile.height / 2);
+          contexte.rotate(Math.PI / 2);
+          contexte.drawImage(copie, -copie.width / 2, -copie.height / 2);
+          contexte.restore();
+          dire('Image pivotée de 90°.');
+        }),
+
+        flip: () => transformer((copie) => {
+          miroir = !miroir;
+          contexte.save();
+          contexte.translate(toile.width, 0);
+          contexte.scale(-1, 1);
+          contexte.drawImage(copie, 0, 0);
+          contexte.restore();
+          dire('Image retournée horizontalement.');
+        }),
+
+        gris: () => {
+          filtrer('grayscale(1)');
+          dire('Filtre noir et blanc appliqué.');
+        },
+
+        sepia: () => {
+          filtrer('sepia(0.85)');
+          dire('Filtre sépia appliqué.');
+        },
+
+        texte: () => {
+          const valeur = document.getElementById('texte').value.trim();
+          if (valeur === '') {
+            dire('Saisissez d’abord un texte.');
+            return;
+          }
+          const taille = Math.max(24, Math.round(toile.width / 16));
+          contexte.save();
+          contexte.font = 'bold ' + taille + 'px system-ui, sans-serif';
+          contexte.textAlign = 'center';
+          contexte.lineWidth = Math.max(2, taille / 12);
+          contexte.strokeStyle = 'rgba(0, 0, 0, 0.55)';
+          contexte.fillStyle = '#ffffff';
+          contexte.strokeText(valeur, toile.width / 2, toile.height - taille);
+          contexte.fillText(valeur, toile.width / 2, toile.height - taille);
+          contexte.restore();
+          dire('Texte incrusté.');
+        },
+
+        annuler: () => {
+          versParent({ mceAction: 'onlc:close' });
+        },
+
+        enregistrer: () => {
+          const echelle = parseFloat(document.getElementById('echelle').value);
+          const sortie = document.createElement('canvas');
+          sortie.width = Math.max(1, Math.round(toile.width * echelle));
+          sortie.height = Math.max(1, Math.round(toile.height * echelle));
+          sortie.getContext('2d').drawImage(toile, 0, 0, sortie.width, sortie.height);
+
+          const base = nomFichier.replace(/\.[^.]+$/, '') || 'image';
+          versParent({
+            mceAction: 'onlc:save',
+            name: base + '-retouchee.png',
+            mime: 'image/png',
+            data: sortie.toDataURL('image/png')
+          });
+          dire('Image envoyée à l’éditeur…');
+        }
+      };
+
+      document.querySelectorAll('[data-action]').forEach((bouton) => {
+        bouton.addEventListener('click', () => actions[bouton.dataset.action]());
+      });
+
+      document.getElementById('fond').addEventListener('input', () => {
+        if (!parametres.get('image')) {
+          remplirFond();
+        }
+      });
+
+      charger(parametres.get('image'));
+    </script>
+  </body>
+</html>

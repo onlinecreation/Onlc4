@@ -28,6 +28,16 @@ incluse dans les plugins qui en ont besoin.
 | Éditeur d'images Pixel | `onlcmedia` | [onlc-pixel-editor.md](api/onlc-pixel-editor.md) |
 | Dictionnaires emojis/icônes | `onlcicons` | [onlc-icons-api.md](api/onlc-icons-api.md) |
 
+## Exemple complet
+
+Le dossier [`example/`](../example/README.md) contient une page de démonstration branchée sur
+des API simulées (médias, liens, icônes et éditeur Pixel) :
+
+```bash
+yarn oxide-icons-build && yarn oxide-build && yarn hugerte-rollup
+node example/server.js   # http://localhost:3000
+```
+
 ## Démarrage rapide
 
 ```js

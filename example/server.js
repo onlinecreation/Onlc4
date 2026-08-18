@@ -19,9 +19,9 @@ const fs = require('fs');
 const http = require('http');
 const path = require('path');
 
-const iconsApi = require('./lib/icons-api');
-const linksApi = require('./lib/links-api');
-const mediaApiFactory = require('./lib/media-api');
+const iconsApi = require('./api/icons-api');
+const linksApi = require('./api/links-api');
+const mediaApiFactory = require('./api/media-api');
 
 const argument = (name, fallback) => {
   const index = process.argv.indexOf('--' + name);

@@ -30,7 +30,7 @@ Puis ouvrez <http://localhost:3000/>.
 ```
 example/
 ├── server.js            serveur HTTP sans dépendance (Node 18+)
-├── lib/
+├── api/
 │   ├── media-api.js     simulation de l'API média (fichiers, dossiers, upload, Pixel)
 │   ├── links-api.js     simulation de l'API des liens prédéfinis
 │   ├── icons-api.js     simulation du catalogue d'icônes Material Design
@@ -70,9 +70,9 @@ Les trois simulations suivent à la lettre les contrats documentés :
 
 | Simulation | Contrat | Fichier |
 | --- | --- | --- |
-| `/api/media` | [API média](../docs/api/onlc-media-api.md) | `lib/media-api.js` |
-| `/api/links` | [API des liens](../docs/api/onlc-link-api.md) | `lib/links-api.js` |
-| `/api/icons` | [Dictionnaires d'icônes](../docs/api/onlc-icons-api.md) | `lib/icons-api.js` |
+| `/api/media` | [API média](../docs/api/onlc-media-api.md) | `api/media-api.js` |
+| `/api/links` | [API des liens](../docs/api/onlc-link-api.md) | `api/links-api.js` |
+| `/api/icons` | [Dictionnaires d'icônes](../docs/api/onlc-icons-api.md) | `api/icons-api.js` |
 | `/pixel/` | [Éditeur Pixel](../docs/api/onlc-pixel-editor.md) | `public/pixel/index.html` |
 
 Elles sont volontairement écrites de façon linéaire et commentée : reprenez-les comme

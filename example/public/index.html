@@ -30,19 +30,48 @@
           <li><strong>Images responsives</strong> : redimensionnez une image, puis regardez le HTML enregistré : ni <code>width</code> ni <code>height</code>.</li>
           <li><strong>Liens</strong> : la liste « Lien du site » vient de l’API simulée.</li>
           <li><strong>Blocs prédéfinis</strong> : bouton d’appel à l’action, vidéo, carte, calendrier, widget HTML… puis re-modifiez-les.</li>
-          <li><strong>Script &amp; source</strong> : insérez un script (coloration syntaxique), puis ouvrez le code source HTML.</li>
+          <li><strong>Script &amp; source</strong> : le contenu contient déjà <code>alert("hello")</code> — aucune alerte ne s’affiche, la pastille jaune le représente. Ouvrez le code source pour le retrouver intact.</li>
+          <li><strong>Icônes</strong> : le catalogue vient de l’API et produit des classes FontAwesome.</li>
+          <li><strong>Dégradé</strong> : modifiez le bloc « Un titre en dégradé » (onglet <em>Style du texte</em>).</li>
         </ul>
       </section>
 
       <textarea id="contenu">
-        &lt;h2&gt;Bienvenue sur la démonstration ONLC 4&lt;/h2&gt;
-        &lt;p&gt;Ce contenu est modifiable. Survolez ce paragraphe : les outils de bloc apparaissent à sa gauche.&lt;/p&gt;
-        &lt;div class="row"&gt;
-          &lt;div class="col-md-6"&gt;&lt;h3&gt;Colonne de gauche&lt;/h3&gt;&lt;p&gt;Glissez la poignée pour déplacer un bloc d’une colonne à l’autre.&lt;/p&gt;&lt;/div&gt;
-          &lt;div class="col-md-6"&gt;&lt;h3&gt;Colonne de droite&lt;/h3&gt;&lt;p&gt;Les lignes utilisent les classes Bootstrap &lt;code&gt;row&lt;/code&gt; et &lt;code&gt;col-md-*&lt;/code&gt;.&lt;/p&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;p&gt;&lt;img src="/media/photos/plage.svg" alt="Bord de mer" width="800" height="450"&gt;&lt;/p&gt;
-        &lt;p&gt;L’image ci-dessus a été insérée avec des attributs &lt;code&gt;width&lt;/code&gt; et &lt;code&gt;height&lt;/code&gt; : le plugin les a convertis en pourcentage.&lt;/p&gt;
+&lt;h1&gt;Démonstration ONLC 4&lt;/h1&gt;
+&lt;p&gt;Survolez ce paragraphe : les outils de bloc apparaissent à sa gauche, et les zones d’ajout se placent avant et après le contenu.&lt;/p&gt;
+
+&lt;div class="row"&gt;
+  &lt;div class="col-sm-4"&gt;
+    &lt;h3&gt;&lt;i class="fa-solid fa-rocket" role="img" aria-label="rocket"&gt;&lt;/i&gt; Rapide&lt;/h3&gt;
+    &lt;p&gt;Colonne d’un tiers. La ligne se déplace d’un seul bloc, les colonnes restent en place.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="col-sm-8"&gt;
+    &lt;h3&gt;&lt;i class="fa-solid fa-handshake" role="img" aria-label="handshake"&gt;&lt;/i&gt; Accompagné&lt;/h3&gt;
+    &lt;p&gt;Colonne de deux tiers, avec les classes Bootstrap &lt;code&gt;row&lt;/code&gt; et &lt;code&gt;col-sm-*&lt;/code&gt;.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="onlc-widget onlc-widget--text" data-onlc-widget="text" data-onlc-widget-config="%7B%22title%22%3A%22Un%20titre%20en%20d%C3%A9grad%C3%A9%22%2C%22content%22%3A%22Le%20bloc%20de%20texte%20accepte%20une%20couleur%2C%20un%20d%C3%A9grad%C3%A9%20(d%C3%A9part%2C%20arriv%C3%A9e%2C%20angle)%20et%20une%20ombre%20port%C3%A9e.%22%2C%22align%22%3A%22center%22%2C%22width%22%3A%22720px%22%2C%22color%22%3A%22%22%2C%22gradientFrom%22%3A%22%23006ce7%22%2C%22gradientTo%22%3A%22%23e0007a%22%2C%22gradientAngle%22%3A%2245%22%2C%22shadowX%22%3A%220%22%2C%22shadowY%22%3A%222%22%2C%22shadowBlur%22%3A%226%22%2C%22shadowColor%22%3A%22rgba(0%2C%200%2C%200%2C%200.25)%22%7D"&gt;&lt;div class="onlc-widget__inner" style="text-align: center; max-width: 720px; margin: 0 auto; background-image: linear-gradient(45deg, #006ce7, #e0007a); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25)"&gt;&lt;h3 data-onlc-slot="title"&gt;Un titre en dégradé&lt;/h3&gt;&lt;div data-onlc-slot="content"&gt;&lt;p&gt;Le bloc de texte accepte une couleur, un dégradé (départ, arrivée, angle) et une ombre portée.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="onlc-widget onlc-widget--cta" data-onlc-widget="cta" data-onlc-widget-config="%7B%22label%22%3A%22Demander%20un%20devis%22%2C%22url%22%3A%22%2Fcontact%22%2C%22target%22%3A%22_blank%22%2C%22rel%22%3A%22noopener%22%2C%22variant%22%3A%22primary%22%2C%22size%22%3A%22lg%22%2C%22align%22%3A%22center%22%2C%22fullWidth%22%3A%22false%22%7D"&gt;&lt;div class="onlc-widget__inner" style="text-align: center"&gt;&lt;a class="onlc-btn btn btn-primary btn-lg" href="/contact" target="_blank" rel="noopener"&gt;Demander un devis&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2&gt;Médias&lt;/h2&gt;
+&lt;p&gt;&lt;img src="/media/photos/plage.svg" alt="Bord de mer" width="800" height="450"&gt;&lt;/p&gt;
+&lt;p&gt;L’image ci-dessus a été insérée avec &lt;code&gt;width&lt;/code&gt; et &lt;code&gt;height&lt;/code&gt; : le plugin les remplace par une largeur en pourcentage.&lt;/p&gt;
+
+&lt;div class="onlc-widget onlc-widget--video" data-onlc-widget="video" data-onlc-widget-config="%7B%22url%22%3A%22https%3A%2F%2Fwww.youtube.com%2Fshorts%2FcUEAojyBuis%22%2C%22title%22%3A%22Short%20YouTube%22%2C%22ratio%22%3A%22177.77%25%22%2C%22autoplay%22%3A%22false%22%2C%22loop%22%3A%22false%22%2C%22muted%22%3A%22false%22%7D"&gt;&lt;div class="onlc-widget__static onlc-embed" style="padding-bottom: 177.77%"&gt;&lt;iframe class="onlc-embed__frame" src="https://www.youtube.com/embed/cUEAojyBuis" title="Short YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" frameborder="0" loading="lazy" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="onlc-widget onlc-widget--map" data-onlc-widget="map" data-onlc-widget-config="%7B%22place%22%3A%2248.8566%2C%202.3522%22%2C%22zoom%22%3A%2213%22%2C%22height%22%3A%22320px%22%2C%22title%22%3A%22Nos%20bureaux%22%7D"&gt;&lt;div class="onlc-widget__static onlc-embed onlc-embed--fixed"&gt;&lt;iframe class="onlc-embed__frame" src="https://www.openstreetmap.org/export/embed.html?bbox=2.3483,48.8527,2.3561,48.8605&amp;amp;layer=mapnik&amp;amp;marker=48.8566,2.3522" title="Nos bureaux" style="height: 320px; width: 100%" frameborder="0" loading="lazy" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class="onlc-spacer" data-onlc-spacer="60px" style="height: 60px;" aria-hidden="true"&gt;&lt;/div&gt;
+
+&lt;h2&gt;Textes et liens&lt;/h2&gt;
+&lt;p&gt;Un lien vers &lt;a href="/services/conseil" title="Notre offre de conseil"&gt;nos services&lt;/a&gt;, un emoji 🚀 et des icônes FontAwesome : &lt;i class="fa-solid fa-star" role="img" aria-label="star"&gt;&lt;/i&gt; &lt;i class="fa-solid fa-leaf" role="img" aria-label="leaf"&gt;&lt;/i&gt;.&lt;/p&gt;
+
+&lt;div class="onlc-widget onlc-widget--quote" data-onlc-widget="quote" data-onlc-widget-config="%7B%22text%22%3A%22Un%20%C3%A9diteur%20doit%20se%20faire%20oublier%20%3A%20on%20pense%20%C3%A0%20son%20texte%2C%20pas%20%C3%A0%20ses%20boutons.%22%2C%22author%22%3A%22%C3%89quipe%20ONLC%22%2C%22source%22%3A%22%22%7D"&gt;&lt;figure class="onlc-quote"&gt;&lt;blockquote data-onlc-slot="text"&gt;&lt;p&gt;Un éditeur doit se faire oublier : on pense à son texte, pas à ses boutons.&lt;/p&gt;&lt;/blockquote&gt;&lt;figcaption class="onlc-quote__author"&gt;Équipe ONLC&lt;/figcaption&gt;&lt;/figure&gt;&lt;/div&gt;
+
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;Le script ci-dessous est présent dans le contenu ; il n’est jamais exécuté pendant l’édition, et ressort intact à l’enregistrement :&lt;/p&gt;
+&lt;script&gt;alert("hello");&lt;/script&gt;
+&lt;div class="onlc-widget onlc-widget--html" data-onlc-widget="html" data-onlc-widget-config="%7B%22code%22%3A%22%3Cdiv%20class%3D%5C%22alert%5C%22%3EBloc%20fourni%20par%20un%20service%20tiers%3C%2Fdiv%3E%22%2C%22title%22%3A%22Encart%20partenaire%22%7D"&gt;&lt;div class="onlc-widget__static onlc-widget__html"&gt;&lt;div class="onlc-widget__html-name"&gt;Encart partenaire&lt;/div&gt;&lt;pre class="onlc-widget__html-code"&gt;&amp;lt;div class="alert"&amp;gt;Bloc fourni par un service tiers&amp;lt;/div&amp;gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
       </textarea>
 
       <section class="carte">

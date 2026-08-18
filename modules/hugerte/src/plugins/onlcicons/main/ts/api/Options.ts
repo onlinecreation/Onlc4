@@ -42,6 +42,13 @@ const register = (editor: Editor, pluginUrl: string): void => {
     default: {}
   });
 
+  // Le jeu d'icônes intégré est celui de Material Design : désactivez-le pour n'utiliser que
+  // le catalogue fourni par `onlc_icons_material_url` (FontAwesome par exemple).
+  registerOption('onlc_icons_builtin', {
+    processor: 'boolean',
+    default: true
+  });
+
   registerOption('onlc_icons_material_url', {
     processor: 'string',
     default: ''
@@ -99,6 +106,7 @@ const register = (editor: Editor, pluginUrl: string): void => {
 const getEmojiDatabaseUrl = option<string>('onlc_icons_emoji_database_url');
 const getEmojiDatabaseId = option<string>('onlc_icons_emoji_database_id');
 const getAppendedEmoji = option<Record<string, UserEmojiEntry>>('onlc_icons_emoji_append');
+const useBuiltinIcons = option<boolean>('onlc_icons_builtin');
 const getMaterialUrl = option<string>('onlc_icons_material_url');
 const getAppendedIcons = option<UserIconEntry[]>('onlc_icons_material_append');
 const getStylesheetUrl = option<string>('onlc_icons_stylesheet_url');
@@ -114,6 +122,7 @@ export {
   getEmojiDatabaseUrl,
   getEmojiDatabaseId,
   getAppendedEmoji,
+  useBuiltinIcons,
   getMaterialUrl,
   getAppendedIcons,
   getStylesheetUrl,

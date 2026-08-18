@@ -1,7 +1,8 @@
 import Editor from 'hugerte/core/api/Editor';
+import * as TextStyle from 'hugerte/plugins/onlcshared/text/TextStyle';
 
 import * as Options from '../api/Options';
-import { WidgetDefinition, WidgetFieldItem } from '../api/Types';
+import { WidgetConfig, WidgetDefinition, WidgetField, WidgetFieldItem } from '../api/Types';
 import * as Embed from './Embed';
 import * as Html from './Html';
 
@@ -37,6 +38,45 @@ const ratios: WidgetFieldItem[] = [
   { text: '21:9 (cinéma)', value: '42.85%' },
   { text: '9:16 (vertical)', value: '177.77%' }
 ];
+
+const textStyleTab = 'Style du texte';
+
+/**
+ * Réglages de couleur, de dégradé et d'ombre proposés par les blocs qui contiennent du texte.
+ * Ils sont identiques à ceux du texte posé sur une image, dans `onlcmedia`.
+ */
+const textStyleFields: WidgetField[] = [
+  { name: 'color', label: 'Couleur du texte', type: 'color', tab: textStyleTab, half: true },
+  { name: 'gradientFrom', label: 'Dégradé : couleur de départ', type: 'color', tab: textStyleTab, half: true },
+  { name: 'gradientTo', label: 'Dégradé : couleur d’arrivée', type: 'color', tab: textStyleTab, half: true },
+  { name: 'gradientAngle', label: 'Dégradé : angle (°)', type: 'number', tab: textStyleTab, half: true },
+  { name: 'shadowX', label: 'Ombre : décalage horizontal', type: 'number', tab: textStyleTab, half: true },
+  { name: 'shadowY', label: 'Ombre : décalage vertical', type: 'number', tab: textStyleTab, half: true },
+  { name: 'shadowBlur', label: 'Ombre : flou', type: 'number', tab: textStyleTab, half: true },
+  { name: 'shadowColor', label: 'Ombre : couleur', type: 'color', tab: textStyleTab, half: true }
+];
+
+const textStyleDefaults: WidgetConfig = {
+  color: '',
+  gradientFrom: '',
+  gradientTo: '',
+  gradientAngle: '90',
+  shadowX: '',
+  shadowY: '',
+  shadowBlur: '',
+  shadowColor: ''
+};
+
+const textStyleOf = (c: WidgetConfig): Record<string, string> => TextStyle.toStyles({
+  color: c.color ?? '',
+  gradientFrom: c.gradientFrom ?? '',
+  gradientTo: c.gradientTo ?? '',
+  gradientAngle: c.gradientAngle ?? '90',
+  shadowX: c.shadowX ?? '',
+  shadowY: c.shadowY ?? '',
+  shadowBlur: c.shadowBlur ?? '',
+  shadowColor: c.shadowColor ?? ''
+});
 
 const linkAttributes = (url: string, target: string, rel: string): string => {
   const safeRel = rel === '' && target === '_blank' ? 'noopener' : rel;
@@ -109,11 +149,10 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
       { name: 'height', label: 'Hauteur', type: 'text', half: true, placeholder: '420px' },
       { name: 'overlay', label: 'Voile sombre (0 à 100)', type: 'number', half: true },
       { name: 'align', label: 'Alignement', type: 'select', items: alignments, half: true },
-      { name: 'color', label: 'Couleur du texte', type: 'color', half: true },
       { name: 'buttonLabel', label: 'Texte du bouton', type: 'text', tab: 'Bouton' },
       { name: 'buttonUrl', label: 'Lien du bouton', type: 'url', tab: 'Bouton' },
       { name: 'buttonTarget', label: 'Ouvrir dans', type: 'select', items: targets, tab: 'Bouton' }
-    ],
+    ].concat(textStyleFields as never[]) as WidgetField[],
     defaults: {
       title: 'Un titre accrocheur',
       subtitle: 'Décrivez votre offre en une phrase.',
@@ -121,10 +160,11 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
       height: '420px',
       overlay: '35',
       align: 'center',
-      color: '#ffffff',
       buttonLabel: '',
       buttonUrl: '',
-      buttonTarget: ''
+      buttonTarget: '',
+      ...textStyleDefaults,
+      color: '#ffffff'
     },
     render: (c) => {
       const overlay = Math.min(100, Math.max(0, parseInt(c.overlay, 10) || 0)) / 100;
@@ -134,11 +174,10 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
       return `<section class="onlc-hero"${Html.style({
         'min-height': Html.withUnit(c.height),
         'background-image': c.image === '' ? '' : `url(${c.image})`,
-        color: c.color,
         'text-align': c.align
       })}>` +
         `<div class="onlc-hero__overlay onlc-widget__static"${Html.style({ 'background-color': `rgba(0, 0, 0, ${overlay})` })}></div>` +
-        `<div class="onlc-hero__content">` +
+        `<div class="onlc-hero__content"${Html.style(textStyleOf(c))}>` +
         `<h2 class="onlc-hero__title" data-onlc-slot="title">${Html.escape(c.title)}</h2>` +
         `<div class="onlc-hero__subtitle" data-onlc-slot="subtitle">${Html.paragraphs(c.subtitle)}</div>` +
         button +
@@ -152,15 +191,20 @@ const getBuiltIns = (editor: Editor): WidgetDefinition[] => [
     category: 'Contenu',
     icon: 'paragraph',
     hasSlots: true,
-    fields: [
+    fields: ([
       { name: 'title', label: 'Titre', type: 'text' },
       { name: 'content', label: 'Texte', type: 'textarea' },
       { name: 'align', label: 'Alignement', type: 'select', items: alignments, half: true },
       { name: 'width', label: 'Largeur maximale', type: 'text', half: true, placeholder: '720px' }
-    ],
-    defaults: { title: '', content: 'Votre texte…', align: 'left', width: '' },
+    ] as WidgetField[]).concat(textStyleFields),
+    defaults: { title: '', content: 'Votre texte…', align: 'left', width: '', ...textStyleDefaults },
     render: (c) =>
-      `<div class="onlc-widget__inner"${Html.style({ 'text-align': c.align, 'max-width': Html.withUnit(c.width), margin: c.width === '' ? '' : '0 auto' })}>` +
+      `<div class="onlc-widget__inner"${Html.style({
+        'text-align': c.align,
+        'max-width': Html.withUnit(c.width),
+        margin: c.width === '' ? '' : '0 auto',
+        ...textStyleOf(c)
+      })}>` +
       (c.title.trim() === '' ? '' : `<h3 data-onlc-slot="title">${Html.escape(c.title)}</h3>`) +
       `<div data-onlc-slot="content">${Html.paragraphs(c.content)}</div>` +
       `</div>`

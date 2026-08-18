@@ -6,6 +6,7 @@ import { Dialog } from 'hugerte/core/api/ui/Ui';
 import * as Options from '../api/Options';
 import * as Actions from '../core/Actions';
 import * as Grid from '../core/Grid';
+import * as LayoutSchema from './LayoutSchema';
 
 /**
  * "Add a block" picker, shown from the + buttons of the overlay and from the toolbar button.
@@ -30,10 +31,11 @@ const collectionItems = (editor: Editor, pattern: string): Dialog.CollectionItem
     icon: item.icon ?? 'plus'
   }));
 
+  const total = Options.getGridColumns(editor);
   const layouts: Dialog.CollectionItem[] = Arr.map(Options.getLayouts(editor), (layout) => ({
-    value: `${layoutPrefix}${layout.columns.join('-')}`,
-    text: `Colonnes – ${layout.text}`,
-    icon: 'table'
+    value: `${layoutPrefix}${LayoutSchema.valueOf(layout)}`,
+    text: `Colonnes ${layout.text}`,
+    icon: LayoutSchema.forLayout(layout, total)
   }));
 
   const all = items.concat(layouts);
@@ -75,6 +77,8 @@ const performInsert = (editor: Editor, value: string, reference: Optional<HTMLEl
 };
 
 const open = (editor: Editor, reference: Optional<HTMLElement>, position: Actions.InsertPosition): void => {
+  LayoutSchema.ensureStyles(editor);
+
   const refresh = Throttler.last((api: Dialog.DialogInstanceApi<InsertDialogData>) => {
     api.setData({ items: collectionItems(editor, api.getData().pattern) });
   }, 150);

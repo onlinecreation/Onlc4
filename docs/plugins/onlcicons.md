@@ -27,8 +27,10 @@ Auto-complétion : `:` suivi de deux lettres propose des emojis, `::` propose de
 ## Options
 
 Voir [la documentation des dictionnaires](../api/onlc-icons-api.md#configuration) pour la liste
-complète (`onlc_icons_emoji_database_url`, `onlc_icons_material_url`, `onlc_icons_output`,
-`onlc_icons_stylesheet_url`, `onlc_icons_emoji_trigger`, `onlc_icons_icon_trigger`, …).
+complète (`onlc_icons_builtin`, `onlc_icons_emoji_database_url`, `onlc_icons_material_url`,
+`onlc_icons_output`, `onlc_icons_stylesheet_url`, `onlc_icons_emoji_trigger`,
+`onlc_icons_icon_trigger`, …), ainsi que
+[la recette FontAwesome](../api/onlc-icons-api.md#utiliser-fontawesome-plutôt-que-material-design).
 
 ## Commandes
 

@@ -95,14 +95,14 @@ const dedupe = (entries: IconEntry[]): IconEntry[] => {
 };
 
 /**
- * The icon list is the bundled subset, extended by the remote list and by the
- * `onlc_icons_material_append` option.
+ * The icon list is the bundled subset - unless `onlc_icons_builtin` is off - extended by the
+ * remote list and by the `onlc_icons_material_append` option.
  */
 const initDatabase = (editor: Editor): IconDatabase => {
   const state = Singleton.value<IconEntry[]>();
 
   const appended = Arr.bind(Options.getAppendedIcons(editor), (entry) => fromRemote(entry as RemoteIcon).toArray());
-  const bundled = Arr.map(materialIcons, fromRaw);
+  const bundled = Options.useBuiltinIcons(editor) ? Arr.map(materialIcons, fromRaw) : [];
 
   // The bundled icons are usable straight away, remote ones are merged in when they arrive
   state.set(dedupe(appended.concat(bundled)));

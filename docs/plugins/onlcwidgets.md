@@ -56,8 +56,8 @@ La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
 | Bloc | Catégorie | Champs principaux |
 | --- | --- | --- |
 | Bouton d'appel à l'action | Actions | texte, lien, cible, `rel`, style, taille, alignement, pleine largeur |
-| Hero | Mise en avant | titre, sous-titre, image de fond, hauteur, voile, couleur, bouton |
-| Bloc de texte | Contenu | titre, texte, alignement, largeur maximale |
+| Hero | Mise en avant | titre, sous-titre, image de fond, hauteur, voile, bouton, **style du texte** |
+| Bloc de texte | Contenu | titre, texte, alignement, largeur maximale, **style du texte** |
 | Image | Médias | fichier, texte alternatif, légende, largeur, alignement, lien |
 | Vidéo | Médias | URL YouTube / Vimeo / Dailymotion ou autre, format, lecture auto, boucle, sourdine |
 | Iframe | Médias | adresse, titre, format ou hauteur fixe, défilement |
@@ -70,6 +70,23 @@ La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
 Lorsque les autres plugins ONLC sont chargés, la bibliothèque propose en plus des raccourcis
 vers l'image de la bibliothèque média (`onlcmedia`), les emojis et icônes (`onlcicons`) et le
 séparateur réglable (`onlcspacer`).
+
+### Style du texte : couleur, dégradé et ombre
+
+Le bloc de texte et le hero ont un onglet **Style du texte** avec une couleur simple, un
+dégradé (couleur de départ, couleur d'arrivée, angle) et une ombre portée (décalages,
+flou, couleur). Renseigner les deux couleurs du dégradé remplace la couleur simple :
+
+```html
+<div class="onlc-widget__inner"
+     style="background-image: linear-gradient(45deg, #006ce7, #e0007a);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25)">…</div>
+```
+
+Ce sont exactement les réglages du texte posé sur une image dans
+[`onlcmedia`](onlcmedia.md) : le code est partagé entre les deux plugins.
 
 ### Modifier un bloc
 

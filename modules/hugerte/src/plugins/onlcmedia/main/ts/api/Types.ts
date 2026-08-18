@@ -1,3 +1,5 @@
+import { TextStyleData } from 'hugerte/plugins/onlcshared/text/TextStyle';
+
 /**
  * Types of the ONLC media API. The wire format is documented in
  * `docs/api/onlc-media-api.md`.
@@ -51,6 +53,8 @@ export interface OverlayData {
   readonly background: string;
   readonly margin: string;
   readonly padding: string;
+  /** Dégradé et ombre portée du texte (voir `onlcshared/text/TextStyle`). */
+  readonly textStyle: TextStyleData;
 }
 
 export interface ImageData {

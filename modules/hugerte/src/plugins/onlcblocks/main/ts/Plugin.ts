@@ -34,6 +34,13 @@ export default (): void => {
       editor.contentCSS.push(`${pluginUrl}/css/onlcblocks.css`);
     }
 
+    // Grille du site (Bootstrap par exemple) : sans elle, les lignes et les colonnes
+    // s'empilent dans l'éditeur alors qu'elles seront côte à côte sur la page publiée.
+    const gridCss = Options.getGridCss(editor);
+    if (gridCss !== '') {
+      editor.contentCSS.push(gridCss);
+    }
+
     const controller = Controller.setup(editor);
 
     Commands.register(editor, controller);

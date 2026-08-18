@@ -28,8 +28,8 @@ mais une largeur en pourcentage et une hauteur automatique.
    *Renommer*, *Supprimer*, *Retoucher* et *Créer une image*.
 2. **Propriétés de l'image** (`onlcimage`) : trois onglets.
    - *Image* : fichier, texte alternatif, titre, largeur, classe prédéfinie et CSS personnalisé.
-   - *Texte par-dessus* : texte, position (9 ancrages), taille, police, couleur, fond, marge et
-     espacement intérieur.
+   - *Texte par-dessus* : texte, position (9 ancrages), taille, police, fond, marge, espacement
+     intérieur, puis **couleur, dégradé (départ, arrivée, angle) et ombre portée**.
    - *Lien* : lien prédéfini via API, URL personnalisée ou ancre, cible et `rel`
      (voir [API des liens](../api/onlc-link-api.md)).
 
@@ -77,13 +77,21 @@ il permet un réglage ponctuel sans créer de classe.
          style="width: 100%; height: auto;">
   </a>
   <figcaption class="onlc-image__overlay onlc-image__overlay--bottom-left"
-              style="color: #fff; background-color: rgba(0,0,0,.4); padding: 12px;">
+              style="background-color: rgba(0,0,0,.4); padding: 12px;
+                     background-image: linear-gradient(45deg, #ffffff, #ffd479);
+                     -webkit-background-clip: text; background-clip: text;
+                     -webkit-text-fill-color: transparent; color: transparent;
+                     text-shadow: 0px 2px 6px rgba(0,0,0,.35);">
     Nos séjours
   </figcaption>
 </figure>
 ```
 
 Sans texte en surimpression ni lien, seule la balise `<img>` est écrite.
+
+Le dégradé utilise la technique du fond découpé sur le texte : quand une couleur de départ
+**et** une couleur d'arrivée sont renseignées, elles remplacent la couleur simple. Les mêmes
+réglages sont proposés par le bloc de texte de [`onlcwidgets`](onlcwidgets.md).
 
 ## Commandes
 

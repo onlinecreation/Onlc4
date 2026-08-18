@@ -1,6 +1,7 @@
 import { Arr, Fun, Obj, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as TextStyle from 'hugerte/plugins/onlcshared/text/TextStyle';
 
 import * as Options from '../api/Options';
 import { ImageData, OverlayData } from '../api/Types';
@@ -32,7 +33,8 @@ const emptyOverlay: OverlayData = {
   color: '',
   background: '',
   margin: '',
-  padding: ''
+  padding: '',
+  textStyle: TextStyle.empty
 };
 
 const emptyData = (editor: Editor): ImageData => ({
@@ -68,7 +70,9 @@ const overlayStyles = (editor: Editor, overlay: OverlayData): string => styleStr
   color: overlay.color,
   'background-color': overlay.background,
   margin: overlay.margin,
-  padding: overlay.padding
+  padding: overlay.padding,
+  // Le dégradé et l'ombre sont écrits en dernier : ils remplacent la couleur simple
+  ...TextStyle.toStyles(overlay.textStyle)
 });
 
 const attribute = (name: string, value: string): string =>
@@ -122,15 +126,19 @@ const readOverlay = (editor: Editor, figure: Optional<HTMLElement>): OverlayData
     .fold(Fun.constant(emptyOverlay), (caption) => {
       const position = Arr.foldl(caption.className.split(/\s+/), (acc, cls) =>
         cls.indexOf(`${overlayClass}--`) === 0 ? cls.substring(`${overlayClass}--`.length) : acc, 'middle-center');
+      const styles = editor.dom.parseStyle(caption.getAttribute('style') ?? '');
+      const textStyle = TextStyle.fromStyles(styles);
+
       return {
         text: caption.textContent ?? '',
         position,
         fontSize: editor.dom.getStyle(caption, 'font-size') || '',
         fontFamily: editor.dom.getStyle(caption, 'font-family') || '',
-        color: editor.dom.getStyle(caption, 'color') || '',
+        color: textStyle.color,
         background: editor.dom.getStyle(caption, 'background-color') || '',
         margin: editor.dom.getStyle(caption, 'margin') || '',
-        padding: editor.dom.getStyle(caption, 'padding') || ''
+        padding: editor.dom.getStyle(caption, 'padding') || '',
+        textStyle
       };
     });
 

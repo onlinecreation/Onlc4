@@ -4,6 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
 import * as LinkFields from 'hugerte/plugins/onlcshared/link/LinkFields';
 import { LinkContext } from 'hugerte/plugins/onlcshared/link/LinkTypes';
+import * as TextStyle from 'hugerte/plugins/onlcshared/text/TextStyle';
 
 import * as Options from '../api/Options';
 import { ImageData } from '../api/Types';
@@ -33,7 +34,8 @@ const toImageData = (data: Record<string, unknown>): ImageData => ({
     color: readString(data, 'overlayColor'),
     background: readString(data, 'overlayBackground'),
     margin: readString(data, 'overlayMargin'),
-    padding: readString(data, 'overlayPadding')
+    padding: readString(data, 'overlayPadding'),
+    textStyle: TextStyle.fromDialogData('overlay', data)
   },
   link: LinkFields.toAttributes(data)
 });
@@ -54,6 +56,7 @@ const toDialogData = (editor: Editor, context: LinkContext, image: ImageData): R
   overlayBackground: image.overlay.background,
   overlayMargin: image.overlay.margin,
   overlayPadding: image.overlay.padding,
+  ...TextStyle.toDialogData('overlay', image.overlay.textStyle),
   ...LinkFields.getInitialData(editor, context, image.link)
 });
 
@@ -98,12 +101,13 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
           { type: 'listbox', name: 'overlayPosition', label: 'Position', items: listItems(Options.getOverlayPositions(editor)) },
           { type: 'listbox', name: 'overlayFontFamily', label: 'Typographie', items: listItems(Options.getFontList(editor)) },
           { type: 'input', name: 'overlayFontSize', label: 'Taille du texte (ex : 1.5rem)' },
-          { type: 'colorinput', name: 'overlayColor', label: 'Couleur du texte' },
           { type: 'colorinput', name: 'overlayBackground', label: 'Couleur de fond' },
           { type: 'input', name: 'overlayMargin', label: 'Marge extérieure (ex : 0 0 1rem)' },
           { type: 'input', name: 'overlayPadding', label: 'Marge intérieure (ex : .5rem 1rem)' }
         ]
-      }
+      },
+      // Couleur simple, dégradé (départ, arrivée, angle) et ombre portée
+      ...TextStyle.getItems('overlay')
     ]
   };
 

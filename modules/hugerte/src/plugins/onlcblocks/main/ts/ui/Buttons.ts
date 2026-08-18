@@ -1,11 +1,11 @@
-import { Arr, Fun, Type } from '@ephox/katamari';
+import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
-import { Menu } from 'hugerte/core/api/ui/Ui';
 
-import * as Options from '../api/Options';
+import * as Blocks from '../core/Blocks';
 import { Controller } from '../core/Controller';
 import * as Grid from '../core/Grid';
+import * as RowDialog from './RowDialog';
 
 const register = (editor: Editor, controller: Controller): void => {
   editor.ui.registry.addToggleButton('onlcblocks', {
@@ -32,20 +32,22 @@ const register = (editor: Editor, controller: Controller): void => {
     onAction: () => editor.execCommand('OnlcBlockInsert', false, 'after')
   });
 
-  editor.ui.registry.addSplitButton('onlcblocksrow', {
+  // Les dispositions sont choisies sur un schéma, pas dans une liste de nombres
+  const openRowDialog = () => {
+    const reference = controller.getActive().orThunk(() => Blocks.getBlockFor(editor, editor.selection.getNode()));
+    RowDialog.open(editor, reference, 'after');
+  };
+
+  editor.ui.registry.addButton('onlcblocksrow', {
     icon: 'table',
     tooltip: 'Ajouter des colonnes',
-    onAction: () => editor.execCommand('OnlcInsertRow', false, '6-6'),
-    onItemAction: (_api, value) => editor.execCommand('OnlcInsertRow', false, value),
-    fetch: (callback) => {
-      const items: Menu.ChoiceMenuItemSpec[] = Arr.map(Options.getLayouts(editor), (layout) => ({
-        type: 'choiceitem',
-        text: layout.text,
-        value: layout.columns.join('-')
-      }));
-      callback(items);
-    },
-    select: Fun.never
+    onAction: openRowDialog
+  });
+
+  editor.ui.registry.addMenuItem('onlcblocksrow', {
+    icon: 'table',
+    text: 'Ajouter des colonnes...',
+    onAction: openRowDialog
   });
 
   Arr.each([

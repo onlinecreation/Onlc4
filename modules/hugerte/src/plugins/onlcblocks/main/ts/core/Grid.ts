@@ -4,6 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 
 import * as Options from '../api/Options';
 import * as Actions from './Actions';
+import * as Columns from './Columns';
 
 /**
  * Bootstrap grid support: rows made of columns whose width is expressed in grid units
@@ -11,31 +12,21 @@ import * as Actions from './Actions';
  * bootstrap stylesheet loaded in the content.
  */
 
-const columnClassRegExp = /^col(?:-(?:xs|sm|md|lg|xl|xxl))?(?:-(\d{1,2}))?$/;
-
 const isRow = (editor: Editor, element: Node | null): element is HTMLElement =>
   Type.isNonNullable(element) && editor.dom.is(element, `.${Options.getRowClass(editor)}`);
 
-const columnClasses = (element: HTMLElement): string[] =>
-  Arr.filter(element.className.split(/\s+/), (cls) => columnClassRegExp.test(cls));
-
 const isColumn = (_editor: Editor, element: Node | null): element is HTMLElement =>
-  Type.isNonNullable(element) && element.nodeType === 1 && columnClasses(element as HTMLElement).length > 0;
+  Columns.isColumnElement(element);
 
 const getColumns = (editor: Editor, row: HTMLElement): HTMLElement[] =>
   Arr.filter(Arr.from(row.childNodes), (node) => isColumn(editor, node)) as HTMLElement[];
 
-const getWidth = (editor: Editor, column: HTMLElement): number => {
-  const widths = Arr.bind(columnClasses(column), (cls) => {
-    const matches = columnClassRegExp.exec(cls);
-    return matches !== null && Type.isString(matches[1]) ? [ parseInt(matches[1], 10) ] : [];
-  });
-  return widths.length > 0 ? widths[0] : Options.getGridColumns(editor);
-};
+const getWidth = (editor: Editor, column: HTMLElement): number =>
+  Columns.widthOf(column, Options.getGridColumns(editor));
 
 const setWidth = (editor: Editor, column: HTMLElement, width: number): void => {
   const prefix = Options.getColumnClassPrefix(editor);
-  const kept = Arr.filter(column.className.split(/\s+/), (cls) => cls !== '' && !columnClassRegExp.test(cls));
+  const kept = Arr.filter(column.className.split(/\s+/), (cls) => cls !== '' && !Columns.columnClassRegExp.test(cls));
   editor.dom.setAttrib(column, 'class', kept.concat([ `${prefix}${width}` ]).join(' '));
 };
 

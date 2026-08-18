@@ -1,8 +1,8 @@
 /**
- * Styles du contenu, chargés dans la zone d'édition (`content_css`).
+ * Styles du contenu, chargés dans la zone d'édition (`content_css`), après la grille Bootstrap.
  *
- * Une mini grille inspirée de Bootstrap suffit à la démonstration : en production, chargez
- * plutôt la feuille de style réelle de votre site, pour que l'édition ressemble au rendu final.
+ * En production, remplacez ce fichier par la feuille de style réelle de votre site : l'édition
+ * ressemblera alors au rendu final.
  */
 
 body {
@@ -14,35 +14,7 @@ body {
 
 img { max-width: 100%; }
 
-/* Grille ------------------------------------------------------------------ */
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -12px;
-}
-
-[class*="col-"] {
-  flex: 0 0 auto;
-  padding: 0 12px;
-}
-
-.col-md-1 { width: 8.333%; }
-.col-md-2 { width: 16.666%; }
-.col-md-3 { width: 25%; }
-.col-md-4 { width: 33.333%; }
-.col-md-5 { width: 41.666%; }
-.col-md-6 { width: 50%; }
-.col-md-7 { width: 58.333%; }
-.col-md-8 { width: 66.666%; }
-.col-md-9 { width: 75%; }
-.col-md-10 { width: 83.333%; }
-.col-md-11 { width: 91.666%; }
-.col-md-12 { width: 100%; }
-
-@media (max-width: 720px) {
-  [class*="col-"] { width: 100%; }
-}
+/* La grille vient de assets/vendor/bootstrap-grid.min.css : rien à redéfinir ici. */
 
 /* Boutons ----------------------------------------------------------------- */
 

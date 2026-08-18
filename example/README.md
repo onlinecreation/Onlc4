@@ -54,7 +54,8 @@ example/
 │   ├── index.html       page de démonstration
 │   ├── assets/demo.js   configuration complète de l'éditeur, commentée
 │   ├── assets/demo.css  habillage de la page
-│   ├── assets/content.css  styles du contenu (mini grille Bootstrap)
+│   ├── assets/content.css  styles du contenu de l'éditeur
+│   ├── assets/vendor/   grille Bootstrap et FontAwesome, servis localement
 │   └── pixel/index.html simulation de l'éditeur d'images Pixel
 ├── seed/                médiathèque de départ (images SVG)
 └── storage/             espace de travail (créé au démarrage, non versionné)
@@ -64,13 +65,16 @@ example/
 
 | Fonctionnalité | Où la voir |
 | --- | --- |
-| Blocs déplaçables, colonnes Bootstrap | Survolez un paragraphe ; boutons `Ajouter un bloc` et `Colonnes` |
+| Blocs déplaçables | Survolez un paragraphe : poignée, monter/descendre, dupliquer, supprimer |
+| Colonnes Bootstrap | Bouton `Ajouter des colonnes` : les dispositions sont des schémas. La ligne se déplace d'un bloc, les colonnes restent fixes |
 | Médiathèque (upload, dossiers, copie, déplacement, renommage, suppression) | Bouton `Bibliothèque` |
 | Retouche et création d'images | Bouton `Retoucher` de la bibliothèque → éditeur Pixel simulé |
 | Images sans `width`/`height` | Redimensionnez une image puis cliquez sur `Enregistrer` |
 | Liens prédéfinis, ancres, cible, rel | Bouton `Lien` — la liste vient de `/api/links` |
 | Séparateurs verticaux | Bouton `Séparateur vertical` |
-| Emojis et icônes | Boutons `Emojis` / `Icônes` ; le catalogue distant vient de `/api/icons` |
+| Emojis et icônes | Boutons `Emojis` / `Icônes` : le catalogue FontAwesome vient de `/api/icons` (`onlc_icons_builtin: false`) |
+| Dégradé et ombre du texte | Bloc « Un titre en dégradé » → onglet `Style du texte` ; mêmes réglages dans le texte posé sur une image |
+| Script neutralisé | Le contenu contient `alert("hello")` : aucune alerte ne se déclenche, une pastille le représente |
 | Blocs prédéfinis + bloc maison | Bouton `Blocs prédéfinis` (voir `onlc_widgets_custom` dans `demo.js`) |
 | Script JavaScript coloré | Bouton `Script JavaScript` |
 | Source HTML colorée | Bouton `Code source HTML` |
@@ -105,9 +109,15 @@ curl -F "path=/photos" -F "file=@mon-image.png" http://localhost:3000/api/media/
 curl http://localhost:3000/api/links
 ```
 
+## Fichiers tiers
+
+`public/assets/vendor/` contient la grille Bootstrap et FontAwesome, servis localement pour que
+la démonstration fonctionne sans accès réseau. Leurs origines et licences sont listées dans
+[`public/assets/vendor/README.md`](public/assets/vendor/README.md).
+
 ## Passer en production
 
-Dans `public/assets/demo.js`, trois réglages changent :
+Dans `public/assets/demo.js`, quatre réglages changent :
 
 ```js
 // 1. L'éditeur d'images réel
@@ -117,9 +127,13 @@ onlc_media_image_editor_url: 'https://pixel.onlinecreation.me',
 onlc_media_api_url: 'https://exemple.tld/api/media',
 onlc_link_api_url: 'https://exemple.tld/api/links',
 
-// 3. La police d'icônes (vide ici pour fonctionner hors ligne)
-onlc_icons_stylesheet_url: 'https://fonts.googleapis.com/icon?family=Material+Icons',
+// 3. Vos feuilles de style : la grille et les icônes de votre site
+onlc_blocks_grid_css: 'https://exemple.tld/css/bootstrap-grid.min.css',
+onlc_icons_stylesheet_url: 'https://cdn.exemple.tld/fontawesome/css/all.min.css',
+
+// 4. Le point de rupture des colonnes, si votre maquette n'utilise pas `sm`
+onlc_blocks_breakpoint: 'md',
 ```
 
-Et remplacez `content_css: '/assets/content.css'` par la feuille de style réelle de votre site,
-pour que l'édition ressemble au rendu final.
+Et remplacez `content_css` par la feuille de style réelle de votre site, pour que l'édition
+ressemble au rendu final.

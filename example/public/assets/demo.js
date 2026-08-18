@@ -43,8 +43,18 @@ hugerte.init({
     'fullscreen'
   ].join(' | '),
 
-  // Styles appliqués dans la zone d'édition : mini grille facon Bootstrap + rendu des blocs
-  content_css: '/assets/content.css',
+  // Styles appliqués dans la zone d'édition : la vraie grille Bootstrap, puis les styles du site
+  content_css: [
+    '/assets/vendor/bootstrap-grid.min.css',
+    '/assets/content.css'
+  ],
+
+  // --- API médias (docs/api/onlc-media-api.md) ------------------------------
+  // --- Blocs ----------------------------------------------------------------
+  // La grille est aussi déclarée ici : le plugin la charge dans l'éditeur même si
+  // `content_css` change, et sait ainsi afficher les lignes et colonnes correctement.
+  onlc_blocks_grid_css: '/assets/vendor/bootstrap-grid.min.css',
+  onlc_blocks_breakpoint: 'sm',
 
   // --- API médias (docs/api/onlc-media-api.md) ------------------------------
   onlc_media_api_url: '/api/media',
@@ -65,10 +75,14 @@ hugerte.init({
   ],
 
   // --- Dictionnaires emojis et icônes (docs/api/onlc-icons-api.md) ----------
+  // Le jeu intégré (Material Design) est remplacé par le catalogue FontAwesome de l'API
+  onlc_icons_builtin: false,
   onlc_icons_material_url: '/api/icons',
-  // Police d'icônes : vide dans cette démonstration pour qu'elle fonctionne hors ligne.
-  // En production : 'https://fonts.googleapis.com/icon?family=Material+Icons'
-  onlc_icons_stylesheet_url: '',
+  onlc_icons_output: 'class',
+  onlc_icons_class_prefix: 'fa-solid fa-',
+  // Police d'icônes : servie localement pour que la démonstration fonctionne hors ligne.
+  // En production, la feuille FontAwesome de votre CDN convient tout aussi bien.
+  onlc_icons_stylesheet_url: '/assets/vendor/fontawesome.css',
 
   // --- Séparateurs ----------------------------------------------------------
   onlc_spacer_default_height: '30px',

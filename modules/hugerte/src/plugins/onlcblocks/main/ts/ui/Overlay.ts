@@ -51,13 +51,24 @@ const layerHtml = (): string =>
   `<div class="onlc-blocks-toolbar" data-onlc-part="toolbar">${Arr.map(buttons, buttonHtml).join('')}</div>` +
   '<button type="button" class="onlc-blocks-add onlc-blocks-add--before" data-onlc-part="add-before" data-onlc-action="insert-before" title="Ajouter un bloc avant">+</button>' +
   '<button type="button" class="onlc-blocks-add onlc-blocks-add--after" data-onlc-part="add-after" data-onlc-action="insert-after" title="Ajouter un bloc après">+</button>' +
-  '<div class="onlc-blocks-indicator" data-onlc-part="indicator"></div>' +
-  '<button type="button" class="onlc-blocks-edge" data-onlc-part="edge-start" data-onlc-action="insert-start">+ Ajouter un bloc au début</button>' +
-  '<button type="button" class="onlc-blocks-edge" data-onlc-part="edge-end" data-onlc-action="insert-end">+ Ajouter un bloc à la fin</button>';
+  '<div class="onlc-blocks-indicator" data-onlc-part="indicator"></div>';
+
+/**
+ * Les zones d'ajout de début et de fin sont posées dans le flux du document, avant le premier
+ * bloc et après le dernier : elles ne recouvrent jamais le contenu.
+ */
+const edgeZoneHtml = (position: 'start' | 'end'): string =>
+  `<button type="button" class="onlc-blocks-edge" data-onlc-action="insert-${position}">` +
+  `<span class="onlc-blocks-edge__plus">+</span>` +
+  `<span>Ajouter un bloc ${position === 'start' ? 'au début' : 'à la fin'}</span></button>`;
+
+/** Diamètre des boutons « + », en pixels. Doit rester synchronisé avec onlcblocks.css. */
+const addButtonSize = 28;
 
 const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
   let active = Optional.none<HTMLElement>();
   let layer: HTMLElement | null = null;
+  const edges: Record<'start' | 'end', HTMLElement | null> = { start: null, end: null };
 
   const part = (name: string): HTMLElement | null =>
     Type.isNonNullable(layer) ? layer.querySelector<HTMLElement>(`[data-onlc-part="${name}"]`) : null;
@@ -72,6 +83,41 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     if (Type.isNonNullable(element)) {
       editor.dom.toggleClass(element, 'onlc-blocks-hidden', !state);
     }
+  };
+
+  /** Un seul jeu de gestionnaires pour l'overlay et pour les zones d'ajout. */
+  const bindActions = (root: HTMLElement) => {
+    const buttonOf = (e: MouseEvent): HTMLElement | null => {
+      const target = e.target as HTMLElement | null;
+      return Type.isNonNullable(target) ? target.closest<HTMLElement>('[data-onlc-action]') : null;
+    };
+
+    editor.dom.bind(root, 'mousedown', (e: MouseEvent) => {
+      const button = buttonOf(e);
+      if (!Type.isNonNullable(button)) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+
+      if ((button.getAttribute('data-onlc-action') ?? '') === 'drag') {
+        active.each((block) => handlers.onDragStart(e, block));
+      }
+    });
+
+    editor.dom.bind(root, 'click', (e: MouseEvent) => {
+      const button = buttonOf(e);
+      if (!Type.isNonNullable(button)) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+
+      const action = button.getAttribute('data-onlc-action') ?? '';
+      if (action !== 'drag') {
+        handlers.onAction(action, active);
+      }
+    });
   };
 
   const ensureLayer = (): HTMLElement | null => {
@@ -89,35 +135,7 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
       }, layerHtml());
       body.appendChild(layer);
 
-      editor.dom.bind(layer, 'mousedown', (e: MouseEvent) => {
-        const target = e.target as HTMLElement | null;
-        const button = Type.isNonNullable(target) ? target.closest<HTMLElement>('[data-onlc-action]') : null;
-        if (!Type.isNonNullable(button)) {
-          return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-
-        const action = button.getAttribute('data-onlc-action') ?? '';
-        if (action === 'drag') {
-          active.each((block) => handlers.onDragStart(e, block));
-        }
-      });
-
-      editor.dom.bind(layer, 'click', (e: MouseEvent) => {
-        const target = e.target as HTMLElement | null;
-        const button = Type.isNonNullable(target) ? target.closest<HTMLElement>('[data-onlc-action]') : null;
-        if (!Type.isNonNullable(button)) {
-          return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-
-        const action = button.getAttribute('data-onlc-action') ?? '';
-        if (action !== 'drag') {
-          handlers.onAction(action, active);
-        }
-      });
+      bindActions(layer);
     }
 
     return layer;
@@ -133,34 +151,39 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     };
   };
 
-  const positionEdges = () => {
+  /**
+   * Crée les zones d'ajout et les maintient en première et dernière position du document,
+   * quelles que soient les modifications du contenu.
+   */
+  const ensureEdges = () => {
     const body = editor.getBody();
     if (!Type.isNonNullable(body)) {
       return;
     }
-    const blocks = Blocks.topLevelBlocks(editor);
-    const first = blocks[0];
-    const last = blocks[blocks.length - 1];
 
-    const start = part('edge-start');
-    const end = part('edge-end');
+    Arr.each([ 'start', 'end' ] as Array<'start' | 'end'>, (position) => {
+      const existing = edges[position];
+      if (!Type.isNonNullable(existing) || !body.contains(existing)) {
+        const zone = editor.dom.create('div', {
+          class: `onlc-blocks-edge-zone onlc-blocks-edge-zone--${position}`,
+          'data-onlc-ui': '1',
+          'data-onlc-part': `edge-${position}`,
+          'data-mce-bogus': 'all',
+          contenteditable: 'false'
+        }, edgeZoneHtml(position));
+        edges[position] = zone;
+        bindActions(zone);
+      }
 
-    if (Type.isNonNullable(first)) {
-      const rect = rectOf(first);
-      setPosition(start, { top: `${Math.max(0, rect.y - 26)}px`, left: `${rect.x}px` });
-    } else {
-      setPosition(start, { top: '0px', left: '0px' });
-    }
-
-    if (Type.isNonNullable(last)) {
-      const rect = rectOf(last);
-      setPosition(end, { top: `${rect.y + rect.height + 6}px`, left: `${rect.x}px` });
-    } else {
-      setPosition(end, { top: '24px', left: '0px' });
-    }
-
-    setVisible(start, true);
-    setVisible(end, true);
+      const zone = edges[position] as HTMLElement;
+      if (position === 'start') {
+        if (body.firstChild !== zone) {
+          body.insertBefore(zone, body.firstChild);
+        }
+      } else if (body.lastChild !== zone) {
+        body.appendChild(zone);
+      }
+    });
   };
 
   const positionForBlock = (block: HTMLElement) => {
@@ -176,16 +199,23 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
       top: `${Math.max(0, rect.y - 30)}px`,
       left: `${rect.x}px`
     });
+    // Les boutons + sont centrés sur le bord haut et sur le bord bas du bloc. Celui du haut
+    // n'apparaît que sur le premier bloc d'un conteneur : ailleurs, le bouton du bas du bloc
+    // précédent occupe déjà le même espace.
+    const half = addButtonSize / 2;
+    const siblings = Blocks.siblingBlocks(editor, block);
+    const isFirst = siblings.length === 0 || siblings[0] === block;
     setPosition(part('add-before'), {
-      top: `${Math.max(0, rect.y - 12)}px`,
-      left: `${rect.x + rect.width / 2 - 12}px`
+      top: `${Math.max(0, rect.y - half)}px`,
+      left: `${rect.x + rect.width / 2 - half}px`
     });
     setPosition(part('add-after'), {
-      top: `${rect.y + rect.height - 12}px`,
-      left: `${rect.x + rect.width / 2 - 12}px`
+      top: `${rect.y + rect.height - half}px`,
+      left: `${rect.x + rect.width / 2 - half}px`
     });
 
-    Arr.each([ 'outline', 'toolbar', 'add-before', 'add-after' ], (name) => setVisible(part(name), true));
+    Arr.each([ 'outline', 'toolbar', 'add-after' ], (name) => setVisible(part(name), true));
+    setVisible(part('add-before'), isFirst);
   };
 
   const show = (block: HTMLElement) => {
@@ -194,7 +224,7 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     }
     active = Optional.some(block);
     positionForBlock(block);
-    positionEdges();
+    ensureEdges();
   };
 
   const hide = () => {
@@ -206,7 +236,7 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     if (!Type.isNonNullable(ensureLayer())) {
       return;
     }
-    positionEdges();
+    ensureEdges();
     active.each((block) => {
       if (editor.getBody().contains(block)) {
         positionForBlock(block);
@@ -236,6 +266,13 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
       editor.dom.remove(layer);
       layer = null;
     }
+    Arr.each([ 'start', 'end' ] as Array<'start' | 'end'>, (position) => {
+      const zone = edges[position];
+      if (Type.isNonNullable(zone)) {
+        editor.dom.remove(zone);
+        edges[position] = null;
+      }
+    });
     active = Optional.none();
   };
 

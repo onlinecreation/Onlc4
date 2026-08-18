@@ -2,6 +2,7 @@ import PluginManager from 'hugerte/core/api/PluginManager';
 
 import * as Options from './api/Options';
 import { EmojiEntry, initDatabase as initEmojis } from './core/EmojiDatabase';
+import * as FilterContent from './core/FilterContent';
 import * as Insert from './core/Insert';
 import { IconEntry, initDatabase as initIcons } from './core/MaterialIcons';
 import * as Autocompletion from './ui/Autocompletion';
@@ -26,6 +27,8 @@ export interface OnlcIconsApi {
 export default (): void => {
   PluginManager.add('onlcicons', (editor, pluginUrl): OnlcIconsApi => {
     Options.register(editor, pluginUrl);
+
+    FilterContent.setup(editor);
 
     const emojis = initEmojis(editor);
     const icons = initIcons(editor);

@@ -14,9 +14,17 @@ hugerte.init({
   selector: 'textarea',
   plugins: 'onlcblocks',
   toolbar: 'onlcblocksinsert onlcblocksrow onlcblocks',
-  content_css: [ 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' ]
+
+  // La grille du site doit être chargée dans la zone d'édition, sinon les colonnes
+  // s'empilent dans l'éditeur alors qu'elles seront côte à côte sur la page publiée.
+  onlc_blocks_grid_css: '/assets/bootstrap-grid.min.css',
+  onlc_blocks_breakpoint: 'sm'
 });
 ```
+
+`onlc_blocks_grid_css` ajoute la feuille indiquée au contenu de l'éditeur. Vous pouvez aussi
+passer par `content_css` : les deux fonctionnent, l'option est là pour que la grille suive le
+plugin même si `content_css` change.
 
 ## Interface
 
@@ -27,10 +35,38 @@ hugerte.init({
 | ⧉ | Dupliquer le bloc |
 | ✕ | Supprimer le bloc |
 | ⤒ | Sélectionner le bloc parent (colonne, ligne, section) |
-| ＋ | Ajouter un bloc avant, après, au début ou à la fin de la page |
+| ＋ | Ajouter un bloc avant ou après. Le bouton du haut n'apparaît que sur le premier bloc d'un conteneur : ailleurs, celui du bas du bloc précédent occupe déjà cet espace |
 
-La barre d'outils et les zones d'ajout sont dessinées dans la zone d'édition mais portent
-`data-mce-bogus="all"` : elles ne sont jamais enregistrées dans le contenu.
+Les zones « Ajouter un bloc au début » et « Ajouter un bloc à la fin » sont placées **dans le
+flux du document**, avant le premier bloc et après le dernier : elles ne recouvrent jamais le
+contenu. La barre d'outils, les boutons ＋ et ces zones portent `data-mce-bogus="all"` : rien
+de tout cela n'est enregistré dans le contenu.
+
+## Lignes et colonnes
+
+Une **ligne** (`.row`) est un bloc comme les autres : elle se déplace, se duplique et se
+supprime d'un seul geste. Une **colonne** (`col-*`) est au contraire une structure fixe : elle
+n'a ni poignée ni bouton de suppression, et se règle avec la barre contextuelle qui apparaît
+dès que le curseur s'y trouve (rétrécir, élargir, ajouter une colonne, supprimer la colonne).
+Les blocs *à l'intérieur* d'une colonne restent bien sûr déplaçables, y compris d'une colonne
+à l'autre.
+
+Le bouton « Ajouter des colonnes » ouvre un choix de dispositions présentées sous forme de
+schémas :
+
+| Schéma | Colonnes (sur 12) |
+| --- | --- |
+| ⅓ + ⅔ | `4, 8` |
+| ⅔ + ⅓ | `8, 4` |
+| ½ + ½ | `6, 6` |
+| ⅓ + ⅓ + ⅓ | `4, 4, 4` |
+| ¼ + ¼ + ¼ + ¼ | `3, 3, 3, 3` |
+| ½ + ¼ + ¼ | `6, 3, 3` |
+| ¼ + ¼ + ½ | `3, 3, 6` |
+
+Le point de rupture est `sm` par défaut : une ligne produit `col-sm-4`, `col-sm-8`… Changez
+`onlc_blocks_breakpoint` pour `md`, `lg`, `xl`, `xxl`, ou une chaîne vide pour des colonnes
+`col-4` sans point de rupture.
 
 ## Options
 
@@ -40,9 +76,11 @@ La barre d'outils et les zones d'ajout sont dessinées dans la zone d'édition m
 | `onlc_blocks_containers` | `.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col` | Éléments considérés comme des conteneurs de blocs |
 | `onlc_blocks_exclude` | `li,td,th,thead,tbody,tfoot,tr,figcaption,caption,option,legend` | Éléments qui ne reçoivent jamais d'outils |
 | `onlc_blocks_row_class` | `row` | Classe d'une ligne de grille |
-| `onlc_blocks_column_class_prefix` | `col-md-` | Préfixe des classes de colonne |
+| `onlc_blocks_breakpoint` | `sm` | Point de rupture des colonnes (`sm`, `md`, `lg`, `xl`, `xxl`, ou vide) |
+| `onlc_blocks_column_class_prefix` | déduit du point de rupture | Préfixe des classes de colonne, à renseigner seulement pour un cadre non Bootstrap |
+| `onlc_blocks_grid_css` | `''` | Feuille de style de la grille chargée dans la zone d'édition |
 | `onlc_blocks_grid_columns` | `12` | Nombre de colonnes de la grille |
-| `onlc_blocks_layouts` | 8 dispositions | Dispositions proposées (`{ text, columns: number[] }`) |
+| `onlc_blocks_layouts` | 7 dispositions | Dispositions proposées (`{ text, columns: number[] }`) ; `text` sert de description accessible, la vignette est dessinée à partir de `columns` |
 | `onlc_blocks_insert_items` | 11 blocs | Contenus proposés dans le panneau d'ajout |
 | `onlc_blocks_inject_styles` | `true` | Charge `onlcblocks.css` dans la zone d'édition |
 
@@ -64,8 +102,8 @@ le panneau.
 
 ```js
 onlc_blocks_layouts: [
-  { text: '2 colonnes', columns: [ 6, 6 ] },
-  { text: 'Barre latérale', columns: [ 9, 3 ] }
+  { text: '½ + ½', columns: [ 6, 6 ] },
+  { text: '¾ + ¼ (barre latérale)', columns: [ 9, 3 ] }
 ]
 ```
 
@@ -73,8 +111,8 @@ Une ligne insérée produit :
 
 ```html
 <div class="row">
-  <div class="col-md-6"><p>…</p></div>
-  <div class="col-md-6"><p>…</p></div>
+  <div class="col-sm-6"><p>…</p></div>
+  <div class="col-sm-6"><p>…</p></div>
 </div>
 ```
 

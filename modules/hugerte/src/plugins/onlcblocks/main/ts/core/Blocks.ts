@@ -3,6 +3,7 @@ import { Arr, Optional, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 
 import * as Options from '../api/Options';
+import * as Columns from './Columns';
 
 /**
  * Detection of the elements that behave as blocks - the ones the block toolbar is attached to.
@@ -10,6 +11,9 @@ import * as Options from '../api/Options';
  * An element is a block when it is displayed as `block`, `flex`, `grid`, `table` or `flow-root`,
  * is not part of the plugin ui and is not one of the structural elements excluded by
  * `onlc_blocks_exclude` (list items, table cells...).
+ *
+ * Bootstrap columns are deliberately left out: a row moves as a whole, its columns are fixed and
+ * only the grid actions (add, remove, resize) act on them.
  */
 
 const blockDisplays = [ 'block', 'flex', 'grid', 'table', 'flow-root', 'list-item' ];
@@ -40,6 +44,9 @@ const isBlock = (editor: Editor, element: Node | null): element is HTMLElement =
     return false;
   }
   const elm = element as HTMLElement;
+  if (Columns.isColumnElement(elm)) {
+    return false;
+  }
   return !isUi(editor, elm) && !isExcluded(editor, elm) && isBlockDisplay(editor, elm);
 };
 

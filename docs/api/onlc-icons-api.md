@@ -18,6 +18,9 @@ hugerte.init({
     logo_onlc: { keywords: [ 'onlc', 'logo' ], char: '🅾️', category: 'user' }
   },
 
+  // Jeu intégré (Material Design). Passez-le à false pour n'utiliser que votre catalogue
+  onlc_icons_builtin: true,
+
   // Catalogue d'icônes distant (facultatif : une sélection est incluse)
   onlc_icons_material_url: 'https://exemple.tld/api/material-icons.json',
   onlc_icons_material_append: [
@@ -77,7 +80,26 @@ La clé de l'objet est le nom de l'emoji ; il complète automatiquement les mots
 
 Les icônes distantes s'ajoutent à la sélection intégrée au plugin ; en cas d'erreur de
 chargement, seule la sélection intégrée est proposée et un avertissement est écrit dans la
-console.
+console. Avec `onlc_icons_builtin: false`, la sélection intégrée est ignorée : le catalogue de
+l'API devient le seul jeu proposé.
+
+### Utiliser FontAwesome plutôt que Material Design
+
+```js
+onlc_icons_builtin: false,                 // on n'utilise pas le jeu Material intégré
+onlc_icons_material_url: '/api/icons',     // le catalogue renvoie des noms FontAwesome
+onlc_icons_output: 'class',
+onlc_icons_class_prefix: 'fa-solid fa-',
+onlc_icons_stylesheet_url: 'https://cdn.exemple.tld/fontawesome/css/all.min.css'
+```
+
+L'API renvoie alors des noms FontAwesome (`house`, `magnifying-glass`, `rocket`…) et l'éditeur
+produit `<i class="fa-solid fa-rocket" role="img" aria-label="rocket"></i>`.
+
+> Une icône de police est un élément **vide**. Le schéma de HugeRTE supprime les éléments en
+> ligne vides et renomme `<i>` en `<em>` : le plugin neutralise ces deux règles pour la balise
+> `<i>` dès que le mode `class` est actif, sinon les icônes disparaîtraient à la première
+> lecture du contenu.
 
 ## Code inséré
 

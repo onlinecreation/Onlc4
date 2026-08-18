@@ -24,15 +24,18 @@ const option: {
 } = (name: string) => (editor: Editor) =>
   editor.options.get(name);
 
+/**
+ * Dispositions proposées, décrites par la part de chaque colonne. Elles sont présentées sous
+ * forme de schémas dans l'interface : le libellé n'est là que pour les lecteurs d'écran.
+ */
 const defaultLayouts: GridLayout[] = [
-  { text: '1 colonne', columns: [ 12 ] },
-  { text: '2 colonnes', columns: [ 6, 6 ] },
-  { text: '3 colonnes', columns: [ 4, 4, 4 ] },
-  { text: '4 colonnes', columns: [ 3, 3, 3, 3 ] },
-  { text: '2/3 + 1/3', columns: [ 8, 4 ] },
-  { text: '1/3 + 2/3', columns: [ 4, 8 ] },
-  { text: '1/4 + 3/4', columns: [ 3, 9 ] },
-  { text: '3/4 + 1/4', columns: [ 9, 3 ] }
+  { text: '⅓ + ⅔', columns: [ 4, 8 ] },
+  { text: '⅔ + ⅓', columns: [ 8, 4 ] },
+  { text: '½ + ½', columns: [ 6, 6 ] },
+  { text: '⅓ + ⅓ + ⅓', columns: [ 4, 4, 4 ] },
+  { text: '¼ + ¼ + ¼ + ¼', columns: [ 3, 3, 3, 3 ] },
+  { text: '½ + ¼ + ¼', columns: [ 6, 3, 3 ] },
+  { text: '¼ + ¼ + ½', columns: [ 3, 3, 6 ] }
 ];
 
 const defaultInsertItems: InsertItem[] = [
@@ -72,9 +75,21 @@ const register = (editor: Editor): void => {
     default: 'row'
   });
 
+  registerOption('onlc_blocks_breakpoint', {
+    processor: 'string',
+    default: 'sm'
+  });
+
+  // Laissé vide, le préfixe est déduit du point de rupture : `col-sm-`, `col-lg-`...
   registerOption('onlc_blocks_column_class_prefix', {
     processor: 'string',
-    default: 'col-md-'
+    default: ''
+  });
+
+  // Feuille de style de la grille chargée dans la zone d'édition (grille Bootstrap par exemple)
+  registerOption('onlc_blocks_grid_css', {
+    processor: 'string',
+    default: ''
   });
 
   registerOption('onlc_blocks_grid_columns', {
@@ -108,7 +123,21 @@ const isEnabled = option<boolean>('onlc_blocks_enabled');
 const getContainerSelector = option<string>('onlc_blocks_containers');
 const getExcludeSelector = option<string>('onlc_blocks_exclude');
 const getRowClass = option<string>('onlc_blocks_row_class');
-const getColumnClassPrefix = option<string>('onlc_blocks_column_class_prefix');
+const getBreakpoint = option<string>('onlc_blocks_breakpoint');
+const getGridCss = option<string>('onlc_blocks_grid_css');
+
+/**
+ * Préfixe des classes de colonne. Il vaut `col-<point de rupture>-`, sauf si le projet a
+ * explicitement défini `onlc_blocks_column_class_prefix`.
+ */
+const getColumnClassPrefix = (editor: Editor): string => {
+  const explicit = editor.options.get('onlc_blocks_column_class_prefix') as string;
+  if (Type.isString(explicit) && explicit !== '') {
+    return explicit;
+  }
+  const breakpoint = getBreakpoint(editor).trim();
+  return breakpoint === '' ? 'col-' : `col-${breakpoint}-`;
+};
 const getGridColumns = option<number>('onlc_blocks_grid_columns');
 const getLayouts = option<GridLayout[]>('onlc_blocks_layouts');
 const getInsertItems = option<InsertItem[]>('onlc_blocks_insert_items');
@@ -126,6 +155,8 @@ export {
   getExcludeSelector,
   getRowClass,
   getColumnClassPrefix,
+  getBreakpoint,
+  getGridCss,
   getGridColumns,
   getLayouts,
   getInsertItems,

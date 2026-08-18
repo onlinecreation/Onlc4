@@ -1,23 +1,38 @@
 'use strict';
 
 /**
- * Simulation du catalogue d'icônes Material Design (docs/api/onlc-icons-api.md).
+ * Simulation d'un catalogue d'icônes (docs/api/onlc-icons-api.md).
  *
- * Le plugin `onlcicons` embarque déjà une sélection : les icônes renvoyées ici s'y ajoutent,
- * ce qui permet de vérifier la fusion et la recherche multilingue.
+ * La démonstration remplace le jeu Material Design intégré au plugin par un catalogue
+ * FontAwesome : c'est le cas d'usage d'un projet qui a déjà sa propre bibliothèque d'icônes.
+ * Côté éditeur, cela demande trois options :
+ *
+ *   onlc_icons_builtin: false,
+ *   onlc_icons_output: 'class',
+ *   onlc_icons_class_prefix: 'fa-solid fa-'
  */
 
 const icons = [
-  { name: 'rocket_launch', category: 'Action', keywords: [ 'fusée', 'lancement', 'décollage' ] },
-  { name: 'handshake', category: 'Social', keywords: [ 'partenariat', 'accord', 'main' ] },
-  { name: 'eco', category: 'Nature', keywords: [ 'écologie', 'feuille', 'vert' ] },
-  { name: 'savings', category: 'Finance', keywords: [ 'tirelire', 'économie', 'budget' ] },
-  { name: 'support_agent', category: 'Social', keywords: [ 'assistance', 'conseiller', 'aide' ] },
-  { name: 'local_shipping', category: 'Transport', keywords: [ 'livraison', 'camion', 'expédition' ] },
-  { name: 'restaurant', category: 'Lieux', keywords: [ 'restaurant', 'repas', 'couverts' ] },
-  { name: 'school', category: 'Lieux', keywords: [ 'école', 'formation', 'étudiant' ] },
-  { name: 'volunteer_activism', category: 'Social', keywords: [ 'don', 'solidarité', 'entraide' ] },
-  { name: 'workspace_premium', category: 'Action', keywords: [ 'qualité', 'médaille', 'certification' ] }
+  { name: 'house', category: 'Navigation', keywords: [ 'accueil', 'maison', 'home' ] },
+  { name: 'magnifying-glass', category: 'Navigation', keywords: [ 'recherche', 'loupe', 'chercher' ] },
+  { name: 'bars', category: 'Navigation', keywords: [ 'menu', 'burger', 'navigation' ] },
+  { name: 'arrow-right', category: 'Navigation', keywords: [ 'flèche', 'suivant', 'droite' ] },
+  { name: 'envelope', category: 'Contact', keywords: [ 'courriel', 'email', 'message' ] },
+  { name: 'phone', category: 'Contact', keywords: [ 'téléphone', 'appel' ] },
+  { name: 'location-dot', category: 'Contact', keywords: [ 'adresse', 'carte', 'position' ] },
+  { name: 'clock', category: 'Contact', keywords: [ 'horaires', 'heure', 'temps' ] },
+  { name: 'rocket', category: 'Marketing', keywords: [ 'fusée', 'lancement', 'rapide' ] },
+  { name: 'handshake', category: 'Marketing', keywords: [ 'partenariat', 'accord', 'confiance' ] },
+  { name: 'star', category: 'Marketing', keywords: [ 'étoile', 'avis', 'favori' ] },
+  { name: 'heart', category: 'Marketing', keywords: [ 'coeur', 'aimer', 'favori' ] },
+  { name: 'truck-fast', category: 'Commerce', keywords: [ 'livraison', 'expédition', 'camion' ] },
+  { name: 'cart-shopping', category: 'Commerce', keywords: [ 'panier', 'achat', 'boutique' ] },
+  { name: 'credit-card', category: 'Commerce', keywords: [ 'paiement', 'carte', 'bancaire' ] },
+  { name: 'shield-halved', category: 'Commerce', keywords: [ 'sécurité', 'garantie', 'bouclier' ] },
+  { name: 'leaf', category: 'Nature', keywords: [ 'écologie', 'feuille', 'vert' ] },
+  { name: 'sun', category: 'Nature', keywords: [ 'soleil', 'météo', 'jour' ] },
+  { name: 'graduation-cap', category: 'Services', keywords: [ 'formation', 'école', 'diplôme' ] },
+  { name: 'headset', category: 'Services', keywords: [ 'assistance', 'support', 'conseiller' ] }
 ];
 
 const handle = (request, url) => {

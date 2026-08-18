@@ -1,3 +1,14 @@
+# ONLC 4 — fork de HugeRTE
+
+Ce dépôt est le fork [HugeRTE](https://github.com/hugerte/hugerte) utilisé par l'éditeur
+ONLC 4 d'Online Création. Il ajoute, sous forme de plugins, l'espace de travail en blocs,
+l'explorateur de médias, la gestion des images responsives, des liens, des séparateurs, des
+emojis et icônes, ainsi que les blocs prédéfinis et les éditeurs de code.
+
+**➡ [Documentation des plugins et des API ONLC](docs/README.md)**
+
+---
+
 # HugeRTE
 
 The 100% free fork of the world's #1 open source rich text editor.

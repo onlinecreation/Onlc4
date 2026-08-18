@@ -41,6 +41,7 @@
       "hugerte/plugins/onlcresponsiveimages/*": ["src/plugins/onlcresponsiveimages/main/ts/*"],
       "hugerte/plugins/onlcshared/*": ["src/plugins/onlcshared/main/ts/*"],
       "hugerte/plugins/onlcspacer/*": ["src/plugins/onlcspacer/main/ts/*"],
+      "hugerte/plugins/onlcwidgets/*": ["src/plugins/onlcwidgets/main/ts/*"],
       "hugerte/plugins/pagebreak/*": ["src/plugins/pagebreak/main/ts/*"],
       "hugerte/plugins/preview/*": ["src/plugins/preview/main/ts/*"],
       "hugerte/plugins/quickbars/*": ["src/plugins/quickbars/main/ts/*"],

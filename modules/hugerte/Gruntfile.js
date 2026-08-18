@@ -16,7 +16,7 @@ let plugins = [
   'link', 'lists', 'media', 'nonbreaking', 'pagebreak', 'preview', 'save', 'searchreplace',
   'table', 'template', 'visualblocks', 'visualchars', 'wordcount', 'quickbars',
   // Online Création (ONLC 4) plugins
-  'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcresponsiveimages', 'onlcspacer'
+  'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcresponsiveimages', 'onlcspacer', 'onlcwidgets'
 ];
 
 let themes = [
@@ -431,7 +431,8 @@ module.exports = function (grunt) {
       'onlc-plugins': {
         files: [
           { src: 'src/plugins/onlcmedia/main/css/onlcmedia.css', dest: 'js/hugerte/plugins/onlcmedia/css/onlcmedia.css' },
-          { src: 'src/plugins/onlcblocks/main/css/onlcblocks.css', dest: 'js/hugerte/plugins/onlcblocks/css/onlcblocks.css' }
+          { src: 'src/plugins/onlcblocks/main/css/onlcblocks.css', dest: 'js/hugerte/plugins/onlcblocks/css/onlcblocks.css' },
+            { src: 'src/plugins/onlcwidgets/main/css/onlcwidgets.css', dest: 'js/hugerte/plugins/onlcwidgets/css/onlcwidgets.css' }
         ]
       },
       'html-i18n': {

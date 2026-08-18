@@ -63,6 +63,7 @@
       "hugerte/plugins/onlcresponsiveimages/*": ["modules/hugerte/src/plugins/onlcresponsiveimages/main/ts/*"],
       "hugerte/plugins/onlcshared/*": ["modules/hugerte/src/plugins/onlcshared/main/ts/*"],
       "hugerte/plugins/onlcspacer/*": ["modules/hugerte/src/plugins/onlcspacer/main/ts/*"],
+      "hugerte/plugins/onlcwidgets/*": ["modules/hugerte/src/plugins/onlcwidgets/main/ts/*"],
       "hugerte/plugins/noneditable/*": ["modules/hugerte/src/plugins/noneditable/main/ts/*"],
       "hugerte/plugins/pagebreak/*": ["modules/hugerte/src/plugins/pagebreak/main/ts/*"],
       "hugerte/plugins/preview/*": ["modules/hugerte/src/plugins/preview/main/ts/*"],

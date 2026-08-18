@@ -1,0 +1,162 @@
+# `onlcwidgets` — script, source HTML et blocs prédéfinis
+
+Trois outils réunis dans un même plugin :
+
+1. **Script JavaScript** (`onlcscript`) : insérer ou modifier un script, avec coloration
+   syntaxique.
+2. **Code source HTML** (`onlcsource`) : éditer le HTML de la page, avec coloration syntaxique
+   et indentation.
+3. **Blocs prédéfinis** (`onlcwidget`) : une bibliothèque de blocs prêts à l'emploi qui restent
+   modifiables après insertion.
+
+## Activation
+
+```js
+hugerte.init({
+  selector: 'textarea',
+  plugins: 'onlcwidgets',
+  toolbar: 'onlcwidget onlcscript onlcsource'
+});
+```
+
+## 1. Script JavaScript
+
+La boîte de dialogue propose le code (éditeur coloré, tabulation, numéros de ligne), un fichier
+externe (`src`), le type MIME, l'emplacement souhaité dans la page et les indicateurs `async` et
+`defer`.
+
+Dans la zone d'édition, un script est représenté par une **pastille** non éditable : rien n'est
+exécuté pendant l'édition. Un double-clic ou la barre contextuelle rouvre la boîte de dialogue.
+
+À l'enregistrement, la pastille redevient une vraie balise :
+
+```html
+<script type="text/javascript" defer data-onlc-position="body-end">
+  console.log('bonjour');
+</script>
+```
+
+`data-onlc-position` n'est écrit que si l'emplacement choisi n'est pas « à l'emplacement du
+curseur » ; c'est à votre gabarit de page de déplacer le script vers le `<head>` ou la fin du
+`<body>`.
+
+## 2. Code source HTML
+
+Ouvre le HTML complet du contenu dans l'éditeur coloré. À l'enregistrement, le contenu est
+réinjecté dans une transaction d'annulation : `Ctrl+Z` revient à l'état précédent.
+
+L'indentation appliquée à l'affichage est volontairement prudente : seules les frontières entre
+éléments de type bloc sont mises en forme, le contenu de `pre`, `textarea`, `script` et `style`
+n'est jamais modifié.
+
+## 3. Blocs prédéfinis
+
+La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
+
+| Bloc | Catégorie | Champs principaux |
+| --- | --- | --- |
+| Bouton d'appel à l'action | Actions | texte, lien, cible, `rel`, style, taille, alignement, pleine largeur |
+| Hero | Mise en avant | titre, sous-titre, image de fond, hauteur, voile, couleur, bouton |
+| Bloc de texte | Contenu | titre, texte, alignement, largeur maximale |
+| Image | Médias | fichier, texte alternatif, légende, largeur, alignement, lien |
+| Vidéo | Médias | URL YouTube / Vimeo / Dailymotion ou autre, format, lecture auto, boucle, sourdine |
+| Iframe | Médias | adresse, titre, format ou hauteur fixe, défilement |
+| Widget HTML | Avancé | code HTML fourni par un service tiers |
+| Carte | Médias | adresse ou coordonnées, zoom, hauteur |
+| Calendrier | Médias | adresse du calendrier, affichage, hauteur |
+| Séparateur | Contenu | hauteur, espace ou filet, couleur, largeur |
+| Citation | Contenu | citation, auteur, source |
+
+Lorsque les autres plugins ONLC sont chargés, la bibliothèque propose en plus des raccourcis
+vers l'image de la bibliothèque média (`onlcmedia`), les emojis et icônes (`onlcicons`) et le
+séparateur réglable (`onlcspacer`).
+
+### Modifier un bloc
+
+Un bloc inséré conserve sa configuration dans `data-onlc-widget-config` : le sélectionner puis
+utiliser la barre contextuelle (ou double-cliquer) rouvre son formulaire. Les zones marquées
+`data-onlc-slot` (titres, textes, citations) restent éditables directement dans la page : leur
+contenu est conservé lors d'une modification tant que le champ correspondant n'est pas changé
+dans le formulaire.
+
+```html
+<div class="onlc-widget onlc-widget--cta" data-onlc-widget="cta"
+     data-onlc-widget-config="%7B%22label%22%3A%22En%20savoir%20plus%22%7D">
+  <div class="onlc-widget__inner" style="text-align: center">
+    <a class="onlc-btn btn btn-primary" href="/contact">En savoir plus</a>
+  </div>
+</div>
+```
+
+Les parties décoratives (iframes, voiles, aperçus) portent la classe `onlc-widget__static` :
+elles sont rendues non éditables dans l'éditeur uniquement.
+
+## Options
+
+| Option | Défaut | Description |
+| --- | --- | --- |
+| `onlc_widgets_custom` | `[]` | Blocs supplémentaires (voir ci-dessous) |
+| `onlc_widgets_exclude` | `[]` | Identifiants de blocs à masquer |
+| `onlc_widgets_class_prefix` | `'onlc-widget'` | Classe et préfixe des blocs |
+| `onlc_widgets_video_ratio` | `'56.25%'` | Format vidéo par défaut |
+| `onlc_widgets_map_provider` | `'osm'` | `osm` ou `google` |
+| `onlc_widgets_google_maps_key` | `''` | Clé de l'API Google Maps Embed |
+| `onlc_widgets_inject_styles` | `true` | Charge `onlcwidgets.css` dans la zone d'édition |
+| `onlc_script_default_type` | `'text/javascript'` | Type MIME proposé |
+| `onlc_script_positions` | 3 emplacements | Emplacements proposés pour un script |
+| `onlc_script_allow_src` | `true` | Autorise les scripts externes (`src`) |
+| `onlc_code_tab_size` | `2` | Taille d'une tabulation dans les éditeurs de code |
+| `onlc_code_line_numbers` | `true` | Affiche les numéros de ligne |
+| `onlc_source_pretty_print` | `true` | Indente le HTML à l'ouverture du code source |
+
+### Ajouter un bloc maison
+
+```js
+onlc_widgets_custom: [
+  {
+    id: 'horaires',
+    label: 'Horaires',
+    description: 'Tableau des horaires d’ouverture',
+    category: 'Contenu',
+    icon: 'insert-time',
+    fields: [
+      { name: 'titre', label: 'Titre', type: 'text' },
+      { name: 'semaine', label: 'Semaine', type: 'text', half: true },
+      { name: 'weekend', label: 'Week-end', type: 'text', half: true },
+      { name: 'note', label: 'Note', type: 'textarea', tab: 'Détails' }
+    ],
+    defaults: { titre: 'Nos horaires', semaine: '9h – 18h', weekend: 'Fermé', note: '' },
+    render: (c) =>
+      `<h3>${c.titre}</h3><ul><li>Semaine : ${c.semaine}</li><li>Week-end : ${c.weekend}</li></ul>`
+  }
+]
+```
+
+Types de champ disponibles : `text`, `textarea`, `number`, `url`, `image`, `select`
+(avec `items`), `checkbox`, `color` et `code` (avec `language` : `html`, `javascript` ou `css`).
+`half: true` place deux champs côte à côte, `tab: 'Nom'` les répartit en onglets.
+
+Un identifiant identique à un bloc intégré le remplace ; `render` reçoit la configuration
+complétée par `defaults` et doit renvoyer du HTML **déjà échappé**.
+
+## Commandes
+
+| Commande | Effet |
+| --- | --- |
+| `OnlcScript` | Ouvre l'éditeur de script (sur celui sélectionné le cas échéant) |
+| `OnlcRemoveScript` | Supprime le script sélectionné |
+| `OnlcSourceCode` | Ouvre le code source HTML |
+| `OnlcWidgetLibrary` | Ouvre la bibliothèque de blocs |
+| `OnlcInsertWidget` | Insère un bloc (`value` : identifiant, ex. `'cta'`) |
+| `OnlcEditWidget` | Modifie le bloc sélectionné |
+| `OnlcRemoveWidget` | Supprime le bloc sélectionné |
+
+## API du plugin
+
+```js
+const widgets = editor.plugins.onlcwidgets;
+widgets.listWidgets();                        // définitions disponibles
+widgets.insertWidget('cta', { label: 'Devis', url: '/devis' });
+widgets.getSource();                          // HTML formaté
+widgets.setSource('<p>Bonjour</p>');
+```

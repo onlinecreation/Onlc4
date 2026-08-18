@@ -1,0 +1,224 @@
+/**
+ * Content styles of the onlcwidgets plugin. They are loaded in the editable area so that the
+ * predefined blocks and the script chips look like what they will be once published. Projects
+ * usually ship their own front-end css: everything here is deliberately neutral.
+ */
+
+.onlc-widget {
+  position: relative;
+  margin: 0 0 16px;
+}
+
+.onlc-widget__inner {
+  padding: 4px 0;
+}
+
+.onlc-widget__static {
+  user-select: none;
+}
+
+.onlc-widget__empty {
+  padding: 24px;
+  color: #5a6570;
+  text-align: center;
+  background: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03) 8px, transparent 8px, transparent 16px);
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.onlc-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #006ce7;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.onlc-btn.btn-secondary {
+  background-color: #5a6570;
+}
+
+.onlc-btn.btn-outline-primary {
+  color: #006ce7;
+  background-color: transparent;
+  border-color: #006ce7;
+}
+
+.onlc-btn.btn-link {
+  padding: 0;
+  color: #006ce7;
+  text-decoration: underline;
+  background: none;
+}
+
+.onlc-btn.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.875em;
+}
+
+.onlc-btn.btn-lg {
+  padding: 14px 30px;
+  font-size: 1.125em;
+}
+
+.onlc-btn.w-100 {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Hero ------------------------------------------------------------------- */
+
+.onlc-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 24px;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+
+.onlc-hero__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.onlc-hero__content {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.onlc-hero__title {
+  margin: 0 0 12px;
+  font-size: 2em;
+}
+
+.onlc-hero__subtitle {
+  margin: 0 0 20px;
+  font-size: 1.125em;
+}
+
+/* Embeds ----------------------------------------------------------------- */
+
+.onlc-embed {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  background: #101418;
+  border-radius: 4px;
+}
+
+.onlc-embed--fixed {
+  height: auto;
+  padding-bottom: 0;
+}
+
+.onlc-embed__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.onlc-embed--fixed .onlc-embed__frame {
+  position: static;
+}
+
+/* Html widget ------------------------------------------------------------ */
+
+.onlc-widget__html {
+  padding: 12px;
+  background: #f4f6f8;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.onlc-widget__html-name {
+  margin-bottom: 8px;
+  font-size: 0.8125em;
+  font-weight: 700;
+  color: #5a6570;
+  text-transform: uppercase;
+}
+
+.onlc-widget__html-code {
+  max-height: 160px;
+  margin: 0;
+  overflow: auto;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.8125em;
+  white-space: pre-wrap;
+}
+
+/* Quote ------------------------------------------------------------------ */
+
+.onlc-quote {
+  margin: 0;
+  padding: 16px 24px;
+  border-left: 4px solid #006ce7;
+}
+
+.onlc-quote blockquote {
+  margin: 0;
+  font-size: 1.125em;
+  font-style: italic;
+}
+
+.onlc-quote__author {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.onlc-quote__source {
+  font-size: 0.875em;
+}
+
+/* Script chip ------------------------------------------------------------ */
+
+.onlc-script {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 2px 10px 2px 2px;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.8125em;
+  color: #22303c;
+  vertical-align: middle;
+  background: #fff3cd;
+  border: 1px solid #e0b300;
+  border-radius: 999px;
+}
+
+.onlc-script__badge {
+  padding: 2px 8px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #e0b300;
+  border-radius: 999px;
+}
+
+.onlc-script__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.onlc-script[data-mce-selected] {
+  outline: 2px solid #006ce7;
+}

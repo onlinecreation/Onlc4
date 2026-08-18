@@ -6,7 +6,7 @@ l'explorateur de médias, la gestion des images responsives, des liens, des sép
 emojis et icônes, ainsi que les blocs prédéfinis et les éditeurs de code.
 
 **➡ [Documentation des plugins et des API ONLC](docs/README.md)**  
-**➡ [Exemple complet avec API simulées](example/README.md)** — `node example/server.js`
+**➡ [Exemple complet avec API simulées](example/README.md)** — `yarn example-build` puis `yarn example`
 
 ---
 

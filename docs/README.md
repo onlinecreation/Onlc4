@@ -34,8 +34,8 @@ Le dossier [`example/`](../example/README.md) contient une page de démonstratio
 des API simulées (médias, liens, icônes et éditeur Pixel) :
 
 ```bash
-yarn oxide-icons-build && yarn oxide-build && yarn hugerte-rollup
-node example/server.js   # http://localhost:3000
+yarn example-build   # icônes, habillages, tsc puis rollup (~3 à 5 min)
+yarn example         # http://localhost:3000
 ```
 
 ## Démarrage rapide
@@ -67,10 +67,17 @@ hugerte.init({
 
 ```bash
 yarn install
-yarn dev          # compile hugerte + les plugins et démarre le serveur de démos
-yarn hugerte-rollup   # produit js/hugerte/plugins/<nom>/plugin.js
-yarn eslint       # analyse statique (aucun avertissement toléré)
+yarn dev              # serveur de démos webpack (compilation à la volée)
+yarn eslint           # analyse statique (aucun avertissement toléré)
+
+# Version distribuable (fichiers js/hugerte/**) :
+yarn oxide-icons-build && yarn oxide-build   # icônes et habillages
+yarn tsc                                     # TypeScript → modules/hugerte/lib
+yarn hugerte-rollup                          # bundles → modules/hugerte/js/hugerte
 ```
+
+`yarn tsc` doit précéder `yarn hugerte-rollup` : le rollup assemble les fichiers produits par
+TypeScript. Le raccourci `yarn example-build` enchaîne ces trois commandes.
 
 Les pages de démonstration de chaque plugin se trouvent dans
 `modules/hugerte/src/plugins/<nom>/demo/html/demo.html`.

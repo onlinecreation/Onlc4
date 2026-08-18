@@ -192,7 +192,7 @@ const server = http.createServer((request, response) => {
       if (url.pathname.startsWith('/hugerte/')) {
         if (!fs.existsSync(editorDir)) {
           sendJson(response, 503, {
-            error: { message: 'L’éditeur n’est pas compilé. Lancez `yarn oxide-icons-build && yarn oxide-build && yarn hugerte-rollup`.' }
+            error: { message: 'L’éditeur n’est pas compilé. Lancez `yarn example-build` à la racine du dépôt.' }
           });
           return;
         }
@@ -225,7 +225,7 @@ server.listen(port, () => {
   console.log('');
   if (missing) {
     console.log('  ⚠ L’éditeur n’est pas encore compilé.');
-    console.log('    Lancez : yarn oxide-icons-build && yarn oxide-build && yarn hugerte-rollup');
+    console.log('    Lancez, à la racine du dépôt : yarn example-build');
     console.log('');
   }
 });

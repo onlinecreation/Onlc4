@@ -10,14 +10,29 @@ base de données ni dépendance npm supplémentaire.
 # 1. Dépendances du dépôt (une seule fois)
 yarn install
 
-# 2. Compilation de l'éditeur (une seule fois, ~3 min)
-yarn oxide-icons-build && yarn oxide-build && yarn hugerte-rollup
+# 2. Compilation de l'éditeur (une seule fois, ~3 à 5 min)
+yarn example-build
 
 # 3. Serveur de démonstration
-node example/server.js
+yarn example
 ```
 
 Puis ouvrez <http://localhost:3000/>.
+
+`yarn example-build` enchaîne les quatre étapes nécessaires :
+
+| Étape | Commande | Rôle |
+| --- | --- | --- |
+| 1 | `yarn oxide-icons-build` | Génère le jeu d'icônes de l'interface |
+| 2 | `yarn oxide-build` | Génère les habillages (skins) |
+| 3 | `yarn tsc` | **Compile le TypeScript vers `modules/hugerte/lib`** |
+| 4 | `yarn hugerte-rollup` | Assemble `modules/hugerte/js/hugerte/**` |
+
+> ⚠ L'étape 3 est indispensable : `yarn hugerte-rollup` lit les fichiers JavaScript produits
+> par `tsc`. Sans elle, grunt s'arrête sur `rollup:core` avec
+> `Warning: No entry point specified`.
+
+Pour relancer uniquement le serveur ensuite : `yarn example` (ou `node example/server.js`).
 
 | Option | Effet |
 | --- | --- |

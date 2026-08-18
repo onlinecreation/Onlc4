@@ -32,7 +32,9 @@
     "headless-test-firefox": "grunt headless-auto --bedrock-browser=firefox-headless",
     "headless-test-manual": "grunt headless-manual",
     "bedrock": "bedrock --customRoutes modules/hugerte/src/core/test/json/routes.json",
-    "test-one": "yarn tsc && yarn bedrock-auto -b chrome-headless -f"
+    "test-one": "yarn tsc && yarn bedrock-auto -b chrome-headless -f",
+    "example-build": "npm-run-all -p oxide-icons-build oxide-build -s tsc hugerte-rollup",
+    "example": "node example/server.js"
   },
   "devDependencies": {
     "@ephox/bedrock-client": "^15.0.0",

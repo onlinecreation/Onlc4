@@ -70,9 +70,12 @@ const register = (editor: Editor): void => {
   });
 
   editor.ui.registry.addContextMenu('onlclink', {
-    update: (element) => editor.dom.isEditable(element)
-      ? (Type.isNonNullable(editor.dom.getParent(element, 'a[href]')) ? 'onlclink onlcunlink' : 'onlclink')
-      : ''
+    update: (element) => {
+      if (!editor.dom.isEditable(element)) {
+        return '';
+      }
+      return Type.isNonNullable(editor.dom.getParent(element, 'a[href]')) ? 'onlclink onlcunlink' : 'onlclink';
+    }
   });
 
   editor.ui.registry.addContextToolbar('onlclink', {

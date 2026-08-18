@@ -1,0 +1,146 @@
+/**
+ * Editing ui of the onlcblocks plugin. These styles are only used inside the editor: none of the
+ * elements they target is ever serialized (they all carry `data-mce-bogus="all"`).
+ */
+
+body.onlc-blocks-enabled {
+  position: relative;
+  padding-bottom: 48px;
+}
+
+.onlc-blocks-ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.onlc-blocks-ui * {
+  box-sizing: border-box;
+}
+
+.onlc-blocks-hidden {
+  display: none !important;
+}
+
+.onlc-blocks-outline {
+  position: absolute;
+  pointer-events: none;
+  border: 1px dashed rgba(0, 108, 231, 0.6);
+  border-radius: 3px;
+}
+
+.onlc-blocks-toolbar {
+  position: absolute;
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.onlc-blocks-btn {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  color: #222f3e;
+  font-size: 14px;
+  background: transparent;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.onlc-blocks-btn:hover,
+.onlc-blocks-btn:focus {
+  background: #f0f4f8;
+  outline: none;
+}
+
+.onlc-blocks-btn[data-onlc-action="drag"] {
+  cursor: grab;
+}
+
+.onlc-blocks-btn[data-onlc-action="remove"]:hover {
+  color: #c00;
+}
+
+.onlc-blocks-add {
+  position: absolute;
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  background: #006ce7;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s ease-in-out;
+  z-index: 2;
+}
+
+.onlc-blocks-add:hover,
+.onlc-blocks-add:focus {
+  opacity: 1;
+  outline: none;
+}
+
+.onlc-blocks-edge {
+  position: absolute;
+  padding: 3px 10px;
+  color: #006ce7;
+  font-size: 12px;
+  background: #eef5ff;
+  border: 1px dashed rgba(0, 108, 231, 0.5);
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.onlc-blocks-edge:hover,
+.onlc-blocks-edge:focus {
+  background: #dbe9ff;
+  outline: none;
+}
+
+.onlc-blocks-indicator {
+  position: absolute;
+  height: 3px;
+  background: #006ce7;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+  z-index: 3;
+}
+
+body.onlc-blocks-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.onlc-blocks-dragged {
+  opacity: 0.5;
+}
+
+/* Empty bootstrap columns stay visible while the page is being built */
+body.onlc-blocks-enabled .row > [class*="col-"]:empty,
+body.onlc-blocks-enabled .row > .col:empty {
+  min-height: 40px;
+  background: repeating-linear-gradient(135deg, rgba(0, 108, 231, 0.05), rgba(0, 108, 231, 0.05) 6px, transparent 6px, transparent 12px);
+  outline: 1px dashed rgba(0, 108, 231, 0.35);
+}

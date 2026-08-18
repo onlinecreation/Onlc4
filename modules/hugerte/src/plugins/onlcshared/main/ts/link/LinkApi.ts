@@ -3,8 +3,8 @@ import { Arr, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 
 import * as Http from '../Http';
-import * as LinkOptions from './LinkOptions';
 import { LinkListEntry, LinkListItem, LinkListOption } from './LinkTypes';
+import * as LinkOptions from './Options';
 
 interface LinkListResponse {
   readonly items?: LinkListEntry[];
@@ -24,7 +24,7 @@ const toOptions = (entries: LinkListEntry[]): LinkListOption[] => {
   const flatten = (entry: LinkListEntry, prefix: string): LinkListItem[] => {
     const label = prefix === '' ? entry.title : `${prefix} › ${entry.title}`;
     const children = entryChildren(entry);
-    const self: LinkListItem[] = entryUrl(entry) === '' ? [] : [ { text: label, value: entryUrl(entry) } ];
+    const self: LinkListItem[] = entryUrl(entry) === '' ? [] : [{ text: label, value: entryUrl(entry) }];
     return Type.isArray(children)
       ? self.concat(Arr.bind(children, (child) => flatten(child, label)))
       : self;
@@ -34,7 +34,7 @@ const toOptions = (entries: LinkListEntry[]): LinkListOption[] => {
     const children = entryChildren(entry);
     if (Type.isArray(children) && children.length > 0) {
       const items = Arr.bind(children, (child) => flatten(child, ''));
-      const own: LinkListItem[] = entryUrl(entry) === '' ? [] : [ { text: entry.title, value: entryUrl(entry) } ];
+      const own: LinkListItem[] = entryUrl(entry) === '' ? [] : [{ text: entry.title, value: entryUrl(entry) }];
       return [ { text: entry.title, items: own.concat(items) } as LinkListOption ];
     } else {
       return flatten(entry, '');

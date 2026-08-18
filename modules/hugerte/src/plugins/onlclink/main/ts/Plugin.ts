@@ -2,8 +2,8 @@ import PluginManager from 'hugerte/core/api/PluginManager';
 import * as Anchors from 'hugerte/plugins/onlcshared/link/Anchors';
 import * as LinkActions from 'hugerte/plugins/onlcshared/link/LinkActions';
 import * as LinkApi from 'hugerte/plugins/onlcshared/link/LinkApi';
-import * as LinkOptions from 'hugerte/plugins/onlcshared/link/LinkOptions';
 import { LinkAttributes, LinkListItem, LinkListOption } from 'hugerte/plugins/onlcshared/link/LinkTypes';
+import * as LinkOptions from 'hugerte/plugins/onlcshared/link/Options';
 
 import * as Commands from './api/Commands';
 import * as Buttons from './ui/Buttons';

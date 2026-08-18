@@ -2,8 +2,8 @@ import PluginManager from 'hugerte/core/api/PluginManager';
 
 import * as Options from './api/Options';
 import { EmojiEntry, initDatabase as initEmojis } from './core/EmojiDatabase';
-import { IconEntry, initDatabase as initIcons } from './core/MaterialIcons';
 import * as Insert from './core/Insert';
+import { IconEntry, initDatabase as initIcons } from './core/MaterialIcons';
 import * as Autocompletion from './ui/Autocompletion';
 import * as Buttons from './ui/Buttons';
 import * as Dialog from './ui/Dialog';

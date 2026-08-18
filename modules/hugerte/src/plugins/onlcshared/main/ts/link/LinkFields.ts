@@ -5,8 +5,8 @@ import { Dialog } from 'hugerte/core/api/ui/Ui';
 
 import * as Anchors from './Anchors';
 import * as LinkApi from './LinkApi';
-import * as LinkOptions from './LinkOptions';
 import { LinkAttributes, LinkContext, LinkListGroup, LinkListItem, LinkListOption } from './LinkTypes';
+import * as LinkOptions from './Options';
 
 /**
  * The link section is used as is by the link plugin, by the media plugin (image links) and by
@@ -152,9 +152,10 @@ const onChange = (context: LinkContext) => (api: Dialog.DialogInstanceApi<any>, 
   if (name === fields.predefined || name === fields.anchor) {
     const value = readString(data, name);
     if (value !== '') {
-      const other = name === fields.predefined
-        ? (hasAnchorField(context) ? { [fields.anchor]: '' } : {})
-        : (hasPredefinedField(context) ? { [fields.predefined]: '' } : {});
+      const isPredefined = name === fields.predefined;
+      const clearedName = isPredefined ? fields.anchor : fields.predefined;
+      const hasCleared = isPredefined ? hasAnchorField(context) : hasPredefinedField(context);
+      const other = hasCleared ? { [clearedName]: '' } : {};
       api.setData({ [fields.url]: { value, meta: {}}, ...other });
     }
   } else if (name === fields.url) {

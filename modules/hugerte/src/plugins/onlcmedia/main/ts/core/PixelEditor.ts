@@ -1,9 +1,9 @@
 import { Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as Http from 'hugerte/plugins/onlcshared/Http';
 
 import * as Options from '../api/Options';
-import * as Http from 'hugerte/plugins/onlcshared/Http';
 
 /**
  * Integration with the Pixel image editor (https://pixel.onlinecreation.me).

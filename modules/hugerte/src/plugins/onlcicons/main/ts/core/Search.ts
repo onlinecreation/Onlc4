@@ -1,4 +1,4 @@
-import { Arr, Optional, Strings } from '@ephox/katamari';
+import { Arr, Fun, Optional, Strings } from '@ephox/katamari';
 
 /**
  * Small scoring search used by both the emoji and the icon lists: an exact match comes first,
@@ -56,7 +56,7 @@ const search = <T extends Searchable>(items: T[], rawPattern: string, limit: Opt
     ? matched
     : Arr.sort(matched, (a, b) => a.score - b.score);
 
-  const limited = limit.fold(() => sorted, (max) => sorted.slice(0, max));
+  const limited = limit.fold(Fun.constant(sorted), (max) => sorted.slice(0, max));
   return Arr.map(limited, (entry) => entry.item);
 };
 

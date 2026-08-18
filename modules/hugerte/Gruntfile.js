@@ -138,7 +138,9 @@ module.exports = function (grunt) {
                 prefixes: gruntUtils.prefixes({
                   'hugerte/core': 'lib/globals/hugerte/core'
                 }, [
-                  [`hugerte/plugins/${name}`, `lib/plugins/${name}/main/ts`]
+                  [`hugerte/plugins/${name}`, `lib/plugins/${name}/main/ts`],
+                  // Shared library of the ONLC plugins, bundled into each plugin that uses it
+                  [`hugerte/plugins/onlcshared`, `lib/plugins/onlcshared/main/ts`]
                 ]),
                 mappers: [
                   swag.mappers.replaceDir('./lib/core/main/ts/api', './lib/globals/hugerte/core/api'),

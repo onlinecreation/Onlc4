@@ -50,7 +50,7 @@ const open = (editor: Editor, api: MediaApi.MediaApi, spec: ExplorerSpec): void 
   const toFolderItems = (): Dialog.CollectionItem[] => {
     const parent = listing.parent;
     const up: Dialog.CollectionItem[] = Type.isString(parent) && parent !== ''
-      ? [ { value: parent, text: 'Dossier parent', icon: 'action-prev' } ]
+      ? [{ value: parent, text: 'Dossier parent', icon: 'action-prev' }]
       : [];
     return up.concat(Arr.map(listing.folders, (folder) => ({
       value: folder.path,

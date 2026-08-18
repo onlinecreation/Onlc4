@@ -1,4 +1,4 @@
-import { Arr, Merger, Obj, Optional, Singleton } from '@ephox/katamari';
+import { Fun, Merger, Obj, Optional, Singleton } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import Resource from 'hugerte/core/api/Resource';
@@ -64,7 +64,7 @@ const initDatabase = (editor: Editor): EmojiDatabase => {
       const entry: EmojiEntry = {
         title,
         char: raw.char,
-        keywords: Arr.map(raw.keywords ?? [], (keyword) => keyword).concat(title.split('_')),
+        keywords: (raw.keywords ?? []).concat(title.split('_')),
         category: translateCategory(raw.category)
       };
       grouped[entry.category] = (grouped[entry.category] ?? []).concat([ entry ]);
@@ -103,7 +103,7 @@ const initDatabase = (editor: Editor): EmojiDatabase => {
     listCategory,
     listCategories,
     hasLoaded: () => all.isSet(),
-    waitForLoad: () => loaded
+    waitForLoad: Fun.constant(loaded)
   };
 };
 

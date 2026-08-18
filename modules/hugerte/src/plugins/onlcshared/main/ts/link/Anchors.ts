@@ -24,7 +24,7 @@ const getAnchors = (editor: Editor): LinkListItem[] => {
   const elements = editor.dom.select('[id], a[name]', body);
   const items = Arr.bind(elements, (element) => {
     const id = editor.dom.getAttrib(element, 'id') || editor.dom.getAttrib(element, 'name');
-    return id === '' || isInternalId(id) ? [] : [ { text: label(element, id), value: `#${id}` } ];
+    return id === '' || isInternalId(id) ? [] : [{ text: label(element, id), value: `#${id}` }];
   });
 
   // Keep the first occurrence of every anchor

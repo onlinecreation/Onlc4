@@ -23,7 +23,7 @@ const openDialog = (editor: Editor, context: LinkContext): void => {
   const body: Dialog.PanelSpec = {
     type: 'panel',
     items: withText
-      ? ([ { type: 'input', name: textField, label: 'Texte à afficher' } ] as Dialog.BodyComponentSpec[]).concat(items)
+      ? ([{ type: 'input', name: textField, label: 'Texte à afficher' }] as Dialog.BodyComponentSpec[]).concat(items)
       : items
   };
 

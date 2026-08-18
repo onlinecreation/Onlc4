@@ -1,4 +1,4 @@
-import { Obj, Type } from '@ephox/katamari';
+import { Fun, Obj, Type } from '@ephox/katamari';
 
 /**
  * Minimal json/multipart http client shared by the ONLC plugins.
@@ -49,9 +49,9 @@ const isFormData = (body: unknown): body is FormData =>
 const readPayload = async (response: Response): Promise<unknown> => {
   const contentType = response.headers.get('content-type') ?? '';
   if (contentType.indexOf('json') !== -1) {
-    return response.json().catch(() => null);
+    return response.json().catch(Fun.constant(null));
   } else {
-    return response.text().catch(() => null);
+    return response.text().catch(Fun.constant(null));
   }
 };
 
@@ -84,12 +84,14 @@ const request = async <T>(spec: HttpRequest): Promise<T> => {
     headers['Content-Type'] = 'application/json';
   }
 
+  const jsonBody = hasJsonBody ? JSON.stringify(spec.body) : undefined;
+
   const response = await fetch(appendParams(spec.url, spec.params), {
     method: spec.method ?? 'GET',
     headers,
     credentials: spec.credentials ?? 'same-origin',
     signal: spec.signal,
-    body: isFormData(spec.body) ? spec.body : (hasJsonBody ? JSON.stringify(spec.body) : undefined)
+    body: isFormData(spec.body) ? spec.body : jsonBody
   });
 
   const payload = await readPayload(response);

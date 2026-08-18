@@ -1,5 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
-import * as LinkOptions from 'hugerte/plugins/onlcshared/link/LinkOptions';
+import * as LinkOptions from 'hugerte/plugins/onlcshared/link/Options';
 
 import * as Commands from './api/Commands';
 import * as Options from './api/Options';

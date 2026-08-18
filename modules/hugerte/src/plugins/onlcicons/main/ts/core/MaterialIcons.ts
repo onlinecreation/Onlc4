@@ -1,4 +1,4 @@
-import { Arr, Optional, Singleton, Type } from '@ephox/katamari';
+import { Arr, Fun, Optional, Singleton, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import * as Http from 'hugerte/plugins/onlcshared/Http';
@@ -72,7 +72,8 @@ const loadRemote = (editor: Editor): Promise<IconEntry[]> => {
 
   return Http.request<{ icons?: Array<RemoteIcon | string> } | Array<RemoteIcon | string>>({ url })
     .then((response) => {
-      const list = Type.isArray(response) ? response : (Type.isArray(response.icons) ? response.icons : []);
+      const raws = Type.isArray(response) ? response : response.icons;
+      const list = Type.isArray(raws) ? raws : [];
       return Arr.bind(list, (raw) => fromRemote(raw).toArray());
     })
     .catch((err) => {
@@ -125,7 +126,7 @@ const initDatabase = (editor: Editor): IconDatabase => {
     listCategory,
     listCategories,
     hasLoaded: () => state.isSet(),
-    waitForLoad: () => loaded
+    waitForLoad: Fun.constant(loaded)
   };
 };
 

@@ -1,4 +1,4 @@
-import { Arr, Obj, Optional, Type } from '@ephox/katamari';
+import { Arr, Fun, Obj, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 
@@ -119,7 +119,7 @@ const toHtml = (editor: Editor, data: ImageData): string => {
 
 const readOverlay = (editor: Editor, figure: Optional<HTMLElement>): OverlayData =>
   figure.bind((elm) => Optional.from(editor.dom.select(`.${overlayClass}`, elm)[0]))
-    .fold(() => emptyOverlay, (caption) => {
+    .fold(Fun.constant(emptyOverlay), (caption) => {
       const position = Arr.foldl(caption.className.split(/\s+/), (acc, cls) =>
         cls.indexOf(`${overlayClass}--`) === 0 ? cls.substring(`${overlayClass}--`.length) : acc, 'middle-center');
       return {
@@ -135,14 +135,14 @@ const readOverlay = (editor: Editor, figure: Optional<HTMLElement>): OverlayData
     });
 
 const presetOf = (editor: Editor, figure: Optional<HTMLElement>): string =>
-  figure.fold(() => '', (elm) => {
+  figure.fold(Fun.constant(''), (elm) => {
     const known = Arr.map(Options.getClassList(editor), (preset) => preset.value);
     return Arr.foldl(elm.className.split(/\s+/), (acc, cls) =>
       cls !== '' && cls !== figureClass && (Arr.contains(known, cls) || acc === '') ? cls : acc, '');
   });
 
 const customCssOf = (figure: Optional<HTMLElement>): string =>
-  figure.fold(() => '', (elm) => elm.getAttribute('style') ?? '');
+  figure.fold(Fun.constant(''), (elm) => elm.getAttribute('style') ?? '');
 
 /**
  * Reads back the data of an existing image, whether it is a bare `<img>` or a full figure.

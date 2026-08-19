@@ -145,8 +145,15 @@ passent par l'encodage css décrit plus haut.
 
 ## Vérifications automatiques
 
-Chaque livraison est contrôlée dans un navigateur réel (Chromium piloté par Playwright) sur la
-démonstration :
+Deux filets, décrits dans [tests.md](tests.md) :
+
+* une **suite automatisée** — 98 cas dans un navigateur, 45 en Node — dont plusieurs portent
+  précisément sur les garde-fous décrits ici : le bac à sable de l'aperçu (`allow-scripts` sans
+  `allow-same-origin`), le garde-fou du texte brut d'un code court, l'échappement des adresses
+  posées en css, les types acceptés à l'envoi, et l'impossibilité pour un chemin d'api de sortir
+  de la racine autorisée ;
+* un **contrôle de bout en bout** dans un navigateur réel (Chromium piloté par Playwright) sur la
+  démonstration :
 
 * aucune boîte de dialogue ne s'ouvre alors que le contenu comprend `alert("hello")` ;
 * aucune `<iframe>` n'est présente dans la zone d'édition ;

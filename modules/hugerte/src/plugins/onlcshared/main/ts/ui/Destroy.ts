@@ -178,8 +178,17 @@ const createBody = (editor: Editor, spec: DestroySpec, onDone: () => void) =>
       e.preventDefault();
       // Le pointeur est capturé : sortir du bouton pendant le maintien ne fait pas perdre
       // l'événement de relâchement, qui doit toujours pouvoir annuler.
+      //
+      // La capture échoue quand le pointeur n'est plus actif — un relâchement arrivé entre
+      // l'événement et son traitement, par exemple. C'est sans conséquence : on garde alors le
+      // comportement par défaut. Ce qui ne serait pas acceptable, c'est que l'exception
+      // remonte et laisse le bouton inerte.
       if (Type.isFunction(hold.setPointerCapture)) {
-        hold.setPointerCapture(e.pointerId);
+        try {
+          hold.setPointerCapture(e.pointerId);
+        } catch (_err) {
+          // Le maintien fonctionne sans capture, simplement moins bien.
+        }
       }
       hold.focus();
       start();

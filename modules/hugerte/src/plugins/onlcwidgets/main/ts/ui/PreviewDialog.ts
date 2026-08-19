@@ -96,7 +96,6 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
   };
 
   const message = (text: string) => {
-    frame = null;
     const paragraph = doc.createElement('p');
     paragraph.className = 'onlc-pagepreview__message';
     paragraph.textContent = t(text);
@@ -122,6 +121,11 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     created.setAttribute('referrerpolicy', 'no-referrer');
     created.setAttribute('srcdoc', html);
 
+    // Le cadre est adopté tout de suite, avant même d'avoir peint : une largeur choisie pendant
+    // le chargement doit s'appliquer, pas se perdre.
+    frame = created;
+    apply();
+
     // Le gabarit charge ses feuilles de style avant de peindre quoi que ce soit : sur une
     // connexion lente, le cadre reste blanc plusieurs secondes. Le message d'attente est donc
     // gardé jusqu'à l'événement `load`, et le cadre monté par-dessous, invisible.
@@ -132,13 +136,15 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
       created.style.position = '';
       stage.innerHTML = '';
       stage.appendChild(created);
-      frame = created;
       apply();
     }, { once: true });
 
     stage.appendChild(created);
   };
 
+  // L'état des trois largeurs est posé d'emblée : il ne dépend pas du chargement de la page, et
+  // une bande de boutons dont aucun n'est marqué ne dit rien de ce qui est affiché.
+  apply();
   message('Construction de l’aperçu…');
 
   PagePreview.render(editor).then(show, (err: unknown) => {

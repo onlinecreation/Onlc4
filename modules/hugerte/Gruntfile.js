@@ -905,6 +905,15 @@ module.exports = function (grunt) {
         ],
         customRoutes: 'src/core/test/json/routes.json'
       },
+      onlc: {
+        config: 'tsconfig.json',
+        projectdir: '.',
+        stopOnFailure: true,
+        testfiles: [
+          'src/plugins/onlc*/test/ts/**/*Test.ts'
+        ],
+        customRoutes: 'src/core/test/json/routes.json'
+      },
       silver: {
         config: 'tsconfig.json',
         testfiles: ['src/themes/silver/test/ts/phantom/**/*Test.ts', 'src/themes/silver/test/ts/browser/**/*Test.ts'],
@@ -936,6 +945,18 @@ module.exports = function (grunt) {
         singleTimeout: 300000,
         customRoutes: 'src/core/test/json/routes.json',
         name: 'silver-tests'
+      },
+      // Les seuls tests ONLC, pour une boucle de travail courte. `standard` les exécute aussi,
+      // avec tout le reste : cette cible ne dispense pas de la lancer avant de livrer.
+      onlc: {
+        browser: grunt.option('bedrock-browser') !== undefined ? grunt.option('bedrock-browser') : 'chrome-headless',
+        config: 'tsconfig.json',
+        testfiles: ['src/plugins/onlc*/test/ts/**/*Test.ts'],
+        stopOnFailure: true,
+        overallTimeout: 600000,
+        singleTimeout: 60000,
+        customRoutes: 'src/core/test/json/routes.json',
+        name: 'onlc-tests'
       }
     }
   });
@@ -1008,4 +1029,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['clean:dist', 'prod']);
   grunt.registerTask('test', ['bedrock-auto:standard']);
   grunt.registerTask('test-manual', ['bedrock-manual']);
+  grunt.registerTask('test-onlc', ['bedrock-auto:onlc']);
+  grunt.registerTask('test-onlc-manual', ['bedrock-manual:onlc']);
 };

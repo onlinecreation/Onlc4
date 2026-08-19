@@ -548,7 +548,7 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
     Arr.each(folders, (folder) => {
       const item = doc.createElement('button');
       item.type = 'button';
-      item.className = 'onlc-finder__item';
+      item.className = 'onlc-finder__item onlc-finder__item--folder';
       item.innerHTML =
         `<span class="onlc-finder__thumb">${folderGlyph}</span>` +
         `<span class="onlc-finder__name">${editor.dom.encode(folder.name)}</span>`;
@@ -559,7 +559,7 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
     Arr.each(files, (file) => {
       const item = doc.createElement('button');
       item.type = 'button';
-      item.className = `onlc-finder__item${isSelected(file) ? ' onlc-finder__item--selected' : ''}`;
+      item.className = `onlc-finder__item onlc-finder__item--file${isSelected(file) ? ' onlc-finder__item--selected' : ''}`;
       const thumb = isImage(file)
         ? `<span class="onlc-finder__thumb" style="background-image: url(${backgroundUrl(editor, file.thumbnailUrl ?? file.url)})"></span>`
         : `<span class="onlc-finder__thumb">${fileGlyph}</span>`;
@@ -971,7 +971,10 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
 export {
   isImage,
   humanSize,
+  humanDate,
   crumbsOf,
+  matchesAccept,
+  matchesMimeList,
   backgroundUrl,
   create
 };

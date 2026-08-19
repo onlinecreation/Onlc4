@@ -264,6 +264,7 @@ export {
   CUSTOM_CATEGORY,
   categoryLabels,
   translateCategory,
+  dedupe,
   initDatabase,
   toTitle
 };

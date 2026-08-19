@@ -62,6 +62,7 @@ example/
 ├── tools/
 │   ├── build-content.js générateur du contenu de démonstration
 │   └── install-pixie.js installe l'éditeur d'images Pixie (voir plus bas)
+├── test/                tests des simulations d'API (yarn test-node)
 ├── seed/                médiathèque de départ (images SVG, un PDF)
 └── storage/             espace de travail (créé au démarrage, non versionné)
 ```
@@ -174,6 +175,22 @@ curl -X POST -H 'Content-Type: application/json' \
 curl -F "path=/photos" -F "file=@mon-image.png" http://localhost:3000/api/media/upload
 curl http://localhost:3000/api/links
 ```
+
+## Tests
+
+Les simulations d'api sont couvertes par une suite qui tourne en Node, sans navigateur :
+
+```bash
+yarn test-node        # ou : node example/test/run.js
+```
+
+Elle décrit le **contrat** attendu de n'importe quelle implémentation — versions, quotas, types
+acceptés, sécurité des chemins — et pas seulement le comportement de cette simulation-ci. À lire
+en complément de `docs/api/`.
+
+Le banc d'essai est dans `example/test/harness.js` : une centaine de lignes, pour que l'exemple
+reste sans dépendance npm. Les tests de l'éditeur lui-même sont ailleurs, voir
+[`docs/tests.md`](../docs/tests.md).
 
 ## Fichiers tiers
 

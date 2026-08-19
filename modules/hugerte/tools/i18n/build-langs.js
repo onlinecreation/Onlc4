@@ -74,6 +74,18 @@ const shortCodeOf = (code) => {
   return index > 0 ? code.slice(0, index) : null;
 };
 
+/** Le même paquet, adressé à l'objet global de HugeRTE. */
+const convert = (source) => source.replace(/\btinymce\.addI18n\b/g, 'hugerte.addI18n');
+
+/**
+ * Le même paquet, redéclaré sous un code court.
+ *
+ * `addI18n` fusionne : l'alias et le paquet régional peuvent donc être chargés ensemble sans se
+ * contredire.
+ */
+const aliasOf = (source, code, short) =>
+  convert(source).replace(new RegExp(`addI18n\\((["'])${code}\\1`), `addI18n($1${short}$1`);
+
 const main = () => {
   const given = process.argv[2];
   const root = given === undefined ? download() : path.resolve(given);
@@ -94,7 +106,7 @@ const main = () => {
   files.forEach((file) => {
     const code = path.basename(file, '.js');
     const source = fs.readFileSync(path.join(langs, file), 'utf8');
-    const converted = source.replace(/\btinymce\.addI18n\b/g, 'hugerte.addI18n');
+    const converted = convert(source);
 
     if (converted === source) {
       console.warn(`  ! ${file} : aucun appel « tinymce.addI18n » trouvé, fichier ignoré`);
@@ -115,9 +127,7 @@ const main = () => {
     // L'alias déclare les mêmes chaînes sous le code court : `addI18n` fusionne, les deux
     // fichiers peuvent donc être chargés ensemble sans se contredire.
     const source = fs.readFileSync(path.join(langs, file), 'utf8');
-    const converted = source
-      .replace(/\btinymce\.addI18n\b/g, 'hugerte.addI18n')
-      .replace(new RegExp(`addI18n\\((["'])${code}\\1`), `addI18n($1${short}$1`);
+    const converted = aliasOf(source, code, short);
 
     fs.writeFileSync(path.join(target, `${short}.js`), banner(`${short} (alias de ${code})`) + converted, 'utf8');
     written.add(short);
@@ -150,4 +160,9 @@ const main = () => {
     `(${aliases} alias de code court, ${(size / 1024).toFixed(0)} Ko)`);
 };
 
-main();
+/* Lancé directement : on génère. Requis par un test : on n'expose que les fonctions. */
+if (require.main === module) {
+  main();
+}
+
+module.exports = { shortCodeOf, convert, aliasOf, main, sourceDirectory, packageVersion };

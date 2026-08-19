@@ -16,8 +16,13 @@ interface Rule {
 const escape = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+/**
+ * Un jeton ne contient jamais de saut de ligne : les jetons multilignes - commentaires en bloc,
+ * gabarits - sont coupés en un span par ligne. L'appelant peut alors découper le html produit
+ * sur `\n` pour obtenir exactement une ligne logique par morceau, sans casser de balise.
+ */
 const token = (type: string, value: string): string =>
-  `<span class="onlc-code__t onlc-code__t--${type}">${escape(value)}</span>`;
+  Arr.map(value.split('\n'), (line) => `<span class="onlc-code__t onlc-code__t--${type}">${escape(line)}</span>`).join('\n');
 
 const sticky = (rules: Array<{ type: string; pattern: RegExp }>): Rule[] =>
   Arr.map(rules, (rule) => ({ type: rule.type, pattern: new RegExp(rule.pattern.source, 'y' + (rule.pattern.ignoreCase ? 'i' : '')) }));
@@ -132,7 +137,16 @@ const highlight = (value: string, language: CodeLanguage): string => {
   }
 };
 
+/**
+ * Coloration ligne par ligne : chaque entrée du tableau correspond exactement à une ligne
+ * logique du texte d'origine, ce qui permet d'afficher un numéro en face de chacune d'elles
+ * même quand la ligne est repliée sur plusieurs lignes visuelles.
+ */
+const highlightLines = (value: string, language: CodeLanguage): string[] =>
+  highlight(value, language).split('\n');
+
 export {
   escape,
-  highlight
+  highlight,
+  highlightLines
 };

@@ -109,6 +109,26 @@ const buildOverlay = (editor: Editor, overlay: OverlayData): string => {
   return `<figcaption class="${classes}"${attribute('style', overlayStyles(editor, overlay))}>${editor.dom.encode(overlay.text)}</figcaption>`;
 };
 
+export const parallaxClass = 'onlc-image--parallax';
+
+/**
+ * L'effet parallaxe ne peut pas être obtenu avec l'image en flux : `position: fixed` sur un
+ * `<img>` se retrouve piégé par le premier ancêtre qui crée un bloc conteneur, et l'image se
+ * cale alors dans un coin du cadre au lieu de rester immobile pendant le défilement.
+ *
+ * Le rendu passe donc par le fond de la figure, avec `background-attachment: fixed`, seule
+ * technique fiable dans tous les navigateurs de bureau. L'`<img>` reste présent, masqué
+ * visuellement, pour que son texte alternatif continue d'être lu.
+ */
+const presetStyles = (data: ImageData): Record<string, string> =>
+  data.preset === parallaxClass && data.src !== ''
+    ? { 'background-image': `url(${editorSafeUrl(data.src)})` }
+    : {};
+
+/** Adresse débarrassée des caractères qui refermeraient la parenthèse d'un `url(...)`. */
+const editorSafeUrl = (src: string): string =>
+  src.trim().replace(/[\\"'()\s]/g, (character) => `%${character.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0')}`);
+
 const toHtml = (editor: Editor, data: ImageData): string => {
   const img = buildLink(editor, data, buildImg(editor, data));
 
@@ -117,7 +137,9 @@ const toHtml = (editor: Editor, data: ImageData): string => {
   }
 
   const classes = Arr.filter([ figureClass, data.preset ], (cls) => cls !== '').join(' ');
-  const style = data.customCss.trim();
+  const extra = styleString(editor, presetStyles(data));
+  const custom = data.customCss.trim().replace(/;\s*$/, '');
+  const style = Arr.filter([ custom, extra ], (part) => part !== '').join('; ');
   return `<figure class="${classes}"${attribute('style', style)}>${img}${buildOverlay(editor, data.overlay)}</figure>`;
 };
 
@@ -149,8 +171,20 @@ const presetOf = (editor: Editor, figure: Optional<HTMLElement>): string =>
       cls !== '' && cls !== figureClass && (Arr.contains(known, cls) || acc === '') ? cls : acc, '');
   });
 
-const customCssOf = (figure: Optional<HTMLElement>): string =>
-  figure.fold(Fun.constant(''), (elm) => elm.getAttribute('style') ?? '');
+/**
+ * Css personnalisé de la figure. Le fond ajouté par le rendu parallaxe en est retiré : il est
+ * recalculé à chaque écriture et n'a rien à faire dans le champ que le rédacteur remplit.
+ */
+const customCssOf = (editor: Editor, figure: Optional<HTMLElement>, preset: string): string =>
+  figure.fold(Fun.constant(''), (elm) => {
+    const raw = elm.getAttribute('style') ?? '';
+    if (preset !== parallaxClass || raw === '') {
+      return raw;
+    }
+    const styles = editor.dom.parseStyle(raw);
+    delete styles['background-image'];
+    return editor.dom.serializeStyle(styles);
+  });
 
 /**
  * Reads back the data of an existing image, whether it is a bare `<img>` or a full figure.
@@ -159,14 +193,15 @@ const readFromImage = (editor: Editor, img: HTMLImageElement): ImageData => {
   const dom = editor.dom;
   const figure = Optional.from(dom.getParent(img, `figure.${figureClass}`) as HTMLElement | null);
   const anchor = Optional.from(dom.getParent(img, 'a[href]') as HTMLAnchorElement | null);
+  const preset = presetOf(editor, figure);
 
   return {
     src: dom.getAttrib(img, 'src'),
     alt: dom.getAttrib(img, 'alt'),
     title: dom.getAttrib(img, 'title'),
-    preset: presetOf(editor, figure),
+    preset,
     width: dom.getStyle(img, 'width') || Options.getDefaultWidth(editor),
-    customCss: customCssOf(figure),
+    customCss: customCssOf(editor, figure, preset),
     overlay: readOverlay(editor, figure),
     link: anchor.fold(
       () => ({ href: '', title: '', target: '', rel: '', classes: '' }),

@@ -43,21 +43,24 @@ const register = (editor: Editor): void => {
     default: '56.25%'
   });
 
-  registerOption('onlc_widgets_map_provider', {
+  // Adresse de base des bibliothèques externes (Leaflet, nanogallery2, pdf.js). Les projets qui
+  // hébergent ces fichiers eux-mêmes remplacent simplement cette valeur.
+  registerOption('onlc_widgets_cdn_base', {
     processor: 'string',
-    default: 'osm'
+    default: 'https://cdnjs.cloudflare.com/ajax/libs'
   });
 
-  registerOption('onlc_widgets_google_maps_key', {
+  // Service de géocodage utilisé par le bloc carte pour retrouver une adresse.
+  registerOption('onlc_widgets_geocoder_url', {
     processor: 'string',
-    default: ''
+    default: 'https://nominatim.openstreetmap.org/search'
   });
 
   // Hôtes dont les iframes ne sont pas mises en bac à sable dans l'éditeur : sans cela, la
   // prévisualisation d'une carte ou d'un calendrier reste vide.
   registerOption('onlc_widgets_iframe_exclusions', {
     processor: 'string[]',
-    default: [ 'openstreetmap.org', 'google.com', 'maps.google.com', 'calendar.google.com', 'unpkg.com' ]
+    default: [ 'openstreetmap.org', 'calendar.google.com' ]
   });
 
   registerOption('onlc_widgets_inject_styles', {
@@ -100,8 +103,8 @@ const getCustomWidgets = option<WidgetDefinition[]>('onlc_widgets_custom');
 const getExcludedWidgets = option<string[]>('onlc_widgets_exclude');
 const getClassPrefix = option<string>('onlc_widgets_class_prefix');
 const getVideoRatio = option<string>('onlc_widgets_video_ratio');
-const getMapProvider = option<string>('onlc_widgets_map_provider');
-const getGoogleMapsKey = option<string>('onlc_widgets_google_maps_key');
+const getCdnBase = option<string>('onlc_widgets_cdn_base');
+const getGeocoderUrl = option<string>('onlc_widgets_geocoder_url');
 const getIframeExclusions = option<string[]>('onlc_widgets_iframe_exclusions');
 const shouldInjectStyles = option<boolean>('onlc_widgets_inject_styles');
 const getScriptType = option<string>('onlc_script_default_type');
@@ -130,8 +133,8 @@ export {
   getExcludedWidgets,
   getClassPrefix,
   getVideoRatio,
-  getMapProvider,
-  getGoogleMapsKey,
+  getCdnBase,
+  getGeocoderUrl,
   getIframeExclusions,
   allowIframeHosts,
   shouldInjectStyles,

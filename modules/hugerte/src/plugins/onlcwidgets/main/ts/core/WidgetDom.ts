@@ -35,7 +35,7 @@ const blockSelector = (editor: Editor): string => `.${Options.getClassPrefix(edi
 
 /** Markup publié : c'est lui qui fait foi à l'enregistrement. */
 const renderPublished = (definition: WidgetDefinition, config: WidgetConfig): string =>
-  Assets.withAssets(definition, definition.render(config));
+  Assets.withAssets(definition, config, definition.render(config));
 
 /** Aperçu affiché dans l'éditeur, identique au markup publié quand le bloc n'en propose pas. */
 const renderEditing = (definition: WidgetDefinition, config: WidgetConfig): string =>

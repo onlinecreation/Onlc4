@@ -81,11 +81,6 @@ const setRawContent = (node: AstNode, html: string): void => {
   }
 };
 
-const restoreHtmlWidget = (node: AstNode): void => {
-  const config = WidgetDom.decode(node.attr(WidgetDom.configAttribute) ?? null);
-  setRawContent(node, WidgetDom.rawCodeOf(config));
-};
-
 /**
  * Les blocs « canoniques » - intégrations, cartes, calendriers - sont réécrits à partir de leur
  * configuration : c'est le seul moyen d'obtenir sur le site exactement le code prévu, sans les
@@ -100,6 +95,25 @@ const restoreCanonicalWidget = (editor: Editor, node: AstNode, id: string): bool
     setRawContent(node, WidgetDom.renderPublished(definition, config));
     return true;
   });
+
+/**
+ * Chemin inverse : quand du contenu déjà publié est rechargé dans l'éditeur, le bloc est
+ * redessiné à partir de sa configuration. Sans cela, l'éditeur afficherait le code destiné au
+ * visiteur : des iframes en bac à sable, des scripts qui ne s'exécutent pas et des cadres noirs.
+ *
+ * Les blocs à zones libres (`hasSlots`) font exception : leur texte se modifie directement dans
+ * la page, et le redessiner écraserait la mise en forme appliquée là. Pour eux, le html
+ * enregistré fait foi ; leur configuration ne sert qu'à rouvrir le formulaire.
+ */
+const restoreEditingWidget = (editor: Editor, node: AstNode, id: string): void => {
+  Widgets.find(editor, id).each((definition) => {
+    if (definition.hasSlots === true && !Type.isFunction(definition.renderEditor)) {
+      return;
+    }
+    const config = Widgets.withDefaults(definition, WidgetDom.decode(node.attr(WidgetDom.configAttribute) ?? null));
+    setRawContent(node, WidgetDom.renderEditing(definition, config));
+  });
+};
 
 const setup = (editor: Editor): void => {
   editor.on('BeforeSetContent', (e) => {
@@ -118,6 +132,14 @@ const setup = (editor: Editor): void => {
     });
 
     editor.parser.addNodeFilter('div', (nodes) => {
+      Arr.each(nodes, (node) => {
+        const widgetId = node.attr(WidgetDom.idAttribute);
+        if (Type.isString(widgetId)) {
+          restoreEditingWidget(editor, node, widgetId);
+        }
+      });
+      // Les parties décoratives sont rendues non modifiables après la reconstruction, pour que
+      // les éléments qui viennent d'être écrits soient traités eux aussi.
       Arr.each(nodes, (node) => {
         if (hasClass(node, WidgetDom.staticClass)) {
           node.attr('contenteditable', 'false');
@@ -143,9 +165,7 @@ const setup = (editor: Editor): void => {
           node.attr('contenteditable', null);
         }
         const widgetId = node.attr(WidgetDom.idAttribute);
-        if (widgetId === 'html') {
-          restoreHtmlWidget(node);
-        } else if (Type.isString(widgetId)) {
+        if (Type.isString(widgetId)) {
           restoreCanonicalWidget(editor, node, widgetId);
         }
       });

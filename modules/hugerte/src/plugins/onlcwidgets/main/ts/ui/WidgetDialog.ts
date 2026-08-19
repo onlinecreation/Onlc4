@@ -6,6 +6,9 @@ import { Dialog } from 'hugerte/core/api/ui/Ui';
 import * as Options from '../api/Options';
 import { WidgetConfig, WidgetDefinition, WidgetField } from '../api/Types';
 import * as CodeEditor from '../core/CodeEditor';
+import * as Html from '../core/Html';
+import * as ListEditor from '../core/ListEditor';
+import * as LocationEditor from '../core/LocationEditor';
 import * as WidgetDom from '../core/WidgetDom';
 import * as Widgets from '../core/Widgets';
 
@@ -15,7 +18,17 @@ import * as Widgets from '../core/Widgets';
 
 const defaultTab = 'Général';
 
-const isUrlField = (field: WidgetField): boolean => field.type === 'url' || field.type === 'image';
+const isUrlField = (field: WidgetField): boolean =>
+  field.type === 'url' || field.type === 'image' || field.type === 'file';
+
+/** Les champs qui gèrent eux-mêmes leur affichage sont enveloppés dans un intitulé. */
+const framed = (field: WidgetField, item: Dialog.BodyComponentSpec): Dialog.BodyComponentSpec => ({
+  type: 'label',
+  label: field.label,
+  items: Type.isString(field.help)
+    ? [ item, { type: 'htmlpanel', html: `<p class="onlc-field-help">${Html.escape(field.help)}</p>`, presets: 'presentation' } as Dialog.HtmlPanelSpec ]
+    : [ item ]
+});
 
 const toItem = (editor: Editor, field: WidgetField): Dialog.BodyComponentSpec => {
   switch (field.type) {
@@ -28,19 +41,41 @@ const toItem = (editor: Editor, field: WidgetField): Dialog.BodyComponentSpec =>
     case 'color':
       return { type: 'colorinput', name: field.name, label: field.label };
     case 'code':
-      return {
-        type: 'label',
-        label: field.label,
-        items: [
-          CodeEditor.field(field.name, field.label, {
-            language: field.language ?? 'html',
-            tabSize: Options.getTabSize(editor),
-            lineNumbers: Options.hasLineNumbers(editor)
-          })
-        ]
-      };
+      return framed(field, CodeEditor.field(field.name, field.label, {
+        language: field.language ?? 'html',
+        tabSize: Options.getTabSize(editor),
+        lineNumbers: Options.hasLineNumbers(editor)
+      }));
+    case 'images':
+      return framed(field, ListEditor.field(editor, field.name, {
+        columns: [
+          { name: 'src', label: 'Adresse de l’image', type: 'text', grow: 3 },
+          { name: 'title', label: 'Intitulé affiché', type: 'text', grow: 2 }
+        ],
+        addLabel: 'Ajouter des images…',
+        emptyLabel: 'Aucune image pour l’instant. Cliquez sur « Ajouter des images… » pour en choisir.',
+        picker: true,
+        thumbnail: 'src'
+      }));
+    case 'events':
+      return framed(field, ListEditor.field(editor, field.name, {
+        columns: [
+          { name: 'day', label: 'Jour du mois', type: 'number', grow: 1 },
+          { name: 'time', label: 'Heure', type: 'time', grow: 1 },
+          { name: 'label', label: 'Intitulé', type: 'text', grow: 4 }
+        ],
+        addLabel: 'Ajouter un rendez-vous',
+        emptyLabel: 'Aucun rendez-vous pour ce mois. Ajoutez-en un pour le voir apparaître dans la grille.'
+      }));
+    case 'location':
+      return framed(field, LocationEditor.field(editor, field.name));
+    case 'month':
+      return Type.isString(field.help)
+        ? framed(field, { type: 'input', name: field.name, label: field.label, placeholder: field.placeholder ?? 'AAAA-MM' })
+        : { type: 'input', name: field.name, label: field.label, placeholder: field.placeholder ?? 'AAAA-MM' };
     case 'url':
     case 'image':
+    case 'file':
       return { type: 'urlinput', name: field.name, label: field.label, filetype: field.type === 'image' ? 'image' : 'file' };
     case 'number':
       return { type: 'input', name: field.name, label: field.label, inputMode: 'numeric', placeholder: field.placeholder };
@@ -151,7 +186,9 @@ const open = (editor: Editor, definition: WidgetDefinition, element: Optional<HT
 
   editor.windowManager.open<Record<string, unknown>>({
     title: definition.label,
-    size: 'normal',
+    // Les formulaires de blocs comportent souvent une dizaine de réglages, parfois un éditeur
+    // de code ou une carte : en taille normale, la moitié du contenu se retrouve hors du cadre.
+    size: 'large',
     body: bodyOf(editor, definition),
     initialData: toDialogData(definition, config),
     buttons,

@@ -7,7 +7,6 @@ hugerte.init({
   plugins: 'onlcwidgets onlcblocks onlcspacer onlcicons code',
   toolbar: 'onlcwidget onlcscript onlcsource | onlcblocksinsert onlcspacer onlcicons | code',
   height: 700,
-  onlc_widgets_map_provider: 'osm',
   content_style: 'body { font-family: system-ui, sans-serif; margin: 24px; }'
 });
 

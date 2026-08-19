@@ -30,6 +30,7 @@ const register = (editor: Editor, api: MediaApi): void => {
   editor.addCommand('OnlcMediaExplorer', (_ui, value?: string) => {
     Explorer.open(editor, api, {
       path: Type.isString(value) ? value : undefined,
+      accept: 'image/',
       onSelect: (file) => {
         openImageDialog(editor, api, {
           ...ImageHtml.emptyData(editor),
@@ -38,6 +39,15 @@ const register = (editor: Editor, api: MediaApi): void => {
         });
       }
     });
+  });
+
+  /**
+   * Ouvre la médiathèque pour le compte d'un autre plugin : le ou les fichiers choisis sont
+   * rendus par le rappel `onSelect`, et rien n'est inséré dans la page. C'est ce qui permet à la
+   * galerie d'images ou au bloc pdf de choisir un fichier sans dépendre de ce plugin.
+   */
+  editor.addCommand('OnlcPickMedia', (_ui, value?: unknown) => {
+    Explorer.pick(editor, api, value);
   });
 
   editor.addCommand('OnlcEditImageInPixel', () => {

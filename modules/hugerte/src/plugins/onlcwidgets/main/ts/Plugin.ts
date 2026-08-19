@@ -1,4 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
 import * as Options from './api/Options';
@@ -27,6 +28,8 @@ export interface OnlcWidgetsApi {
 export default (): void => {
   PluginManager.add('onlcwidgets', (editor, pluginUrl): OnlcWidgetsApi => {
     Options.register(editor);
+
+    DialogStyles.setup(editor);
 
     if (Options.shouldInjectStyles(editor)) {
       editor.contentCSS.push(`${pluginUrl}/css/onlcwidgets.css`);

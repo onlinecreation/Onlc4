@@ -25,8 +25,13 @@ La boîte de dialogue propose le code (éditeur coloré, tabulation, numéros de
 externe (`src`), le type MIME, l'emplacement souhaité dans la page et les indicateurs `async` et
 `defer`.
 
-Dans la zone d'édition, un script est représenté par une **pastille** non éditable : rien n'est
-exécuté pendant l'édition. Un double-clic ou la barre contextuelle rouvre la boîte de dialogue.
+Dans la zone d'édition, un script est représenté par un **jeton** non éditable montrant ses trois
+premières lignes, suivies d'une ligne « … » s'il en reste : de quoi le reconnaître d'un coup
+d'œil sans l'ouvrir. Rien n'est exécuté pendant l'édition. Un double clic ou la barre contextuelle
+rouvre la boîte de dialogue.
+
+Le widget HTML suit la même règle : l'éditeur montre son nom et les trois premières lignes de son
+code, la page reçoit le code lui-même.
 
 À l'enregistrement, la pastille redevient une vraie balise :
 
@@ -39,6 +44,17 @@ exécuté pendant l'édition. Un double-clic ou la barre contextuelle rouvre la 
 `data-onlc-position` n'est écrit que si l'emplacement choisi n'est pas « à l'emplacement du
 curseur » ; c'est à votre gabarit de page de déplacer le script vers le `<head>` ou la fin du
 `<body>`.
+
+### L'éditeur de code
+
+Les deux couches — le texte coloré et la zone de saisie transparente posée par-dessus — doivent
+se replier exactement de la même façon, faute de quoi le curseur et le texte se désynchronisent.
+Deux décisions en découlent :
+
+* **aucun défilement horizontal** : les lignes trop longues reviennent à la ligne, y compris au
+  milieu d'un mot. Une url ou un code minifié d'un seul tenant reste entièrement lisible ;
+* **un numéro par ligne logique**, dessiné dans la couche colorée elle-même. Une gouttière
+  séparée se décalerait dès qu'une ligne se replie ; ici, le numéro appartient à la ligne.
 
 ## 2. Code source HTML
 
@@ -58,40 +74,58 @@ La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
 | Bouton d'appel à l'action | Actions | texte, lien, cible, `rel`, style, taille, alignement, pleine largeur |
 | Hero | Mise en avant | titre, sous-titre, image de fond, hauteur, voile, bouton, **style du texte** |
 | Bloc de texte | Contenu | titre, texte, alignement, largeur maximale, **style du texte** |
-| Image | Médias | fichier, texte alternatif, légende, largeur, alignement, lien |
-| Vidéo | Médias | URL YouTube / Vimeo / Dailymotion ou autre, format, lecture auto, boucle, sourdine |
-| Iframe | Médias | adresse, titre, format ou hauteur fixe, défilement |
-| Widget HTML | Avancé | code HTML fourni par un service tiers |
-| Carte | Médias | adresse ou coordonnées, zoom, hauteur (intégration OpenStreetMap, sans javascript) |
-| Carte interactive (Leaflet) | Médias | latitude, longitude, zoom, épingle, hauteur, zoom à la molette |
-| Calendrier | Médias | adresse du calendrier, affichage, hauteur |
+| Texte déployable | Contenu | titre cliquable, texte déplié, déplié au chargement, présentation |
+| Calendrier du mois | Contenu | titre, mois, premier jour de la semaine, couleur, rendez-vous |
 | Séparateur | Contenu | hauteur, espace ou filet, couleur, largeur |
 | Citation | Contenu | citation, auteur, source |
+| Image | Médias | fichier, texte alternatif, légende, largeur, alignement, lien |
+| Galerie d'images | Médias | liste ordonnée d'images avec intitulé, disposition, taille, espacement |
+| Vidéo | Médias | adresse YouTube / Vimeo / Dailymotion ou autre, format, lecture auto, boucle, sourdine |
+| Page intégrée (iframe) | Médias | adresse, titre, format ou hauteur fixe, défilement |
+| Carte | Médias | lieu (recherche d'adresse), épingle, hauteur, déplaçable, zoom molette |
+| Document PDF | Médias | fichier, titre, hauteur, nombre de pages, téléchargement |
+| Agenda partagé | Médias | adresse de l'agenda, affichage, hauteur |
+| Widget HTML | Avancé | code HTML fourni par un service tiers |
+
+Trois dispositions pour la galerie : **mosaïque carrée**, **cascade** (rangées justifiées) et
+**maçonnerie** (colonnes). Le rendu est confié à
+[nanogallery2](https://nanogallery2.nanostudio.org/), et l'agrandissement au clic vient avec.
+
+Le calendrier du mois est du **html statique** : la grille du mois demandé, les rendez-vous
+inscrits jour par jour, sans aucun script. Il reste lisible même si le javascript est désactivé.
 
 Lorsque les autres plugins ONLC sont chargés, la bibliothèque propose en plus des raccourcis
 vers l'image de la bibliothèque média (`onlcmedia`), les emojis et icônes (`onlcicons`) et le
 séparateur réglable (`onlcspacer`).
 
-### Intégrations : ce qui est publié fait foi
+### Médias : inertes pendant l'écriture, complets à la publication
 
-Les blocs d'intégration — vidéo, iframe, carte, calendrier, carte Leaflet — sont marqués
-`canonical` : leur contenu est **reconstruit à partir de leur configuration** au moment de
-l'enregistrement. Deux raisons à cela :
+Une vidéo ou une carte vivante dans la zone d'édition pose trois problèmes à la fois : elle
+capte les clics — on ne peut plus sélectionner ni déplacer le bloc —, elle se retrouve en bac à
+sable et reste noire, et elle se superpose aux blocs voisins.
 
-- l'éditeur ajoute un attribut `sandbox` aux iframes (option `sandbox_iframes` du cœur), qui
-  rendrait l'intégration inerte sur le site ;
-- l'aperçu affiché pendant l'édition peut différer du rendu final (voir ci-dessous).
+Les blocs média affichent donc une **vignette inerte** : un cadre, une image ou un damier de
+tuiles, le nom du bloc et son adresse. Rien qu'un `div` et des `span`. Un clic sélectionne le
+bloc, la barre contextuelle propose « Modifier le bloc ».
 
-Pour que l'aperçu fonctionne aussi dans l'éditeur, le plugin ajoute les hôtes de ses propres
-intégrations à `sandbox_iframes_exclusions`. Ajoutez-y les vôtres avec
-`onlc_widgets_iframe_exclusions` :
+| Bloc | Ce que montre l'éditeur |
+|---|---|
+| Vidéo | la vignette du service, quand il en publie une (YouTube) |
+| Page intégrée | un cadre avec l'adresse |
+| Carte | un damier de tuiles OpenStreetMap, centré au pixel près sur le lieu choisi |
+| Galerie | les premières images de la galerie |
+| Document PDF | le nom du fichier |
 
-```js
-onlc_widgets_iframe_exclusions: [ 'openstreetmap.org', 'google.com', 'widget.monservice.tld' ]
-```
+Ces blocs sont marqués `canonical` : au moment de l'enregistrement, leur contenu est
+**reconstruit à partir de leur configuration**. La page reçoit exactement le code prévu — sans
+l'attribut `sandbox` que le cœur ajoute aux iframes, et sans trace de la vignette.
 
-Une adresse dont l'hôte n'est pas listé s'affiche quand même, mais son javascript est bloqué
-**dans l'éditeur seulement** : la page publiée, elle, reçoit le code tel quel.
+Le chemin inverse existe aussi : quand du html déjà publié est rechargé, chaque bloc est
+redessiné à partir de sa configuration. L'éditeur n'affiche donc jamais le code destiné au
+visiteur.
+
+L'option `onlc_widgets_iframe_exclusions` reste disponible pour les intégrations d'un projet
+qui, elles, doivent rester vivantes dans l'éditeur.
 
 ### Dépendances CDN et aperçu
 
@@ -108,9 +142,17 @@ tête de son code HTML, de sorte qu'un bloc copié reste autonome :
 Le navigateur ignore une feuille ou un script déjà chargés : plusieurs blocs du même type sur
 une page ne se gênent pas.
 
-Le javascript ne s'exécutant pas dans la zone d'édition, un bloc peut fournir un aperçu
-différent avec `renderEditor` : la carte Leaflet montre par exemple une image de la même zone,
-et la carte interactive n'est produite que pour la page publiée.
+Les dépendances peuvent dépendre de la configuration : `assets` accepte aussi une fonction. Le
+bloc carte ne charge Leaflet que si la carte est déclarée déplaçable ; en plan simple, il
+n'entraîne aucune dépendance.
+
+Le javascript ne s'exécutant pas dans la zone d'édition, un bloc fournit son aperçu avec
+`renderEditor`, comme décrit plus haut.
+
+La cartographie est **OpenStreetMap**, et uniquement elle : aucune clé d'api à obtenir, et
+l'adresse des visiteurs n'est envoyée à aucun service commercial. Le formulaire du bloc carte
+cherche l'adresse avec Nominatim, montre le résultat sur un plan que l'on peut recentrer d'un
+clic, et laisse les coordonnées modifiables à la main.
 
 ### Style du texte : couleur, dégradé et ombre
 
@@ -157,8 +199,8 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_widgets_exclude` | `[]` | Identifiants de blocs à masquer |
 | `onlc_widgets_class_prefix` | `'onlc-widget'` | Classe et préfixe des blocs |
 | `onlc_widgets_video_ratio` | `'56.25%'` | Format vidéo par défaut |
-| `onlc_widgets_map_provider` | `'osm'` | `osm` ou `google` |
-| `onlc_widgets_google_maps_key` | `''` | Clé de l'API Google Maps Embed |
+| `onlc_widgets_cdn_base` | `https://cdnjs.cloudflare.com/ajax/libs` | Adresse de base de Leaflet, nanogallery2, jQuery et pdf.js |
+| `onlc_widgets_geocoder_url` | `https://nominatim.openstreetmap.org/search` | Service de recherche d'adresse du bloc carte |
 | `onlc_widgets_iframe_exclusions` | hôtes des intégrations livrées | Hôtes dont les iframes ne sont pas mises en bac à sable dans l'éditeur |
 | `onlc_widgets_inject_styles` | `true` | Charge `onlcwidgets.css` dans la zone d'édition |
 | `onlc_script_default_type` | `'text/javascript'` | Type MIME proposé |

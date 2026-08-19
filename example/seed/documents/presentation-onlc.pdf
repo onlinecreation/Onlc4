@@ -1,0 +1,51 @@
+%PDF-1.4
+1 0 obj
+<< /Length 169 >>
+stream
+BT /F1 22 Tf 60 760 Td 28 TL
+(ONLC 4  document de demonstration) Tj
+T* (Cette page est affichee par le bloc PDF,) Tj
+T* (rendu par pdf.js dans la page publiee.) Tj
+ET
+endstream
+endobj
+2 0 obj
+<< /Length 137 >>
+stream
+BT /F1 22 Tf 60 760 Td 28 TL
+(Page 2) Tj
+T* (Le bloc affiche autant de pages que demande) Tj
+T* (dans son formulaire (0 = toutes).) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 1 0 R >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 2 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Kids [4 0 R 5 0 R] /Count 2 >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000227 00000 n 
+0000000415 00000 n 
+0000000485 00000 n 
+0000000611 00000 n 
+0000000737 00000 n 
+0000000800 00000 n 
+trailer
+<< /Size 8 /Root 7 0 R >>
+startxref
+849
+%%EOF

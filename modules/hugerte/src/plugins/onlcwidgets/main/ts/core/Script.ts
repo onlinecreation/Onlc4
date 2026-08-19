@@ -4,6 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 
 import * as Options from '../api/Options';
 import { ScriptData } from '../api/Types';
+import * as Excerpt from './Excerpt';
 import * as Highlight from './Highlight';
 
 /**
@@ -48,13 +49,23 @@ const label = (data: ScriptData): string => {
 };
 
 /**
- * Chip shown in place of the script while editing.
+ * Jeton affiché à la place du script pendant l'édition. Il montre les trois premières lignes du
+ * code et une ligne « … » quand il en reste : de quoi reconnaître le script d'un coup d'œil
+ * sans ouvrir le dialogue, et sans jamais l'exécuter.
  */
 const toPlaceholderHtml = (editor: Editor, data: ScriptData): string => {
-  const text = Highlight.escape(label(data));
   const kind = data.src === '' ? 'JS' : 'SRC';
+  const heading = data.src === '' ? 'Script JavaScript' : label(data);
+  const body = data.src === ''
+    ? Excerpt.text(data.code)
+    : data.src;
+  const shown = body.trim() === '' ? 'script vide' : body;
+
   return `<span class="${placeholderClass}" ${dataAttribute}="${encode(data)}" contenteditable="false">` +
-    `<span class="${placeholderClass}__badge">${kind}</span><span class="${placeholderClass}__label">${text}</span></span>`;
+    `<span class="${placeholderClass}__head">` +
+    `<span class="${placeholderClass}__badge">${kind}</span>` +
+    `<span class="${placeholderClass}__title">${Highlight.escape(heading)}</span></span>` +
+    `<span class="${placeholderClass}__code">${Highlight.escape(shown)}</span></span>`;
 };
 
 const attributeString = (data: ScriptData): string => {

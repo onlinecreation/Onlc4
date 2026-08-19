@@ -9,6 +9,15 @@
 
 const bloc = (definition) => definition;
 
+/** Feuille des polices Google utilisées par les sites Online Création. */
+const POLICES_GOOGLE = 'https://fonts.googleapis.com/css?family=Abril+Fatface|Asar|Concert+One|' +
+  'Cinzel|Gloria+Hallelujah|Indie+Flower|Josefin+Sans:400,400i,700,700i|Lato:300,300i,400,400i|' +
+  'Lobster|Macondo|Cormorant+Garamond:400%2C700|Montserrat:400,400i,700,700i|' +
+  'Open+Sans+Condensed:300,300i,700|Open+Sans:400,400i,700,700i|Oswald:400,700|Pacifico|' +
+  'Playfair+Display:400,400i,700|Quicksand:400,700|Raleway:400,400i,700,700i|' +
+  'Roboto+Condensed:400,400i,700,700i|Roboto:400,400i,700,700i|Rubik+Mono+One|Sacramento|' +
+  'Source+Sans+Pro:400,400i,700,700i|Spirax|UnifrakturCook:700&subset=latin-ext&display=swap';
+
 hugerte.init({
   selector: '#contenu',
 
@@ -24,7 +33,7 @@ hugerte.init({
   plugins: [
     // plugins ONLC
     'onlcblocks', 'onlcmedia', 'onlcresponsiveimages', 'onlclink',
-    'onlcspacer', 'onlcicons', 'onlcwidgets',
+    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcshortcodes',
     // plugins d'origine, pour comparer
     'lists', 'table', 'searchreplace', 'fullscreen'
   ].join(' '),
@@ -39,7 +48,7 @@ hugerte.init({
     'onlcimage onlcmedialibrary',
     'onlclink onlcunlink',
     'onlcspacer onlcemoji onlcicons',
-    'onlcwidget onlcscript onlcsource',
+    'onlcwidget onlcshortcodes onlcscript onlcsource',
     'fullscreen'
   ].join(' | '),
 
@@ -75,20 +84,23 @@ hugerte.init({
   ],
 
   // --- Dictionnaires emojis et icônes (docs/api/onlc-icons-api.md) ----------
-  // Le jeu intégré (Material Design) est remplacé par le catalogue FontAwesome de l'API
-  onlc_icons_builtin: false,
+  // Les deux polices sont embarquées dans le plugin : rien à charger ailleurs. Retirez une
+  // entrée de la liste pour ne pas charger cette famille du tout.
+  onlc_icons_families: [ 'material', 'fontawesome' ],
+  // Catalogue supplémentaire servi par l'API : il s'ajoute aux icônes embarquées.
   onlc_icons_material_url: '/api/icons',
-  onlc_icons_output: 'class',
-  onlc_icons_class_prefix: 'fa-solid fa-',
-  // Police d'icônes : servie localement pour que la démonstration fonctionne hors ligne.
-  // En production, la feuille FontAwesome de votre CDN convient tout aussi bien.
-  onlc_icons_stylesheet_url: '/assets/vendor/fontawesome.css',
+  // Les emojis tapés au clavier deviennent des dessins OpenMoji, identiques partout.
+  onlc_icons_rewrite_emoji: true,
 
   // --- Séparateurs ----------------------------------------------------------
   onlc_spacer_default_height: '30px',
 
   // --- Blocs prédéfinis -----------------------------------------------------
-  onlc_widgets_map_provider: 'osm',
+  // Bibliothèques externes des blocs carte, galerie et pdf. Remplacez cette adresse si vous
+  // hébergez Leaflet, nanogallery2 et pdf.js sur vos propres serveurs.
+  onlc_widgets_cdn_base: 'https://cdnjs.cloudflare.com/ajax/libs',
+  // Recherche d'adresse du bloc carte (Nominatim, OpenStreetMap).
+  onlc_widgets_geocoder_url: 'https://nominatim.openstreetmap.org/search',
   onlc_widgets_custom: [
     bloc({
       id: 'horaires',
@@ -121,10 +133,62 @@ hugerte.init({
     })
   ],
 
+  // --- Typographies ---------------------------------------------------------
+  // Les familles Google chargées par la page, proposées telles quelles dans la barre d'outils.
+  font_family_formats: [
+    'Système=system-ui, -apple-system, sans-serif',
+    'Roboto=Roboto, sans-serif',
+    'Roboto Condensed=Roboto Condensed, sans-serif',
+    'Open Sans=Open Sans, sans-serif',
+    'Open Sans Condensed=Open Sans Condensed, sans-serif',
+    'Source Sans Pro=Source Sans Pro, sans-serif',
+    'Lato=Lato, sans-serif',
+    'Montserrat=Montserrat, sans-serif',
+    'Raleway=Raleway, sans-serif',
+    'Josefin Sans=Josefin Sans, sans-serif',
+    'Quicksand=Quicksand, sans-serif',
+    'Oswald=Oswald, sans-serif',
+    'Concert One=Concert One, cursive',
+    'Playfair Display=Playfair Display, serif',
+    'Cormorant Garamond=Cormorant Garamond, serif',
+    'Cinzel=Cinzel, serif',
+    'Abril Fatface=Abril Fatface, cursive',
+    'Lobster=Lobster, cursive',
+    'Pacifico=Pacifico, cursive',
+    'Sacramento=Sacramento, cursive',
+    'Spirax=Spirax, cursive',
+    'Macondo=Macondo, cursive',
+    'Gloria Hallelujah=Gloria Hallelujah, cursive',
+    'Indie Flower=Indie Flower, cursive',
+    'Asar=Asar, serif',
+    'Rubik Mono One=Rubik Mono One, sans-serif',
+    'UnifrakturCook=UnifrakturCook, cursive'
+  ].join('; '),
+
   setup: (editor) => {
-    editor.on('init', () => {
-      document.getElementById('statut').textContent =
-        'Éditeur prêt. Modifiez le contenu puis cliquez sur « Enregistrer ».';
+    editor.on('init', async () => {
+      // Les polices Google sont ajoutées **après** l'initialisation, sans l'attendre : une
+      // feuille servie par un tiers peut mettre plusieurs secondes à répondre — ou ne jamais
+      // répondre — et l'éditeur ne doit pas rester bloqué pour autant.
+      const feuille = editor.getDoc().createElement('link');
+      feuille.rel = 'stylesheet';
+      feuille.href = POLICES_GOOGLE;
+      editor.getDoc().head.appendChild(feuille);
+
+      const statut = document.getElementById('statut');
+      statut.textContent = 'Chargement du contenu de démonstration…';
+
+      // Le contenu est chargé comme le ferait un site : du html déjà publié, relu par l'éditeur.
+      try {
+        const reponse = await fetch('/assets/contenu.html');
+        editor.setContent(await reponse.text());
+        editor.undoManager.clear();
+      } catch (err) {
+        statut.textContent = 'Contenu de démonstration indisponible : ' + err.message;
+        return;
+      }
+
+      statut.textContent = 'Éditeur prêt. Modifiez le contenu puis cliquez sur « Enregistrer ».';
     });
   }
 });

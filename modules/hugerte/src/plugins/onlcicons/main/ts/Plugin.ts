@@ -1,16 +1,26 @@
+import { Fun } from '@ephox/katamari';
+
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Options from './api/Options';
 import { EmojiEntry, initDatabase as initEmojis } from './core/EmojiDatabase';
+import * as EmojiRewrite from './core/EmojiRewrite';
 import * as FilterContent from './core/FilterContent';
+import * as Fonts from './core/Fonts';
+import { IconEntry, initDatabase as initIcons } from './core/IconDatabase';
 import * as Insert from './core/Insert';
-import { IconEntry, initDatabase as initIcons } from './core/MaterialIcons';
+import * as OpenMoji from './core/OpenMoji';
 import * as Autocompletion from './ui/Autocompletion';
 import * as Buttons from './ui/Buttons';
 import * as Dialog from './ui/Dialog';
 
 /**
- * Unicode emoji dictionary and Material Design icon picker, both searchable.
+ * Dictionnaire d'emojis Unicode et sélecteur d'icônes, tous deux avec moteur de recherche.
+ *
+ * Les emojis sont remplacés par les dessins OpenMoji embarqués : le rendu est alors le même sur
+ * tous les appareils. Les icônes viennent de deux polices, elles aussi embarquées — Material
+ * Design et Font Awesome Free — que l'on peut activer ou désactiver séparément.
  *
  * @class hugerte.onlcicons.Plugin
  * @private
@@ -22,36 +32,28 @@ export interface OnlcIconsApi {
   readonly getIcons: () => IconEntry[];
   readonly insertIcon: (name: string) => void;
   readonly insertEmoji: (char: string) => void;
+  /** Adresse du dessin OpenMoji d'un emoji, quand il en existe un. */
+  readonly emojiUrl: (char: string) => string;
 }
 
 export default (): void => {
   PluginManager.add('onlcicons', (editor, pluginUrl): OnlcIconsApi => {
     Options.register(editor, pluginUrl);
 
+    DialogStyles.setup(editor);
+
     FilterContent.setup(editor);
 
     const emojis = initEmojis(editor);
     const icons = initIcons(editor);
+    const openmoji = OpenMoji.initIndex(editor);
 
-    // The icon webfont is needed both in the content and in the dialog previews. It is loaded
-    // after the editor is ready rather than through `contentCSS`, so that a slow or unreachable
-    // font provider never delays - or blocks - the initialization of the editor.
-    const stylesheetUrl = Options.getStylesheetUrl(editor);
-    if (stylesheetUrl !== '') {
-      const warn = () => {
-        // eslint-disable-next-line no-console
-        console.warn(`[onlc] Impossible de charger la feuille de styles des icônes : ${stylesheetUrl}`);
-      };
+    Fonts.load(editor, pluginUrl);
+    EmojiRewrite.setup(editor, openmoji);
 
-      editor.on('init', () => {
-        editor.dom.styleSheetLoader.load(stylesheetUrl).catch(warn);
-        editor.ui.styleSheetLoader.load(stylesheetUrl).catch(warn);
-      });
-    }
-
-    editor.addCommand('OnlcIcons', () => Dialog.open(editor, emojis, icons, Dialog.emojiTab));
-    editor.addCommand('OnlcEmojis', () => Dialog.open(editor, emojis, icons, Dialog.emojiTab));
-    editor.addCommand('OnlcMaterialIcons', () => Dialog.open(editor, emojis, icons, Dialog.iconTab));
+    editor.addCommand('OnlcIcons', () => Dialog.open(editor, emojis, icons, openmoji, Dialog.emojiTab));
+    editor.addCommand('OnlcEmojis', () => Dialog.open(editor, emojis, icons, openmoji, Dialog.emojiTab));
+    editor.addCommand('OnlcMaterialIcons', () => Dialog.open(editor, emojis, icons, openmoji, Dialog.iconTab));
     editor.addCommand('OnlcInsertIcon', (_ui, value?: string) => {
       if (typeof value === 'string' && value !== '') {
         Insert.insertIcon(editor, value);
@@ -59,14 +61,15 @@ export default (): void => {
     });
 
     Buttons.register(editor);
-    Autocompletion.init(editor, emojis, icons);
+    Autocompletion.init(editor, emojis, icons, openmoji);
 
     return {
-      openDialog: (tab) => Dialog.open(editor, emojis, icons, tab === 'icons' ? Dialog.iconTab : Dialog.emojiTab),
+      openDialog: (tab) => Dialog.open(editor, emojis, icons, openmoji, tab === 'icons' ? Dialog.iconTab : Dialog.emojiTab),
       getEmojis: () => emojis.waitForLoad().then(() => emojis.listAll()),
       getIcons: () => icons.listAll(),
       insertIcon: (name: string) => Insert.insertIcon(editor, name),
-      insertEmoji: (char: string) => Insert.insertEmoji(editor, char)
+      insertEmoji: (char: string) => Insert.insertEmoji(editor, char, openmoji),
+      emojiUrl: (char: string) => openmoji.fileOf(char).fold(Fun.constant(''), (file) => OpenMoji.urlOf(editor, file))
     };
   });
 };

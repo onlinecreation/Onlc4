@@ -1,0 +1,24 @@
+/**
+ * Styles des emojis et des icônes insérés dans la page.
+ *
+ * Cette feuille est chargée dans la zone d'édition, et doit également être incluse dans le site
+ * pour que le rendu publié soit identique.
+ */
+
+/* Emoji dessiné par OpenMoji (https://openmoji.org, CC BY-SA 4.0) */
+.onlc-emoji {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  margin: 0 0.05em;
+  vertical-align: -0.25em;
+  object-fit: contain;
+}
+
+/* Une icône reprend la taille et la couleur du texte qui l'entoure. */
+.onlc-icon {
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  vertical-align: -0.1em;
+}

@@ -1,4 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
 import * as Options from './api/Options';
@@ -22,6 +23,8 @@ export interface OnlcSpacerApi {
 export default (): void => {
   PluginManager.add('onlcspacer', (editor): OnlcSpacerApi => {
     Options.register(editor);
+
+    DialogStyles.setup(editor);
     FilterContent.setup(editor);
     Commands.register(editor);
     Commands.registerQuery(editor);

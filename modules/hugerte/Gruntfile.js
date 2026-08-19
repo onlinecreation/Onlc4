@@ -16,7 +16,8 @@ let plugins = [
   'link', 'lists', 'media', 'nonbreaking', 'pagebreak', 'preview', 'save', 'searchreplace',
   'table', 'template', 'visualblocks', 'visualchars', 'wordcount', 'quickbars',
   // Online Création (ONLC 4) plugins
-  'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcresponsiveimages', 'onlcspacer', 'onlcwidgets'
+  'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcresponsiveimages', 'onlcshortcodes', 'onlcspacer',
+  'onlcwidgets'
 ];
 
 let themes = [
@@ -438,7 +439,16 @@ module.exports = function (grunt) {
         files: [
           { src: 'src/plugins/onlcmedia/main/css/onlcmedia.css', dest: 'js/hugerte/plugins/onlcmedia/css/onlcmedia.css' },
           { src: 'src/plugins/onlcblocks/main/css/onlcblocks.css', dest: 'js/hugerte/plugins/onlcblocks/css/onlcblocks.css' },
-            { src: 'src/plugins/onlcwidgets/main/css/onlcwidgets.css', dest: 'js/hugerte/plugins/onlcwidgets/css/onlcwidgets.css' }
+          { src: 'src/plugins/onlcwidgets/main/css/onlcwidgets.css', dest: 'js/hugerte/plugins/onlcwidgets/css/onlcwidgets.css' },
+          { src: 'src/plugins/onlcshortcodes/main/css/onlcshortcodes.css', dest: 'js/hugerte/plugins/onlcshortcodes/css/onlcshortcodes.css' },
+          // Polices d'icônes et index des dessins OpenMoji embarqués dans onlcicons
+          { expand: true, cwd: 'src/plugins/onlcicons/main/css', src: '**', dest: 'js/hugerte/plugins/onlcicons/css' },
+          { expand: true, cwd: 'src/plugins/onlcicons/main/fonts', src: '**', dest: 'js/hugerte/plugins/onlcicons/fonts' },
+          { src: 'src/plugins/onlcicons/main/js/openmoji.js', dest: 'js/hugerte/plugins/onlcicons/js/openmoji.js' },
+          { src: 'src/plugins/onlcicons/main/LICENCES.md', dest: 'js/hugerte/plugins/onlcicons/LICENCES.md' },
+          { expand: true, cwd: 'src/plugins/onlcicons/main/openmoji', src: '**', dest: 'js/hugerte/plugins/onlcicons/openmoji' },
+          // Paquets de langue des plugins ONLC : à charger avant hugerte.init()
+          { expand: true, cwd: 'src/plugins/onlcshared/main/i18n', src: '**', dest: 'js/hugerte/langs/onlc' }
         ]
       },
       'html-i18n': {

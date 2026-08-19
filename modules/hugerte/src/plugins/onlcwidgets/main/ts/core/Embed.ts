@@ -1,4 +1,4 @@
-import { Optional, Type } from '@ephox/katamari';
+import { Optional } from '@ephox/katamari';
 
 /**
  * Turns the url a user pastes into the url an `<iframe>` can display, for the video, map and
@@ -61,29 +61,23 @@ const videoUrl = (url: string, options: VideoOptions): Optional<string> => {
 const isCoordinates = (value: string): boolean => /^\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*$/.test(value);
 
 /**
- * Resolves the embed url of a map. OpenStreetMap needs coordinates, so a postal address falls
- * back to the key free Google Maps embed.
+ * Vignette d'une vidéo, quand le service en publie une à une adresse prévisible. Elle sert
+ * uniquement d'aperçu dans l'éditeur : aucune requête n'est faite vers l'api du service.
  */
-const mapUrl = (place: string, zoom: string, provider: string, apiKey: string): Optional<string> => {
-  const value = place.trim();
-  if (value === '') {
-    return Optional.none();
-  }
+const videoPoster = (url: string): Optional<string> => {
+  const yt = youtube.exec(url.trim());
+  return yt === null ? Optional.none() : Optional.some(`https://i.ytimg.com/vi/${yt[1]}/hqdefault.jpg`);
+};
 
-  const level = /^\d+$/.test(zoom.trim()) ? zoom.trim() : '14';
-
-  if (provider === 'google' && Type.isString(apiKey) && apiKey !== '') {
-    return Optional.some(`https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(apiKey)}&q=${encodeURIComponent(value)}&zoom=${level}`);
-  }
-
-  if (provider === 'osm' && isCoordinates(value)) {
-    const [ lat, lon ] = value.split(',').map((part) => parseFloat(part));
-    const delta = Math.max(0.001, 0.3 / Math.pow(2, parseInt(level, 10) - 10));
-    const bbox = [ lon - delta, lat - delta, lon + delta, lat + delta ].join(',');
-    return Optional.some(`https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lon}`);
-  }
-
-  return Optional.some(`https://maps.google.com/maps?q=${encodeURIComponent(value)}&z=${level}&output=embed`);
+/**
+ * Adresse d'intégration d'une carte OpenStreetMap, à partir de coordonnées et d'un zoom.
+ * Aucun autre fournisseur n'est proposé : la cartographie du produit est OpenStreetMap.
+ */
+const mapUrl = (latitude: number, longitude: number, zoom: number): string => {
+  const level = Math.max(1, Math.min(19, Math.round(zoom)));
+  const delta = Math.max(0.0008, 0.35 / Math.pow(2, level - 10));
+  const bbox = [ longitude - delta, latitude - delta, longitude + delta, latitude + delta ].join(',');
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${latitude},${longitude}`;
 };
 
 /**
@@ -113,6 +107,7 @@ const calendarUrl = (url: string, mode: string): Optional<string> => {
 
 export {
   videoUrl,
+  videoPoster,
   mapUrl,
   calendarUrl,
   isCoordinates

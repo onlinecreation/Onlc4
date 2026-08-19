@@ -15,7 +15,7 @@ const register = (editor: Editor): void => {
 
   editor.ui.registry.addButton('onlcmaterialicons', {
     icon: 'gallery',
-    tooltip: 'Icônes Material Design',
+    tooltip: 'Icônes',
     onAction: () => editor.execCommand('OnlcMaterialIcons')
   });
 

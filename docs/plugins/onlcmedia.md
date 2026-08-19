@@ -23,9 +23,21 @@ mais une largeur en pourcentage et une hauteur automatique.
 
 ## Interface
 
-1. **Bibliothèque** (`onlcmedialibrary`) : arborescence des dossiers à gauche, vignettes à
-   droite, zone de dépôt pour téléverser, boutons *Nouveau dossier*, *Copier*, *Déplacer*,
-   *Renommer*, *Supprimer*, *Retoucher* et *Créer une image*.
+1. **Médiathèque** (`onlcmedialibrary`), dessinée sur le modèle du Finder de macOS — trois zones
+   que l'on retrouve dans tous les gestionnaires de fichiers, et que l'on reconnaît donc sans
+   explication :
+
+   - une **barre latérale** avec les emplacements, dépliés depuis la racine ;
+   - une **grille de vignettes** au centre : un clic sélectionne, un double clic ouvre le dossier
+     ou choisit le fichier, exactement comme sur un bureau ;
+   - un **panneau d'informations** à droite, qui décrit le fichier sélectionné — dimensions,
+     poids, date — et regroupe les actions qui le concernent : *Retoucher*, *Renommer*,
+     *Copier vers*, *Déplacer vers*, *Supprimer*.
+
+   Au-dessus, une barre d'outils : *Dossier parent*, *Nouveau dossier*, *Téléverser…*,
+   *Dessiner une image…*, *Supprimer ce dossier*, et une recherche dans le dossier courant. Un
+   fil d'Ariane cliquable rappelle le chemin. Les fichiers se déposent directement sur la
+   grille. Tous les boutons font au moins 50 × 50 pixels.
 2. **Propriétés de l'image** (`onlcimage`) : cinq onglets.
    - *Image* : aperçu, bouton **Choisir ou téléverser un média…** (l'action principale),
      bouton *Retoucher cette image…*, puis, en second choix, un champ pour coller l'adresse
@@ -99,6 +111,27 @@ Le dégradé utilise la technique du fond découpé sur le texte : quand une cou
 **et** une couleur d'arrivée sont renseignées, elles remplacent la couleur simple. Les mêmes
 réglages sont proposés par le bloc de texte de [`onlcwidgets`](onlcwidgets.md).
 
+### L'effet parallaxe
+
+La classe *Parallaxe* demande un rendu particulier. Un `<img>` en `position: fixed` est capturé
+par le premier ancêtre qui crée un bloc conteneur — une transformation, un filtre, un
+`clip-path` — et se cale alors dans un coin du cadre au lieu de rester immobile. L'effet est donc
+porté par le **fond de la figure**, en `background-attachment: fixed`, dont l'adresse est écrite
+en style au moment de l'enregistrement :
+
+```html
+<figure class="onlc-image onlc-image--parallax" style="background-image: url(/media/photos/montagne.jpg)">
+  <img src="/media/photos/montagne.jpg" alt="Sommet au lever du jour" style="width: 100%; height: auto">
+</figure>
+```
+
+L'`<img>` est conservé mais masqué visuellement : son texte alternatif reste disponible pour les
+lecteurs d'écran et les moteurs de recherche. Sur mobile, où `background-attachment: fixed` n'est
+pas honoré, le fond défile normalement — ce qui reste un rendu correct.
+
+Cette adresse est recalculée à chaque écriture : elle n'apparaît pas dans le champ *CSS
+personnalisé*, qui ne contient que ce que le rédacteur y a mis.
+
 ## Commandes
 
 | Commande | Effet |
@@ -107,3 +140,4 @@ réglages sont proposés par le bloc de texte de [`onlcwidgets`](onlcwidgets.md)
 | `OnlcMediaExplorer` | Ouvre la bibliothèque (`value` : chemin du dossier) |
 | `OnlcEditImageInPixel` | Ouvre l'image sélectionnée dans Pixel |
 | `OnlcInsertImage` | Insère une image à partir d'un objet `ImageData` |
+| `OnlcPickMedia` | Ouvre la bibliothèque pour un autre plugin et rend le ou les fichiers choisis au rappel `onSelect` |

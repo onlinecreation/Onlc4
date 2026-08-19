@@ -1,6 +1,6 @@
 import { Arr, Type } from '@ephox/katamari';
 
-import { WidgetDefinition } from '../api/Types';
+import { WidgetAssets, WidgetConfig, WidgetDefinition } from '../api/Types';
 import * as Html from './Html';
 
 /**
@@ -22,8 +22,18 @@ const stylesheet = (url: string): string =>
 const script = (url: string): string =>
   `<script${Html.attr('src', url)} crossorigin="anonymous" referrerpolicy="no-referrer" defer><\/script>`;
 
-const toHtml = (definition: WidgetDefinition): string => {
+/**
+ * Dépendances effectives d'un bloc pour une configuration donnée. Un bloc peut n'en avoir besoin
+ * que dans certains réglages : une carte déplaçable charge Leaflet, un simple plan ne charge
+ * rien du tout.
+ */
+const resolve = (definition: WidgetDefinition, config: WidgetConfig): WidgetAssets | undefined => {
   const assets = definition.assets;
+  return Type.isFunction(assets) ? assets(config) : assets;
+};
+
+const toHtml = (definition: WidgetDefinition, config: WidgetConfig): string => {
+  const assets = resolve(definition, config);
   if (!Type.isNonNullable(assets)) {
     return '';
   }
@@ -32,14 +42,14 @@ const toHtml = (definition: WidgetDefinition): string => {
   return links + scripts;
 };
 
-const hasAssets = (definition: WidgetDefinition): boolean => {
-  const assets = definition.assets;
+const hasAssets = (definition: WidgetDefinition, config: WidgetConfig): boolean => {
+  const assets = resolve(definition, config);
   return Type.isNonNullable(assets) && ((assets.css ?? []).length > 0 || (assets.js ?? []).length > 0);
 };
 
 /** Liste lisible des dépendances, affichée dans l'aperçu de l'éditeur. */
-const describe = (definition: WidgetDefinition): string => {
-  const assets = definition.assets;
+const describe = (definition: WidgetDefinition, config: WidgetConfig): string => {
+  const assets = resolve(definition, config);
   if (!Type.isNonNullable(assets)) {
     return '';
   }
@@ -47,11 +57,13 @@ const describe = (definition: WidgetDefinition): string => {
   return Arr.map(urls, (url) => url.split('/').slice(-1)[0]).join(', ');
 };
 
-const withAssets = (definition: WidgetDefinition, markup: string): string => toHtml(definition) + markup;
+const withAssets = (definition: WidgetDefinition, config: WidgetConfig, markup: string): string =>
+  toHtml(definition, config) + markup;
 
 export {
   stylesheet,
   script,
+  resolve,
   toHtml,
   hasAssets,
   describe,

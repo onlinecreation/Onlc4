@@ -3,8 +3,16 @@
  * elements they target is ever serialized (they all carry `data-mce-bogus="all"`).
  */
 
+/**
+ * Les lignes de la grille Bootstrap portent des gouttières négatives (`margin: 0 -12px`) qu'un
+ * conteneur compense sur la page publiée. Dans la zone d'édition il n'y a pas de conteneur : sans
+ * cette marge intérieure, chaque ligne déborde de douze pixels de chaque côté et fait apparaître
+ * une barre de défilement horizontale.
+ */
 body.onlc-blocks-enabled {
   position: relative;
+  padding-right: calc(var(--bs-gutter-x, 1.5rem) * 0.5);
+  padding-left: calc(var(--bs-gutter-x, 1.5rem) * 0.5);
 }
 
 .onlc-blocks-ui {

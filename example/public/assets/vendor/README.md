@@ -9,8 +9,9 @@ dont le plugin `onlcblocks` a besoin pour afficher les lignes et les colonnes te
 apparaîtront sur le site. Elle est servie localement pour que la démonstration fonctionne hors
 ligne ; en production, chargez la feuille de style réelle de votre site.
 
-| `fontawesome.css` + `webfonts/fa-solid-900.woff2` | [FontAwesome Free 6.7.2](https://fontawesome.com/) — `fontawesome.min.css` et `solid.min.css` fusionnés | Icônes : CC BY 4.0 · Police : SIL OFL 1.1 · Code : MIT |
+## Et FontAwesome ?
 
-Seul le style « solid » est embarqué, c'est celui qu'utilise la démonstration
-(`onlc_icons_class_prefix: 'fa-solid fa-'`). En production, chargez FontAwesome depuis votre
-CDN habituel et pointez `onlc_icons_stylesheet_url` vers cette URL.
+La démonstration ne l'embarque plus ici : le plugin `onlcicons` sert lui-même les polices
+Font Awesome Free et Material Design, et les charge dans l'interface comme dans le document de
+contenu. Rien n'est à héberger côté page. Les crédits obligatoires sont
+listés dans `modules/hugerte/src/plugins/onlcicons/main/LICENCES.md`.

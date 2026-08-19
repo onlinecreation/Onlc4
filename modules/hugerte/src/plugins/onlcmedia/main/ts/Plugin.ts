@@ -1,5 +1,6 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
 import * as LinkOptions from 'hugerte/plugins/onlcshared/link/Options';
+import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
 import * as Options from './api/Options';
@@ -28,6 +29,8 @@ export interface OnlcMediaApi {
 export default (): void => {
   PluginManager.add('onlcmedia', (editor, pluginUrl): OnlcMediaApi => {
     Options.register(editor);
+
+    DialogStyles.setup(editor);
     LinkOptions.register(editor);
 
     const api = MediaApi.create(editor);

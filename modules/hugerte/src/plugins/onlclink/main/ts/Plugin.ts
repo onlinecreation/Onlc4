@@ -4,6 +4,7 @@ import * as LinkActions from 'hugerte/plugins/onlcshared/link/LinkActions';
 import * as LinkApi from 'hugerte/plugins/onlcshared/link/LinkApi';
 import { LinkAttributes, LinkListItem, LinkListOption } from 'hugerte/plugins/onlcshared/link/LinkTypes';
 import * as LinkOptions from 'hugerte/plugins/onlcshared/link/Options';
+import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
 import * as Buttons from './ui/Buttons';
@@ -29,6 +30,9 @@ export interface OnlcLinkApi {
 export default (): void => {
   PluginManager.add('onlclink', (editor): OnlcLinkApi => {
     LinkOptions.register(editor);
+
+    DialogStyles.setup(editor);
+
     Commands.register(editor);
     Buttons.register(editor);
 

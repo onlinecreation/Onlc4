@@ -32,20 +32,42 @@
   object-fit: cover;
 }
 
-/* Parallaxe : l'image reste fixe pendant que la page défile */
+/**
+ * Parallaxe : l'image reste immobile pendant que la page défile.
+ *
+ * L'effet est porté par le fond de la figure — `background-attachment: fixed` — et non par
+ * l'`<img>` : un élément en `position: fixed` est capturé par le premier ancêtre qui crée un
+ * bloc conteneur (une transformation, un filtre, un `clip-path`), et se cale alors dans un coin
+ * du cadre au lieu de rester fixe. L'adresse de l'image est écrite en style dans la figure au
+ * moment de l'enregistrement.
+ *
+ * L'`<img>` est conservé mais masqué visuellement : son texte alternatif reste disponible pour
+ * les lecteurs d'écran et les moteurs de recherche.
+ */
 .onlc-image--parallax {
-  height: 60vh;
-  overflow: hidden;
-  clip-path: inset(0);
+  min-height: 60vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .onlc-image--parallax img {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* iOS et la plupart des navigateurs mobiles ignorent `background-attachment: fixed` : le fond
+   y défile normalement, ce qui reste un rendu correct. */
+@media (max-width: 768px) {
+  .onlc-image--parallax {
+    min-height: 45vh;
+    background-attachment: scroll;
+  }
 }
 
 /* Texte par-dessus l'image */

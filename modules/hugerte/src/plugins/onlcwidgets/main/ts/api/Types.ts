@@ -9,10 +9,20 @@ export type WidgetFieldType =
   | 'code'
   | 'url'
   | 'image'
+  /** N'importe quel fichier de la médiathèque : pdf, archive, document. */
+  | 'file'
   | 'select'
   | 'checkbox'
   | 'number'
-  | 'color';
+  | 'color'
+  /** Mois, au format `AAAA-MM`. */
+  | 'month'
+  /** Liste ordonnée d'images, avec un intitulé pour chacune. */
+  | 'images'
+  /** Liste de rendez-vous : jour du mois, heure, intitulé. */
+  | 'events'
+  /** Adresse, coordonnées et zoom, choisis sur un plan. */
+  | 'location';
 
 export type CodeLanguage = 'html' | 'javascript' | 'css';
 
@@ -34,6 +44,8 @@ export interface WidgetField {
   readonly tab?: string;
   /** Half width fields are paired two by two inside a grid. */
   readonly half?: boolean;
+  /** Phrase d'explication affichée sous le champ. */
+  readonly help?: string;
 }
 
 export interface WidgetConfig {
@@ -45,6 +57,12 @@ export interface WidgetAssets {
   readonly css?: string[];
   readonly js?: string[];
 }
+
+/**
+ * Dépendances d'un bloc. Une fonction permet de ne les déclarer que dans les configurations qui
+ * en ont besoin : une carte déplaçable charge Leaflet, un simple plan ne charge rien.
+ */
+export type WidgetAssetsSpec = WidgetAssets | ((config: WidgetConfig) => WidgetAssets | undefined);
 
 export interface WidgetDefinition {
   readonly id: string;
@@ -72,7 +90,7 @@ export interface WidgetDefinition {
    */
   readonly canonical?: boolean;
   /** Dépendances chargées depuis un CDN, écrites en tête du bloc sur la page publiée. */
-  readonly assets?: WidgetAssets;
+  readonly assets?: WidgetAssetsSpec;
   /**
    * Marks the block as containing free text edited directly in the page rather than in the
    * dialog. Such content is kept when the block is edited again.

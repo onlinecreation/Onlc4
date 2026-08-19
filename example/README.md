@@ -55,11 +55,28 @@ example/
 │   ├── assets/demo.js   configuration complète de l'éditeur, commentée
 │   ├── assets/demo.css  habillage de la page
 │   ├── assets/content.css  styles du contenu de l'éditeur
+│   ├── assets/contenu.html  contenu de départ, **généré** (voir plus bas)
 │   ├── assets/vendor/   grille Bootstrap et FontAwesome, servis localement
 │   └── pixel/index.html simulation de l'éditeur d'images Pixel
-├── seed/                médiathèque de départ (images SVG)
+├── tools/
+│   └── build-content.js générateur du contenu de démonstration
+├── seed/                médiathèque de départ (images SVG, un PDF)
 └── storage/             espace de travail (créé au démarrage, non versionné)
 ```
+
+## Le contenu de départ
+
+`public/assets/contenu.html` n'est pas écrit à la main : il est produit par
+
+```bash
+node example/tools/build-content.js
+```
+
+C'est du **html publié** — exactement ce qu'un site enregistrerait en base. La page le charge
+par `fetch()` puis le donne à l'éditeur : la démonstration met donc à l'épreuve le chemin qui
+compte le plus, celui de la reprise d'une page existante, plutôt que le seul chemin de
+l'insertion. Le générateur écrit lui-même les attributs de configuration en json des blocs
+prédéfinis, ce qui évite de les encoder à la main.
 
 ## Ce que la démonstration couvre
 
@@ -72,16 +89,38 @@ example/
 | Images sans `width`/`height` | Redimensionnez une image puis cliquez sur `Enregistrer` |
 | Liens prédéfinis, ancres, cible, rel | Bouton `Lien` — la liste vient de `/api/links` |
 | Séparateurs verticaux | Bouton `Séparateur vertical` |
-| Emojis et icônes | Boutons `Emojis` / `Icônes` : le catalogue FontAwesome vient de `/api/icons` (`onlc_icons_builtin: false`) |
+| Emojis et icônes | Boutons `Emojis` / `Icônes` : les deux polices sont embarquées dans le plugin, `/api/icons` n'ajoute qu'un catalogue maison |
 | Dégradé et ombre du texte | Bloc « Un titre en dégradé » → onglet `Style du texte` ; mêmes réglages dans le texte posé sur une image |
 | Script neutralisé | Le contenu contient `alert("hello")` : aucune alerte ne se déclenche, une pastille le représente |
 | Blocs prédéfinis + bloc maison | Bouton `Blocs prédéfinis` (voir `onlc_widgets_custom` dans `demo.js`) |
 | Script JavaScript coloré | Bouton `Script JavaScript` |
 | Source HTML colorée | Bouton `Code source HTML` |
+| Codes courts des gabarits | Bouton `Codes courts` : `[MenuSite]`, `[Contact]`, `[SocialButtons]`, `[PaypalButton]`, `[LogoSite]`, `[add-to-calendar-button]` |
+| Vidéo, page intégrée, carte OpenStreetMap | Blocs prédéfinis, onglet `Médias` : dans l'éditeur ce sont des vignettes inertes, le vrai code part à l'enregistrement |
+| Calendrier mensuel | Bloc `Calendrier` : grille du mois, semaines au choix, événements par jour |
+| Texte déployable | Bloc `Texte déployable` (`<details>` / `<summary>`) |
+| Galerie d'images | Bloc `Galerie` (nanogallery2) : mosaïque, cascade ou masonry |
+| Document PDF | Bloc `Document PDF` (pdf.js), sur `seed/documents/presentation-onlc.pdf` |
+| Emojis dessinés | Tapez un emoji au clavier : il devient un svg OpenMoji |
+| Effet parallaxe | Propriétés d'une image → `Habillage` → `Parallaxe` |
+| Interface en trois langues | Voir la section suivante |
 
 Le panneau **HTML enregistré** affiche exactement ce qui serait stocké en base : c'est là que
 l'on vérifie qu'aucune image ne porte d'attribut `width`/`height`, que les scripts sont bien
 restitués sous forme de balises `<script>` et que les blocs conservent leur configuration.
+
+### Changer la langue de l'interface
+
+Les plugins ONLC parlent français sans configuration. Pour l'anglais ou l'espagnol, ajoutez le
+paquet de langue **avant** `hugerte.init()` et déclarez `language` :
+
+```html
+<script src="/hugerte/langs/onlc/es.js"></script>
+<script>hugerte.init({ language: 'es', /* … */ });</script>
+```
+
+Les paquets sont générés depuis `modules/hugerte/tools/i18n/translations.json` — voir
+[`docs/i18n.md`](../docs/i18n.md).
 
 ## API simulées
 
@@ -111,13 +150,14 @@ curl http://localhost:3000/api/links
 
 ## Fichiers tiers
 
-`public/assets/vendor/` contient la grille Bootstrap et FontAwesome, servis localement pour que
-la démonstration fonctionne sans accès réseau. Leurs origines et licences sont listées dans
+`public/assets/vendor/` contient la grille Bootstrap, servie localement pour que la
+démonstration fonctionne sans accès réseau. Les polices d'icônes, elles, sont embarquées dans
+le plugin `onlcicons`. Leurs origines et licences sont listées dans
 [`public/assets/vendor/README.md`](public/assets/vendor/README.md).
 
 ## Passer en production
 
-Dans `public/assets/demo.js`, quatre réglages changent :
+Dans `public/assets/demo.js`, cinq réglages changent :
 
 ```js
 // 1. L'éditeur d'images réel
@@ -127,13 +167,20 @@ onlc_media_image_editor_url: 'https://pixel.onlinecreation.me',
 onlc_media_api_url: 'https://exemple.tld/api/media',
 onlc_link_api_url: 'https://exemple.tld/api/links',
 
-// 3. Vos feuilles de style : la grille et les icônes de votre site
+// 3. Vos feuilles de style : la grille de votre site
 onlc_blocks_grid_css: 'https://exemple.tld/css/bootstrap-grid.min.css',
-onlc_icons_stylesheet_url: 'https://cdn.exemple.tld/fontawesome/css/all.min.css',
 
 // 4. Le point de rupture des colonnes, si votre maquette n'utilise pas `sm`
 onlc_blocks_breakpoint: 'md',
+
+// 5. Les bibliothèques des blocs carte, galerie et pdf, si vous les hébergez vous-même
+onlc_widgets_cdn_base: 'https://exemple.tld/vendor',
 ```
+
+Les polices d'icônes et les 4 495 dessins d'emojis sont embarqués dans le plugin `onlcicons` :
+il n'y a rien à héberger pour eux, mais **le site publié doit servir les mêmes fichiers** pour
+que les pages s'affichent comme dans l'éditeur. Les crédits obligatoires sont listés dans
+`modules/hugerte/src/plugins/onlcicons/main/LICENCES.md`.
 
 Et remplacez `content_css` par la feuille de style réelle de votre site, pour que l'édition
 ressemble au rendu final.

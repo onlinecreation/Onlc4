@@ -27,6 +27,12 @@ const styles =
   '.tox .onlc-card { display: flex; width: 100%; padding: 10px 12px; gap: 12px; align-items: flex-start; text-align: left; }' +
   '.tox .onlc-card__icon { display: flex; flex: 0 0 auto; width: 34px; height: 34px; align-items: center; justify-content: center; color: #006ce7; background: rgba(0, 108, 231, 0.1); border-radius: 6px; }' +
   '.tox .onlc-card__icon svg { width: 20px; height: 20px; fill: currentColor; }' +
+  // Un dessin au trait déclare `fill="none"` : sans cette règle, la couleur de remplissage
+  // imposée juste au-dessus le transformerait en aplat.
+  '.tox .onlc-card__icon svg[fill="none"] { fill: none; }' +
+  // Le thème pose l'intitulé d'un groupe à gauche de son contenu : sur une grille de cartes,
+  // cela ampute la première colonne. L'intitulé repasse au-dessus.
+  '.tox .tox-form__group--collection { flex-direction: column; align-items: stretch; }' +
   '.tox .onlc-card__icon--wide { width: auto; min-width: 34px; padding: 4px 6px; background: transparent; }' +
   '.tox .onlc-card__icon--wide svg { width: auto; height: 26px; fill: none; }' +
   '.tox .onlc-card__body { display: block; min-width: 0; }' +

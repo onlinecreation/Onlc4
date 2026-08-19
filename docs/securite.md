@@ -80,6 +80,16 @@ l'écriture du markup.
   le plugin ne sait pas relire — mais seulement après vérification : il doit être un code court
   et rien d'autre, sans chevron. Un attribut `data-onlc-shortcode-raw` forgé, arrivé par un
   collage, ressort donc en texte visible et non en markup.
+* **Marqueurs de langue** — même situation, même parade. Les marqueurs `[LG="fr"]` et
+  `<multilang lang="fr">` sortent **sans échappement** : c'est la seule façon d'écrire une balise
+  dans la page enregistrée. Le code de langue, lui, vient d'un attribut — c'est-à-dire d'une
+  chaîne qu'un contenu collé pourrait avoir choisie — et il est donc revalidé juste avant d'être
+  écrit : deux lettres, rien d'autre. Une section dont le code ne tient pas en deux lettres perd
+  son marquage et garde tout son contenu. Rien du reste de la section n'est écrit par le plugin :
+  le contenu passe par le sérialiseur ordinaire.
+* **Filtrage par langue** — l'affichage d'une seule langue dans l'éditeur ne touche pas au
+  document : c'est une classe posée sur le corps et des règles css qui masquent le reste. Rien
+  n'est retiré, donc un enregistrement fait pendant un aperçu ne peut pas amputer la page.
 * **Texte affiché** — tout ce qui vient du rédacteur ou d'une api passe par `Html.escape` ou
   `editor.dom.encode` avant d'entrer dans du markup.
 
@@ -147,11 +157,11 @@ passent par l'encodage css décrit plus haut.
 
 Deux filets, décrits dans [tests.md](tests.md) :
 
-* une **suite automatisée** — 98 cas dans un navigateur, 45 en Node — dont plusieurs portent
+* une **suite automatisée** — 163 cas dans un navigateur, 66 en Node — dont plusieurs portent
   précisément sur les garde-fous décrits ici : le bac à sable de l'aperçu (`allow-scripts` sans
-  `allow-same-origin`), le garde-fou du texte brut d'un code court, l'échappement des adresses
-  posées en css, les types acceptés à l'envoi, et l'impossibilité pour un chemin d'api de sortir
-  de la racine autorisée ;
+  `allow-same-origin`), le garde-fou du texte brut d'un code court, la revalidation d'un code de
+  langue avant écriture, l'échappement des adresses posées en css, les types acceptés à l'envoi,
+  et l'impossibilité pour un chemin d'api de sortir de la racine autorisée ;
 * un **contrôle de bout en bout** dans un navigateur réel (Chromium piloté par Playwright) sur la
   démonstration :
 

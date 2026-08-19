@@ -15,6 +15,7 @@ HugeRTE n'est pas modifié, chaque fonctionnalité s'active dans l'option `plugi
 | `onlcspacer` | Séparateurs verticaux d'une hauteur personnalisée (30 px par défaut) | [doc](plugins/onlcspacer.md) |
 | `onlcicons` | Emojis dessinés par OpenMoji et deux polices d'icônes embarquées, avec moteur de recherche | [doc](plugins/onlcicons.md) |
 | `onlcwidgets` | Blocs prédéfinis et éléments du site (codes courts), script JavaScript, source HTML, aperçu visiteur | [doc](plugins/onlcwidgets.md) |
+| `onlcmultilang` | Pages polyglottes : les passages `[LG]` et `<multilang>` deviennent des sections encadrées et nommées | [doc](plugins/onlcmultilang.md) |
 
 `onlcshared` n'est pas un plugin : c'est la bibliothèque interne (client HTTP, section « lien »,
 styles de dialogue) incluse dans les plugins qui en ont besoin.
@@ -58,7 +59,7 @@ hugerte.init({
   selector: 'textarea',
   plugins: [
     'onlcblocks', 'onlcmedia', 'onlcresponsiveimages', 'onlclink',
-    'onlcspacer', 'onlcicons', 'onlcwidgets'
+    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcmultilang'
   ].join(' '),
   toolbar: [
     'undo redo',
@@ -67,12 +68,13 @@ hugerte.init({
     'onlcimage onlcmedialibrary',
     'onlclink onlcunlink',
     'onlcspacer onlcemoji onlcicons',
-    'onlcwidget onlcscript onlcsource onlcpreview'
+    'onlcwidget onlcscript onlcsource onlcmultilang onlcpreview'
   ].join(' | '),
 
   onlc_media_api_url: 'https://exemple.tld/api/media',
   onlc_link_api_url: 'https://exemple.tld/api/links',
-  onlc_media_image_editor_url: 'https://pixel.onlinecreation.me'
+  onlc_media_image_editor_url: 'https://pixel.onlinecreation.me',
+  onlc_multilang_languages: [ 'fr', 'en', 'nl' ]
 });
 ```
 

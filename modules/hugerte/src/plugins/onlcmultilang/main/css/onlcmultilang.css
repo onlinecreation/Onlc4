@@ -1,0 +1,76 @@
+/**
+ * Apparence des sections de langue dans la zone d'édition.
+ *
+ * Ces styles ne servent qu'à l'écriture : à l'enregistrement, chaque section redevient les deux
+ * marqueurs qu'elle représente, et rien de tout cela ne se retrouve sur le site.
+ *
+ * La pastille est un `::before` nourri par `data-onlc-lang-label` : elle ne fait pas partie du
+ * document, elle ne peut donc être ni sélectionnée, ni effacée, ni enregistrée par accident.
+ */
+
+.onlc-lang {
+  background: rgba(0, 108, 231, 0.04);
+  border: 1px dashed #9ec4f2;
+  border-radius: 6px;
+}
+
+/* Une section de texte reste dans le fil de la phrase : ni marge, ni retour à la ligne. */
+span.onlc-lang {
+  padding: 1px 5px 1px 3px;
+}
+
+/* Une section de blocs se détache, comme les blocs qu'elle contient. */
+div.onlc-lang,
+.onlc-lang--block {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 12px;
+}
+
+.onlc-lang::before {
+  content: attr(data-onlc-lang-label);
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.7;
+  color: #ffffff;
+  vertical-align: middle;
+  white-space: nowrap;
+  background: #006ce7;
+  border-radius: 999px;
+  cursor: default;
+  user-select: none;
+}
+
+/**
+ * Une section dans une autre.
+ *
+ * Le moteur du site ne sait pas la lire : sa section extérieure avalerait la fermeture de
+ * l'intérieure, et la page publiée n'aurait plus rien à voir avec ce qu'on voit ici. L'éditeur
+ * n'en crée jamais — marquer une section déjà marquée change sa langue — mais un glisser-déposer
+ * peut en produire une. Elle est donc signalée en rouge, plutôt que corrigée en silence : c'est
+ * du contenu, et c'est au rédacteur de dire ce qu'il en veut.
+ */
+.onlc-lang .onlc-lang {
+  background: rgba(192, 57, 43, 0.08);
+  border-color: #c0392b;
+}
+
+.onlc-lang .onlc-lang::before {
+  content: attr(data-onlc-lang-label) " ⚠";
+  background: #a03227;
+}
+
+/* Une langue absente de la configuration : conservée, modifiable, mais signalée. */
+.onlc-lang--unknown {
+  background: rgba(217, 164, 65, 0.1);
+  border-color: #d9a441;
+}
+
+.onlc-lang--unknown::before {
+  content: attr(data-onlc-lang-label) " ?";
+  background: #a3701c;
+}

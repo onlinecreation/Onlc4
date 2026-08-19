@@ -95,6 +95,10 @@
     "Shows another web page inside yours",
     "Muestra otra página web dentro de la suya"
   ],
+  "Afficher comme un visiteur": [
+    "Show as a visitor",
+    "Ver como un visitante"
+  ],
   "Afficher les intitulés sur les vignettes": [
     "Show captions on thumbnails",
     "Mostrar los títulos en las miniaturas"
@@ -203,6 +207,10 @@
     "Appearance",
     "Apariencia"
   ],
+  "Appliquer": [
+    "Apply",
+    "Aplicar"
+  ],
   "Arrondi": [
     "Rounded",
     "Redondeado"
@@ -266,6 +274,10 @@
   "Avec empattement": [
     "Serif",
     "Con serifa"
+  ],
+  "Balise multilang (accepte tout)": [
+    "multilang tag (accepts anything)",
+    "Etiqueta multilang (acepta todo)"
   ],
   "Bandeau d’introduction avec titre, texte et bouton": [
     "Opening banner with a heading, text and a button",
@@ -398,6 +410,10 @@
   "Cette action ne peut pas être annulée.": [
     "This cannot be undone.",
     "Esta acción no se puede deshacer."
+  ],
+  "Changer la langue de cette section": [
+    "Change this section’s language",
+    "Cambiar el idioma de esta sección"
   ],
   "Chaque version d’un fichier compte pour un fichier.": [
     "Every version of a file counts as one file.",
@@ -551,6 +567,10 @@
     "Commerce",
     "Comercio"
   ],
+  "Compléter les langues manquantes": [
+    "Add the missing languages",
+    "Añadir los idiomas que faltan"
+  ],
   "Compte PayPal du vendeur": [
     "Seller’s PayPal account",
     "Cuenta PayPal del vendedor"
@@ -614,6 +634,10 @@
   "Créer une image": [
     "Create an image",
     "Crear una imagen"
+  ],
+  "Crochets LG (écriture historique)": [
+    "LG brackets (legacy notation)",
+    "Corchetes LG (notación histórica)"
   ],
   "CSS personnalisé (appliqué au bloc image)": [
     "Custom CSS (applied to the image block)",
@@ -770,6 +794,10 @@
   "E-mail destinataire": [
     "Recipient e-mail",
     "Correo del destinatario"
+  ],
+  "Écriture dans la page enregistrée": [
+    "Notation in the saved page",
+    "Notación en la página guardada"
   ],
   "Emoji ou icône": [
     "Emoji or icon",
@@ -1083,6 +1111,34 @@
     "Leave empty to show PayPal’s own button.",
     "Déjelo vacío para mostrar el botón oficial de PayPal."
   ],
+  "Langue de cette section": [
+    "Language of this section",
+    "Idioma de esta sección"
+  ],
+  "Langue de la section": [
+    "Section language",
+    "Idioma de la sección"
+  ],
+  "Langue de la section…": [
+    "Section language…",
+    "Idioma de la sección…"
+  ],
+  "Langue du visiteur": [
+    "Visitor’s language",
+    "Idioma del visitante"
+  ],
+  "langue non déclarée": [
+    "language not declared",
+    "idioma no declarado"
+  ],
+  "Langues": [
+    "Languages",
+    "Idiomas"
+  ],
+  "Langues de la page": [
+    "Page languages",
+    "Idiomas de la página"
+  ],
   "Largeur": [
     "Width",
     "Anchura"
@@ -1254,6 +1310,14 @@
   "Marge intérieure (ex : .5rem 1rem)": [
     "Inner padding (e.g. .5rem 1rem)",
     "Relleno interior (p. ej. .5rem 1rem)"
+  ],
+  "Marquer": [
+    "Mark",
+    "Marcar"
+  ],
+  "Marquer dans une langue": [
+    "Mark in a language",
+    "Marcar en un idioma"
   ],
   "maximum": [
     "maximum",
@@ -1571,6 +1635,14 @@
     "Remove",
     "Quitar"
   ],
+  "Retirer le marquage": [
+    "Remove the marking",
+    "Quitar el marcado"
+  ],
+  "Retirer le marquage de langue": [
+    "Remove the language marking",
+    "Quitar el marcado de idioma"
+  ],
   "Retoucher cette image…": [
     "Retouch this image…",
     "Retocar esta imagen…"
@@ -1870,6 +1942,10 @@
   "Toutes": [
     "All",
     "Todas"
+  ],
+  "Toutes les langues": [
+    "All languages",
+    "Todos los idiomas"
   ],
   "Toutes ses versions seront perdues.": [
     "All of its versions will be lost.",

@@ -36,6 +36,22 @@ export interface ParsedShortcode {
 /** Un nom de code : une lettre, puis lettres, chiffres, tirets et tirets bas. */
 const namePattern = '[A-Za-z][A-Za-z0-9_-]*';
 
+/**
+ * Noms qu'un code court ne peut pas porter.
+ *
+ * `[LG="fr"]…[/LG]` s'écrit exactement comme un code court apparié — et n'en est pas un : c'est
+ * un marqueur de langue, que `onlcmultilang` transforme en section traduisible. Sans cette
+ * réserve les deux plugins se disputeraient le même texte, et le premier arrivé en ferait une
+ * carte « code non reconnu » : le passage repartirait intact dans la page, mais il ne serait
+ * plus ni reconnaissable ni traduisible dans l'éditeur.
+ *
+ * L'aperçu visiteur y gagne aussi : un `[LG]` écrit dans le **gabarit** n'est plus pris pour un
+ * code sans valeur configurée, donc plus effacé avant que la langue ait été choisie.
+ */
+const reserved = [ 'lg' ];
+
+const isReserved = (name: string): boolean => Arr.contains(reserved, name.toLowerCase());
+
 const attributePattern = /([A-Za-z][\w:.-]*)\s*=\s*("([^"]*)"|'([^']*)'|([^\s"'\]]+))|([A-Za-z][\w-]*)/g;
 
 const readParameters = (body: string): { attributes: ShortcodeValues; flags: string[] } => {
@@ -82,18 +98,24 @@ const findAll = (text: string): ParsedShortcode[] => {
       ? match.index + whole.length + (close?.index ?? 0) + (close?.[0].length ?? 0)
       : match.index + whole.length;
 
-    found.push({
-      raw: text.substring(match.index, end),
-      name,
-      attributes,
-      flags,
-      positional,
-      content,
-      start: match.index,
-      end
-    });
+    if (isReserved(name)) {
+      // Le balayage reprend juste après le marqueur : ce qu'il encadre peut, lui, contenir de
+      // vrais codes courts.
+      pattern.lastIndex = match.index + whole.length;
+    } else {
+      found.push({
+        raw: text.substring(match.index, end),
+        name,
+        attributes,
+        flags,
+        positional,
+        content,
+        start: match.index,
+        end
+      });
 
-    pattern.lastIndex = end;
+      pattern.lastIndex = end;
+    }
     match = pattern.exec(text);
   }
 
@@ -207,6 +229,8 @@ const toValues = (definition: ShortcodeDefinition, parsed: Optional<ParsedShortc
 export {
   isShortcodeText,
   namePattern,
+  reserved,
+  isReserved,
   readParameters,
   findAll,
   build,

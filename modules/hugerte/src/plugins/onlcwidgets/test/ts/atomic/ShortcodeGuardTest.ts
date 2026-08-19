@@ -68,4 +68,33 @@ describe('atomic.hugerte.plugins.onlcwidgets.ShortcodeGuardTest', () => {
     assert.equal(found[0].end, 12);
     assert.equal(found[0].raw, '[Contact]');
   });
+
+  describe('noms réservés', () => {
+    it('ne prend pas [LG] pour un code court', () => {
+      // C'est un marqueur de langue, que onlcmultilang transforme en section traduisible. Le
+      // premier arrivé en ferait sinon une carte « code non reconnu ».
+      assert.isTrue(Parse.isReserved('LG'));
+      assert.isTrue(Parse.isReserved('lg'), 'la casse ne change rien, comme côté site');
+      assert.lengthOf(Parse.findAll('[LG="fr"]Bonjour[/LG]'), 0);
+    });
+
+    it('continue à voir les vrais codes autour du marqueur', () => {
+      const found = Parse.findAll('[LG="fr"]Bonjour[/LG] puis [Contact email="a@b.fr"]');
+      assert.lengthOf(found, 1);
+      assert.equal(found[0].name, 'Contact');
+    });
+
+    it('voit aussi ceux qu’un marqueur encadre', () => {
+      // `[LG]` ne peut pas en contenir côté site, mais `<multilang>` le peut : le balayage
+      // reprend juste après le marqueur plutôt que de sauter tout ce qu'il recouvre.
+      const found = Parse.findAll('<multilang lang="fr">[Contact]</multilang>');
+      assert.lengthOf(found, 1);
+      assert.equal(found[0].name, 'Contact');
+    });
+
+    it('ne réserve rien d’autre', () => {
+      assert.isFalse(Parse.isReserved('LogoSite'));
+      assert.isFalse(Parse.isReserved('Language'));
+    });
+  });
 });

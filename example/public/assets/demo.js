@@ -33,7 +33,7 @@ hugerte.init({
   plugins: [
     // plugins ONLC
     'onlcblocks', 'onlcmedia', 'onlcresponsiveimages', 'onlclink',
-    'onlcspacer', 'onlcicons', 'onlcwidgets',
+    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcmultilang',
     // plugins d'origine, pour comparer
     'lists', 'table', 'searchreplace', 'fullscreen'
   ].join(' '),
@@ -49,6 +49,7 @@ hugerte.init({
     'onlclink onlcunlink',
     'onlcspacer onlcicons',
     'onlcwidget onlcscript onlcsource',
+    'onlcmultilang',
     'onlcpreview',
     'fullscreen'
   ].join(' | '),
@@ -71,8 +72,8 @@ hugerte.init({
   onlc_media_root_path: '/',
   onlc_media_max_upload_size: 8 * 1024 * 1024,
 
-  // --- Éditeur d'images Pixel (docs/api/onlc-pixel-editor.md) ---------------
-  // En production : https://pixel.onlinecreation.me
+  // --- Éditeur d'images Pixie (docs/api/onlc-pixie-editor.md) ---------------
+  // En production : une instance Pixie déployée, par exemple https://pixel.onlinecreation.me
   onlc_media_image_editor_url: '/pixie/',
 
   // --- API des liens (docs/api/onlc-link-api.md) ----------------------------
@@ -95,6 +96,13 @@ hugerte.init({
 
   // --- Séparateurs ----------------------------------------------------------
   onlc_spacer_default_height: '30px',
+
+  // --- Pages polyglottes (docs/plugins/onlcmultilang.md) --------------------
+  // Les langues du site. Un passage marqué dans l'une d'elles ne s'affiche que pour les
+  // visiteurs qui la consultent ; le reste de la page s'affiche pour tout le monde.
+  onlc_multilang_languages: [ 'fr', 'en', 'nl' ],
+  // Écriture des sections créées ici. `multilang` accepte tout, `lg` est l'écriture historique.
+  onlc_multilang_default_syntax: 'multilang',
 
   // --- Blocs prédéfinis -----------------------------------------------------
   // Bibliothèques externes des blocs carte, galerie et pdf. Remplacez cette adresse si vous

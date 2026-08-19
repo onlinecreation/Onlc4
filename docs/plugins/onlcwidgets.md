@@ -362,6 +362,12 @@ carte. Le texte d'origine voyage avec elle, encodé dans `data-onlc-shortcode-ra
 vérification** qu'il s'agit bien d'un code court et de rien d'autre : un attribut forgé, arrivé
 par un collage, ressort en texte visible et non en markup.
 
+Un nom est **réservé** : `LG`. `[LG="fr"]…[/LG]` s'écrit exactement comme un code court apparié
+et n'en est pas un — c'est un marqueur de langue, que [`onlcmultilang`](onlcmultilang.md)
+transforme en section traduisible. Sans cette réserve, les deux plugins se disputeraient le même
+texte, et le premier arrivé en ferait une carte « code non reconnu » : le passage repartirait
+intact dans la page, mais il ne serait plus ni reconnaissable ni traduisible dans l'éditeur.
+
 ## L'aperçu visiteur
 
 Le bouton `onlcpreview` montre la page **dans le site** : en-tête, menu, polices, pied de page.
@@ -370,6 +376,12 @@ codes courts — du gabarit comme du contenu — sont remplacés par les valeurs
 `onlc_preview_values`.
 
 Trois largeurs sont proposées : ordinateur, tablette (820 px) et téléphone (390 px).
+
+Quand [`onlcmultilang`](onlcmultilang.md) est chargé et que la page emploie plusieurs langues,
+une seconde bande apparaît à droite : la **langue du visiteur**. L'aperçu n'en montre qu'une à la
+fois — c'est ce que verra un visiteur, et une page qui les empilerait ne montrerait aucune page
+réelle. La réduction est faite sur la page **assemblée**, gabarit compris, exactement dans
+l'ordre du moteur du site.
 
 La page s'affiche dans un cadre `sandbox="allow-scripts"` **sans** `allow-same-origin` : les
 scripts du gabarit tournent, mais dans une origine opaque, sans accès aux cookies du back-office

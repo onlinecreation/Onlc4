@@ -37,6 +37,7 @@
       "hugerte/plugins/onlcicons/*": ["modules/hugerte/src/plugins/onlcicons/main/ts/*"],
       "hugerte/plugins/onlclink/*": ["modules/hugerte/src/plugins/onlclink/main/ts/*"],
       "hugerte/plugins/onlcmedia/*": ["modules/hugerte/src/plugins/onlcmedia/main/ts/*"],
+      "hugerte/plugins/onlcmultilang/*": ["modules/hugerte/src/plugins/onlcmultilang/main/ts/*"],
       "hugerte/plugins/onlcresponsiveimages/*": ["modules/hugerte/src/plugins/onlcresponsiveimages/main/ts/*"],
       "hugerte/plugins/onlcshared/*": ["modules/hugerte/src/plugins/onlcshared/main/ts/*"],
       "hugerte/plugins/onlcspacer/*": ["modules/hugerte/src/plugins/onlcspacer/main/ts/*"],

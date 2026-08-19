@@ -5,6 +5,7 @@ import * as Http from 'hugerte/plugins/onlcshared/Http';
 
 import * as Options from '../api/Options';
 import { PreviewValue } from '../api/Types';
+import * as Multilang from './Multilang';
 import * as FilterContent from './shortcodes/FilterContent';
 import * as Parse from './shortcodes/Parse';
 
@@ -122,10 +123,22 @@ const resolveContent = (html: string, values: Record<string, PreviewValue>): str
 const fill = (template: string, content: string, values: Record<string, PreviewValue>): string =>
   resolveText(template, values, resolveContent(content, values));
 
-/** Gabarit rempli, prêt à être affiché. */
-const render = (editor: Editor): Promise<string> =>
+/**
+ * Gabarit rempli, prêt à être affiché.
+ *
+ * La passe polyglotte vient **en dernier**, sur la page assemblée, exactement comme le fait le
+ * moteur du site : un `[LG]` de l'en-tête du gabarit et un `<multilang>` du contenu sont alors
+ * traités du même geste. Une page qui porte trois langues n'en montre qu'une au visiteur, et un
+ * aperçu qui les empilerait ne montrerait aucune page réelle. Sans le plugin polyglotte, la
+ * page part telle quelle.
+ */
+const render = (editor: Editor, language?: string): Promise<string> =>
   loadTemplate(editor).then((template) =>
-    fill(template, editor.getContent(), Options.getPreviewValues(editor)));
+    Multilang.resolvePage(
+      editor,
+      fill(template, editor.getContent(), Options.getPreviewValues(editor)),
+      language
+    ));
 
 export {
   contentPlaceholder,

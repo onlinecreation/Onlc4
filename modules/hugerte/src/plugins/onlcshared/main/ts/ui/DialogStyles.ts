@@ -96,6 +96,11 @@ const styles =
   // Explication d'un champ, affichée juste sous lui.
   `.tox .tox-dialog .onlc-field-help, .tox .tox-dialog .onlc-shortcode-help { margin: -4px 0 4px; font-size: 12px; line-height: 1.4; color: ${muted}; }` +
   `.tox .tox-dialog .onlc-shortcode-intro { margin: 0 0 8px; font-size: 13px; line-height: 1.45; color: ${ink}; }` +
+  // Une écriture citée dans une explication — une balise, un code court — se distingue de la
+  // phrase qui l'entoure : sans cela, on ne sait plus ce qu'il faut taper à la lettre près.
+  '.tox .tox-dialog .tox-dialog__body-content code {' +
+  ' padding: 1px 5px; font-family: SFMono-Regular, Menlo, Consolas, monospace; font-size: .92em;' +
+  ` background: rgba(34, 47, 62, .06); border-radius: 4px; color: ${ink}; }` +
   tabs +
   closeButton;
 

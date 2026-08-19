@@ -16,8 +16,8 @@ let plugins = [
   'link', 'lists', 'media', 'nonbreaking', 'pagebreak', 'preview', 'save', 'searchreplace',
   'table', 'template', 'visualblocks', 'visualchars', 'wordcount', 'quickbars',
   // Online Création (ONLC 4) plugins
-  'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcresponsiveimages', 'onlcshortcodes', 'onlcspacer',
-  'onlcwidgets'
+  'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcmultilang', 'onlcresponsiveimages',
+  'onlcshortcodes', 'onlcspacer', 'onlcwidgets'
 ];
 
 let themes = [
@@ -435,6 +435,7 @@ module.exports = function (grunt) {
         files: [
           { src: 'src/plugins/onlcmedia/main/css/onlcmedia.css', dest: 'js/hugerte/plugins/onlcmedia/css/onlcmedia.css' },
           { src: 'src/plugins/onlcblocks/main/css/onlcblocks.css', dest: 'js/hugerte/plugins/onlcblocks/css/onlcblocks.css' },
+          { src: 'src/plugins/onlcmultilang/main/css/onlcmultilang.css', dest: 'js/hugerte/plugins/onlcmultilang/css/onlcmultilang.css' },
           { src: 'src/plugins/onlcwidgets/main/css/onlcwidgets.css', dest: 'js/hugerte/plugins/onlcwidgets/css/onlcwidgets.css' },
           { src: 'src/plugins/onlcwidgets/main/css/onlcshortcodes.css', dest: 'js/hugerte/plugins/onlcwidgets/css/onlcshortcodes.css' },
           // Polices d'icônes et index des dessins OpenMoji embarqués dans onlcicons

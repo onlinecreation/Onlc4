@@ -5,7 +5,7 @@ Deux suites, qui ne tournent pas au même endroit et ne coûtent pas le même te
 | Suite | Ce qu'elle couvre | Commande | Durée |
 |---|---|---|---|
 | **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs | `yarn test-node` | ~1 s |
-| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | ~30 s |
+| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | ~40 s |
 
 `yarn test` enchaîne les deux, plus les tests d'origine de HugeRTE.
 
@@ -50,6 +50,8 @@ inspecte le dom au moment où l'assertion tombe.
 | `onlcwidgets/…/atomic/MonthFieldTest` | lecture et écriture de `AAAA-MM`, et refus des formats approchants |
 | `onlcwidgets/…/atomic/MediaFieldTest` | échappement des adresses posées en css, noms de fichiers lisibles |
 | `onlcwidgets/…/atomic/ShortcodeGuardTest` | le garde-fou du texte brut d'un code court, et l'analyse des codes |
+| `onlcmultilang/…/atomic/ParseTest` | les deux écritures polyglottes, ce que le site ne reconnaît pas, l'équilibre des balises, le rendu par langue |
+| `onlcmultilang/…/atomic/LanguagesTest` | intitulés des langues et lecture de leur configuration |
 | `onlcmedia/…/atomic/UploadFilterTest` | types acceptés à l'envoi, filtrage de la grille, dates de version |
 | `onlcicons/…/atomic/IconDedupeTest` | dédoublonnage par nom, et priorité de la famille |
 | `onlcshared/…/browser/DestroyTest` | la confirmation par maintien : annulation au relâchement, suppression au bout, une seule fois |
@@ -57,6 +59,7 @@ inspecte le dom au moment où l'assertion tombe.
 | `onlcwidgets/…/browser/LibraryMergeTest` | la bibliothèque unique : les deux catalogues, la recherche, l'aiguillage des cartes |
 | `onlcwidgets/…/browser/PreviewDialogTest` | le bac à sable de l'aperçu, le remplissage, les trois largeurs |
 | `onlcmedia/…/browser/FinderLibraryTest` | arborescence et chargement à la demande, actif au survol, quota, historique |
+| `onlcmultilang/…/browser/MultilangTest` | l'aller-retour à l'identique, span ou div, marquer/compléter/retirer, aperçu par langue, codes forgés |
 
 Les tests d'interface **mesurent le rendu** plutôt que la présence des règles css : ces règles
 corrigent le thème, et une montée de version d'Oxide peut en défaire une en silence. Vérifier

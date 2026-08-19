@@ -1,8 +1,9 @@
-import { Fun } from '@ephox/katamari';
+import { Arr, Fun } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
 
+import * as Multilang from '../core/Multilang';
 import * as PagePreview from '../core/PagePreview';
 
 /**
@@ -34,6 +35,9 @@ const styles = `
 .tox .onlc-pagepreview__stage { display: flex; flex: 1 1 auto; justify-content: center; min-height: 0; background: #eef1f4; border-radius: 8px; padding: 12px; }
 .tox .onlc-pagepreview__frame { width: 100%; max-width: 100%; height: 100%; border: 0; border-radius: 6px; background: #ffffff; box-shadow: 0 1px 6px rgba(0, 0, 0, .18); }
 .tox .onlc-pagepreview__message { margin: auto; padding: 24px; color: #5a6570; text-align: center; }
+.tox .onlc-pagepreview__spacer { flex: 1 1 auto; }
+.tox .onlc-pagepreview__group { display: flex; gap: 8px; align-items: center; }
+.tox .onlc-pagepreview__legend { color: #5a6570; }
 `;
 
 /** Largeurs d'aperçu, en pixels. Zéro vaut « toute la place disponible ». */
@@ -86,12 +90,54 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     return button;
   });
 
+  /**
+   * Les langues de la page, quand elle en porte plusieurs.
+   *
+   * Un visiteur ne voit qu'une langue : l'aperçu en montre donc une seule, et dit laquelle.
+   * Sans le plugin polyglotte — ou sur une page monolingue — la bande reste telle qu'elle était.
+   */
+  const languages = Multilang.languagesOf(editor);
+  let language = languages.length === 0 ? '' : languages[0].code;
+
+  const languageButtons = languages.length < 2 ? [] : Arr.map(languages, (entry) => {
+    const button = doc.createElement('button');
+    button.type = 'button';
+    button.className = 'onlc-pagepreview__device';
+    button.textContent = entry.label;
+    button.addEventListener('click', () => {
+      language = entry.code;
+      apply();
+      rebuild();
+    });
+    return button;
+  });
+
+  if (languageButtons.length > 0) {
+    const spacer = doc.createElement('span');
+    spacer.className = 'onlc-pagepreview__spacer';
+
+    const legend = doc.createElement('span');
+    legend.className = 'onlc-pagepreview__legend';
+    legend.textContent = `${t('Langue du visiteur')} :`;
+
+    const group = doc.createElement('span');
+    group.className = 'onlc-pagepreview__group';
+    group.appendChild(legend);
+    languageButtons.forEach((button) => group.appendChild(button));
+
+    bar.appendChild(spacer);
+    bar.appendChild(group);
+  }
+
   const apply = () => {
     if (frame !== null) {
       frame.style.maxWidth = width === 0 ? '100%' : `${width}px`;
     }
     buttons.forEach((button, index) => {
       button.setAttribute('aria-pressed', devices[index].width === width ? 'true' : 'false');
+    });
+    languageButtons.forEach((button, index) => {
+      button.setAttribute('aria-pressed', languages[index].code === language ? 'true' : 'false');
     });
   };
 
@@ -142,14 +188,20 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     stage.appendChild(created);
   };
 
+  /** Construit — ou reconstruit — l'aperçu pour la langue choisie. */
+  const rebuild = (): void => {
+    frame = null;
+    message('Construction de l’aperçu…');
+
+    PagePreview.render(editor, language === '' ? undefined : language).then(show, (err: unknown) => {
+      message(`${t('L’aperçu n’a pas pu être construit')} : ${err instanceof Error ? err.message : String(err)}`);
+    });
+  };
+
   // L'état des trois largeurs est posé d'emblée : il ne dépend pas du chargement de la page, et
   // une bande de boutons dont aucun n'est marqué ne dit rien de ce qui est affiché.
   apply();
-  message('Construction de l’aperçu…');
-
-  PagePreview.render(editor).then(show, (err: unknown) => {
-    message(`${t('L’aperçu n’a pas pu être construit')} : ${err instanceof Error ? err.message : String(err)}`);
-  });
+  rebuild();
 
   return Promise.resolve({
     // La fenêtre ne renvoie rien : c'est un aperçu, pas un formulaire.

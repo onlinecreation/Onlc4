@@ -5,6 +5,7 @@ import * as Http from 'hugerte/plugins/onlcshared/Http';
 
 import * as Options from '../api/Options';
 import { PreviewValue } from '../api/Types';
+import * as FilterContent from './shortcodes/FilterContent';
 import * as Parse from './shortcodes/Parse';
 
 /**
@@ -79,21 +80,36 @@ const valueOf = (values: Record<string, PreviewValue>, parsed: Parse.ParsedShort
 };
 
 /**
- * Remplace tous les codes courts d'un texte.
+ * Remplace les codes courts d'un fragment de **texte**, hors balises.
  *
  * Le balayage se fait de la fin vers le début : les positions relevées par `findAll` restent
  * ainsi valables pendant les remplacements, quelle que soit la longueur du texte inséré.
  *
  * `content` est ce qui prend la place de `[ContenuPage]`. Il est passé tel quel : c'est du html
- * déjà résolu, et le repasser au remplacement transformerait des crochets légitimes du texte.
+ * déjà résolu, et le repasser au remplacement abîmerait des crochets légitimes du texte.
  */
-const resolve = (text: string, values: Record<string, PreviewValue>, content: string): string =>
+const resolveText = (text: string, values: Record<string, PreviewValue>, content: string): string =>
   Arr.foldr(Parse.findAll(text), (result: string, parsed) => {
     const replacement = parsed.name.toLowerCase() === contentPlaceholder.toLowerCase()
       ? content
       : valueOf(values, parsed);
     return result.slice(0, parsed.start) + replacement + result.slice(parsed.end);
   }, text);
+
+/**
+ * Remplace les codes courts du **contenu**, hors balises.
+ *
+ * Le balayage saute l'intérieur des balises : un `alt="[2] la suite"` ou un attribut de données
+ * contenant des crochets n'est pas un code court, et le confondre casserait le markup autour.
+ * C'est le même découpage que celui qui transforme les codes en blocs à l'ouverture.
+ *
+ * Cette prudence ne vaut que pour le contenu. Un **gabarit** place au contraire ses codes dans
+ * des attributs à dessein — `<meta content="[TitreSite]">` — et y sauter les balises reviendrait
+ * à ne rien remplacer du tout.
+ */
+const resolveContent = (html: string, values: Record<string, PreviewValue>): string =>
+  Arr.map(FilterContent.segments(html), (part) =>
+    part.text ? resolveText(part.value, values, '') : part.value).join('');
 
 /**
  * Gabarit et contenu, tous deux résolus.
@@ -104,7 +120,7 @@ const resolve = (text: string, values: Record<string, PreviewValue>, content: st
  * en toutes lettres au milieu de la page, ce qu'aucun visiteur ne verra jamais.
  */
 const fill = (template: string, content: string, values: Record<string, PreviewValue>): string =>
-  resolve(template, values, resolve(content, values, ''));
+  resolveText(template, values, resolveContent(content, values));
 
 /** Gabarit rempli, prêt à être affiché. */
 const render = (editor: Editor): Promise<string> =>
@@ -116,7 +132,8 @@ export {
   fallbackTemplate,
   loadTemplate,
   valueOf,
-  resolve,
+  resolveText,
+  resolveContent,
   fill,
   render
 };

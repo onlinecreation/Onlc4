@@ -189,14 +189,25 @@ const loadRemote = (editor: Editor): Promise<IconEntry[]> => {
     });
 };
 
+/**
+ * Retire les doublons.
+ *
+ * Deux niveaux : le même dessin déclaré deux fois dans une famille, et — plus visible pour le
+ * rédacteur — le **même nom dans deux familles**. « lock », « star » ou « folder » existent chez
+ * Material comme chez Font Awesome : la grille montrait alors deux vignettes presque identiques
+ * l'une à côté de l'autre, sans rien pour les départager.
+ *
+ * Le premier arrivé gagne, et l'ordre est celui de `onlc_icons_families` : un projet qui écrit
+ * `[ 'fontawesome', 'material' ]` obtient le dessin Font Awesome pour les noms communs, et
+ * Material pour tout le reste. Les icônes ajoutées par le projet passent avant les deux.
+ */
 const dedupe = (entries: IconEntry[]): IconEntry[] => {
   const seen: Record<string, boolean> = {};
   return Arr.filter(entries, (entry) => {
-    const key = `${entry.family}:${entry.name}`;
-    if (seen[key] === true) {
+    if (seen[entry.name] === true) {
       return false;
     }
-    seen[key] = true;
+    seen[entry.name] = true;
     return true;
   });
 };
@@ -211,8 +222,16 @@ const initDatabase = (editor: Editor): IconDatabase => {
 
   const appended = Arr.bind(Options.getAppendedIcons(editor), (entry) => fromRemote(entry as RemoteIcon).toArray());
   const bundled = ([] as IconEntry[])
-    .concat(Arr.contains(families, 'material') ? Arr.map(materialIcons, fromMaterial) : [])
-    .concat(Arr.contains(families, 'fontawesome') ? Arr.map(fontAwesomeIcons, fromFontAwesome) : []);
+    // L'ordre suit `onlc_icons_families` : c'est lui qui tranche pour les noms communs.
+    .concat(Arr.bind(families, (family) => {
+      if (family === 'material') {
+        return Arr.map(materialIcons, fromMaterial);
+      } else if (family === 'fontawesome') {
+        return Arr.map(fontAwesomeIcons, fromFontAwesome);
+      } else {
+        return [];
+      }
+    }));
 
   // Les icônes embarquées sont utilisables immédiatement, la liste distante s'y ajoute ensuite
   state.set(dedupe(appended.concat(bundled)));

@@ -62,16 +62,9 @@ const commandEntries = (editor: Editor): WidgetEntry[] => {
     });
   }
 
-  if (has('onlcicons')) {
-    entries.push({
-      id: 'command:OnlcIcons',
-      label: 'Emoji ou icône',
-      description: 'Insérer un emoji Unicode ou une icône Material Design',
-      category: 'Contenu',
-      icon: 'emoji',
-      command: 'OnlcIcons'
-    });
-  }
+  // Pas d'entrée « Emoji ou icône » ici : un emoji est du texte, pas un bloc. Il s'insère par
+  // le bouton de la barre d'outils ou par les compléments « : » et « :: », et le proposer une
+  // troisième fois dans une bibliothèque de blocs ne faisait qu'ajouter un doublon.
 
   if (has('onlcspacer')) {
     entries.push({

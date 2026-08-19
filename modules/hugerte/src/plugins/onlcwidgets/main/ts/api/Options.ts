@@ -3,6 +3,7 @@ import { Arr, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { EditorOptions } from 'hugerte/core/api/OptionTypes';
 
+import { ShortcodeDefinition } from './ShortcodeTypes';
 import { WidgetDefinition, WidgetFieldItem } from './Types';
 
 const option: {
@@ -97,6 +98,38 @@ const register = (editor: Editor): void => {
     processor: 'boolean',
     default: true
   });
+
+  /* Éléments du site (codes courts) --------------------------------------- */
+
+  // Définitions supplémentaires, au format décrit dans `api/ShortcodeTypes.ts`.
+  registerOption('onlc_shortcodes_custom', {
+    processor: (value) => {
+      const valid = Type.isArrayOf(value, Type.isObject);
+      return valid ? { value, valid } : { valid: false, message: 'Must be an array of shortcode definitions.' };
+    },
+    default: []
+  });
+
+  registerOption('onlc_shortcodes_exclude', {
+    processor: 'string[]',
+    default: []
+  });
+
+  /**
+   * Transforme aussi les codes que le plugin ne connaît pas. Ils deviennent une carte neutre,
+   * réécrite telle quelle : c'est utile pour ne pas les abîmer par mégarde, mais cela peut
+   * gêner si vos pages contiennent des crochets à d'autres fins.
+   */
+  registerOption('onlc_shortcodes_show_unknown', {
+    processor: 'boolean',
+    default: true
+  });
+
+  registerOption('onlc_shortcodes_inject_styles', {
+    processor: 'boolean',
+    default: true
+  });
+
 };
 
 const getCustomWidgets = option<WidgetDefinition[]>('onlc_widgets_custom');
@@ -126,8 +159,17 @@ const allowIframeHosts = (editor: Editor, hosts: string[]): void => {
   editor.options.set('sandbox_iframes_exclusions', Arr.unique(current.concat(hosts)));
 };
 
+const getCustomShortcodes = option<ShortcodeDefinition[]>('onlc_shortcodes_custom');
+const getExcludedShortcodes = option<string[]>('onlc_shortcodes_exclude');
+const shouldShowUnknownShortcodes = option<boolean>('onlc_shortcodes_show_unknown');
+const shouldInjectShortcodeStyles = option<boolean>('onlc_shortcodes_inject_styles');
+
 export {
   register,
+  getCustomShortcodes,
+  getExcludedShortcodes,
+  shouldShowUnknownShortcodes,
+  shouldInjectShortcodeStyles,
   defaultScriptPositions,
   getCustomWidgets,
   getExcludedWidgets,

@@ -46,6 +46,11 @@ export interface WidgetField {
   readonly half?: boolean;
   /** Phrase d'explication affichée sous le champ. */
   readonly help?: string;
+  /**
+   * Types acceptés dans la médiathèque, pour un champ `image` ou `file` : `application/pdf`,
+   * `image/` pour toute une famille. Absent, un champ `image` n'accepte que des images.
+   */
+  readonly accept?: string;
 }
 
 export interface WidgetConfig {

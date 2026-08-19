@@ -83,7 +83,7 @@ body.onlc-blocks-enabled {
 }
 
 .onlc-blocks-add {
-  /* Diamètre synchronisé avec `addButtonSize` dans ui/Overlay.ts */
+  /* Diamètre de repli si la mesure échoue : `addButtonSize` dans ui/Overlay.ts */
   position: absolute;
   display: flex;
   width: 28px;
@@ -108,6 +108,48 @@ body.onlc-blocks-enabled {
   opacity: 1;
   transform: scale(1.12);
   outline: none;
+}
+
+/**
+ * Écrans tactiles et petits écrans.
+ *
+ * Les commandes de bloc sont dessinées pour la souris : vingt-quatre pixels de côté, deux
+ * pixels d'écart. Au doigt on les manque, et on attrape celle d'à côté — dont « Supprimer ».
+ * Elles passent donc à quarante-quatre pixels, avec de vrais écarts, dès que le pointeur est
+ * grossier ou l'écran étroit. La barre peut alors passer à la ligne plutôt que de déborder ;
+ * `ui/Overlay.ts` mesure sa hauteur réelle pour la placer, ces valeurs n'ont pas à y être
+ * redites.
+ */
+@media (pointer: coarse), (max-width: 767px) {
+  .onlc-blocks-toolbar {
+    flex-wrap: wrap;
+    max-width: 100%;
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .onlc-blocks-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .onlc-blocks-add {
+    width: 44px;
+    height: 44px;
+    /* Sur un écran tactile il n'y a pas de survol : le bouton reste franchement visible. */
+    opacity: 1;
+  }
+
+  .onlc-blocks-add svg,
+  .onlc-blocks-edge__plus svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .onlc-blocks-edge {
+    min-height: 56px;
+  }
 }
 
 /* Zones d'ajout de début et de fin : dans le flux, jamais par-dessus le contenu */

@@ -49,7 +49,8 @@ const hero: WidgetDefinition = {
   fields: ([
     { name: 'title', label: 'Titre', type: 'text' },
     { name: 'subtitle', label: 'Sous-titre', type: 'textarea' },
-    { name: 'image', label: 'Image de fond', type: 'image' },
+    { name: 'image', label: 'Image de fond', type: 'image',
+      help: 'Choisissez une image dans votre médiathèque, ou donnez l’adresse d’une image hébergée ailleurs.' },
     { name: 'height', label: 'Hauteur', type: 'text', half: true, placeholder: '420px' },
     { name: 'overlay', label: 'Voile sombre (0 à 100)', type: 'number', half: true },
     { name: 'align', label: 'Alignement', type: 'select', items: Common.alignments, half: true },

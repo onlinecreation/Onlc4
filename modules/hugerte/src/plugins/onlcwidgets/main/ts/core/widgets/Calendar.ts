@@ -123,8 +123,8 @@ const calendar: WidgetDefinition = {
   icon: 'insert-time',
   fields: [
     { name: 'title', label: 'Titre affiché', type: 'text', placeholder: 'Les rendez-vous d’avril' },
-    { name: 'month', label: 'Mois affiché', type: 'month', half: true,
-      help: 'Au format AAAA-MM, par exemple 2026-04. Laissez vide pour le mois en cours.' },
+    { name: 'month', label: 'Mois affiché', type: 'month',
+      help: 'Choisissez le mois dans la grille, ou laissez « Mois en cours » pour un calendrier qui se met à jour tout seul.' },
     { name: 'weekStart', label: 'La semaine commence le', type: 'select', half: true, items: [
       { text: 'Lundi', value: 'monday' },
       { text: 'Dimanche', value: 'sunday' }

@@ -191,6 +191,19 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     });
   };
 
+  /**
+   * Garde une bande horizontale à l'intérieur de la zone d'édition.
+   *
+   * Sur un téléphone, la barre d'un bloc étroit ou décalé à droite sortait du cadre : ses
+   * derniers boutons devenaient inatteignables. Elle est donc ramenée dans les bords, quitte à
+   * ne plus être alignée sur le bloc — mieux vaut décalée que hors d'atteinte.
+   */
+  const clampLeft = (left: number, width: number): number => {
+    const body = editor.getBody();
+    const available = Type.isNonNullable(body) ? body.clientWidth : 0;
+    return available <= 0 || width <= 0 ? Math.max(0, left) : Math.max(0, Math.min(left, available - width));
+  };
+
   const positionForBlock = (block: HTMLElement) => {
     const rect = rectOf(block);
 
@@ -200,23 +213,36 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
       width: `${rect.width}px`,
       height: `${rect.height}px`
     });
-    setPosition(part('toolbar'), {
-      top: `${Math.max(0, rect.y - 30)}px`,
-      left: `${rect.x}px`
-    });
+
+    // Les tailles viennent de la feuille de styles, qui les augmente sur écran tactile : on les
+    // mesure au lieu de les redire ici, pour que les deux ne puissent pas diverger.
+    const toolbar = part('toolbar');
+    if (Type.isNonNullable(toolbar)) {
+      setVisible(toolbar, true);
+      const height = toolbar.offsetHeight > 0 ? toolbar.offsetHeight : 30;
+      setPosition(toolbar, {
+        top: `${Math.max(0, rect.y - height - 2)}px`,
+        left: `${clampLeft(rect.x, toolbar.offsetWidth)}px`
+      });
+    }
+
     // Les boutons + sont centrés sur le bord haut et sur le bord bas du bloc. Celui du haut
     // n'apparaît que sur le premier bloc d'un conteneur : ailleurs, le bouton du bas du bloc
     // précédent occupe déjà le même espace.
-    const half = addButtonSize / 2;
+    const before = part('add-before');
+    const measured = Type.isNonNullable(before) && before.offsetWidth > 0 ? before.offsetWidth : addButtonSize;
+    const half = measured / 2;
     const siblings = Blocks.siblingBlocks(editor, block);
     const isFirst = siblings.length === 0 || siblings[0] === block;
-    setPosition(part('add-before'), {
+    const centre = clampLeft(rect.x + rect.width / 2 - half, measured);
+
+    setPosition(before, {
       top: `${Math.max(0, rect.y - half)}px`,
-      left: `${rect.x + rect.width / 2 - half}px`
+      left: `${centre}px`
     });
     setPosition(part('add-after'), {
       top: `${rect.y + rect.height - half}px`,
-      left: `${rect.x + rect.width / 2 - half}px`
+      left: `${centre}px`
     });
 
     Arr.each([ 'outline', 'toolbar', 'add-after' ], (name) => setVisible(part(name), true));

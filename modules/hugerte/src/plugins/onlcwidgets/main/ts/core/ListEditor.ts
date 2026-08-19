@@ -260,6 +260,26 @@ const create = (editor: Editor, spec: ListEditorSpec) => (element: HTMLElement):
 
   const blank = (): Row => Arr.foldl(spec.columns, (acc: Row, column) => ({ ...acc, [column.name]: '' }), {});
 
+  /**
+   * Amène la dernière ligne sous les yeux, et met le curseur dans son premier champ.
+   *
+   * Une liste longue défile : la ligne qu'on vient d'ajouter naît alors hors du cadre, et rien
+   * ne dit qu'il s'est passé quelque chose. On la rejoint donc, et on y place la saisie — c'est
+   * de toute façon là qu'on allait taper.
+   */
+  const revealLast = () => {
+    const line = list.lastElementChild;
+    const view = doc.defaultView;
+    if (line === null || view === null || !(line instanceof view.HTMLElement)) {
+      return;
+    }
+    line.scrollIntoView({ block: 'nearest' });
+    const first = line.querySelector('input, textarea, select');
+    if (first instanceof view.HTMLElement) {
+      first.focus();
+    }
+  };
+
   const onAdd = () => {
     if (spec.picker === true) {
       // L'explorateur de médias appartient au plugin onlcmedia : on passe par sa commande, ce
@@ -269,6 +289,7 @@ const create = (editor: Editor, spec: ListEditorSpec) => (element: HTMLElement):
         onSelect: (files: Array<{ url: string; name: string }>) => {
           rows = rows.concat(Arr.map(files, (file) => ({ ...blank(), src: file.url, title: file.name })));
           render();
+          revealLast();
         }
       });
       if (handled !== false) {
@@ -277,6 +298,7 @@ const create = (editor: Editor, spec: ListEditorSpec) => (element: HTMLElement):
     }
     rows = rows.concat([ blank() ]);
     render();
+    revealLast();
   };
 
   add.addEventListener('click', onAdd);

@@ -285,7 +285,9 @@ const pdf = (editor: Editor): WidgetDefinition => ({
   icon: 'document-properties',
   assets: Cdn.pdfjs(editor),
   fields: [
-    { name: 'src', label: 'Fichier PDF', type: 'file', placeholder: 'https://…/document.pdf' },
+    { name: 'src', label: 'Fichier PDF', type: 'file', accept: 'application/pdf',
+      placeholder: 'https://…/document.pdf',
+      help: 'Choisissez un pdf dans votre médiathèque, ou donnez l’adresse d’un fichier hébergé ailleurs.' },
     { name: 'title', label: 'Titre affiché', type: 'text' },
     { name: 'height', label: 'Hauteur de la zone de lecture', type: 'text', half: true, placeholder: '720px' },
     { name: 'pages', label: 'Nombre de pages affichées (0 = toutes)', type: 'number', half: true },

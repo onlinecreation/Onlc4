@@ -10,8 +10,11 @@ import * as CodeEditor from '../core/CodeEditor';
 import * as Html from '../core/Html';
 import * as ListEditor from '../core/ListEditor';
 import * as LocationEditor from '../core/LocationEditor';
+import * as MediaField from '../core/MediaField';
+import * as MonthField from '../core/MonthField';
 import * as WidgetDom from '../core/WidgetDom';
 import * as Widgets from '../core/Widgets';
+import * as Calendar from '../core/widgets/Calendar';
 
 /**
  * Form of a predefined block, built from the fields declared by its definition.
@@ -19,17 +22,31 @@ import * as Widgets from '../core/Widgets';
 
 const defaultTab = 'Général';
 
-const isUrlField = (field: WidgetField): boolean =>
-  field.type === 'url' || field.type === 'image' || field.type === 'file';
+/**
+ * Seul `url` reste un composant d'adresse du thème, dont la valeur est un objet
+ * `{ value, meta }`. Les champs `image` et `file` sont désormais des sélecteurs de médiathèque,
+ * qui échangent une simple chaîne.
+ */
+const isUrlField = (field: WidgetField): boolean => field.type === 'url';
 
-/** Les champs qui gèrent eux-mêmes leur affichage sont enveloppés dans un intitulé. */
-const framed = (field: WidgetField, item: Dialog.BodyComponentSpec): Dialog.BodyComponentSpec => ({
-  type: 'label',
-  label: field.label,
-  items: Type.isString(field.help)
-    ? [ item, { type: 'htmlpanel', html: `<p class="onlc-field-help">${Html.escape(field.help)}</p>`, presets: 'presentation' } as Dialog.HtmlPanelSpec ]
-    : [ item ]
-});
+/**
+ * Les champs qui gèrent eux-mêmes leur affichage sont enveloppés dans un intitulé.
+ *
+ * L'intitulé porté par le composant enveloppé est retiré : sans cela, l'étiquette du groupe et
+ * celle du champ s'affichent l'une au-dessus de l'autre, et le même mot apparaît deux fois.
+ */
+const framed = (field: WidgetField, item: Dialog.BodyComponentSpec): Dialog.BodyComponentSpec => {
+  const inner = { ...item } as Dialog.BodyComponentSpec & { label?: string };
+  delete inner.label;
+
+  return {
+    type: 'label',
+    label: field.label,
+    items: Type.isString(field.help)
+      ? [ inner, { type: 'htmlpanel', html: `<p class="onlc-field-help">${Html.escape(field.help)}</p>`, presets: 'presentation' } as Dialog.HtmlPanelSpec ]
+      : [ inner ]
+  };
+};
 
 const toItem = (editor: Editor, field: WidgetField): Dialog.BodyComponentSpec => {
   switch (field.type) {
@@ -71,13 +88,16 @@ const toItem = (editor: Editor, field: WidgetField): Dialog.BodyComponentSpec =>
     case 'location':
       return framed(field, LocationEditor.field(editor, field.name));
     case 'month':
-      return Type.isString(field.help)
-        ? framed(field, { type: 'input', name: field.name, label: field.label, placeholder: field.placeholder ?? 'AAAA-MM' })
-        : { type: 'input', name: field.name, label: field.label, placeholder: field.placeholder ?? 'AAAA-MM' };
-    case 'url':
+      return framed(field, MonthField.field(editor, field.name, { monthNames: Calendar.monthNames }));
     case 'image':
     case 'file':
-      return { type: 'urlinput', name: field.name, label: field.label, filetype: field.type === 'image' ? 'image' : 'file' };
+      return framed(field, MediaField.field(editor, field.name, {
+        kind: field.type === 'image' ? 'image' : 'file',
+        accept: field.accept,
+        placeholder: field.placeholder
+      }));
+    case 'url':
+      return { type: 'urlinput', name: field.name, label: field.label, filetype: 'file' };
     case 'number':
       return { type: 'input', name: field.name, label: field.label, inputMode: 'numeric', placeholder: field.placeholder };
     default:

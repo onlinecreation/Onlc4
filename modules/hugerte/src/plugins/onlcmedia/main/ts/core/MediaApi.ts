@@ -4,7 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 import * as Http from 'hugerte/plugins/onlcshared/Http';
 
 import * as Options from '../api/Options';
-import { MediaFile, MediaFolder, MediaHandlers, MediaListing } from '../api/Types';
+import { MediaFile, MediaFolder, MediaHandlers, MediaListing, MediaMetadata, MediaQuota, MediaVersion } from '../api/Types';
 
 /**
  * Client of the ONLC media API. Every operation can be overridden one by one through the
@@ -21,7 +21,17 @@ export interface MediaApi {
   readonly move: (sources: string[], target: string) => Promise<MediaFile[]>;
   readonly copy: (sources: string[], target: string) => Promise<MediaFile[]>;
   readonly rename: (path: string, name: string) => Promise<MediaFile>;
-  readonly save: (path: string, name: string, data: string) => Promise<MediaFile>;
+  /**
+   * Enregistre un binaire. Sur un fichier existant, l'api en fait une **nouvelle version** :
+   * l'ancienne reste accessible par `versions`.
+   */
+  readonly save: (path: string, name: string, data: string, metadata?: MediaMetadata) => Promise<MediaFile>;
+  /** Historique d'un fichier, de la plus récente à la plus ancienne. */
+  readonly versions: (path: string) => Promise<MediaVersion[]>;
+  /** Remet une version antérieure en service. Elle devient la version courante. */
+  readonly restoreVersion: (path: string, versionId: string) => Promise<MediaFile>;
+  /** Quotas du compte. Redemandés à chaque fois qu'ils servent. */
+  readonly quota: () => Promise<MediaQuota>;
 }
 
 const normalizePath = (path: string): string => {
@@ -126,10 +136,28 @@ const create = (editor: Editor): MediaApi => {
         .then((response) => (response as { file: MediaFile }).file ?? response as MediaFile)
     );
 
-  const save = (path: string, name: string, data: string): Promise<MediaFile> =>
-    withHandler(handlers.save, [ path, name, data ], () =>
-      Http.request<{ file: MediaFile } | MediaFile>(requestSpec('/save', { method: 'POST', body: { path, name, data }}))
+  const save = (path: string, name: string, data: string, metadata?: MediaMetadata): Promise<MediaFile> =>
+    withHandler(handlers.save, [ path, name, data, metadata ], () =>
+      Http.request<{ file: MediaFile } | MediaFile>(requestSpec('/save', { method: 'POST', body: { path, name, data, metadata }}))
         .then((response) => (response as { file: MediaFile }).file ?? response as MediaFile)
+    );
+
+  const versions = (path: string): Promise<MediaVersion[]> =>
+    withHandler(handlers.versions, [ path ], () =>
+      Http.request<{ versions?: MediaVersion[] }>(requestSpec('/versions', { params: { path }}))
+        .then((response) => response.versions ?? [])
+    ).then((result) => Type.isArray(result) ? result : []);
+
+  const restoreVersion = (path: string, versionId: string): Promise<MediaFile> =>
+    withHandler(handlers.restoreVersion, [ path, versionId ], () =>
+      Http.request<{ file: MediaFile } | MediaFile>(requestSpec('/version/restore', { method: 'POST', body: { path, versionId }}))
+        .then((response) => (response as { file: MediaFile }).file ?? response as MediaFile)
+    );
+
+  const quota = (): Promise<MediaQuota> =>
+    withHandler(handlers.quota, [], () =>
+      Http.request<{ quota?: MediaQuota } | MediaQuota>(requestSpec('/quota', {}))
+        .then((response) => (response as { quota: MediaQuota }).quota ?? response as MediaQuota)
     );
 
   return {
@@ -142,7 +170,10 @@ const create = (editor: Editor): MediaApi => {
     move,
     copy,
     rename,
-    save
+    save,
+    versions,
+    restoreVersion,
+    quota
   };
 };
 

@@ -2,6 +2,7 @@ import { Arr, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
+import * as Destroy from 'hugerte/plugins/onlcshared/ui/Destroy';
 
 import { ShortcodeDefinition, ShortcodeField, ShortcodeValues } from '../api/Types';
 import * as Dom from '../core/Dom';
@@ -163,8 +164,13 @@ const open = (editor: Editor, definition: ShortcodeDefinition, element: Optional
     buttons,
     onAction: (api, details) => {
       if (details.name === 'remove') {
-        element.each((elm) => Dom.remove(editor, elm));
-        api.close();
+        element.each((elm) => Destroy.open(editor, {
+          what: `${editor.translate('l’élément')} « ${editor.translate(definition.label)} »`,
+          onConfirm: () => {
+            Dom.remove(editor, elm);
+            api.close();
+          }
+        }));
       }
     },
     onSubmit: (api) => {

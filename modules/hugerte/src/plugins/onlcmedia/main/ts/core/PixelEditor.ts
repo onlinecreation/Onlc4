@@ -14,12 +14,22 @@ import * as Options from '../api/Options';
  * - HugeRTE → Pixel : `{ mceAction: 'onlc:open', url, name }` (also passed as query parameters)
  * - Pixel → HugeRTE : `{ mceAction: 'onlc:save', name, mime, data }` where `data` is a data url
  * - Pixel → HugeRTE : `{ mceAction: 'close' }`
+ *
+ * Retoucher une image n'écrase jamais l'originale : le chemin du fichier d'origine repart avec
+ * l'enregistrement (`replaces`), et l'api en fait une **version** de plus. Le rédacteur peut
+ * revenir en arrière depuis la médiathèque, et l'adresse publiée ne change pas.
  */
 
 export interface PixelSaveResult {
   readonly name: string;
   readonly mime: string;
   readonly data: string;
+  /**
+   * Ce que la retouche remplace : le chemin du fichier quand on le connaît, sinon l'adresse de
+   * l'image d'origine. À l'api de dire si elle s'y reconnaît — une image venue d'ailleurs
+   * donnera simplement un nouveau fichier.
+   */
+  readonly replaces?: string;
 }
 
 export interface PixelOpenSpec {
@@ -27,6 +37,8 @@ export interface PixelOpenSpec {
   readonly url?: string;
   readonly name?: string;
   readonly title?: string;
+  /** Chemin du fichier retouché : son contenu actuel deviendra une version antérieure. */
+  readonly path?: string;
   readonly onSave: (result: PixelSaveResult) => Promise<void> | void;
 }
 
@@ -77,7 +89,8 @@ const open = (editor: Editor, spec: PixelOpenSpec): void => {
         Promise.resolve(spec.onSave({
           name: guessName(spec, message),
           mime: Type.isString(message.mime) ? message.mime : 'image/png',
-          data
+          data,
+          replaces: spec.path ?? spec.url
         })).then(() => {
           dialogApi.unblock();
           dialogApi.close();

@@ -3,7 +3,7 @@ import { Arr, Fun, Optional, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 
 import * as Options from '../api/Options';
-import { MediaFile, MediaFolder, MediaListing } from '../api/Types';
+import { MediaFile, MediaFolder, MediaListing, MediaQuota, MediaVersion } from '../api/Types';
 import * as MediaApi from '../core/MediaApi';
 
 /**
@@ -39,8 +39,12 @@ export interface FinderSpec {
   readonly onEditImage?: (file: Optional<MediaFile>, done: () => void) => void;
   /** Demande une saisie à l'utilisateur (nom de dossier, nouveau nom…). */
   readonly onPrompt: (spec: { title: string; label: string; initialValue?: string; submitText: string; onSubmit: (value: string) => void }) => void;
-  /** Demande une confirmation. */
-  readonly onConfirmAction: (message: string, onYes: () => void) => void;
+  /**
+   * Demande la confirmation d'une suppression. `what` désigne ce qui va disparaître, au
+   * complément d'objet : « le fichier “photo.jpg” ». La confirmation est temporelle — il faut
+   * maintenir le bouton — et c'est l'appelant qui la présente.
+   */
+  readonly onDestroy: (what: string, detail: string, onConfirm: () => void) => void;
   /** Signale une erreur. */
   readonly onError: (message: string) => void;
 }
@@ -76,9 +80,27 @@ const styles = `
 .tox .onlc-finder__body { display: flex; flex: 1 1 auto; min-height: 0; }
 .tox .onlc-finder__sidebar { flex: 0 0 200px; overflow-y: auto; padding: 8px; border-right: 1px solid rgba(34, 47, 62, 0.12); background: #f6f8fa; }
 .tox .onlc-finder__sidebar-title { display: block; padding: 4px 8px 8px; font-size: 11px; font-weight: 700; color: #8a949e; text-transform: uppercase; letter-spacing: 0.04em; }
-.tox .onlc-finder__place { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 40px; padding: 6px 8px; border: 0; border-radius: 6px; background: transparent; font: inherit; color: #22303c; text-align: left; cursor: pointer; }
+.tox .onlc-finder__branch { display: flex; align-items: center; gap: 2px; }
+.tox .onlc-finder__twisty {
+  display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
+  width: 22px; height: 40px; padding: 0; border: 0; border-radius: 4px;
+  background: transparent; color: #5a6570; cursor: pointer;
+}
+.tox .onlc-finder__twisty:hover { background: #dde3e9; }
+.tox .onlc-finder__twisty[data-empty="true"] { visibility: hidden; cursor: default; }
+.tox .onlc-finder__twisty svg { transition: transform .12s ease; }
+.tox .onlc-finder__twisty[aria-expanded="true"] svg { transform: rotate(90deg); }
+.tox .onlc-finder__place {
+  display: flex; align-items: center; gap: 8px; flex: 1 1 auto; min-width: 0; min-height: 40px;
+  padding: 6px 8px; border: 0; border-radius: 6px; background: transparent;
+  font: inherit; color: #22303c; text-align: left; cursor: pointer;
+}
+.tox .onlc-finder__place span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tox .onlc-finder__place:hover { background: #e6ebf0; }
-.tox .onlc-finder__place--current { background: #006ce7; color: #ffffff; }
+/* L'état courant doit rester lisible au survol : sans cette règle, la règle de survol — plus
+   spécifique — repeint le fond en gris clair sous un texte blanc, et l'actif disparaît. */
+.tox .onlc-finder__place--current,
+.tox .onlc-finder__place--current:hover { background: #006ce7; color: #ffffff; }
 .tox .onlc-finder__main { position: relative; display: flex; flex: 1 1 auto; flex-direction: column; min-width: 0; }
 .tox .onlc-finder__grid { display: flex; flex: 1 1 auto; flex-wrap: wrap; gap: 10px; align-content: flex-start; padding: 12px; overflow-y: auto; }
 .tox .onlc-finder__item {
@@ -100,7 +122,19 @@ const styles = `
 .tox .onlc-finder__action { flex: 1 1 100%; min-height: 50px; padding: 0 12px; border: 1px solid rgba(34, 47, 62, 0.18); border-radius: 8px; background: #ffffff; font: inherit; color: #22303c; cursor: pointer; }
 .tox .onlc-finder__action:hover { background: #eef2f6; }
 .tox .onlc-finder__action--danger:hover { background: #fdecec; color: #b4241f; }
-.tox .onlc-finder__status { padding: 6px 12px; border-top: 1px solid rgba(34, 47, 62, 0.12); font-size: 12px; color: #5a6570; background: #f6f8fa; }
+.tox .onlc-finder__status { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 6px 12px; border-top: 1px solid rgba(34, 47, 62, 0.12); font-size: 12px; color: #5a6570; background: #f6f8fa; }
+.tox .onlc-finder__quota { display: flex; gap: 8px; align-items: center; flex: 0 0 auto; }
+.tox .onlc-finder__quota-bar { width: 90px; height: 6px; border-radius: 3px; background: #dde3e9; overflow: hidden; }
+.tox .onlc-finder__quota-fill { display: block; height: 100%; background: #2c9a4a; }
+.tox .onlc-finder__quota[data-full="true"] .onlc-finder__quota-fill { background: #b4241f; }
+.tox .onlc-finder__versions { margin-top: 12px; border-top: 1px solid rgba(34, 47, 62, 0.12); padding-top: 10px; }
+.tox .onlc-finder__versions-title { display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700; color: #8a949e; text-transform: uppercase; letter-spacing: 0.04em; }
+.tox .onlc-finder__version { display: flex; gap: 8px; align-items: center; padding: 4px 0; }
+.tox .onlc-finder__version-thumb { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 4px; background: #eef1f4 center/cover no-repeat; }
+.tox .onlc-finder__version-text { display: flex; flex-direction: column; flex: 1 1 auto; min-width: 0; font-size: 12px; }
+.tox .onlc-finder__version-label { font-weight: 600; color: #22303c; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tox .onlc-finder__version-date { color: #5a6570; }
+.tox .onlc-finder__version-current { flex: 0 0 auto; padding: 2px 8px; border-radius: 10px; background: #e4f1e8; color: #1f6b36; font-size: 11px; font-weight: 600; }
 .tox .onlc-finder__drop {
   position: absolute; top: 0; right: 0; bottom: 0;
   left: 0; display: flex; align-items: center; justify-content: center;
@@ -112,6 +146,9 @@ const styles = `
 
 const folderGlyph =
   '<svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#7fb3ff" stroke="#3f83d6" stroke-width="1.2"></path></svg>';
+
+const chevronGlyph =
+  '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
 
 const fileGlyph =
   '<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M6 2.5h8l4.5 4.5v14.5H6z" fill="#ffffff" stroke="currentColor" stroke-width="1.4"></path><path d="M14 2.5V7h4.5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>';
@@ -166,6 +203,42 @@ const matchesAccept = (file: MediaFile, accept: string | undefined): boolean => 
     (Type.isString(file.mime) && file.mime.indexOf(accept) !== -1);
 };
 
+/**
+ * Le type d'un fichier figure-t-il dans la liste autorisée ?
+ *
+ * Une entrée vaut un type complet (`image/png`), une famille (`image/`) ou une extension
+ * (`.pdf`). La liste vide accepte tout. Ce contrôle épargne un aller-retour inutile ; il ne
+ * remplace pas celui du serveur, seul à faire autorité.
+ */
+const matchesMimeList = (file: File, allowed: string[]): boolean => {
+  if (!Type.isArray(allowed) || allowed.length === 0) {
+    return true;
+  }
+  const mime = (file.type ?? '').toLowerCase();
+  const name = file.name.toLowerCase();
+  return Arr.exists(allowed, (entry) => {
+    const wanted = entry.trim().toLowerCase();
+    if (wanted === '') {
+      return false;
+    } else if (wanted.charAt(0) === '.') {
+      return name.length > wanted.length && name.slice(-wanted.length) === wanted;
+    } else if (wanted.charAt(wanted.length - 1) === '/') {
+      return mime.indexOf(wanted) === 0;
+    } else {
+      return mime === wanted;
+    }
+  });
+};
+
+/** Date lisible, tirée d'un horodatage ISO. La chaîne brute sert de repli. */
+const humanDate = (value: string | undefined): string => {
+  if (!Type.isString(value) || value === '') {
+    return '';
+  }
+  const date = new Date(value);
+  return isNaN(date.getTime()) ? value : date.toLocaleString();
+};
+
 /** Segments cliquables du chemin courant. */
 const crumbsOf = (path: string): Array<{ label: string; path: string }> => {
   const normalized = MediaApi.normalizePath(path);
@@ -187,7 +260,10 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
   let listing: MediaListing = { path, parent: null, folders: [], files: [] };
   let selected: MediaFile[] = [];
   let filter = '';
-  let visited: string[] = [ path ];
+  /** Contenu de chaque dossier déjà déplié, par chemin. */
+  const tree: Record<string, MediaFolder[]> = {};
+  /** Chemins des dossiers dépliés. `open` est réservé en portée de module. */
+  let open_: string[] = [ '/' ];
 
   const element = doc.createElement('div');
   element.className = 'onlc-finder';
@@ -214,12 +290,23 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
   const info = doc.createElement('aside');
   info.className = 'onlc-finder__info';
 
-  const status = doc.createElement('p');
+  const status = doc.createElement('div');
   status.className = 'onlc-finder__status';
+
+  const statusText = doc.createElement('span');
+  // Jauge de quota : un compte à part, toujours visible en bas à droite.
+  const quotaBox = doc.createElement('span');
+  quotaBox.className = 'onlc-finder__quota';
+  status.appendChild(statusText);
+  status.appendChild(quotaBox);
 
   const fileInput = doc.createElement('input');
   fileInput.type = 'file';
   fileInput.multiple = true;
+  // Le sélecteur natif propose d'emblée les bons types ; le contrôle reste fait à l'envoi,
+  // l'attribut `accept` n'étant qu'une suggestion que le navigateur peut ignorer.
+  fileInput.accept = Options.getUploadMimeTypes(editor).map((entry) => entry.trim()).filter((entry) => entry !== '')
+    .map((entry) => entry.charAt(entry.length - 1) === '/' ? `${entry}*` : entry).join(',');
   fileInput.className = 'onlc-finder__file-input';
 
   main.appendChild(grid);
@@ -232,8 +319,60 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
   element.appendChild(status);
   element.appendChild(fileInput);
 
+  const t = (text: string): string => editor.translate(text) as string;
+
   const setStatus = (message: string) => {
-    status.textContent = message;
+    statusText.textContent = t(message);
+  };
+
+  /* Quotas ----------------------------------------------------------------- */
+
+  /**
+   * Les quotas ne sont pas gardés en mémoire : ils varient d'un compte à l'autre, et un envoi
+   * fait depuis un autre onglet les change. Ils sont donc redemandés à chaque fois qu'ils
+   * servent — au chargement d'un dossier, avant un envoi, après une suppression.
+   */
+  let quota: MediaQuota | null = null;
+
+  const renderQuota = () => {
+    quotaBox.innerHTML = '';
+    if (quota === null || !Type.isNumber(quota.maxFiles) || quota.maxFiles <= 0) {
+      return;
+    }
+    const used = Math.max(0, quota.files);
+    const share = Math.min(100, (used / quota.maxFiles) * 100);
+    quotaBox.dataset.full = used >= quota.maxFiles ? 'true' : 'false';
+
+    const label = doc.createElement('span');
+    label.textContent = `${used} / ${quota.maxFiles} ${t('fichiers')}`;
+
+    const bar = doc.createElement('span');
+    bar.className = 'onlc-finder__quota-bar';
+    const fill = doc.createElement('span');
+    fill.className = 'onlc-finder__quota-fill';
+    fill.style.width = `${share}%`;
+    bar.appendChild(fill);
+
+    quotaBox.title = t('Chaque version d’un fichier compte pour un fichier.');
+    quotaBox.appendChild(label);
+    quotaBox.appendChild(bar);
+  };
+
+  /** Relit les quotas. La promesse aboutit même quand l'api n'en sert pas. */
+  const refreshQuota = (): Promise<MediaQuota | null> => {
+    if (Options.isQuotaEnabled(editor) !== true) {
+      return Promise.resolve(null);
+    }
+    return api.quota().then((result) => {
+      quota = Type.isObject(result) && Type.isNumber(result.files) ? result : null;
+      renderQuota();
+      return quota;
+    }, () => {
+      // Une api sans quotas n'est pas une erreur : la jauge disparaît, rien d'autre.
+      quota = null;
+      renderQuota();
+      return null;
+    });
   };
 
   const tool = (label: string, onClick: () => void, glyph?: string): HTMLButtonElement => {
@@ -274,6 +413,14 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
     });
   };
 
+  /**
+   * Barre latérale : l'arborescence des dossiers.
+   *
+   * Une liste à plat ne dit pas où l'on se trouve — deux dossiers nommés « photos » y sont
+   * indiscernables. Les dossiers sont donc empilés selon leur profondeur réelle, chacun
+   * dépliable par son chevron. Le contenu d'un dossier n'est demandé à l'api qu'au dépliage,
+   * puis gardé en mémoire : ouvrir la médiathèque ne déclenche pas une rafale de requêtes.
+   */
   const renderSidebar = () => {
     sidebar.innerHTML = '';
     const title = doc.createElement('span');
@@ -281,26 +428,87 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
     title.textContent = editor.translate('Emplacements');
     sidebar.appendChild(title);
 
-    const places: Array<{ label: string; target: string }> = [{ label: 'Médiathèque', target: '/' }];
-    Arr.each(visited, (place) => {
-      if (place !== '/' && !Arr.exists(places, (entry) => entry.target === place)) {
-        places.push({ label: place.split('/').pop() ?? place, target: place });
-      }
-    });
-    Arr.each(listing.folders, (folder: MediaFolder) => {
-      if (!Arr.exists(places, (entry) => entry.target === folder.path)) {
-        places.push({ label: folder.name, target: folder.path });
-      }
-    });
+    const branch = (folder: MediaFolder, depth: number) => {
+      const row = doc.createElement('div');
+      row.className = 'onlc-finder__branch';
+      row.style.paddingLeft = `${depth * 14}px`;
 
-    Arr.each(places, (place) => {
+      const children = tree[folder.path];
+      const expanded = Arr.contains(open_, folder.path);
+      // Un dossier jamais déplié est supposé pouvoir l'être : c'est le dépliage qui tranche.
+      const childless = Type.isNonNullable(children) && children.length === 0;
+
+      const twisty = doc.createElement('button');
+      twisty.type = 'button';
+      twisty.className = 'onlc-finder__twisty';
+      twisty.dataset.empty = childless ? 'true' : 'false';
+      twisty.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      twisty.setAttribute('aria-label', editor.translate(expanded ? 'Replier' : 'Déplier') as string);
+      twisty.innerHTML = chevronGlyph;
+      twisty.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBranch(folder.path);
+      });
+
       const button = doc.createElement('button');
       button.type = 'button';
-      button.className = `onlc-finder__place${place.target === path ? ' onlc-finder__place--current' : ''}`;
-      button.innerHTML = `${folderGlyph.replace('width="40" height="40"', 'width="20" height="20"')}<span>${editor.dom.encode(place.label)}</span>`;
-      button.addEventListener('click', () => load(place.target));
-      sidebar.appendChild(button);
+      button.className = `onlc-finder__place${folder.path === path ? ' onlc-finder__place--current' : ''}`;
+      button.innerHTML = `${folderGlyph.replace('width="40" height="40"', 'width="20" height="20"')}<span>${editor.dom.encode(folder.name)}</span>`;
+      button.addEventListener('click', () => load(folder.path));
+
+      row.appendChild(twisty);
+      row.appendChild(button);
+      sidebar.appendChild(row);
+
+      if (expanded && Type.isNonNullable(children)) {
+        Arr.each(children, (child) => branch(child, depth + 1));
+      }
+    };
+
+    branch({ name: editor.translate('Médiathèque') as string, path: '/' }, 0);
+  };
+
+  /** Charge le contenu d'un dossier pour l'arborescence, une seule fois. */
+  const loadBranch = (target: string): void => {
+    if (Type.isNonNullable(tree[target])) {
+      renderSidebar();
+      return;
+    }
+    api.list(target).then((result) => {
+      tree[target] = result.folders;
+      renderSidebar();
+    }, () => {
+      tree[target] = [];
+      renderSidebar();
     });
+  };
+
+  const toggleBranch = (target: string): void => {
+    if (Arr.contains(open_, target)) {
+      open_ = Arr.filter(open_, (entry) => entry !== target);
+      renderSidebar();
+    } else {
+      open_ = open_.concat([ target ]);
+      loadBranch(target);
+    }
+  };
+
+  /** Déplie la branche qui mène au dossier ouvert, pour qu'il soit toujours visible. */
+  const revealBranch = (target: string): void => {
+    const parts = target.split('/').filter((part) => part !== '');
+    let current = '';
+    const wanted = [ '/' ];
+    Arr.each(parts, (part) => {
+      current = `${current}/${part}`;
+      wanted.push(current);
+    });
+    // Le dossier ouvert lui-même n'a pas à être déplié : seuls ses ancêtres le sont.
+    Arr.each(wanted.slice(0, -1), (entry) => {
+      if (!Arr.contains(open_, entry)) {
+        open_ = open_.concat([ entry ]);
+      }
+    });
+    Arr.each(wanted, loadBranch);
   };
 
   const isSelected = (file: MediaFile): boolean => Arr.exists(selected, (entry) => entry.path === file.path);
@@ -464,12 +672,95 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
     }));
 
     actions.appendChild(action('Supprimer', () => {
-      spec.onConfirmAction(`Supprimer définitivement « ${file.name} » ?`, () => {
-        run('Suppression…', api.deleteFile(file.path));
-      });
+      spec.onDestroy(
+        `${t('le fichier')} « ${file.name} »`,
+        'Toutes ses versions seront perdues.',
+        () => run('Suppression…', api.deleteFile(file.path))
+      );
     }, true));
 
     info.appendChild(actions);
+    renderVersions(file);
+  };
+
+  /**
+   * Historique d'un fichier.
+   *
+   * Chaque passage dans l'éditeur d'images ajoute une version au lieu d'écraser la précédente :
+   * on peut donc toujours revenir à l'état d'avant. La liste est demandée à l'ouverture du
+   * panneau, et seulement pour le fichier sélectionné — inutile d'interroger l'api pour un
+   * dossier entier que personne ne regarde.
+   */
+  const renderVersions = (file: MediaFile): void => {
+    if (Options.isVersioningEnabled(editor) !== true) {
+      return;
+    }
+
+    const box = doc.createElement('div');
+    box.className = 'onlc-finder__versions';
+    info.appendChild(box);
+
+    api.versions(file.path).then((versions) => {
+      // La sélection a pu changer pendant la requête : on ne réécrit pas le panneau d'un autre.
+      if (selected.length !== 1 || selected[0].path !== file.path || versions.length <= 1) {
+        box.remove();
+        return;
+      }
+
+      const title = doc.createElement('span');
+      title.className = 'onlc-finder__versions-title';
+      title.textContent = `${t('Versions')} (${versions.length})`;
+      box.appendChild(title);
+
+      Arr.each(versions, (version: MediaVersion) => {
+        const line = doc.createElement('div');
+        line.className = 'onlc-finder__version';
+
+        const thumb = doc.createElement('span');
+        thumb.className = 'onlc-finder__version-thumb';
+        const preview_ = version.thumbnailUrl ?? version.url;
+        if (Type.isString(preview_) && preview_ !== '') {
+          thumb.style.backgroundImage = `url(${backgroundUrl(editor, preview_)})`;
+        }
+
+        const text = doc.createElement('span');
+        text.className = 'onlc-finder__version-text';
+        const label = doc.createElement('span');
+        label.className = 'onlc-finder__version-label';
+        label.textContent = Type.isString(version.label) && version.label !== ''
+          ? t(version.label)
+          : t('Version enregistrée');
+        const date = doc.createElement('span');
+        date.className = 'onlc-finder__version-date';
+        date.textContent = humanDate(version.createdAt);
+        text.appendChild(label);
+        text.appendChild(date);
+
+        line.appendChild(thumb);
+        line.appendChild(text);
+
+        if (version.current === true) {
+          const badge = doc.createElement('span');
+          badge.className = 'onlc-finder__version-current';
+          badge.textContent = t('Actuelle');
+          line.appendChild(badge);
+        } else {
+          const restore = doc.createElement('button');
+          restore.type = 'button';
+          restore.className = 'onlc-finder__action';
+          restore.textContent = t('Restaurer');
+          restore.addEventListener('click', () => {
+            run('Restauration…', api.restoreVersion(file.path, version.id));
+          });
+          line.appendChild(restore);
+        }
+
+        box.appendChild(line);
+      });
+    }, () => {
+      // Une api sans historique n'est pas une erreur : la section disparaît.
+      box.remove();
+    });
   };
 
   /* Actions ---------------------------------------------------------------- */
@@ -491,9 +782,10 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
       path = result.path;
       listing = result;
       selected = [];
-      if (!Arr.contains(visited, path)) {
-        visited = visited.concat([ path ]).slice(-6);
-      }
+      // Le dossier vient d'être lu : l'arborescence profite de la même réponse.
+      tree[path] = result.folders;
+      revealBranch(path);
+      refreshQuota();
       renderCrumbs();
       renderSidebar();
       renderGrid();
@@ -511,16 +803,57 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
     });
   };
 
+  /**
+   * Envoi de fichiers.
+   *
+   * Trois refus possibles, dans l'ordre où ils coûtent le moins cher à vérifier : le type, puis
+   * le poids réglé côté page, puis les quotas du compte — ces derniers sont relus juste avant,
+   * puisqu'ils ont pu changer depuis l'ouverture de la médiathèque. Chaque refus nomme le
+   * fichier en cause : « ça n'a pas marché » n'aide personne.
+   */
   const upload = (files: File[]): void => {
+    const allowed = Options.getUploadMimeTypes(editor);
+    const rejected = Arr.find(files, (file) => !matchesMimeList(file, allowed));
+
+    if (rejected.isSome()) {
+      const file = rejected.getOrDie();
+      spec.onError(`${t('Ce type de fichier n’est pas accepté')} : « ${file.name} » (${file.type === '' ? t('type inconnu') : file.type}). ` +
+        `${t('Types acceptés')} : ${allowed.join(', ')}.`);
+      return;
+    }
+
     const maxSize = Options.getMaxUploadSize(editor);
     const tooBig = Arr.find(files, (file) => maxSize > 0 && file.size > maxSize);
 
     if (tooBig.isSome()) {
-      spec.onError(`Le fichier « ${tooBig.getOrDie().name} » dépasse la taille maximale autorisée.`);
+      spec.onError(`${t('Le fichier dépasse la taille maximale autorisée')} : « ${tooBig.getOrDie().name} » (${humanSize(maxSize)} ${t('maximum')}).`);
       return;
     }
 
-    run('Téléversement…', Promise.all(Arr.map(files, (file) => api.upload(path, file))));
+    setStatus('Vérification des quotas…');
+    refreshQuota().then((current) => {
+      if (current !== null) {
+        const perFile = Type.isNumber(current.maxFileSize) && current.maxFileSize > 0 ? current.maxFileSize : 0;
+        const overQuotaSize = Arr.find(files, (file) => perFile > 0 && file.size > perFile);
+
+        if (overQuotaSize.isSome()) {
+          setStatus('');
+          spec.onError(`${t('Le fichier dépasse le poids autorisé par votre offre')} : « ${overQuotaSize.getOrDie().name} » (${humanSize(perFile)} ${t('maximum')}).`);
+          return;
+        }
+
+        const room = Type.isNumber(current.maxFiles) && current.maxFiles > 0 ? current.maxFiles - current.files : -1;
+        if (room >= 0 && files.length > room) {
+          setStatus('');
+          spec.onError(room === 0
+            ? t('Votre médiathèque est pleine. Supprimez des fichiers ou d’anciennes versions pour en ajouter.')
+            : `${t('Il ne reste de la place que pour')} ${room} ${t('fichier(s)')}.`);
+          return;
+        }
+      }
+
+      run('Téléversement…', Promise.all(Arr.map(files, (file) => api.upload(path, file))));
+    });
   };
 
   /* Barre d'outils --------------------------------------------------------- */
@@ -552,7 +885,7 @@ const create = (editor: Editor, api: MediaApi.MediaApi, spec: FinderSpec): Finde
     spec.onEditImage?.(Optional.none(), () => load(path));
   }));
   toolbar.appendChild(tool('Supprimer ce dossier', () => {
-    spec.onConfirmAction(`Supprimer le dossier « ${path} » et tout son contenu ?`, () => {
+    spec.onDestroy(`${t('le dossier')} « ${path} »`, 'Tout ce qu’il contient sera perdu.', () => {
       const parent = Type.isString(listing.parent) && listing.parent !== '' ? listing.parent : MediaApi.parentOf(path);
       setStatus('Suppression…');
       api.deleteFolder(path).then(() => load(parent), (err: unknown) => {

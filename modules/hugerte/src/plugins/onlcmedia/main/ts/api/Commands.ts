@@ -58,7 +58,11 @@ const register = (editor: Editor, api: MediaApi): void => {
         url: src,
         name,
         title: `Modifier « ${name} »`,
-        onSave: (result) => api.save(Options.getRootPath(editor), result.name, result.data).then((file) => {
+        onSave: (result) => api.save(Options.getRootPath(editor), result.name, result.data, {
+          format: result.mime,
+          replaces: result.replaces,
+          label: 'Avant retouche'
+        }).then((file) => {
           editor.undoManager.transact(() => {
             editor.dom.setAttrib(img, 'src', file.url);
           });

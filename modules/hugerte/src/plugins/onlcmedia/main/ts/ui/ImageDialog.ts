@@ -177,7 +177,11 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
           name,
           title: src === '' ? 'Créer une image' : `Modifier « ${name} »`,
           // The edited image is saved back through the media api, then used as the new source
-          onSave: (result) => api.save(Options.getRootPath(editor), result.name, result.data).then((file) => {
+          onSave: (result) => api.save(Options.getRootPath(editor), result.name, result.data, {
+            format: result.mime,
+            replaces: result.replaces,
+            label: 'Avant retouche'
+          }).then((file) => {
             dialog.setData({ src: file.url, preview: { url: file.url }});
           })
         });

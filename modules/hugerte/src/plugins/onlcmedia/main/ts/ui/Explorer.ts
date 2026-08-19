@@ -2,6 +2,7 @@ import { Arr, Fun, Singleton, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
+import * as Destroy from 'hugerte/plugins/onlcshared/ui/Destroy';
 
 import { MediaFile } from '../api/Types';
 import * as MediaApi from '../core/MediaApi';
@@ -63,13 +64,18 @@ const open = (editor: Editor, api: MediaApi.MediaApi, spec: ExplorerSpec): void 
             url: file.map((entry) => entry.url).getOrUndefined(),
             name: file.map((entry) => entry.name).getOrUndefined(),
             title: file.fold(Fun.constant('Créer une image'), (entry) => `Modifier « ${entry.name} »`),
-            onSave: (result) => api.save(MediaApi.normalizePath(spec.path ?? '/'), result.name, result.data).then(() => {
+            path: file.map((entry) => entry.path).getOrUndefined(),
+            onSave: (result) => api.save(MediaApi.normalizePath(spec.path ?? '/'), result.name, result.data, {
+              format: result.mime,
+              replaces: result.replaces,
+              label: 'Avant retouche'
+            }).then(() => {
               done();
             })
           });
         },
         onPrompt: (promptSpec) => Prompts.open(editor, promptSpec),
-        onConfirmAction: (message, onYes) => Prompts.confirm(editor, message, onYes),
+        onDestroy: (what, detail, onConfirm) => Destroy.open(editor, { what, detail, onConfirm }),
         onError: (message) => editor.windowManager.alert(message)
       });
 

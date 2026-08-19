@@ -123,6 +123,24 @@ const register = (editor: Editor): void => {
     },
     default: 0
   });
+
+  // Types acceptés à l'envoi. Une entrée vaut soit un type complet (`image/png`), soit une
+  // famille (`image/`), soit une extension (`.pdf`). La liste vide accepte tout, ce qui reste le
+  // comportement d'origine. Le contrôle fait ici est un confort : c'est au serveur de trancher.
+  registerOption('onlc_media_upload_mime_types', {
+    processor: 'string[]',
+    default: [ 'image/', 'application/pdf' ]
+  });
+
+  registerOption('onlc_media_quota', {
+    processor: 'boolean',
+    default: true
+  });
+
+  registerOption('onlc_media_versions', {
+    processor: 'boolean',
+    default: true
+  });
 };
 
 const getApiUrl = option<string>('onlc_media_api_url');
@@ -140,6 +158,9 @@ const getDefaultWidth = option<string>('onlc_media_default_width');
 const shouldInjectStyles = option<boolean>('onlc_media_inject_styles');
 const shouldReplaceImagePlugin = option<boolean>('onlc_media_replace_image_plugin');
 const getMaxUploadSize = option<number>('onlc_media_max_upload_size');
+const getUploadMimeTypes = option<string[]>('onlc_media_upload_mime_types');
+const isQuotaEnabled = option<boolean>('onlc_media_quota');
+const isVersioningEnabled = option<boolean>('onlc_media_versions');
 
 export {
   register,
@@ -160,5 +181,8 @@ export {
   getDefaultWidth,
   shouldInjectStyles,
   shouldReplaceImagePlugin,
-  getMaxUploadSize
+  getMaxUploadSize,
+  getUploadMimeTypes,
+  isQuotaEnabled,
+  isVersioningEnabled
 };

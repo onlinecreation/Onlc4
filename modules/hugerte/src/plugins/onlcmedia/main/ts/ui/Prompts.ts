@@ -37,15 +37,6 @@ const open = (editor: Editor, spec: PromptSpec): void => {
   });
 };
 
-const confirm = (editor: Editor, message: string, onConfirm: () => void): void => {
-  editor.windowManager.confirm(message, (state) => {
-    if (state) {
-      onConfirm();
-    }
-  });
-};
-
 export {
-  open,
-  confirm
+  open
 };

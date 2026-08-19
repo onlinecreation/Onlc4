@@ -2,6 +2,7 @@ import { Arr, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
+import * as Destroy from 'hugerte/plugins/onlcshared/ui/Destroy';
 
 import * as Options from '../api/Options';
 import { ScriptData } from '../api/Types';
@@ -116,8 +117,13 @@ const open = (editor: Editor, element: Optional<HTMLElement>): void => {
     buttons,
     onAction: (api, details) => {
       if (details.name === 'remove') {
-        element.each((elm) => Script.remove(editor, elm));
-        api.close();
+        element.each((elm) => Destroy.open(editor, {
+          what: editor.translate('le script'),
+          onConfirm: () => {
+            Script.remove(editor, elm);
+            api.close();
+          }
+        }));
       }
     },
     onSubmit: (api) => {

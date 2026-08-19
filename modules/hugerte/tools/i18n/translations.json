@@ -1291,9 +1291,9 @@
     "Edit this item",
     "Editar este elemento"
   ],
-  "Modifier dans Pixel": [
-    "Edit in Pixel",
-    "Editar en Pixel"
+  "Modifier dans Pixel•OnlineCreation": [
+    "Edit in Pixel•OnlineCreation",
+    "Editar en Pixel•OnlineCreation"
   ],
   "Modifier le bloc": [
     "Edit the block",
@@ -1462,6 +1462,10 @@
   "Petite": [
     "Small",
     "Pequeña"
+  ],
+  "Pixel•OnlineCreation, l’éditeur d’images": [
+    "Pixel•OnlineCreation, the image editor",
+    "Pixel•OnlineCreation, el editor de imágenes"
   ],
   "Plan OpenStreetMap": [
     "OpenStreetMap plan",

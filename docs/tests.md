@@ -4,7 +4,7 @@ Deux suites, qui ne tournent pas au même endroit et ne coûtent pas le même te
 
 | Suite | Ce qu'elle couvre | Commande | Durée |
 |---|---|---|---|
-| **Node** | les simulations d'api de la démonstration et les générateurs | `yarn test-node` | ~1 s |
+| **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs | `yarn test-node` | ~1 s |
 | **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | ~30 s |
 
 `yarn test` enchaîne les deux, plus les tests d'origine de HugeRTE.
@@ -77,6 +77,7 @@ node example/test/run.js     # la même chose
 |---|---|
 | `example/test/media-api.test.js` | versions et restauration, quotas, types acceptés, sécurité des chemins |
 | `example/test/template-api.test.js` | le gabarit d'aperçu et ses codes |
+| `example/test/branding.test.js` | l'habillage Pixel•OnlineCreation de Pixie : marque, thème, traductions |
 | `example/test/build-langs.test.js` | conversion des paquets TinyMCE, alias de code court, génération bout à bout |
 
 Ces tests décrivent le **contrat** que doit tenir n'importe quelle implémentation, pas seulement

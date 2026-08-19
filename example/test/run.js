@@ -18,6 +18,7 @@ const { run } = require('./harness');
 const files = [
   './media-api.test.js',
   './template-api.test.js',
+  './branding.test.js',
   './build-langs.test.js'
 ];
 

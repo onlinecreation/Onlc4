@@ -73,7 +73,7 @@ hugerte.init({
 
   // --- Éditeur d'images Pixel (docs/api/onlc-pixel-editor.md) ---------------
   // En production : https://pixel.onlinecreation.me
-  onlc_media_image_editor_url: '/pixel/',
+  onlc_media_image_editor_url: '/pixie/',
 
   // --- API des liens (docs/api/onlc-link-api.md) ----------------------------
   onlc_link_api_url: '/api/links',

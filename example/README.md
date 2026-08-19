@@ -1,7 +1,7 @@
 # Exemple d'utilisation d'ONLC 4
 
 Une page de démonstration complète, branchée sur des **API simulées** : médiathèque, liens
-prédéfinis, catalogue d'icônes et éditeur d'images Pixel. Tout fonctionne hors ligne, sans
+prédéfinis, catalogue d'icônes et éditeur d'images. Tout fonctionne hors ligne, sans
 base de données ni dépendance npm supplémentaire.
 
 ## Démarrage
@@ -58,7 +58,7 @@ example/
 │   ├── assets/content.css  styles du contenu de l'éditeur
 │   ├── assets/contenu.html  contenu de départ, **généré** (voir plus bas)
 │   ├── assets/vendor/   grille Bootstrap, servie localement
-│   └── pixel/index.html adaptateur vers l'éditeur d'images Pixie
+│   └── pixie/           adaptateur vers Pixie, habillé Pixel•OnlineCreation
 ├── tools/
 │   ├── build-content.js générateur du contenu de démonstration
 │   └── install-pixie.js installe l'éditeur d'images Pixie (voir plus bas)
@@ -88,7 +88,7 @@ prédéfinis, ce qui évite de les encoder à la main.
 | Blocs déplaçables | Survolez un paragraphe : poignée, monter/descendre, dupliquer, supprimer |
 | Colonnes Bootstrap | Bouton `Ajouter des colonnes` : les dispositions sont des schémas. La ligne se déplace d'un bloc, les colonnes restent fixes |
 | Médiathèque (upload, dossiers, copie, déplacement, renommage, suppression) | Bouton `Bibliothèque` |
-| Retouche et création d'images | Bouton `Retoucher` de la bibliothèque → éditeur Pixel simulé |
+| Retouche et création d'images | Bouton `Retoucher` de la bibliothèque → Pixel•OnlineCreation |
 | Images sans `width`/`height` | Redimensionnez une image puis cliquez sur `Enregistrer` |
 | Liens prédéfinis, ancres, cible, rel | Bouton `Lien` — la liste vient de `/api/links` |
 | Séparateurs verticaux | Bouton `Séparateur vertical` |
@@ -131,9 +131,13 @@ Les paquets sont générés depuis `modules/hugerte/tools/i18n/translations.json
 
 ## L'éditeur d'images
 
-`public/pixel/` n'est pas une imitation d'éditeur : c'est l'**adaptateur** entre ONLC 4 et
+`public/pixie/` n'est pas une imitation d'éditeur : c'est l'**adaptateur** entre ONLC 4 et
 [Pixie](https://pixie.vebto.com/), qui traduit le contrat postMessage décrit dans
-[`docs/api/onlc-pixel-editor.md`](../docs/api/onlc-pixel-editor.md) vers l'api de Pixie.
+[`docs/api/onlc-pixie-editor.md`](../docs/api/onlc-pixie-editor.md) vers l'api de Pixie.
+
+Pixie y est habillé aux couleurs de **Pixel•OnlineCreation** — marque dans la barre, thème bleu,
+interface en français — par `public/pixie/branding.js`, qui passe uniquement par les options de
+configuration de Pixie : aucune feuille de style plaquée par-dessus, aucun sélecteur interne visé.
 
 Pixie est un produit sous licence commerciale : ses fichiers ne sont pas versionnés ici.
 Installez-les depuis l'archive que vous avez achetée :
@@ -142,7 +146,7 @@ Installez-les depuis l'archive que vous avez achetée :
 node example/tools/install-pixie.js /chemin/vers/pixie.zip
 ```
 
-Le script range le nécessaire (~2,5 Mo) dans `example/public/pixel/vendor/`, ignoré par git.
+Le script range le nécessaire (~2,5 Mo) dans `example/public/pixie/vendor/`, ignoré par git.
 Ajoutez `--full` pour embarquer aussi les autocollants, les cadres et les images d'exemple
 (~18 Mo). Sans installation, la page affiche la marche à suivre plutôt que de rester blanche.
 
@@ -159,7 +163,7 @@ Les simulations suivent à la lettre les contrats documentés :
 | `/api/links` | [API des liens](../docs/api/onlc-link-api.md) | `api/links-api.js` |
 | `/api/icons` | [Dictionnaires d'icônes](../docs/api/onlc-icons-api.md) | `api/icons-api.js` |
 | `/api/template` | [Gabarit de l'aperçu](../docs/api/onlc-preview-api.md) | `api/template-api.js` |
-| `/pixel/` | [Éditeur d'images](../docs/api/onlc-pixel-editor.md) | `public/pixel/index.html` |
+| `/pixie/` | [Éditeur d'images](../docs/api/onlc-pixie-editor.md) | `public/pixie/index.html` |
 
 Elles sont volontairement écrites de façon linéaire et commentée : reprenez-les comme
 spécification exécutable pour votre propre back-office. Les fichiers sont stockés dans
@@ -204,7 +208,7 @@ le plugin `onlcicons`. Leurs origines et licences sont listées dans
 Dans `public/assets/demo.js`, cinq réglages changent :
 
 ```js
-// 1. L'éditeur d'images réel
+// 1. L'éditeur d'images déployé
 onlc_media_image_editor_url: 'https://pixel.onlinecreation.me',
 
 // 2. Vos points d'entrée

@@ -9,7 +9,7 @@ HugeRTE n'est pas modifié, chaque fonctionnalité s'active dans l'option `plugi
 | Plugin | Rôle | Documentation |
 | --- | --- | --- |
 | `onlcblocks` | Espace de travail en blocs déplaçables, compatible avec la grille Bootstrap | [doc](plugins/onlcblocks.md) |
-| `onlcmedia` | Explorateur de fichiers, éditeur Pixel, propriétés d'image (classes, texte en surimpression, lien) | [doc](plugins/onlcmedia.md) |
+| `onlcmedia` | Explorateur de fichiers, éditeur d'images, propriétés d'image (classes, texte en surimpression, lien) | [doc](plugins/onlcmedia.md) |
 | `onlcresponsiveimages` | Supprime `width`/`height` des images et les remplace par une largeur en % et une hauteur auto | [doc](plugins/onlcresponsiveimages.md) |
 | `onlclink` | Liens : liste prédéfinie via API, URL personnalisée, ancre, cible, rel | [doc](plugins/onlclink.md) |
 | `onlcspacer` | Séparateurs verticaux d'une hauteur personnalisée (30 px par défaut) | [doc](plugins/onlcspacer.md) |
@@ -37,7 +37,7 @@ styles de dialogue) incluse dans les plugins qui en ont besoin.
 | --- | --- | --- |
 | Médias (fichiers et dossiers) | `onlcmedia` | [onlc-media-api.md](api/onlc-media-api.md) |
 | Liens prédéfinis | `onlclink`, `onlcmedia`, `onlcwidgets` | [onlc-link-api.md](api/onlc-link-api.md) |
-| Éditeur d'images (Pixie / Pixel) | `onlcmedia` | [onlc-pixel-editor.md](api/onlc-pixel-editor.md) |
+| Éditeur d'images (Pixie, alias Pixel•OnlineCreation) | `onlcmedia` | [onlc-pixie-editor.md](api/onlc-pixie-editor.md) |
 | Dictionnaires emojis/icônes | `onlcicons` | [onlc-icons-api.md](api/onlc-icons-api.md) |
 | Gabarit de l'aperçu visiteur | `onlcwidgets` | [onlc-preview-api.md](api/onlc-preview-api.md) |
 

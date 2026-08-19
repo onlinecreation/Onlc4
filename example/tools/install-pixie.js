@@ -8,7 +8,7 @@
  *
  * Pixie est un produit sous **licence commerciale** (CodeCanyon). Ses fichiers ne sont donc pas
  * versionnés ici : ce script les prend dans l'archive que vous avez achetée et les range sous
- * `example/public/pixel/vendor/`, un dossier ignoré par git.
+ * `example/public/pixie/vendor/`, un dossier ignoré par git.
  *
  * Seul le nécessaire est copié — le bundle et les ressources dont l'éditeur a besoin pour
  * fonctionner. Les bibliothèques de vignettes (autocollants, cadres, images d'exemple) pèsent
@@ -21,7 +21,7 @@ const path = require('path');
 const os = require('os');
 const { execFileSync } = require('child_process');
 
-const target = path.resolve(__dirname, '../public/pixel/vendor');
+const target = path.resolve(__dirname, '../public/pixie/vendor');
 
 /** Ce qu'il faut copier, et d'où. Les entrées absentes de l'archive sont simplement ignorées. */
 const required = [
@@ -122,7 +122,7 @@ const main = () => {
   const count = copy(root, full ? required.concat(optional) : required);
   const megabytes = (sizeOf(target) / 1024 / 1024).toFixed(1);
 
-  console.log('✓ Pixie installé dans example/public/pixel/vendor (' + count + ' entrées, ' + megabytes + ' Mo)');
+  console.log('✓ Pixie installé dans example/public/pixie/vendor (' + count + ' entrées, ' + megabytes + ' Mo)');
   if (!full) {
     console.log('  Autocollants, cadres et images d’exemple ont été laissés de côté : relancez avec --full pour les ajouter.');
   }

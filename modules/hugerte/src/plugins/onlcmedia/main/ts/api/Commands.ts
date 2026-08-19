@@ -3,9 +3,9 @@ import { Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import * as LinkFields from 'hugerte/plugins/onlcshared/link/LinkFields';
 
+import * as ImageEditor from '../core/ImageEditor';
 import * as ImageHtml from '../core/ImageHtml';
 import { MediaApi } from '../core/MediaApi';
-import * as PixelEditor from '../core/PixelEditor';
 import * as Explorer from '../ui/Explorer';
 import * as ImageDialog from '../ui/ImageDialog';
 import * as Options from './Options';
@@ -50,11 +50,11 @@ const register = (editor: Editor, api: MediaApi): void => {
     Explorer.pick(editor, api, value);
   });
 
-  editor.addCommand('OnlcEditImageInPixel', () => {
+  editor.addCommand('OnlcEditImageInPixie', () => {
     ImageHtml.getSelectedImage(editor).each((img) => {
       const src = editor.dom.getAttrib(img, 'src');
       const name = src.substring(src.lastIndexOf('/') + 1);
-      PixelEditor.open(editor, {
+      ImageEditor.open(editor, {
         url: src,
         name,
         title: `Modifier « ${name} »`,

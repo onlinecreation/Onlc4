@@ -5,8 +5,8 @@ import { Dialog } from 'hugerte/core/api/ui/Ui';
 import * as Destroy from 'hugerte/plugins/onlcshared/ui/Destroy';
 
 import { MediaFile } from '../api/Types';
+import * as ImageEditor from '../core/ImageEditor';
 import * as MediaApi from '../core/MediaApi';
-import * as PixelEditor from '../core/PixelEditor';
 import * as FinderPanel from './FinderPanel';
 import * as Prompts from './Prompts';
 
@@ -60,7 +60,7 @@ const open = (editor: Editor, api: MediaApi.MediaApi, spec: ExplorerSpec): void 
         },
         onConfirm: confirmSelection,
         onEditImage: (file, done) => {
-          PixelEditor.open(editor, {
+          ImageEditor.open(editor, {
             url: file.map((entry) => entry.url).getOrUndefined(),
             name: file.map((entry) => entry.name).getOrUndefined(),
             title: file.fold(Fun.constant('Créer une image'), (entry) => `Modifier « ${entry.name} »`),

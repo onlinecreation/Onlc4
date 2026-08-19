@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23006ce7'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E">
-    <title>Éditeur d’images</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23006ce7'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+    <title>Pixel•OnlineCreation</title>
     <style>
       html, body, #pixie { width: 100%; height: 100%; margin: 0; padding: 0; }
       body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #171b22; color: #e6e6e6; }
@@ -25,8 +25,9 @@
       <h1>Pixie n’est pas installé</h1>
       <p>
         Cette page est l’<strong>adaptateur</strong> entre ONLC 4 et l’éditeur d’images
-        <a href="https://pixie.vebto.com/" rel="noreferrer">Pixie</a>. Pixie est un produit sous
-        licence commerciale : ses fichiers ne sont pas versionnés dans ce dépôt.
+        <a href="https://pixie.vebto.com/" rel="noreferrer">Pixie</a>, habillé aux couleurs de
+        <strong>Pixel•OnlineCreation</strong>. Pixie est un produit sous licence commerciale :
+        ses fichiers ne sont pas versionnés dans ce dépôt.
       </p>
       <p>Pour l’installer à partir de l’archive que vous avez achetée :</p>
       <pre>node example/tools/install-pixie.js /chemin/vers/pixie.zip</pre>
@@ -37,16 +38,20 @@
       </p>
     </section>
 
+    <script src="branding.js"></script>
     <script>
       /**
        * Adaptateur Pixie ↔ ONLC 4.
        *
-       * Le contrat d'échange est décrit dans `docs/api/onlc-pixel-editor.md`. Cette page ne
-       * fait que le traduire vers l'api de Pixie : elle n'ajoute aucune fonction d'édition,
-       * l'éditeur est bien celui de Pixie et pas une imitation.
+       * Le contrat d'échange est décrit dans `docs/api/onlc-pixie-editor.md`. Cette page ne fait
+       * que le traduire vers l'api de Pixie : elle n'ajoute aucune fonction d'édition, l'éditeur
+       * est bien celui de Pixie et pas une imitation.
        *
        *   ONLC  → page : paramètres d'url `image`, `name`, `origin` (et message `onlc:open`)
        *   page  → ONLC : `onlc:save` avec le binaire en data url, puis `close`
+       *
+       * L'habillage Pixel•OnlineCreation vient de `branding.js`, qui passe uniquement par les
+       * options de configuration de Pixie.
        */
       (function () {
         var params = new URLSearchParams(window.location.search);
@@ -78,14 +83,12 @@
         };
 
         var start = function () {
-          new window.Pixie({
+          var config = {
             selector: '#pixie',
             baseUrl: 'vendor/assets',
             image: imageUrl === '' ? undefined : imageUrl,
             crossOrigin: true,
             ui: {
-              // La croix de Pixie renvoie la main à ONLC, qui referme sa propre fenêtre.
-              menubar: { items: undefined },
               nav: { position: 'bottom' },
               openImageDialog: { show: imageUrl === '' }
             },
@@ -101,7 +104,10 @@
             onClose: function () {
               send({ mceAction: 'close' });
             }
-          });
+          };
+
+          // Couleurs, marque et traductions, par les seules options de Pixie.
+          new window.Pixie(window.OnlcPixieBranding.appliquer(config));
         };
 
         // ONLC renvoie l'image à ouvrir par message pour les intégrations qui ne lisent pas les

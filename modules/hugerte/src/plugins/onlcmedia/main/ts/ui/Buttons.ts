@@ -54,15 +54,15 @@ const register = (editor: Editor): void => {
       const isImage = editor.dom.is(node, 'img') || ImageHtml.isFigure(editor, node);
       return isImage && editor.dom.isEditable(node.parentNode);
     },
-    items: 'onlcimage onlcmediaeditpixel',
+    items: 'onlcimage onlcmediaeditimage',
     position: 'node',
     scope: 'node'
   });
 
-  editor.ui.registry.addButton('onlcmediaeditpixel', {
+  editor.ui.registry.addButton('onlcmediaeditimage', {
     icon: 'edit-image',
-    tooltip: 'Modifier dans Pixel',
-    onAction: () => editor.execCommand('OnlcEditImageInPixel')
+    tooltip: 'Modifier dans Pixel•OnlineCreation',
+    onAction: () => editor.execCommand('OnlcEditImageInPixie')
   });
 
   // Double clicking an image opens its properties, as expected from a wysiwyg editor

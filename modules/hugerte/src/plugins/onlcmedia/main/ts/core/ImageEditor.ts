@@ -6,21 +6,23 @@ import * as Http from 'hugerte/plugins/onlcshared/Http';
 import * as Options from '../api/Options';
 
 /**
- * Integration with the Pixel image editor (https://pixel.onlinecreation.me).
+ * Pont vers l'éditeur d'images.
  *
- * The editor is displayed in a url dialog and talks to HugeRTE with `window.postMessage`.
- * The exchanged messages are documented in `docs/api/onlc-pixel-editor.md`:
+ * L'éditeur est affiché dans une fenêtre d'url et parle à HugeRTE par `window.postMessage`.
+ * Online Création déploie [Pixie](https://pixie.vebto.com/) sous le nom **Pixel•OnlineCreation**,
+ * mais ce module ne connaît que le contrat d'échange : n'importe quel éditeur qui le respecte
+ * fonctionne. Les messages sont décrits dans `docs/api/onlc-pixie-editor.md` :
  *
- * - HugeRTE → Pixel : `{ mceAction: 'onlc:open', url, name }` (also passed as query parameters)
- * - Pixel → HugeRTE : `{ mceAction: 'onlc:save', name, mime, data }` where `data` is a data url
- * - Pixel → HugeRTE : `{ mceAction: 'close' }`
+ * - HugeRTE → éditeur : `{ mceAction: 'onlc:open', url, name }` (aussi en paramètres d'url)
+ * - éditeur → HugeRTE : `{ mceAction: 'onlc:save', name, mime, data }`, `data` en data url
+ * - éditeur → HugeRTE : `{ mceAction: 'close' }`
  *
  * Retoucher une image n'écrase jamais l'originale : le chemin du fichier d'origine repart avec
  * l'enregistrement (`replaces`), et l'api en fait une **version** de plus. Le rédacteur peut
  * revenir en arrière depuis la médiathèque, et l'adresse publiée ne change pas.
  */
 
-export interface PixelSaveResult {
+export interface ImageEditorSaveResult {
   readonly name: string;
   readonly mime: string;
   readonly data: string;
@@ -32,19 +34,19 @@ export interface PixelSaveResult {
   readonly replaces?: string;
 }
 
-export interface PixelOpenSpec {
+export interface ImageEditorOpenSpec {
   /** Url of the image to edit, empty for a new image. */
   readonly url?: string;
   readonly name?: string;
   readonly title?: string;
   /** Chemin du fichier retouché : son contenu actuel deviendra une version antérieure. */
   readonly path?: string;
-  readonly onSave: (result: PixelSaveResult) => Promise<void> | void;
+  readonly onSave: (result: ImageEditorSaveResult) => Promise<void> | void;
 }
 
 const defaultName = 'image.png';
 
-const buildUrl = (editor: Editor, spec: PixelOpenSpec): string => {
+const buildUrl = (editor: Editor, spec: ImageEditorOpenSpec): string => {
   const base = Options.getImageEditorUrl(editor);
   const params: Record<string, string> = {
     origin: window.location.origin,
@@ -61,7 +63,7 @@ const buildUrl = (editor: Editor, spec: PixelOpenSpec): string => {
   return Http.appendParams(base, params);
 };
 
-const guessName = (spec: PixelOpenSpec, message: Record<string, unknown>): string => {
+const guessName = (spec: ImageEditorOpenSpec, message: Record<string, unknown>): string => {
   if (Type.isString(message.name) && message.name !== '') {
     return message.name;
   } else if (Type.isString(spec.name) && spec.name !== '') {
@@ -71,7 +73,7 @@ const guessName = (spec: PixelOpenSpec, message: Record<string, unknown>): strin
   }
 };
 
-const open = (editor: Editor, spec: PixelOpenSpec): void => {
+const open = (editor: Editor, spec: ImageEditorOpenSpec): void => {
   const api = editor.windowManager.openUrl({
     title: spec.title ?? 'Éditeur d\'images',
     url: buildUrl(editor, spec),
@@ -104,8 +106,8 @@ const open = (editor: Editor, spec: PixelOpenSpec): void => {
     }
   });
 
-  // Let the editor know which image it should load, for integrations reading the message
-  // instead of the query parameters.
+  // Indique à l'éditeur l'image à ouvrir, pour les intégrations qui lisent le message
+  // plutôt que les paramètres d'url.
   api.sendMessage({ mceAction: 'onlc:open', url: spec.url ?? '', name: spec.name ?? '' });
 };
 

@@ -184,8 +184,8 @@ add(bloc('video', {
 }, '<div class="onlc-embed" style="padding-bottom: 177.77%"></div>'));
 
 add(bloc('iframe', {
-  src: '/pixel/',
-  title: 'Éditeur d’images Pixel',
+  src: '/pixie/',
+  title: 'Pixel•OnlineCreation, l’éditeur d’images',
   mode: 'height',
   ratio: '56.25%',
   height: '420px',

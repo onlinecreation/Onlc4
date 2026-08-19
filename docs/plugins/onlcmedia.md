@@ -2,10 +2,10 @@
 
 Remplace la boîte de dialogue « image » par un explorateur de fichiers connecté à votre API :
 téléversement, navigation dans les dossiers, création et suppression de dossiers, copie et
-déplacement de fichiers, ouverture dans l'éditeur d'images Pixel et création d'images.
+déplacement de fichiers, ouverture dans l'éditeur d'images et création d'images.
 
 Le contrat de l'API est décrit dans [API média](../api/onlc-media-api.md), l'intégration de
-Pixel dans [Éditeur Pixel](../api/onlc-pixel-editor.md).
+l'éditeur d'images dans [Intégration de Pixie](../api/onlc-pixie-editor.md).
 
 ## Activation
 
@@ -67,8 +67,8 @@ mais une largeur en pourcentage et une hauteur automatique.
 | `onlc_media_handlers` | `{}` | Surcharge JavaScript des opérations (voir l'API média) |
 | `onlc_media_root_path` | `'/'` | Dossier ouvert par défaut |
 | `onlc_media_accept` | `'image/*'` | Types acceptés au téléversement |
-| `onlc_media_image_editor_url` | `https://pixel.onlinecreation.me` | Adresse de l'éditeur Pixel |
-| `onlc_media_image_editor_origin` | `''` | Origine attendue des messages de Pixel |
+| `onlc_media_image_editor_url` | `https://pixel.onlinecreation.me` | Adresse de l'éditeur d'images (Pixie) |
+| `onlc_media_image_editor_origin` | `''` | Origine attendue des messages de l'éditeur |
 | `onlc_media_class_list` | Normale, Pleine largeur, Parallaxe, Ajustée à l'écran | Classes prédéfinies |
 | `onlc_media_overlay_positions` | 9 positions | Ancrages du texte en surimpression |
 | `onlc_media_font_list` | 4 polices | Polices proposées pour le texte en surimpression |
@@ -187,6 +187,6 @@ l'ouverture est « Ne pas supprimer » — la touche Entrée ne détruit rien.
 | --- | --- |
 | `OnlcImage` | Ouvre les propriétés de l'image sélectionnée, ou en insère une nouvelle |
 | `OnlcMediaExplorer` | Ouvre la bibliothèque (`value` : chemin du dossier) |
-| `OnlcEditImageInPixel` | Ouvre l'image sélectionnée dans Pixel |
+| `OnlcEditImageInPixie` | Ouvre l'image sélectionnée dans l'éditeur d'images |
 | `OnlcInsertImage` | Insère une image à partir d'un objet `ImageData` |
 | `OnlcPickMedia` | Ouvre la bibliothèque pour un autre plugin et rend le ou les fichiers choisis au rappel `onSelect` |

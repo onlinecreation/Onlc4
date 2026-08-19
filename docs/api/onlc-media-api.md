@@ -71,7 +71,7 @@ Les formes `{"message": "…"}` et `{"error": "…"}` sont également acceptées
 | `width`        | number | non         | Largeur en pixels                                   |
 | `height`       | number | non         | Hauteur en pixels                                   |
 | `modified`     | string | non         | Date ISO 8601                                       |
-| `editable`     | bool   | non         | `false` pour interdire l'édition dans Pixel         |
+| `editable`     | bool   | non         | `false` pour interdire la retouche du fichier       |
 
 ## Points d'entrée
 

@@ -76,6 +76,9 @@ const register = (editor: Editor): void => {
     default: 'image/*'
   });
 
+  // Adresse de l'éditeur d'images. Online Création y déploie Pixie sous le nom
+  // Pixel•OnlineCreation ; n'importe quel éditeur respectant le contrat postMessage convient
+  // (voir docs/api/onlc-pixie-editor.md).
   registerOption('onlc_media_image_editor_url', {
     processor: 'string',
     default: 'https://pixel.onlinecreation.me'

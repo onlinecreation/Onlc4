@@ -8,9 +8,9 @@ import * as TextStyle from 'hugerte/plugins/onlcshared/text/TextStyle';
 
 import * as Options from '../api/Options';
 import { ImageData } from '../api/Types';
+import * as ImageEditor from '../core/ImageEditor';
 import * as ImageHtml from '../core/ImageHtml';
 import * as MediaApi from '../core/MediaApi';
-import * as PixelEditor from '../core/PixelEditor';
 import * as Explorer from './Explorer';
 
 const listItems = (items: Options.PresetItem[]): Dialog.ListBoxItemSpec[] =>
@@ -172,7 +172,7 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
       } else if (details.name === 'editImage') {
         const src = readString(dialog.getData() as Record<string, unknown>, 'src');
         const name = src.substring(src.lastIndexOf('/') + 1);
-        PixelEditor.open(editor, {
+        ImageEditor.open(editor, {
           url: src,
           name,
           title: src === '' ? 'Créer une image' : `Modifier « ${name} »`,

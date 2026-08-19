@@ -226,7 +226,7 @@ server.listen(port, () => {
   console.log('    • médias  : /api/media  (fichiers dans example/storage)');
   console.log('    • liens   : /api/links');
   console.log('    • icônes  : /api/icons');
-  console.log('    • éditeur d’images Pixel : /pixel/');
+  console.log('    • éditeur d’images Pixel•OnlineCreation : /pixie/');
   console.log('    • latence simulée : ' + latency + ' ms');
   console.log('');
   if (missing) {

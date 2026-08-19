@@ -12,7 +12,7 @@ import * as Buttons from './ui/Buttons';
 import * as Explorer from './ui/Explorer';
 
 /**
- * Image management: file explorer backed by the ONLC media API, Pixel image editor, css presets,
+ * Image management: file explorer backed by the ONLC media API, image editor bridge, css presets,
  * custom css, alternative text, overlay text and link.
  *
  * @class hugerte.onlcmedia.Plugin

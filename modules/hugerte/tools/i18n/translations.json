@@ -1,1826 +1,2066 @@
 {
- "16:9 (paysage)": [
-  "16:9 (landscape)",
-  "16:9 (horizontal)"
- ],
- "1:1 (carré)": [
-  "1:1 (square)",
-  "1:1 (cuadrado)"
- ],
- "21:9 (cinéma)": [
-  "21:9 (cinema)",
-  "21:9 (cine)"
- ],
- "61 rue du Château d’Eau, 33000 Bordeaux": [
-  "1 Market Street, Manchester M1 1AA",
-  "Calle Mayor 1, 28013 Madrid"
- ],
- "9:16 (vertical)": [
-  "9:16 (portrait)",
-  "9:16 (vertical)"
- ],
- "Abonnement annuel": [
-  "Annual subscription",
-  "Suscripción anual"
- ],
- "Acheter": [
-  "Buy",
-  "Comprar"
- ],
- "Adresse de la page": [
-  "Page address",
-  "Dirección de la página"
- ],
- "Adresse de la vidéo": [
-  "Video address",
-  "Dirección del vídeo"
- ],
- "Adresse de l’agenda": [
-  "Calendar address",
-  "Dirección de la agenda"
- ],
- "Adresse de l’image": [
-  "Image address",
-  "Dirección de la imagen"
- ],
- "Adresse de l’événement": [
-  "Event address",
-  "Dirección del evento"
- ],
- "Adresse du lien": [
-  "Link address",
-  "Dirección del enlace"
- ],
- "Adresse à laquelle les messages du formulaire seront envoyés.": [
-  "Address the form messages will be sent to.",
-  "Dirección a la que se enviarán los mensajes del formulario."
- ],
- "Affichage": [
-  "View",
-  "Vista"
- ],
- "Affiche du code sans le formater": [
-  "Shows code exactly as written",
-  "Muestra código tal cual está escrito"
- ],
- "Affiche un PDF directement dans la page, page après page": [
-  "Shows a PDF right inside the page, page after page",
-  "Muestra un PDF dentro de la página, página tras página"
- ],
- "Affiche une autre page web à l’intérieur de la vôtre": [
-  "Shows another web page inside yours",
-  "Muestra otra página web dentro de la suya"
- ],
- "Afficher les intitulés sur les vignettes": [
-  "Show captions on thumbnails",
-  "Mostrar los títulos en las miniaturas"
- ],
- "Afficher les outils de blocs": [
-  "Show block tools",
-  "Mostrar las herramientas de bloques"
- ],
- "Agenda": [
-  "Calendar",
-  "Agenda"
- ],
- "Agenda partagé": [
-  "Shared calendar",
-  "Agenda compartida"
- ],
- "Agrandir": [
-  "Enlarge",
-  "Ampliar"
- ],
- "Ajoute du vide entre deux blocs, hauteur réglable": [
-  "Adds adjustable empty space between two blocks",
-  "Añade un espacio vacío ajustable entre dos bloques"
- ],
- "Ajouter des colonnes": [
-  "Add columns",
-  "Añadir columnas"
- ],
- "Ajouter des colonnes...": [
-  "Add columns...",
-  "Añadir columnas..."
- ],
- "Ajouter des images…": [
-  "Add images…",
-  "Añadir imágenes…"
- ],
- "Ajouter un bloc": [
-  "Add a block",
-  "Añadir un bloque"
- ],
- "Ajouter un bloc...": [
-  "Add a block...",
-  "Añadir un bloque..."
- ],
- "Ajouter un espace vertical de la hauteur de votre choix": [
-  "Add vertical space of the height you choose",
-  "Añadir un espacio vertical de la altura que elija"
- ],
- "Ajouter un rendez-vous": [
-  "Add an appointment",
-  "Añadir una cita"
- ],
- "Ajouter une colonne": [
-  "Add a column",
-  "Añadir una columna"
- ],
- "Ajouter à mon calendrier": [
-  "Add to my calendar",
-  "Añadir a mi calendario"
- ],
- "Ajustée à la taille de l'écran": [
-  "Fitted to the screen",
-  "Ajustada al tamaño de la pantalla"
- ],
- "Alignement": [
-  "Alignment",
-  "Alineación"
- ],
- "Ancre dans la page": [
-  "Anchor on this page",
-  "Ancla en la página"
- ],
- "Angle (°)": [
-  "Angle (°)",
-  "Ángulo (°)"
- ],
- "Annuler": [
-  "Cancel",
-  "Cancelar"
- ],
- "Apparence": [
-  "Appearance",
-  "Apariencia"
- ],
- "Arrondi": [
-  "Rounded",
-  "Redondeado"
- ],
- "Aucun rendez-vous pour ce mois. Ajoutez-en un pour le voir apparaître dans la grille.": [
-  "No appointments this month. Add one to see it appear in the grid.",
-  "No hay citas este mes. Añada una para verla aparecer en la cuadrícula."
- ],
- "Aucune": [
-  "None",
-  "Ninguna"
- ],
- "Aucune image pour l’instant. Cliquez sur « Ajouter des images… » pour en choisir.": [
-  "No images yet. Click “Add images…” to choose some.",
-  "Todavía no hay imágenes. Pulse «Añadir imágenes…» para elegirlas."
- ],
- "Auteur": [
-  "Author",
-  "Autor"
- ],
- "Avec empattement": [
-  "Serif",
-  "Con serifa"
- ],
- "Bandeau d’introduction avec titre, texte et bouton": [
-  "Opening banner with a heading, text and a button",
-  "Banner de presentación con título, texto y botón"
- ],
- "Bas centre": [
-  "Bottom centre",
-  "Abajo centro"
- ],
- "Bas droite": [
-  "Bottom right",
-  "Abajo derecha"
- ],
- "Bas gauche": [
-  "Bottom left",
-  "Abajo izquierda"
- ],
- "Bloc de texte": [
-  "Text block",
-  "Bloque de texto"
- ],
- "Blocs prédéfinis": [
-  "Ready-made blocks",
-  "Bloques predefinidos"
- ],
- "Blocs prédéfinis...": [
-  "Ready-made blocks...",
-  "Bloques predefinidos..."
- ],
- "Bouton de paiement PayPal": [
-  "PayPal payment button",
-  "Botón de pago PayPal"
- ],
- "Bouton d’appel à l’action": [
-  "Call-to-action button",
-  "Botón de llamada a la acción"
- ],
- "Bouton ombré": [
-  "Shadowed button",
-  "Botón con sombra"
- ],
- "Bouton, vidéo, carte…": [
-  "Button, video, map…",
-  "Botón, vídeo, mapa…"
- ],
- "CSS personnalisé (appliqué au bloc image)": [
-  "Custom CSS (applied to the image block)",
-  "CSS personalizado (aplicado al bloque de imagen)"
- ],
- "Calendrier du mois": [
-  "Month calendar",
-  "Calendario del mes"
- ],
- "Carte": [
-  "Map",
-  "Mapa"
- ],
- "Carte déplaçable par le visiteur": [
-  "Visitors can pan and zoom the map",
-  "El visitante puede mover y ampliar el mapa"
- ],
- "Cascade (rangées justifiées)": [
-  "Cascade (justified rows)",
-  "Cascada (filas justificadas)"
- ],
- "Catégorie": [
-  "Category",
-  "Categoría"
- ],
- "Centre": [
-  "Centre",
-  "Centro"
- ],
- "Centré": [
-  "Centred",
-  "Centrado"
- ],
- "Chargement asynchrone (async)": [
-  "Asynchronous loading (async)",
-  "Carga asíncrona (async)"
- ],
- "Chasse fixe": [
-  "Monospace",
-  "Monoespaciada"
- ],
- "Choisir la disposition des colonnes": [
-  "Choose the column layout",
-  "Elegir la disposición de las columnas"
- ],
- "Choisir ou téléverser un média…": [
-  "Choose or upload a file…",
-  "Elegir o subir un archivo…"
- ],
- "Choisir un fichier dans l’explorateur de médias": [
-  "Choose a file from the media library",
-  "Elegir un archivo de la biblioteca"
- ],
- "Choisir une image dans la médiathèque ou en téléverser une": [
-  "Choose an image from the library or upload one",
-  "Elegir una imagen de la biblioteca o subir una"
- ],
- "Choisissez le bloc à ajouter": [
-  "Choose the block to add",
-  "Elija el bloque que desea añadir"
- ],
- "Choisissez le bloc à insérer": [
-  "Choose the block to insert",
-  "Elija el bloque que desea insertar"
- ],
- "Choisissez l’élément à insérer": [
-  "Choose the item to insert",
-  "Elija el elemento que desea insertar"
- ],
- "Citation": [
-  "Quotation",
-  "Cita"
- ],
- "Classe CSS contenant": [
-  "Wrapper CSS class",
-  "Clase CSS contenedora"
- ],
- "Classe CSS du bouton": [
-  "Button CSS class",
-  "Clase CSS del botón"
- ],
- "Classe CSS élément": [
-  "Item CSS class",
-  "Clase CSS del elemento"
- ],
- "Classe CSS élément actif": [
-  "Current item CSS class",
-  "Clase CSS del elemento activo"
- ],
- "Classe ajoutée à la page en cours de consultation.": [
-  "Class added to the page being viewed.",
-  "Clase añadida a la página que se está viendo."
- ],
- "Classe posée sur chaque page du menu.": [
-  "Class set on every page of the menu.",
-  "Clase aplicada a cada página del menú."
- ],
- "Classe posée sur la liste qui entoure les pages.": [
-  "Class set on the list wrapping the pages.",
-  "Clase aplicada a la lista que envuelve las páginas."
- ],
- "Code HTML": [
-  "HTML code",
-  "Código HTML"
- ],
- "Code JavaScript": [
-  "JavaScript code",
-  "Código JavaScript"
- ],
- "Code source": [
-  "Source code",
-  "Código fuente"
- ],
- "Code source HTML": [
-  "HTML source code",
-  "Código fuente HTML"
- ],
- "Code source HTML...": [
-  "HTML source code...",
-  "Código fuente HTML..."
- ],
- "Colle un code d’intégration fourni par un service tiers": [
-  "Paste an embed code given by another service",
-  "Pegue un código de inserción de otro servicio"
- ],
- "Comment passer commande ?": [
-  "How do I place an order?",
-  "¿Cómo hago un pedido?"
- ],
- "Compte PayPal du vendeur": [
-  "Seller’s PayPal account",
-  "Cuenta PayPal del vendedor"
- ],
- "Contour": [
-  "Outline",
-  "Contorno"
- ],
- "Copier": [
-  "Copy",
-  "Copiar"
- ],
- "Copier vers": [
-  "Copy to",
-  "Copiar a"
- ],
- "Couleur de fond": [
-  "Background colour",
-  "Color de fondo"
- ],
- "Couleur de l’ombre": [
-  "Shadow colour",
-  "Color de la sombra"
- ],
- "Couleur du filet": [
-  "Rule colour",
-  "Color de la línea"
- ],
- "Couleur du texte": [
-  "Text colour",
-  "Color del texto"
- ],
- "Couleur d’accentuation": [
-  "Accent colour",
-  "Color de acento"
- ],
- "Créer": [
-  "Create",
-  "Crear"
- ],
- "Date": [
-  "Date",
-  "Fecha"
- ],
- "Date de début": [
-  "Start date",
-  "Fecha de inicio"
- ],
- "Date de fin": [
-  "End date",
-  "Fecha de fin"
- ],
- "Descendre le bloc": [
-  "Move block down",
-  "Bajar el bloque"
- ],
- "Description": [
-  "Description",
-  "Descripción"
- ],
- "Description de la page": [
-  "Page description",
-  "Descripción de la página"
- ],
- "Description pour les moteurs de recherche": [
-  "Description for search engines",
-  "Descripción para los buscadores"
- ],
- "Devise": [
-  "Currency",
-  "Moneda"
- ],
- "Dimanche": [
-  "Sunday",
-  "Domingo"
- ],
- "Dimension": [
-  "Sizing",
-  "Dimensión"
- ],
- "Disposition": [
-  "Layout",
-  "Disposición"
- ],
- "Document PDF": [
-  "PDF document",
-  "Documento PDF"
- ],
- "Dollar américain (USD)": [
-  "US dollar (USD)",
-  "Dólar estadounidense (USD)"
- ],
- "Dollar canadien (CAD)": [
-  "Canadian dollar (CAD)",
-  "Dólar canadiense (CAD)"
- ],
- "Dossier de destination": [
-  "Destination folder",
-  "Carpeta de destino"
- ],
- "Droite": [
-  "Right",
-  "Derecha"
- ],
- "Dupliquer cet élément": [
-  "Duplicate this item",
-  "Duplicar este elemento"
- ],
- "Dupliquer la ligne": [
-  "Duplicate the row",
-  "Duplicar la fila"
- ],
- "Dupliquer le bloc": [
-  "Duplicate the block",
-  "Duplicar el bloque"
- ],
- "Décrivez votre offre en une phrase.": [
-  "Describe what you offer in one sentence.",
-  "Describa su oferta en una frase."
- ],
- "Défilement": [
-  "Scrolling",
-  "Desplazamiento"
- ],
- "Dégradé : angle (°)": [
-  "Gradient: angle (°)",
-  "Degradado: ángulo (°)"
- ],
- "Dégradé : arrivée": [
-  "Gradient: end",
-  "Degradado: fin"
- ],
- "Dégradé : couleur de départ": [
-  "Gradient: start colour",
-  "Degradado: color inicial"
- ],
- "Dégradé : couleur d’arrivée": [
-  "Gradient: end colour",
-  "Degradado: color final"
- ],
- "Dégradé : départ": [
-  "Gradient: start",
-  "Degradado: inicio"
- ],
- "Déplacer": [
-  "Move",
-  "Mover"
- ],
- "Déplacer le bloc": [
-  "Move the block",
-  "Mover el bloque"
- ],
- "Déplacer vers": [
-  "Move to",
-  "Mover a"
- ],
- "Déplié au chargement de la page": [
-  "Open when the page loads",
-  "Desplegado al cargar la página"
- ],
- "E-mail destinataire": [
-  "Recipient e-mail",
-  "Correo del destinatario"
- ],
- "Emoji ou icône": [
-  "Emoji or icon",
-  "Emoji o icono"
- ],
- "Emojis": [
-  "Emojis",
-  "Emojis"
- ],
- "Emojis et icônes": [
-  "Emojis and icons",
-  "Emojis e iconos"
- ],
- "Emojis et icônes...": [
-  "Emojis and icons...",
-  "Emojis e iconos..."
- ],
- "Emplacement dans la page": [
-  "Position in the page",
-  "Ubicación en la página"
- ],
- "En savoir plus": [
-  "Find out more",
-  "Saber más"
- ],
- "En-tête de la page (<head>)": [
-  "Page head (<head>)",
-  "Cabecera de la página (<head>)"
- ],
- "Encadré": [
-  "Boxed",
-  "Enmarcado"
- ],
- "Enregistrer": [
-  "Save",
-  "Guardar"
- ],
- "Espace": [
-  "Space",
-  "Espacio"
- ],
- "Espace entre les vignettes (px)": [
-  "Gap between thumbnails (px)",
-  "Espacio entre miniaturas (px)"
- ],
- "Espace vertical": [
-  "Vertical space",
-  "Espacio vertical"
- ],
- "Euro (EUR)": [
-  "Euro (EUR)",
-  "Euro (EUR)"
- ],
- "Explorateur de fichiers": [
-  "File browser",
-  "Explorador de archivos"
- ],
- "Explorateur de fichiers...": [
-  "File browser...",
-  "Explorador de archivos..."
- ],
- "Exécution différée (defer)": [
-  "Deferred execution (defer)",
-  "Ejecución diferida (defer)"
- ],
- "Fermer": [
-  "Close",
-  "Cerrar"
- ],
- "Fichier": [
-  "File",
-  "Archivo"
- ],
- "Fichier PDF": [
-  "PDF file",
-  "Archivo PDF"
- ],
- "Fichier de l’image": [
-  "Image file",
-  "Archivo de la imagen"
- ],
- "Fichier externe (src)": [
-  "External file (src)",
-  "Archivo externo (src)"
- ],
- "Filet": [
-  "Rule",
-  "Línea"
- ],
- "Filet simple": [
-  "Plain rule",
-  "Línea simple"
- ],
- "Fin de la page (avant </body>)": [
-  "End of the page (before </body>)",
-  "Final de la página (antes de </body>)"
- ],
- "Format": [
-  "Aspect ratio",
-  "Formato"
- ],
- "Format proportionnel": [
-  "Proportional ratio",
-  "Formato proporcional"
- ],
- "Formulaire de contact": [
-  "Contact form",
-  "Formulario de contacto"
- ],
- "Formulaire de réservation": [
-  "Booking form",
-  "Formulario de reserva"
- ],
- "Franc suisse (CHF)": [
-  "Swiss franc (CHF)",
-  "Franco suizo (CHF)"
- ],
- "Fuseau horaire": [
-  "Time zone",
-  "Zona horaria"
- ],
- "Galerie d’images": [
-  "Image gallery",
-  "Galería de imágenes"
- ],
- "Gauche": [
-  "Left",
-  "Izquierda"
- ],
- "Grande": [
-  "Large",
-  "Grande"
- ],
- "Grille de cellules pour présenter des données": [
-  "A grid of cells for presenting data",
-  "Una cuadrícula de celdas para presentar datos"
- ],
- "Haut centre": [
-  "Top centre",
-  "Arriba centro"
- ],
- "Haut droite": [
-  "Top right",
-  "Arriba derecha"
- ],
- "Haut gauche": [
-  "Top left",
-  "Arriba izquierda"
- ],
- "Hauteur": [
-  "Height",
-  "Altura"
- ],
- "Hauteur de la carte": [
-  "Map height",
-  "Altura del mapa"
- ],
- "Hauteur de la zone de lecture": [
-  "Height of the reading area",
-  "Altura de la zona de lectura"
- ],
- "Hauteur du séparateur": [
-  "Spacer height",
-  "Altura del separador"
- ],
- "Hauteur fixe": [
-  "Fixed height",
-  "Altura fija"
- ],
- "Hauteur maximale (px)": [
-  "Maximum height (px)",
-  "Altura máxima (px)"
- ],
- "Hero": [
-  "Hero",
-  "Hero"
- ],
- "Heure": [
-  "Time",
-  "Hora"
- ],
- "Heure de début": [
-  "Start time",
-  "Hora de inicio"
- ],
- "Heure de fin": [
-  "End time",
-  "Hora de fin"
- ],
- "Icônes": [
-  "Icons",
-  "Iconos"
- ],
- "Image": [
-  "Image",
-  "Imagen"
- ],
- "Image de fond": [
-  "Background image",
-  "Imagen de fondo"
- ],
- "Image de la bibliothèque": [
-  "Image from the library",
-  "Imagen de la biblioteca"
- ],
- "Image...": [
-  "Image...",
-  "Imagen..."
- ],
- "Images de la galerie": [
-  "Gallery images",
-  "Imágenes de la galería"
- ],
- "Insérer des colonnes": [
-  "Insert columns",
-  "Insertar columnas"
- ],
- "Insérer ou modifier un lien": [
-  "Insert or edit a link",
-  "Insertar o editar un enlace"
- ],
- "Insérer ou modifier une image": [
-  "Insert or edit an image",
-  "Insertar o editar una imagen"
- ],
- "Insérer un emoji Unicode ou une icône Material Design": [
-  "Insert a Unicode emoji or an icon",
-  "Insertar un emoji Unicode o un icono"
- ],
- "Intitulé": [
-  "Caption",
-  "Título"
- ],
- "Intitulé affiché": [
-  "Caption shown",
-  "Título mostrado"
- ],
- "Intègre un agenda public existant (Google Agenda, ICS…)": [
-  "Embeds an existing public calendar (Google Calendar, ICS…)",
-  "Integra una agenda pública existente (Google Calendar, ICS…)"
- ],
- "Jour du mois": [
-  "Day of the month",
-  "Día del mes"
- ],
- "La grille d’un mois, avec vos rendez-vous inscrits jour par jour": [
-  "A month grid, with your appointments written in day by day",
-  "La cuadrícula de un mes, con sus citas anotadas día a día"
- ],
- "La semaine commence le": [
-  "The week starts on",
-  "La semana empieza el"
- ],
- "Laissez vide pour afficher le bouton officiel de PayPal.": [
-  "Leave empty to show PayPal’s own button.",
-  "Déjelo vacío para mostrar el botón oficial de PayPal."
- ],
- "Largeur": [
-  "Width",
-  "Anchura"
- ],
- "Largeur (%, rem, vw...)": [
-  "Width (%, rem, vw...)",
-  "Anchura (%, rem, vw...)"
- ],
- "Largeur du filet": [
-  "Rule width",
-  "Anchura de la línea"
- ],
- "Largeur maximale": [
-  "Maximum width",
-  "Anchura máxima"
- ],
- "Largeur maximale (px)": [
-  "Maximum width (px)",
-  "Anchura máxima (px)"
- ],
- "Le fuseau dans lequel les heures ci-dessus sont exprimées.": [
-  "The time zone the times above are given in.",
-  "La zona horaria en la que se expresan las horas anteriores."
- ],
- "Le logo enregistré dans les réglages de votre site": [
-  "The logo saved in your site settings",
-  "El logotipo guardado en los ajustes de su sitio"
- ],
- "Le nom du site, affiché par-dessus le logo": [
-  "The site name, shown over the logo",
-  "El nombre del sitio, mostrado sobre el logotipo"
- ],
- "Le résumé et les mots-clés affichés par Google — invisible sur la page": [
-  "The summary and keywords shown by Google — invisible on the page",
-  "El resumen y las palabras clave que muestra Google — invisible en la página"
- ],
- "Lecture automatique": [
-  "Play automatically",
-  "Reproducción automática"
- ],
- "Lecture en boucle": [
-  "Loop",
-  "Reproducción en bucle"
- ],
- "Les rendez-vous d’avril": [
-  "April’s appointments",
-  "Las citas de abril"
- ],
- "Lien": [
-  "Link",
-  "Enlace"
- ],
- "Lien du bouton": [
-  "Button link",
-  "Enlace del botón"
- ],
- "Lien du site": [
-  "Site link",
-  "Enlace del sitio"
- ],
- "Lien...": [
-  "Link...",
-  "Enlace..."
- ],
- "Lieu affiché": [
-  "Place shown",
-  "Lugar mostrado"
- ],
- "Liste des pages de votre site": [
-  "The list of your site’s pages",
-  "La lista de páginas de su sitio"
- ],
- "Liste numérotée": [
-  "Numbered list",
-  "Lista numerada"
- ],
- "Liste à puces": [
-  "Bulleted list",
-  "Lista con viñetas"
- ],
- "Livre sterling (GBP)": [
-  "Pound sterling (GBP)",
-  "Libra esterlina (GBP)"
- ],
- "Logo du site": [
-  "Site logo",
-  "Logotipo del sitio"
- ],
- "Lundi": [
-  "Monday",
-  "Lunes"
- ],
- "Légende": [
-  "Caption",
-  "Leyenda"
- ],
- "L’adresse du compte PayPal qui recevra le paiement.": [
-  "The PayPal account the payment will go to.",
-  "La cuenta PayPal que recibirá el pago."
- ],
- "Marge extérieure (ex : 0 0 1rem)": [
-  "Outer margin (e.g. 0 0 1rem)",
-  "Margen exterior (p. ej. 0 0 1rem)"
- ],
- "Marge intérieure (ex : .5rem 1rem)": [
-  "Inner padding (e.g. .5rem 1rem)",
-  "Relleno interior (p. ej. .5rem 1rem)"
- ],
- "Maçonnerie (colonnes)": [
-  "Masonry (columns)",
-  "Mampostería (columnas)"
- ],
- "Menu": [
-  "Menu",
-  "Menú"
- ],
- "Met en avant une phrase, avec un filet sur le côté": [
-  "Highlights a sentence, with a rule down the side",
-  "Destaca una frase, con una línea al lado"
- ],
- "Milieu droite": [
-  "Middle right",
-  "Centro derecha"
- ],
- "Milieu gauche": [
-  "Middle left",
-  "Centro izquierda"
- ],
- "Modifier cet élément": [
-  "Edit this item",
-  "Editar este elemento"
- ],
- "Modifier dans Pixel": [
-  "Edit in Pixel",
-  "Editar en Pixel"
- ],
- "Modifier le bloc": [
-  "Edit the block",
-  "Editar el bloque"
- ],
- "Modifier le script": [
-  "Edit the script",
-  "Editar el script"
- ],
- "Mois": [
-  "Month",
-  "Mes"
- ],
- "Mois affiché": [
-  "Month shown",
-  "Mes mostrado"
- ],
- "Monter le bloc": [
-  "Move block up",
-  "Subir el bloque"
- ],
- "Mosaïque carrée": [
-  "Square mosaic",
-  "Mosaico cuadrado"
- ],
- "Mots-clés": [
-  "Keywords",
-  "Palabras clave"
- ],
- "Médiathèque": [
-  "Media library",
-  "Biblioteca de medios"
- ],
- "Même onglet": [
-  "Same tab",
-  "Misma pestaña"
- ],
- "Nom de l’article": [
-  "Item name",
-  "Nombre del artículo"
- ],
- "Nom de l’événement": [
-  "Event name",
-  "Nombre del evento"
- ],
- "Nom du dossier": [
-  "Folder name",
-  "Nombre de la carpeta"
- ],
- "Nom du widget": [
-  "Widget name",
-  "Nombre del widget"
- ],
- "Nombre de pages affichées (0 = toutes)": [
-  "Number of pages shown (0 = all)",
-  "Número de páginas mostradas (0 = todas)"
- ],
- "Normale": [
-  "Normal",
-  "Normal"
- ],
- "Nos bureaux": [
-  "Our offices",
-  "Nuestras oficinas"
- ],
- "Nouveau dossier": [
-  "New folder",
-  "Nueva carpeta"
- ],
- "Nouveau nom": [
-  "New name",
-  "Nuevo nombre"
- ],
- "Nouvel onglet": [
-  "New tab",
-  "Nueva pestaña"
- ],
- "Ombre : X": [
-  "Shadow: X",
-  "Sombra: X"
- ],
- "Ombre : Y": [
-  "Shadow: Y",
-  "Sombra: Y"
- ],
- "Ombre : couleur": [
-  "Shadow: colour",
-  "Sombra: color"
- ],
- "Ombre : décalage horizontal": [
-  "Shadow: horizontal offset",
-  "Sombra: desplazamiento horizontal"
- ],
- "Ombre : décalage vertical": [
-  "Shadow: vertical offset",
-  "Sombra: desplazamiento vertical"
- ],
- "Ombre : flou": [
-  "Shadow: blur",
-  "Sombra: desenfoque"
- ],
- "Ou adresse d’une image en ligne (https://…)": [
-  "Or the address of an online image (https://…)",
-  "O la dirección de una imagen en línea (https://…)"
- ],
- "Ouvrir dans": [
-  "Open in",
-  "Abrir en"
- ],
- "Ouvrir le lien": [
-  "Open the link",
-  "Abrir el enlace"
- ],
- "Page intégrée (iframe)": [
-  "Embedded page (iframe)",
-  "Página integrada (iframe)"
- ],
- "Paragraphe": [
-  "Paragraph",
-  "Párrafo"
- ],
- "Paragraphe, image, colonnes…": [
-  "Paragraph, image, columns…",
-  "Párrafo, imagen, columnas…"
- ],
- "Parallaxe": [
-  "Parallax",
-  "Paralaje"
- ],
- "Petite": [
-  "Small",
-  "Pequeña"
- ],
- "Planning": [
-  "Schedule",
-  "Planificación"
- ],
- "Pleine largeur": [
-  "Full width",
-  "Ancho completo"
- ],
- "Plusieurs photos présentées en mosaïque, avec agrandissement au clic": [
-  "Several photos shown as a mosaic, enlarged on click",
-  "Varias fotos en mosaico, que se amplían al pulsarlas"
- ],
- "Police du site": [
-  "Site font",
-  "Tipografía del sitio"
- ],
- "Portes ouvertes": [
-  "Open day",
-  "Jornada de puertas abiertas"
- ],
- "Position sur l’image": [
-  "Position on the image",
-  "Posición sobre la imagen"
- ],
- "Principal": [
-  "Primary",
-  "Principal"
- ],
- "Prix": [
-  "Price",
-  "Precio"
- ],
- "Proposer le téléchargement du fichier": [
-  "Offer the file for download",
-  "Ofrecer la descarga del archivo"
- ],
- "Présentation": [
-  "Presentation",
-  "Presentación"
- ],
- "Rechercher": [
-  "Search",
-  "Buscar"
- ],
- "Rechercher un bloc": [
-  "Search for a block",
-  "Buscar un bloque"
- ],
- "Relation (rel)": [
-  "Relationship (rel)",
-  "Relación (rel)"
- ],
- "Rendez-vous du mois": [
-  "This month’s appointments",
-  "Citas del mes"
- ],
- "Renommer": [
-  "Rename",
-  "Renombrar"
- ],
- "Renommer le fichier": [
-  "Rename the file",
-  "Renombrar el archivo"
- ],
- "Retoucher cette image…": [
-  "Retouch this image…",
-  "Retocar esta imagen…"
- ],
- "Réduire": [
-  "Shrink",
-  "Reducir"
- ],
- "Rétrécir la colonne": [
-  "Narrow the column",
-  "Estrechar la columna"
- ],
- "Sans bordure": [
-  "Borderless",
-  "Sin borde"
- ],
- "Sans empattement": [
-  "Sans serif",
-  "Sin serifa"
- ],
- "Sans le son": [
-  "Muted",
-  "Sin sonido"
- ],
- "Script JavaScript": [
-  "JavaScript script",
-  "Script JavaScript"
- ],
- "Script JavaScript...": [
-  "JavaScript script...",
-  "Script JavaScript..."
- ],
- "Secondaire": [
-  "Secondary",
-  "Secundario"
- ],
- "Semaine": [
-  "Week",
-  "Semana"
- ],
- "Situe une adresse sur un plan OpenStreetMap": [
-  "Pinpoints an address on an OpenStreetMap map",
-  "Sitúa una dirección en un mapa de OpenStreetMap"
- ],
- "Souligné": [
-  "Underlined",
-  "Subrayado"
- ],
- "Source (lien)": [
-  "Source (link)",
-  "Fuente (enlace)"
- ],
- "Sous-titre": [
-  "Subtitle",
-  "Subtítulo"
- ],
- "Sous-titre à l’intérieur d’une section": [
-  "A subheading inside a section",
-  "Un subtítulo dentro de una sección"
- ],
- "Style": [
-  "Style",
-  "Estilo"
- ],
- "Style du lien": [
-  "Link style",
-  "Estilo del enlace"
- ],
- "Style du texte": [
-  "Text style",
-  "Estilo del texto"
- ],
- "Style prédéfini": [
-  "Ready-made style",
-  "Estilo predefinido"
- ],
- "Supprimer": [
-  "Delete",
-  "Eliminar"
- ],
- "Supprimer cet élément": [
-  "Delete this item",
-  "Eliminar este elemento"
- ],
- "Supprimer la colonne": [
-  "Delete the column",
-  "Eliminar la columna"
- ],
- "Supprimer la ligne et ses colonnes": [
-  "Delete the row and its columns",
-  "Eliminar la fila y sus columnas"
- ],
- "Supprimer le bloc": [
-  "Delete the block",
-  "Eliminar el bloque"
- ],
- "Supprimer le lien": [
-  "Remove the link",
-  "Quitar el enlace"
- ],
- "Supprimer le script": [
-  "Delete the script",
-  "Eliminar el script"
- ],
- "Supprimer le séparateur": [
-  "Delete the spacer",
-  "Eliminar el separador"
- ],
- "Sélectionner le bloc parent": [
-  "Select the parent block",
-  "Seleccionar el bloque contenedor"
- ],
- "Séparateur": [
-  "Spacer",
-  "Separador"
- ],
- "Séparateur réglable": [
-  "Adjustable spacer",
-  "Separador ajustable"
- ],
- "Séparateur vertical": [
-  "Vertical spacer",
-  "Separador vertical"
- ],
- "Séparateur vertical...": [
-  "Vertical spacer...",
-  "Separador vertical..."
- ],
- "Sépare visuellement deux parties de la page": [
-  "Visually separates two parts of the page",
-  "Separa visualmente dos partes de la página"
- ],
- "Séparés par des virgules.": [
-  "Separated by commas.",
-  "Separadas por comas."
- ],
- "Tableau": [
-  "Table",
-  "Tabla"
- ],
- "Taille": [
-  "Size",
-  "Tamaño"
- ],
- "Taille des vignettes (px)": [
-  "Thumbnail size (px)",
-  "Tamaño de las miniaturas (px)"
- ],
- "Taille du texte (ex : 1.5rem)": [
-  "Text size (e.g. 1.5rem)",
-  "Tamaño del texto (p. ej. 1.5rem)"
- ],
- "Tailles rapides": [
-  "Quick sizes",
-  "Tamaños rápidos"
- ],
- "Texte": [
-  "Text",
-  "Texto"
- ],
- "Texte affiché par-dessus l’image": [
-  "Text shown over the image",
-  "Texto mostrado sobre la imagen"
- ],
- "Texte alternatif": [
-  "Alternative text",
-  "Texto alternativo"
- ],
- "Texte alternatif (lu par les lecteurs d’écran)": [
-  "Alternative text (read by screen readers)",
-  "Texto alternativo (leído por los lectores de pantalla)"
- ],
- "Texte de l’épingle": [
-  "Pin text",
-  "Texto del marcador"
- ],
- "Texte du bouton": [
-  "Button text",
-  "Texto del botón"
- ],
- "Texte déplié": [
-  "Text revealed",
-  "Texto desplegado"
- ],
- "Texte déployable": [
-  "Expandable text",
-  "Texto desplegable"
- ],
- "Texte par-dessus": [
-  "Text on top",
-  "Texto superpuesto"
- ],
- "Texte à afficher": [
-  "Text to show",
-  "Texto que se mostrará"
- ],
- "Titre": [
-  "Title",
-  "Título"
- ],
- "Titre (accessibilité)": [
-  "Title (accessibility)",
-  "Título (accesibilidad)"
- ],
- "Titre affiché": [
-  "Title shown",
-  "Título mostrado"
- ],
- "Titre affiché au survol": [
-  "Title shown on hover",
-  "Título mostrado al pasar el ratón"
- ],
- "Titre cliquable": [
-  "Clickable heading",
-  "Título en el que se puede pulsar"
- ],
- "Titre de niveau 2": [
-  "Heading level 2",
-  "Título de nivel 2"
- ],
- "Titre de niveau 3": [
-  "Heading level 3",
-  "Título de nivel 3"
- ],
- "Titre du lien": [
-  "Link title",
-  "Título del enlace"
- ],
- "Titre du site avec son logo": [
-  "Site name with its logo",
-  "Nombre del sitio con su logotipo"
- ],
- "Titre principal d’une section": [
-  "The main heading of a section",
-  "El título principal de una sección"
- ],
- "Trait horizontal": [
-  "Horizontal rule",
-  "Línea horizontal"
- ],
- "Type": [
-  "Type",
-  "Tipo"
- ],
- "Type MIME": [
-  "MIME type",
-  "Tipo MIME"
- ],
- "Typographie": [
-  "Typeface",
-  "Tipografía"
- ],
- "Un bloc de texte courant": [
-  "A plain block of text",
-  "Un bloque de texto normal"
- ],
- "Un bouton qui enregistre votre événement dans l’agenda du visiteur": [
-  "A button that saves your event to the visitor’s calendar",
-  "Un botón que guarda su evento en la agenda del visitante"
- ],
- "Un bouton qui met en avant l’action principale": [
-  "A button that highlights the main action",
-  "Un botón que destaca la acción principal"
- ],
- "Un bouton « Acheter » qui ouvre le paiement PayPal": [
-  "A “Buy” button that opens PayPal checkout",
-  "Un botón «Comprar» que abre el pago con PayPal"
- ],
- "Un espace vertical ou un filet de séparation": [
-  "Vertical space, or a separating rule",
-  "Un espacio vertical o una línea de separación"
- ],
- "Un formulaire dont les messages arrivent dans votre boîte mail": [
-  "A form whose messages land in your mailbox",
-  "Un formulario cuyos mensajes llegan a su buzón"
- ],
- "Un titre accrocheur": [
-  "A headline that catches the eye",
-  "Un título que llama la atención"
- ],
- "Un titre cliquable qui déplie un texte : idéal pour une foire aux questions": [
-  "A clickable heading that reveals text: ideal for a FAQ",
-  "Un título en el que se pulsa para desplegar un texto: ideal para preguntas frecuentes"
- ],
- "Un titre et un texte éditables directement dans la page": [
-  "A heading and text edited straight in the page",
-  "Un título y un texto que se editan directamente en la página"
- ],
- "Une citation mise en avant avec son auteur": [
-  "A highlighted quotation with its author",
-  "Una cita destacada con su autor"
- ],
- "Une image avec sa légende et un lien optionnel": [
-  "An image with its caption and an optional link",
-  "Una imagen con su leyenda y un enlace opcional"
- ],
- "Une ligne de colonnes côte à côte, qui s’empilent sur mobile": [
-  "A row of side-by-side columns that stack on mobile",
-  "Una fila de columnas contiguas que se apilan en el móvil"
- ],
- "Une phrase qui marque les esprits.": [
-  "A sentence people remember.",
-  "Una frase que se recuerda."
- ],
- "Une à deux phrases, environ 160 caractères : c’est le texte affiché sous le titre dans les résultats de recherche.": [
-  "One or two sentences, about 160 characters: this is the text shown under the title in search results.",
-  "Una o dos frases, unos 160 caracteres: es el texto que aparece bajo el título en los resultados de búsqueda."
- ],
- "Unité": [
-  "Unit",
-  "Unidad"
- ],
- "Vidéo": [
-  "Video",
-  "Vídeo"
- ],
- "Vintage": [
-  "Vintage",
-  "Vintage"
- ],
- "Voile sombre (0 à 100)": [
-  "Dark overlay (0 to 100)",
-  "Velo oscuro (0 a 100)"
- ],
- "Widget HTML": [
-  "HTML widget",
-  "Widget HTML"
- ],
- "YouTube, Vimeo, Dailymotion ou toute autre adresse intégrable": [
-  "YouTube, Vimeo, Dailymotion or any other embeddable address",
-  "YouTube, Vimeo, Dailymotion o cualquier otra dirección integrable"
- ],
- "Zoom à la molette de la souris": [
-  "Zoom with the mouse wheel",
-  "Zoom con la rueda del ratón"
- ],
- "boulangerie, pain bio, Bordeaux": [
-  "bakery, organic bread, Manchester",
-  "panadería, pan ecológico, Madrid"
- ],
- "menu, contact, partage…": [
-  "menu, contact, sharing…",
-  "menú, contacto, compartir…"
- ],
- "À l’emplacement du curseur": [
-  "Where the cursor is",
-  "En la posición del cursor"
- ],
- "Élargir la colonne": [
-  "Widen the column",
-  "Ensanchar la columna"
- ],
- "Éléments du site": [
-  "Site elements",
-  "Elementos del sitio"
- ],
- "Éléments du site...": [
-  "Site elements...",
-  "Elementos del sitio..."
- ],
- "Énumération dont l’ordre compte : étapes, classement": [
-  "A list where the order matters: steps, rankings",
-  "Una lista donde el orden importa: pasos, clasificación"
- ],
- "Énumération sans ordre particulier": [
-  "A list in no particular order",
-  "Una lista sin orden particular"
- ],
- "Emplacements": [
-  "Places",
-  "Ubicaciones"
- ],
- "Ce dossier est vide. Déposez des fichiers ici, ou utilisez « Téléverser… ».": [
-  "This folder is empty. Drop files here, or use “Upload…”.",
-  "Esta carpeta está vacía. Suelte archivos aquí o use «Subir…»."
- ],
- "Aucun fichier ne correspond à cette recherche.": [
-  "No file matches this search.",
-  "Ningún archivo coincide con esta búsqueda."
- ],
- "Cliquez sur un fichier pour voir ses informations et les actions possibles. Un double clic le choisit directement.": [
-  "Click a file to see its details and what you can do with it. A double click picks it straight away.",
-  "Pulse un archivo para ver sus datos y las acciones posibles. Una doble pulsación lo elige directamente."
- ],
- "fichiers sélectionnés": [
-  "files selected",
-  "archivos seleccionados"
- ],
- "Rechercher dans ce dossier…": [
-  "Search in this folder…",
-  "Buscar en esta carpeta…"
- ],
- "Rechercher dans ce dossier": [
-  "Search in this folder",
-  "Buscar en esta carpeta"
- ],
- "Déposez vos fichiers pour les téléverser": [
-  "Drop your files to upload them",
-  "Suelte sus archivos para subirlos"
- ],
- "Dossier parent": [
-  "Parent folder",
-  "Carpeta superior"
- ],
- "Téléverser…": [
-  "Upload…",
-  "Subir…"
- ],
- "Dessiner une image…": [
-  "Draw an image…",
-  "Dibujar una imagen…"
- ],
- "Supprimer ce dossier": [
-  "Delete this folder",
-  "Eliminar esta carpeta"
- ],
- "Retoucher l’image…": [
-  "Retouch the image…",
-  "Retocar la imagen…"
- ],
- "Renommer…": [
-  "Rename…",
-  "Renombrar…"
- ],
- "Copier vers…": [
-  "Copy to…",
-  "Copiar a…"
- ],
- "Déplacer vers…": [
-  "Move to…",
-  "Mover a…"
- ],
- "Chargement du dossier…": [
-  "Loading the folder…",
-  "Cargando la carpeta…"
- ],
- "Téléversement…": [
-  "Uploading…",
-  "Subiendo…"
- ],
- "Renommage…": [
-  "Renaming…",
-  "Renombrando…"
- ],
- "Copie…": [
-  "Copying…",
-  "Copiando…"
- ],
- "Déplacement…": [
-  "Moving…",
-  "Moviendo…"
- ],
- "Suppression…": [
-  "Deleting…",
-  "Eliminando…"
- ],
- "Création…": [
-  "Creating…",
-  "Creando…"
- ],
- "Créer une image": [
-  "Create an image",
-  "Crear una imagen"
- ],
- "Utiliser ce fichier": [
-  "Use this file",
-  "Usar este archivo"
- ],
- "Utiliser ces fichiers": [
-  "Use these files",
-  "Usar estos archivos"
- ],
- "Monter": [
-  "Move up",
-  "Subir"
- ],
- "Descendre": [
-  "Move down",
-  "Bajar"
- ],
- "Retirer": [
-  "Remove",
-  "Quitar"
- ],
- "élément": [
-  "item",
-  "elemento"
- ],
- "éléments": [
-  "items",
-  "elementos"
- ],
- "Adresse du lieu": [
-  "Address of the place",
-  "Dirección del lugar"
- ],
- "10 rue de la Paix, Paris": [
-  "10 Downing Street, London",
-  "Calle Mayor 10, Madrid"
- ],
- "Saisissez une adresse et cliquez sur « Rechercher », ou entrez directement des coordonnées.": [
-  "Type an address and click “Search”, or enter coordinates directly.",
-  "Escriba una dirección y pulse «Buscar», o introduzca directamente las coordenadas."
- ],
- "Saisissez d’abord une adresse.": [
-  "Type an address first.",
-  "Escriba primero una dirección."
- ],
- "Recherche en cours…": [
-  "Searching…",
-  "Buscando…"
- ],
- "Aucun lieu ne correspond. Essayez une adresse plus simple, ou entrez les coordonnées à la main.": [
-  "No place matches. Try a simpler address, or enter the coordinates by hand.",
-  "Ningún lugar coincide. Pruebe una dirección más sencilla o introduzca las coordenadas a mano."
- ],
- "Choisissez le bon lieu dans la liste :": [
-  "Choose the right place from the list:",
-  "Elija el lugar correcto en la lista:"
- ],
- "La recherche d’adresse n’a pas abouti. Entrez les coordonnées à la main.": [
-  "The address search failed. Enter the coordinates by hand.",
-  "La búsqueda de dirección no funcionó. Introduzca las coordenadas a mano."
- ],
- "Lieu choisi. Ajustez le zoom si nécessaire.": [
-  "Place chosen. Adjust the zoom if needed.",
-  "Lugar elegido. Ajuste el zoom si es necesario."
- ],
- "Latitude": [
-  "Latitude",
-  "Latitud"
- ],
- "Longitude": [
-  "Longitude",
-  "Longitud"
- ],
- "Zoom (1 = monde, 19 = rue)": [
-  "Zoom (1 = world, 19 = street)",
-  "Zoom (1 = mundo, 19 = calle)"
- ],
- "Cliquez sur un emoji pour l’insérer. Les dessins sont ceux d’OpenMoji : ils s’affichent de la même façon sur tous les appareils.": [
-  "Click an emoji to insert it. The drawings come from OpenMoji: they look the same on every device.",
-  "Pulse un emoji para insertarlo. Los dibujos son de OpenMoji: se ven igual en todos los dispositivos."
- ],
- "Cliquez sur une icône pour l’insérer. Elle prend la taille et la couleur du texte qui l’entoure.": [
-  "Click an icon to insert it. It takes the size and colour of the surrounding text.",
-  "Pulse un icono para insertarlo. Toma el tamaño y el color del texto que lo rodea."
- ],
- "sourire, cœur, drapeau…": [
-  "smile, heart, flag…",
-  "sonrisa, corazón, bandera…"
- ],
- "panier, téléphone, flèche…": [
-  "basket, phone, arrow…",
-  "cesta, teléfono, flecha…"
- ],
- "Toutes": [
-  "All",
-  "Todas"
- ],
- "Tous": [
-  "All",
-  "Todos"
- ],
- "Personnalisées": [
-  "Custom",
-  "Personalizadas"
- ],
- "Cet élément n’est pas reconnu par l’éditeur : il sera réécrit tel quel dans la page.": [
-  "The editor does not recognise this item: it will be written back to the page unchanged.",
-  "El editor no reconoce este elemento: se escribirá tal cual en la página."
- ],
- "Cochez les réseaux à proposer. Si vous n’en cochez aucun, tous seront affichés.": [
-  "Tick the networks to offer. If you tick none, all of them are shown.",
-  "Marque las redes que desea ofrecer. Si no marca ninguna, se mostrarán todas."
- ],
- "Code non reconnu : il sera réécrit tel quel dans la page.": [
-  "Unrecognised code: it will be written back to the page unchanged.",
-  "Código no reconocido: se escribirá tal cual en la página."
- ],
- "Boutons de partage": [
-  "Sharing buttons",
-  "Botones para compartir"
- ],
- "Boutons de partage (petits)": [
-  "Sharing buttons (small)",
-  "Botones para compartir (pequeños)"
- ],
- "Boutons de partage (minuscules)": [
-  "Sharing buttons (tiny)",
-  "Botones para compartir (diminutos)"
- ],
- "Tous les réseaux": [
-  "All networks",
-  "Todas las redes"
- ],
- "Réseaux sociaux": [
-  "Social networks",
-  "Redes sociales"
- ],
- "Formulaires": [
-  "Forms",
-  "Formularios"
- ],
- "Référencement": [
-  "Search engines",
-  "Posicionamiento"
- ],
- "Navigation": [
-  "Navigation",
-  "Navegación"
- ],
- "Commerce": [
-  "Commerce",
-  "Comercio"
- ],
- "Identité": [
-  "Identity",
-  "Identidad"
- ],
- "Événements": [
-  "Events",
-  "Eventos"
- ],
- "Médias": [
-  "Media",
-  "Medios"
- ],
- "Contenu": [
-  "Content",
-  "Contenido"
- ],
- "Actions": [
-  "Actions",
-  "Acciones"
- ],
- "Avancé": [
-  "Advanced",
-  "Avanzado"
- ],
- "Mise en avant": [
-  "Highlights",
-  "Destacados"
- ],
- "Général": [
-  "General",
-  "General"
- ],
- "Bouton": [
-  "Button",
-  "Botón"
- ],
- "Aucune description": [
-  "No description",
-  "Sin descripción"
- ],
- "Aucune adresse renseignée": [
-  "No address given",
-  "Sin dirección indicada"
- ],
- "Article non renseigné": [
-  "Item not filled in",
-  "Artículo sin indicar"
- ],
- "Événement non renseigné": [
-  "Event not filled in",
-  "Evento sin indicar"
- ],
- "Cliquez pour sélectionner ce bloc, puis « Modifier le bloc » pour le régler.": [
-  "Click to select this block, then “Edit the block” to set it up.",
-  "Pulse para seleccionar este bloque y después «Editar el bloque» para configurarlo."
- ],
- "Le code ci-dessus est affiché tel quel dans l’éditeur ; il est publié sous sa forme active sur la page.": [
-  "The code above is shown as-is in the editor; it is published in working form on the page.",
-  "El código anterior se muestra tal cual en el editor; se publica en su forma activa en la página."
- ],
- "Choisissez une image": [
-  "Choose an image",
-  "Elija una imagen"
- ],
- "Indiquez l’adresse de la vidéo": [
-  "Enter the video address",
-  "Indique la dirección del vídeo"
- ],
- "Indiquez l’adresse de la page à intégrer": [
-  "Enter the address of the page to embed",
-  "Indique la dirección de la página que desea integrar"
- ],
- "Indiquez l’adresse de l’agenda": [
-  "Enter the calendar address",
-  "Indique la dirección de la agenda"
- ],
- "Ajoutez au moins une image à la galerie": [
-  "Add at least one image to the gallery",
-  "Añada al menos una imagen a la galería"
- ],
- "Choisissez le fichier PDF à afficher": [
-  "Choose the PDF file to show",
-  "Elija el archivo PDF que desea mostrar"
- ],
- "Aucun code pour le moment.": [
-  "No code yet.",
-  "Todavía no hay código."
- ],
- "Page intégrée": [
-  "Embedded page",
-  "Página integrada"
- ],
- "Carte déplaçable (Leaflet)": [
-  "Pannable map (Leaflet)",
-  "Mapa desplazable (Leaflet)"
- ],
- "Plan OpenStreetMap": [
-  "OpenStreetMap plan",
-  "Plano de OpenStreetMap"
- ],
- "script vide": [
-  "empty script",
-  "script vacío"
- ]
+  "10 rue de la Paix, Paris": [
+    "10 Downing Street, London",
+    "Calle Mayor 10, Madrid"
+  ],
+  "16:9 (paysage)": [
+    "16:9 (landscape)",
+    "16:9 (horizontal)"
+  ],
+  "1:1 (carré)": [
+    "1:1 (square)",
+    "1:1 (cuadrado)"
+  ],
+  "21:9 (cinéma)": [
+    "21:9 (cinema)",
+    "21:9 (cine)"
+  ],
+  "61 rue du Château d’Eau, 33000 Bordeaux": [
+    "1 Market Street, Manchester M1 1AA",
+    "Calle Mayor 1, 28013 Madrid"
+  ],
+  "9:16 (vertical)": [
+    "9:16 (portrait)",
+    "9:16 (vertical)"
+  ],
+  "Abonnement annuel": [
+    "Annual subscription",
+    "Suscripción anual"
+  ],
+  "Acheter": [
+    "Buy",
+    "Comprar"
+  ],
+  "Actions": [
+    "Actions",
+    "Acciones"
+  ],
+  "Actuelle": [
+    "Current",
+    "Actual"
+  ],
+  "Adresse de la page": [
+    "Page address",
+    "Dirección de la página"
+  ],
+  "Adresse de la vidéo": [
+    "Video address",
+    "Dirección del vídeo"
+  ],
+  "Adresse de l’agenda": [
+    "Calendar address",
+    "Dirección de la agenda"
+  ],
+  "Adresse de l’image": [
+    "Image address",
+    "Dirección de la imagen"
+  ],
+  "Adresse de l’événement": [
+    "Event address",
+    "Dirección del evento"
+  ],
+  "Adresse du fichier": [
+    "File address",
+    "Dirección del archivo"
+  ],
+  "Adresse du lien": [
+    "Link address",
+    "Dirección del enlace"
+  ],
+  "Adresse du lieu": [
+    "Address of the place",
+    "Dirección del lugar"
+  ],
+  "Adresse personnalisée…": [
+    "Custom address…",
+    "Dirección personalizada…"
+  ],
+  "Adresse à laquelle les messages du formulaire seront envoyés.": [
+    "Address the form messages will be sent to.",
+    "Dirección a la que se enviarán los mensajes del formulario."
+  ],
+  "Affichage": [
+    "View",
+    "Vista"
+  ],
+  "Affiche du code sans le formater": [
+    "Shows code exactly as written",
+    "Muestra código tal cual está escrito"
+  ],
+  "Affiche un PDF directement dans la page, page après page": [
+    "Shows a PDF right inside the page, page after page",
+    "Muestra un PDF dentro de la página, página tras página"
+  ],
+  "Affiche une autre page web à l’intérieur de la vôtre": [
+    "Shows another web page inside yours",
+    "Muestra otra página web dentro de la suya"
+  ],
+  "Afficher les intitulés sur les vignettes": [
+    "Show captions on thumbnails",
+    "Mostrar los títulos en las miniaturas"
+  ],
+  "Afficher les outils de blocs": [
+    "Show block tools",
+    "Mostrar las herramientas de bloques"
+  ],
+  "Agenda": [
+    "Calendar",
+    "Agenda"
+  ],
+  "Agenda partagé": [
+    "Shared calendar",
+    "Agenda compartida"
+  ],
+  "Agrandir": [
+    "Enlarge",
+    "Ampliar"
+  ],
+  "Ajoute du vide entre deux blocs, hauteur réglable": [
+    "Adds adjustable empty space between two blocks",
+    "Añade un espacio vacío ajustable entre dos bloques"
+  ],
+  "Ajouter des colonnes": [
+    "Add columns",
+    "Añadir columnas"
+  ],
+  "Ajouter des colonnes...": [
+    "Add columns...",
+    "Añadir columnas..."
+  ],
+  "Ajouter des images…": [
+    "Add images…",
+    "Añadir imágenes…"
+  ],
+  "Ajouter un bloc": [
+    "Add a block",
+    "Añadir un bloque"
+  ],
+  "Ajouter un bloc...": [
+    "Add a block...",
+    "Añadir un bloque..."
+  ],
+  "Ajouter un espace vertical de la hauteur de votre choix": [
+    "Add vertical space of the height you choose",
+    "Añadir un espacio vertical de la altura que elija"
+  ],
+  "Ajouter un rendez-vous": [
+    "Add an appointment",
+    "Añadir una cita"
+  ],
+  "Ajouter une colonne": [
+    "Add a column",
+    "Añadir una columna"
+  ],
+  "Ajouter à mon calendrier": [
+    "Add to my calendar",
+    "Añadir a mi calendario"
+  ],
+  "Ajoutez au moins une image à la galerie": [
+    "Add at least one image to the gallery",
+    "Añada al menos una imagen a la galería"
+  ],
+  "Ajustée à la taille de l'écran": [
+    "Fitted to the screen",
+    "Ajustada al tamaño de la pantalla"
+  ],
+  "Alignement": [
+    "Alignment",
+    "Alineación"
+  ],
+  "Ancre dans la page": [
+    "Anchor on this page",
+    "Ancla en la página"
+  ],
+  "Angle (°)": [
+    "Angle (°)",
+    "Ángulo (°)"
+  ],
+  "Annuler": [
+    "Cancel",
+    "Cancelar"
+  ],
+  "Année précédente": [
+    "Previous year",
+    "Año anterior"
+  ],
+  "Année suivante": [
+    "Next year",
+    "Año siguiente"
+  ],
+  "Aperçu comme un visiteur": [
+    "Preview as a visitor",
+    "Vista previa como visitante"
+  ],
+  "Aperçu comme un visiteur...": [
+    "Preview as a visitor...",
+    "Vista previa como visitante..."
+  ],
+  "Aperçu de la page": [
+    "Page preview",
+    "Vista previa de la página"
+  ],
+  "Apparence": [
+    "Appearance",
+    "Apariencia"
+  ],
+  "Arrondi": [
+    "Rounded",
+    "Redondeado"
+  ],
+  "Article non renseigné": [
+    "Item not filled in",
+    "Artículo sin indicar"
+  ],
+  "Aucun code pour le moment.": [
+    "No code yet.",
+    "Todavía no hay código."
+  ],
+  "Aucun fichier choisi.": [
+    "No file chosen.",
+    "Ningún archivo elegido."
+  ],
+  "Aucun fichier ne correspond à cette recherche.": [
+    "No file matches this search.",
+    "Ningún archivo coincide con esta búsqueda."
+  ],
+  "Aucun lieu ne correspond. Essayez une adresse plus simple, ou entrez les coordonnées à la main.": [
+    "No place matches. Try a simpler address, or enter the coordinates by hand.",
+    "Ningún lugar coincide. Pruebe una dirección más sencilla o introduzca las coordenadas a mano."
+  ],
+  "Aucun rendez-vous pour ce mois. Ajoutez-en un pour le voir apparaître dans la grille.": [
+    "No appointments this month. Add one to see it appear in the grid.",
+    "No hay citas este mes. Añada una para verla aparecer en la cuadrícula."
+  ],
+  "Aucune": [
+    "None",
+    "Ninguna"
+  ],
+  "Aucune adresse renseignée": [
+    "No address given",
+    "Sin dirección indicada"
+  ],
+  "Aucune description": [
+    "No description",
+    "Sin descripción"
+  ],
+  "Aucune image choisie.": [
+    "No image chosen.",
+    "Ninguna imagen elegida."
+  ],
+  "Aucune image pour l’instant. Cliquez sur « Ajouter des images… » pour en choisir.": [
+    "No images yet. Click “Add images…” to choose some.",
+    "Todavía no hay imágenes. Pulse «Añadir imágenes…» para elegirlas."
+  ],
+  "Auteur": [
+    "Author",
+    "Autor"
+  ],
+  "Avancé": [
+    "Advanced",
+    "Avanzado"
+  ],
+  "Avant retouche": [
+    "Before editing",
+    "Antes de editar"
+  ],
+  "Avec empattement": [
+    "Serif",
+    "Con serifa"
+  ],
+  "Bandeau d’introduction avec titre, texte et bouton": [
+    "Opening banner with a heading, text and a button",
+    "Banner de presentación con título, texto y botón"
+  ],
+  "Bas centre": [
+    "Bottom centre",
+    "Abajo centro"
+  ],
+  "Bas droite": [
+    "Bottom right",
+    "Abajo derecha"
+  ],
+  "Bas gauche": [
+    "Bottom left",
+    "Abajo izquierda"
+  ],
+  "Bloc de texte": [
+    "Text block",
+    "Bloque de texto"
+  ],
+  "Blocs et éléments": [
+    "Blocks and elements",
+    "Bloques y elementos"
+  ],
+  "Blocs et éléments du site": [
+    "Blocks and site elements",
+    "Bloques y elementos del sitio"
+  ],
+  "Blocs et éléments du site...": [
+    "Blocks and site elements...",
+    "Bloques y elementos del sitio..."
+  ],
+  "Blocs prédéfinis": [
+    "Ready-made blocks",
+    "Bloques predefinidos"
+  ],
+  "Blocs prédéfinis...": [
+    "Ready-made blocks...",
+    "Bloques predefinidos..."
+  ],
+  "boulangerie, pain bio, Bordeaux": [
+    "bakery, organic bread, Manchester",
+    "panadería, pan ecológico, Madrid"
+  ],
+  "Bouton": [
+    "Button",
+    "Botón"
+  ],
+  "Bouton de paiement PayPal": [
+    "PayPal payment button",
+    "Botón de pago PayPal"
+  ],
+  "Bouton d’appel à l’action": [
+    "Call-to-action button",
+    "Botón de llamada a la acción"
+  ],
+  "Bouton ombré": [
+    "Shadowed button",
+    "Botón con sombra"
+  ],
+  "Bouton, vidéo, carte…": [
+    "Button, video, map…",
+    "Botón, vídeo, mapa…"
+  ],
+  "Bouton, vidéo, menu, contact…": [
+    "Button, video, menu, contact…",
+    "Botón, vídeo, menú, contacto…"
+  ],
+  "Boutons de partage": [
+    "Sharing buttons",
+    "Botones para compartir"
+  ],
+  "Boutons de partage (minuscules)": [
+    "Sharing buttons (tiny)",
+    "Botones para compartir (diminutos)"
+  ],
+  "Boutons de partage (petits)": [
+    "Sharing buttons (small)",
+    "Botones para compartir (pequeños)"
+  ],
+  "Calendrier du mois": [
+    "Month calendar",
+    "Calendario del mes"
+  ],
+  "Carte": [
+    "Map",
+    "Mapa"
+  ],
+  "Carte déplaçable (Leaflet)": [
+    "Pannable map (Leaflet)",
+    "Mapa desplazable (Leaflet)"
+  ],
+  "Carte déplaçable par le visiteur": [
+    "Visitors can pan and zoom the map",
+    "El visitante puede mover y ampliar el mapa"
+  ],
+  "Cascade (rangées justifiées)": [
+    "Cascade (justified rows)",
+    "Cascada (filas justificadas)"
+  ],
+  "Catégorie": [
+    "Category",
+    "Categoría"
+  ],
+  "Ce dossier est vide. Déposez des fichiers ici, ou utilisez « Téléverser… ».": [
+    "This folder is empty. Drop files here, or use “Upload…”.",
+    "Esta carpeta está vacía. Suelte archivos aquí o use «Subir…»."
+  ],
+  "Ce type de fichier n’est pas accepté": [
+    "This file type is not accepted",
+    "Este tipo de archivo no se acepta"
+  ],
+  "Centre": [
+    "Centre",
+    "Centro"
+  ],
+  "Centré": [
+    "Centred",
+    "Centrado"
+  ],
+  "Cet élément n’est pas reconnu par l’éditeur : il sera réécrit tel quel dans la page.": [
+    "The editor does not recognise this item: it will be written back to the page unchanged.",
+    "El editor no reconoce este elemento: se escribirá tal cual en la página."
+  ],
+  "Cette action est définitive.": [
+    "This cannot be undone.",
+    "Esta acción es definitiva."
+  ],
+  "Cette action ne peut pas être annulée.": [
+    "This cannot be undone.",
+    "Esta acción no se puede deshacer."
+  ],
+  "Chaque version d’un fichier compte pour un fichier.": [
+    "Every version of a file counts as one file.",
+    "Cada versión de un archivo cuenta como un archivo."
+  ],
+  "Chargement asynchrone (async)": [
+    "Asynchronous loading (async)",
+    "Carga asíncrona (async)"
+  ],
+  "Chargement du dossier…": [
+    "Loading the folder…",
+    "Cargando la carpeta…"
+  ],
+  "Chasse fixe": [
+    "Monospace",
+    "Monoespaciada"
+  ],
+  "Choisir la disposition des colonnes": [
+    "Choose the column layout",
+    "Elegir la disposición de las columnas"
+  ],
+  "Choisir ou téléverser un média…": [
+    "Choose or upload a file…",
+    "Elegir o subir un archivo…"
+  ],
+  "Choisir un fichier dans l’explorateur de médias": [
+    "Choose a file from the media library",
+    "Elegir un archivo de la biblioteca"
+  ],
+  "Choisir un fichier…": [
+    "Choose a file…",
+    "Elegir un archivo…"
+  ],
+  "Choisir une image dans la médiathèque ou en téléverser une": [
+    "Choose an image from the library or upload one",
+    "Elegir una imagen de la biblioteca o subir una"
+  ],
+  "Choisir une image…": [
+    "Choose an image…",
+    "Elegir una imagen…"
+  ],
+  "Choisissez le bloc à ajouter": [
+    "Choose the block to add",
+    "Elija el bloque que desea añadir"
+  ],
+  "Choisissez le bloc à insérer": [
+    "Choose the block to insert",
+    "Elija el bloque que desea insertar"
+  ],
+  "Choisissez le bon lieu dans la liste :": [
+    "Choose the right place from the list:",
+    "Elija el lugar correcto en la lista:"
+  ],
+  "Choisissez le fichier PDF à afficher": [
+    "Choose the PDF file to show",
+    "Elija el archivo PDF que desea mostrar"
+  ],
+  "Choisissez l’élément à insérer": [
+    "Choose the item to insert",
+    "Elija el elemento que desea insertar"
+  ],
+  "Choisissez une image": [
+    "Choose an image",
+    "Elija una imagen"
+  ],
+  "Citation": [
+    "Quotation",
+    "Cita"
+  ],
+  "Classe ajoutée à la page en cours de consultation.": [
+    "Class added to the page being viewed.",
+    "Clase añadida a la página que se está viendo."
+  ],
+  "Classe CSS contenant": [
+    "Wrapper CSS class",
+    "Clase CSS contenedora"
+  ],
+  "Classe CSS du bouton": [
+    "Button CSS class",
+    "Clase CSS del botón"
+  ],
+  "Classe CSS élément": [
+    "Item CSS class",
+    "Clase CSS del elemento"
+  ],
+  "Classe CSS élément actif": [
+    "Current item CSS class",
+    "Clase CSS del elemento activo"
+  ],
+  "Classe posée sur chaque page du menu.": [
+    "Class set on every page of the menu.",
+    "Clase aplicada a cada página del menú."
+  ],
+  "Classe posée sur la liste qui entoure les pages.": [
+    "Class set on the list wrapping the pages.",
+    "Clase aplicada a la lista que envuelve las páginas."
+  ],
+  "Cliquez pour sélectionner ce bloc, puis « Modifier le bloc » pour le régler.": [
+    "Click to select this block, then “Edit the block” to set it up.",
+    "Pulse para seleccionar este bloque y después «Editar el bloque» para configurarlo."
+  ],
+  "Cliquez sur un emoji pour l’insérer. Les dessins sont ceux d’OpenMoji : ils s’affichent de la même façon sur tous les appareils.": [
+    "Click an emoji to insert it. The drawings come from OpenMoji: they look the same on every device.",
+    "Pulse un emoji para insertarlo. Los dibujos son de OpenMoji: se ven igual en todos los dispositivos."
+  ],
+  "Cliquez sur un fichier pour voir ses informations et les actions possibles. Un double clic le choisit directement.": [
+    "Click a file to see its details and what you can do with it. A double click picks it straight away.",
+    "Pulse un archivo para ver sus datos y las acciones posibles. Una doble pulsación lo elige directamente."
+  ],
+  "Cliquez sur une icône pour l’insérer. Elle prend la taille et la couleur du texte qui l’entoure.": [
+    "Click an icon to insert it. It takes the size and colour of the surrounding text.",
+    "Pulse un icono para insertarlo. Toma el tamaño y el color del texto que lo rodea."
+  ],
+  "Cochez les réseaux à proposer. Si vous n’en cochez aucun, tous seront affichés.": [
+    "Tick the networks to offer. If you tick none, all of them are shown.",
+    "Marque las redes que desea ofrecer. Si no marca ninguna, se mostrarán todas."
+  ],
+  "Code HTML": [
+    "HTML code",
+    "Código HTML"
+  ],
+  "Code JavaScript": [
+    "JavaScript code",
+    "Código JavaScript"
+  ],
+  "Code non reconnu : il sera réécrit tel quel dans la page.": [
+    "Unrecognised code: it will be written back to the page unchanged.",
+    "Código no reconocido: se escribirá tal cual en la página."
+  ],
+  "Code source": [
+    "Source code",
+    "Código fuente"
+  ],
+  "Code source HTML": [
+    "HTML source code",
+    "Código fuente HTML"
+  ],
+  "Code source HTML...": [
+    "HTML source code...",
+    "Código fuente HTML..."
+  ],
+  "Colle un code d’intégration fourni par un service tiers": [
+    "Paste an embed code given by another service",
+    "Pegue un código de inserción de otro servicio"
+  ],
+  "Comment passer commande ?": [
+    "How do I place an order?",
+    "¿Cómo hago un pedido?"
+  ],
+  "Commerce": [
+    "Commerce",
+    "Comercio"
+  ],
+  "Compte PayPal du vendeur": [
+    "Seller’s PayPal account",
+    "Cuenta PayPal del vendedor"
+  ],
+  "Construction de l’aperçu…": [
+    "Building the preview…",
+    "Construyendo la vista previa…"
+  ],
+  "Contenu": [
+    "Content",
+    "Contenido"
+  ],
+  "Contour": [
+    "Outline",
+    "Contorno"
+  ],
+  "Copier": [
+    "Copy",
+    "Copiar"
+  ],
+  "Copier vers": [
+    "Copy to",
+    "Copiar a"
+  ],
+  "Copier vers…": [
+    "Copy to…",
+    "Copiar a…"
+  ],
+  "Copie…": [
+    "Copying…",
+    "Copiando…"
+  ],
+  "Couleur de fond": [
+    "Background colour",
+    "Color de fondo"
+  ],
+  "Couleur de l’ombre": [
+    "Shadow colour",
+    "Color de la sombra"
+  ],
+  "Couleur du filet": [
+    "Rule colour",
+    "Color de la línea"
+  ],
+  "Couleur du texte": [
+    "Text colour",
+    "Color del texto"
+  ],
+  "Couleur d’accentuation": [
+    "Accent colour",
+    "Color de acento"
+  ],
+  "Création…": [
+    "Creating…",
+    "Creando…"
+  ],
+  "Créer": [
+    "Create",
+    "Crear"
+  ],
+  "Créer une image": [
+    "Create an image",
+    "Crear una imagen"
+  ],
+  "CSS personnalisé (appliqué au bloc image)": [
+    "Custom CSS (applied to the image block)",
+    "CSS personalizado (aplicado al bloque de imagen)"
+  ],
+  "Date": [
+    "Date",
+    "Fecha"
+  ],
+  "Date de début": [
+    "Start date",
+    "Fecha de inicio"
+  ],
+  "Date de fin": [
+    "End date",
+    "Fecha de fin"
+  ],
+  "Descendre": [
+    "Move down",
+    "Bajar"
+  ],
+  "Descendre le bloc": [
+    "Move block down",
+    "Bajar el bloque"
+  ],
+  "Description": [
+    "Description",
+    "Descripción"
+  ],
+  "Description de la page": [
+    "Page description",
+    "Descripción de la página"
+  ],
+  "Description pour les moteurs de recherche": [
+    "Description for search engines",
+    "Descripción para los buscadores"
+  ],
+  "Dessiner une image…": [
+    "Draw an image…",
+    "Dibujar una imagen…"
+  ],
+  "Devise": [
+    "Currency",
+    "Moneda"
+  ],
+  "Dimanche": [
+    "Sunday",
+    "Domingo"
+  ],
+  "Dimension": [
+    "Sizing",
+    "Dimensión"
+  ],
+  "Disposition": [
+    "Layout",
+    "Disposición"
+  ],
+  "Document PDF": [
+    "PDF document",
+    "Documento PDF"
+  ],
+  "Dollar américain (USD)": [
+    "US dollar (USD)",
+    "Dólar estadounidense (USD)"
+  ],
+  "Dollar canadien (CAD)": [
+    "Canadian dollar (CAD)",
+    "Dólar canadiense (CAD)"
+  ],
+  "Dossier de destination": [
+    "Destination folder",
+    "Carpeta de destino"
+  ],
+  "Dossier parent": [
+    "Parent folder",
+    "Carpeta superior"
+  ],
+  "Droite": [
+    "Right",
+    "Derecha"
+  ],
+  "Dupliquer cet élément": [
+    "Duplicate this item",
+    "Duplicar este elemento"
+  ],
+  "Dupliquer la ligne": [
+    "Duplicate the row",
+    "Duplicar la fila"
+  ],
+  "Dupliquer le bloc": [
+    "Duplicate the block",
+    "Duplicar el bloque"
+  ],
+  "Décrivez votre offre en une phrase.": [
+    "Describe what you offer in one sentence.",
+    "Describa su oferta en una frase."
+  ],
+  "Défilement": [
+    "Scrolling",
+    "Desplazamiento"
+  ],
+  "Dégradé : angle (°)": [
+    "Gradient: angle (°)",
+    "Degradado: ángulo (°)"
+  ],
+  "Dégradé : arrivée": [
+    "Gradient: end",
+    "Degradado: fin"
+  ],
+  "Dégradé : couleur de départ": [
+    "Gradient: start colour",
+    "Degradado: color inicial"
+  ],
+  "Dégradé : couleur d’arrivée": [
+    "Gradient: end colour",
+    "Degradado: color final"
+  ],
+  "Dégradé : départ": [
+    "Gradient: start",
+    "Degradado: inicio"
+  ],
+  "Déplacement…": [
+    "Moving…",
+    "Moviendo…"
+  ],
+  "Déplacer": [
+    "Move",
+    "Mover"
+  ],
+  "Déplacer le bloc": [
+    "Move the block",
+    "Mover el bloque"
+  ],
+  "Déplacer vers": [
+    "Move to",
+    "Mover a"
+  ],
+  "Déplacer vers…": [
+    "Move to…",
+    "Mover a…"
+  ],
+  "Déplier": [
+    "Expand",
+    "Desplegar"
+  ],
+  "Déplié au chargement de la page": [
+    "Open when the page loads",
+    "Desplegado al cargar la página"
+  ],
+  "Déposez vos fichiers pour les téléverser": [
+    "Drop your files to upload them",
+    "Suelte sus archivos para subirlos"
+  ],
+  "E-mail destinataire": [
+    "Recipient e-mail",
+    "Correo del destinatario"
+  ],
+  "Emoji ou icône": [
+    "Emoji or icon",
+    "Emoji o icono"
+  ],
+  "Emojis": [
+    "Emojis",
+    "Emojis"
+  ],
+  "Emojis et icônes": [
+    "Emojis and icons",
+    "Emojis e iconos"
+  ],
+  "Emojis et icônes...": [
+    "Emojis and icons...",
+    "Emojis e iconos..."
+  ],
+  "Emojis seuls": [
+    "Emojis only",
+    "Solo emojis"
+  ],
+  "Emplacement dans la page": [
+    "Position in the page",
+    "Ubicación en la página"
+  ],
+  "Emplacements": [
+    "Places",
+    "Ubicaciones"
+  ],
+  "En savoir plus": [
+    "Find out more",
+    "Saber más"
+  ],
+  "En-tête de la page (<head>)": [
+    "Page head (<head>)",
+    "Cabecera de la página (<head>)"
+  ],
+  "Encadré": [
+    "Boxed",
+    "Enmarcado"
+  ],
+  "Enregistrer": [
+    "Save",
+    "Guardar"
+  ],
+  "Espace": [
+    "Space",
+    "Espacio"
+  ],
+  "Espace entre les vignettes (px)": [
+    "Gap between thumbnails (px)",
+    "Espacio entre miniaturas (px)"
+  ],
+  "Espace vertical": [
+    "Vertical space",
+    "Espacio vertical"
+  ],
+  "Euro (EUR)": [
+    "Euro (EUR)",
+    "Euro (EUR)"
+  ],
+  "Explorateur de fichiers": [
+    "File browser",
+    "Explorador de archivos"
+  ],
+  "Explorateur de fichiers...": [
+    "File browser...",
+    "Explorador de archivos..."
+  ],
+  "Exécution différée (defer)": [
+    "Deferred execution (defer)",
+    "Ejecución diferida (defer)"
+  ],
+  "Fermer": [
+    "Close",
+    "Cerrar"
+  ],
+  "Fichier": [
+    "File",
+    "Archivo"
+  ],
+  "Fichier de l’image": [
+    "Image file",
+    "Archivo de la imagen"
+  ],
+  "Fichier externe (src)": [
+    "External file (src)",
+    "Archivo externo (src)"
+  ],
+  "Fichier PDF": [
+    "PDF file",
+    "Archivo PDF"
+  ],
+  "fichier(s)": [
+    "file(s)",
+    "archivo(s)"
+  ],
+  "fichiers": [
+    "files",
+    "archivos"
+  ],
+  "fichiers sélectionnés": [
+    "files selected",
+    "archivos seleccionados"
+  ],
+  "Filet": [
+    "Rule",
+    "Línea"
+  ],
+  "Filet simple": [
+    "Plain rule",
+    "Línea simple"
+  ],
+  "Fin de la page (avant </body>)": [
+    "End of the page (before </body>)",
+    "Final de la página (antes de </body>)"
+  ],
+  "Format": [
+    "Aspect ratio",
+    "Formato"
+  ],
+  "Format proportionnel": [
+    "Proportional ratio",
+    "Formato proporcional"
+  ],
+  "Formulaire de contact": [
+    "Contact form",
+    "Formulario de contacto"
+  ],
+  "Formulaire de réservation": [
+    "Booking form",
+    "Formulario de reserva"
+  ],
+  "Formulaires": [
+    "Forms",
+    "Formularios"
+  ],
+  "Franc suisse (CHF)": [
+    "Swiss franc (CHF)",
+    "Franco suizo (CHF)"
+  ],
+  "Fuseau horaire": [
+    "Time zone",
+    "Zona horaria"
+  ],
+  "Galerie d’images": [
+    "Image gallery",
+    "Galería de imágenes"
+  ],
+  "Gauche": [
+    "Left",
+    "Izquierda"
+  ],
+  "Grande": [
+    "Large",
+    "Grande"
+  ],
+  "Grille de cellules pour présenter des données": [
+    "A grid of cells for presenting data",
+    "Una cuadrícula de celdas para presentar datos"
+  ],
+  "Général": [
+    "General",
+    "General"
+  ],
+  "Haut centre": [
+    "Top centre",
+    "Arriba centro"
+  ],
+  "Haut droite": [
+    "Top right",
+    "Arriba derecha"
+  ],
+  "Haut gauche": [
+    "Top left",
+    "Arriba izquierda"
+  ],
+  "Hauteur": [
+    "Height",
+    "Altura"
+  ],
+  "Hauteur de la carte": [
+    "Map height",
+    "Altura del mapa"
+  ],
+  "Hauteur de la zone de lecture": [
+    "Height of the reading area",
+    "Altura de la zona de lectura"
+  ],
+  "Hauteur du séparateur": [
+    "Spacer height",
+    "Altura del separador"
+  ],
+  "Hauteur fixe": [
+    "Fixed height",
+    "Altura fija"
+  ],
+  "Hauteur maximale (px)": [
+    "Maximum height (px)",
+    "Altura máxima (px)"
+  ],
+  "Hero": [
+    "Hero",
+    "Hero"
+  ],
+  "Heure": [
+    "Time",
+    "Hora"
+  ],
+  "Heure de début": [
+    "Start time",
+    "Hora de inicio"
+  ],
+  "Heure de fin": [
+    "End time",
+    "Hora de fin"
+  ],
+  "Icônes": [
+    "Icons",
+    "Iconos"
+  ],
+  "Icônes seules": [
+    "Icons only",
+    "Solo iconos"
+  ],
+  "Identité": [
+    "Identity",
+    "Identidad"
+  ],
+  "Il ne reste de la place que pour": [
+    "There is only room left for",
+    "Solo queda espacio para"
+  ],
+  "Image": [
+    "Image",
+    "Imagen"
+  ],
+  "Image de fond": [
+    "Background image",
+    "Imagen de fondo"
+  ],
+  "Image de la bibliothèque": [
+    "Image from the library",
+    "Imagen de la biblioteca"
+  ],
+  "Image...": [
+    "Image...",
+    "Imagen..."
+  ],
+  "Images de la galerie": [
+    "Gallery images",
+    "Imágenes de la galería"
+  ],
+  "Indiquez l’adresse de la page à intégrer": [
+    "Enter the address of the page to embed",
+    "Indique la dirección de la página que desea integrar"
+  ],
+  "Indiquez l’adresse de la vidéo": [
+    "Enter the video address",
+    "Indique la dirección del vídeo"
+  ],
+  "Indiquez l’adresse de l’agenda": [
+    "Enter the calendar address",
+    "Indique la dirección de la agenda"
+  ],
+  "Insérer des colonnes": [
+    "Insert columns",
+    "Insertar columnas"
+  ],
+  "Insérer ou modifier un lien": [
+    "Insert or edit a link",
+    "Insertar o editar un enlace"
+  ],
+  "Insérer ou modifier une image": [
+    "Insert or edit an image",
+    "Insertar o editar una imagen"
+  ],
+  "Insérer un emoji Unicode ou une icône Material Design": [
+    "Insert a Unicode emoji or an icon",
+    "Insertar un emoji Unicode o un icono"
+  ],
+  "Intitulé": [
+    "Caption",
+    "Título"
+  ],
+  "Intitulé affiché": [
+    "Caption shown",
+    "Título mostrado"
+  ],
+  "Intègre un agenda public existant (Google Agenda, ICS…)": [
+    "Embeds an existing public calendar (Google Calendar, ICS…)",
+    "Integra una agenda pública existente (Google Calendar, ICS…)"
+  ],
+  "Jour du mois": [
+    "Day of the month",
+    "Día del mes"
+  ],
+  "La grille d’un mois, avec vos rendez-vous inscrits jour par jour": [
+    "A month grid, with your appointments written in day by day",
+    "La cuadrícula de un mes, con sus citas anotadas día a día"
+  ],
+  "La recherche d’adresse n’a pas abouti. Entrez les coordonnées à la main.": [
+    "The address search failed. Enter the coordinates by hand.",
+    "La búsqueda de dirección no funcionó. Introduzca las coordenadas a mano."
+  ],
+  "La semaine commence le": [
+    "The week starts on",
+    "La semana empieza el"
+  ],
+  "Laissez vide pour afficher le bouton officiel de PayPal.": [
+    "Leave empty to show PayPal’s own button.",
+    "Déjelo vacío para mostrar el botón oficial de PayPal."
+  ],
+  "Largeur": [
+    "Width",
+    "Anchura"
+  ],
+  "Largeur (%, rem, vw...)": [
+    "Width (%, rem, vw...)",
+    "Anchura (%, rem, vw...)"
+  ],
+  "Largeur du filet": [
+    "Rule width",
+    "Anchura de la línea"
+  ],
+  "Largeur maximale": [
+    "Maximum width",
+    "Anchura máxima"
+  ],
+  "Largeur maximale (px)": [
+    "Maximum width (px)",
+    "Anchura máxima (px)"
+  ],
+  "Latitude": [
+    "Latitude",
+    "Latitud"
+  ],
+  "le bloc": [
+    "the block",
+    "el bloque"
+  ],
+  "Le code ci-dessus est affiché tel quel dans l’éditeur ; il est publié sous sa forme active sur la page.": [
+    "The code above is shown as-is in the editor; it is published in working form on the page.",
+    "El código anterior se muestra tal cual en el editor; se publica en su forma activa en la página."
+  ],
+  "le dossier": [
+    "the folder",
+    "la carpeta"
+  ],
+  "le fichier": [
+    "the file",
+    "el archivo"
+  ],
+  "Le fichier dépasse la taille maximale autorisée": [
+    "The file exceeds the maximum allowed size",
+    "El archivo supera el tamaño máximo permitido"
+  ],
+  "Le fichier dépasse le poids autorisé par votre offre": [
+    "The file exceeds the size allowed by your plan",
+    "El archivo supera el peso permitido por su plan"
+  ],
+  "Le fuseau dans lequel les heures ci-dessus sont exprimées.": [
+    "The time zone the times above are given in.",
+    "La zona horaria en la que se expresan las horas anteriores."
+  ],
+  "Le logo enregistré dans les réglages de votre site": [
+    "The logo saved in your site settings",
+    "El logotipo guardado en los ajustes de su sitio"
+  ],
+  "Le mois en cours, quel qu’il soit au moment de l’affichage.": [
+    "The current month, whatever it is when the page is displayed.",
+    "El mes en curso, sea cual sea al mostrarse la página."
+  ],
+  "Le nom du site, affiché par-dessus le logo": [
+    "The site name, shown over the logo",
+    "El nombre del sitio, mostrado sobre el logotipo"
+  ],
+  "Le résumé et les mots-clés affichés par Google — invisible sur la page": [
+    "The summary and keywords shown by Google — invisible on the page",
+    "El resumen y las palabras clave que muestra Google — invisible en la página"
+  ],
+  "le script": [
+    "the script",
+    "el script"
+  ],
+  "Lecture automatique": [
+    "Play automatically",
+    "Reproducción automática"
+  ],
+  "Lecture en boucle": [
+    "Loop",
+    "Reproducción en bucle"
+  ],
+  "Les rendez-vous d’avril": [
+    "April’s appointments",
+    "Las citas de abril"
+  ],
+  "Lien": [
+    "Link",
+    "Enlace"
+  ],
+  "Lien du bouton": [
+    "Button link",
+    "Enlace del botón"
+  ],
+  "Lien du site": [
+    "Site link",
+    "Enlace del sitio"
+  ],
+  "Lien...": [
+    "Link...",
+    "Enlace..."
+  ],
+  "Lieu affiché": [
+    "Place shown",
+    "Lugar mostrado"
+  ],
+  "Lieu choisi. Ajustez le zoom si nécessaire.": [
+    "Place chosen. Adjust the zoom if needed.",
+    "Lugar elegido. Ajuste el zoom si es necesario."
+  ],
+  "Liste des pages de votre site": [
+    "The list of your site’s pages",
+    "La lista de páginas de su sitio"
+  ],
+  "Liste numérotée": [
+    "Numbered list",
+    "Lista numerada"
+  ],
+  "Liste à puces": [
+    "Bulleted list",
+    "Lista con viñetas"
+  ],
+  "Livre sterling (GBP)": [
+    "Pound sterling (GBP)",
+    "Libra esterlina (GBP)"
+  ],
+  "Logo du site": [
+    "Site logo",
+    "Logotipo del sitio"
+  ],
+  "Longitude": [
+    "Longitude",
+    "Longitud"
+  ],
+  "Lundi": [
+    "Monday",
+    "Lunes"
+  ],
+  "Lâchez pour annuler.": [
+    "Release to cancel.",
+    "Suelte para cancelar."
+  ],
+  "Légende": [
+    "Caption",
+    "Leyenda"
+  ],
+  "L’adresse du compte PayPal qui recevra le paiement.": [
+    "The PayPal account the payment will go to.",
+    "La cuenta PayPal que recibirá el pago."
+  ],
+  "L’aperçu n’a pas pu être construit": [
+    "The preview could not be built",
+    "No se pudo construir la vista previa"
+  ],
+  "l’élément": [
+    "the element",
+    "el elemento"
+  ],
+  "Maintenez enfoncé pendant {0} secondes.": [
+    "Press and hold for {0} seconds.",
+    "Mantenga pulsado {0} segundos."
+  ],
+  "Maintenez le bouton enfoncé pour supprimer": [
+    "Press and hold the button to delete",
+    "Mantenga pulsado el botón para eliminar"
+  ],
+  "Marge extérieure (ex : 0 0 1rem)": [
+    "Outer margin (e.g. 0 0 1rem)",
+    "Margen exterior (p. ej. 0 0 1rem)"
+  ],
+  "Marge intérieure (ex : .5rem 1rem)": [
+    "Inner padding (e.g. .5rem 1rem)",
+    "Relleno interior (p. ej. .5rem 1rem)"
+  ],
+  "maximum": [
+    "maximum",
+    "máximo"
+  ],
+  "Maçonnerie (colonnes)": [
+    "Masonry (columns)",
+    "Mampostería (columnas)"
+  ],
+  "Menu": [
+    "Menu",
+    "Menú"
+  ],
+  "menu, contact, partage…": [
+    "menu, contact, sharing…",
+    "menú, contacto, compartir…"
+  ],
+  "Met en avant une phrase, avec un filet sur le côté": [
+    "Highlights a sentence, with a rule down the side",
+    "Destaca una frase, con una línea al lado"
+  ],
+  "Milieu droite": [
+    "Middle right",
+    "Centro derecha"
+  ],
+  "Milieu gauche": [
+    "Middle left",
+    "Centro izquierda"
+  ],
+  "Mise en avant": [
+    "Highlights",
+    "Destacados"
+  ],
+  "Modifier cet élément": [
+    "Edit this item",
+    "Editar este elemento"
+  ],
+  "Modifier dans Pixel": [
+    "Edit in Pixel",
+    "Editar en Pixel"
+  ],
+  "Modifier le bloc": [
+    "Edit the block",
+    "Editar el bloque"
+  ],
+  "Modifier le script": [
+    "Edit the script",
+    "Editar el script"
+  ],
+  "Mois": [
+    "Month",
+    "Mes"
+  ],
+  "Mois affiché": [
+    "Month shown",
+    "Mes mostrado"
+  ],
+  "Mois en cours": [
+    "Current month",
+    "Mes en curso"
+  ],
+  "Monter": [
+    "Move up",
+    "Subir"
+  ],
+  "Monter le bloc": [
+    "Move block up",
+    "Subir el bloque"
+  ],
+  "Mosaïque carrée": [
+    "Square mosaic",
+    "Mosaico cuadrado"
+  ],
+  "Mots-clés": [
+    "Keywords",
+    "Palabras clave"
+  ],
+  "Médias": [
+    "Media",
+    "Medios"
+  ],
+  "Médiathèque": [
+    "Media library",
+    "Biblioteca de medios"
+  ],
+  "Même onglet": [
+    "Same tab",
+    "Misma pestaña"
+  ],
+  "Navigation": [
+    "Navigation",
+    "Navegación"
+  ],
+  "Ne pas supprimer": [
+    "Do not delete",
+    "No eliminar"
+  ],
+  "Nom de l’article": [
+    "Item name",
+    "Nombre del artículo"
+  ],
+  "Nom de l’événement": [
+    "Event name",
+    "Nombre del evento"
+  ],
+  "Nom du dossier": [
+    "Folder name",
+    "Nombre de la carpeta"
+  ],
+  "Nom du widget": [
+    "Widget name",
+    "Nombre del widget"
+  ],
+  "Nombre de pages affichées (0 = toutes)": [
+    "Number of pages shown (0 = all)",
+    "Número de páginas mostradas (0 = todas)"
+  ],
+  "Normale": [
+    "Normal",
+    "Normal"
+  ],
+  "Nos bureaux": [
+    "Our offices",
+    "Nuestras oficinas"
+  ],
+  "Nouveau dossier": [
+    "New folder",
+    "Nueva carpeta"
+  ],
+  "Nouveau nom": [
+    "New name",
+    "Nuevo nombre"
+  ],
+  "Nouvel onglet": [
+    "New tab",
+    "Nueva pestaña"
+  ],
+  "Ombre : couleur": [
+    "Shadow: colour",
+    "Sombra: color"
+  ],
+  "Ombre : décalage horizontal": [
+    "Shadow: horizontal offset",
+    "Sombra: desplazamiento horizontal"
+  ],
+  "Ombre : décalage vertical": [
+    "Shadow: vertical offset",
+    "Sombra: desplazamiento vertical"
+  ],
+  "Ombre : flou": [
+    "Shadow: blur",
+    "Sombra: desenfoque"
+  ],
+  "Ombre : X": [
+    "Shadow: X",
+    "Sombra: X"
+  ],
+  "Ombre : Y": [
+    "Shadow: Y",
+    "Sombra: Y"
+  ],
+  "Ordinateur": [
+    "Desktop",
+    "Ordenador"
+  ],
+  "Ou adresse d’une image en ligne (https://…)": [
+    "Or the address of an online image (https://…)",
+    "O la dirección de una imagen en línea (https://…)"
+  ],
+  "Ouvrir dans": [
+    "Open in",
+    "Abrir en"
+  ],
+  "Ouvrir le lien": [
+    "Open the link",
+    "Abrir el enlace"
+  ],
+  "Page intégrée": [
+    "Embedded page",
+    "Página integrada"
+  ],
+  "Page intégrée (iframe)": [
+    "Embedded page (iframe)",
+    "Página integrada (iframe)"
+  ],
+  "panier, téléphone, flèche…": [
+    "basket, phone, arrow…",
+    "cesta, teléfono, flecha…"
+  ],
+  "Paragraphe": [
+    "Paragraph",
+    "Párrafo"
+  ],
+  "Paragraphe, image, colonnes…": [
+    "Paragraph, image, columns…",
+    "Párrafo, imagen, columnas…"
+  ],
+  "Parallaxe": [
+    "Parallax",
+    "Paralaje"
+  ],
+  "Personnalisées": [
+    "Custom",
+    "Personalizadas"
+  ],
+  "Petite": [
+    "Small",
+    "Pequeña"
+  ],
+  "Plan OpenStreetMap": [
+    "OpenStreetMap plan",
+    "Plano de OpenStreetMap"
+  ],
+  "Planning": [
+    "Schedule",
+    "Planificación"
+  ],
+  "Pleine largeur": [
+    "Full width",
+    "Ancho completo"
+  ],
+  "Plusieurs photos présentées en mosaïque, avec agrandissement au clic": [
+    "Several photos shown as a mosaic, enlarged on click",
+    "Varias fotos en mosaico, que se amplían al pulsarlas"
+  ],
+  "Police du site": [
+    "Site font",
+    "Tipografía del sitio"
+  ],
+  "Portes ouvertes": [
+    "Open day",
+    "Jornada de puertas abiertas"
+  ],
+  "Position sur l’image": [
+    "Position on the image",
+    "Posición sobre la imagen"
+  ],
+  "Principal": [
+    "Primary",
+    "Principal"
+  ],
+  "Prix": [
+    "Price",
+    "Precio"
+  ],
+  "Proposer le téléchargement du fichier": [
+    "Offer the file for download",
+    "Ofrecer la descarga del archivo"
+  ],
+  "Présentation": [
+    "Presentation",
+    "Presentación"
+  ],
+  "Recherche en cours…": [
+    "Searching…",
+    "Buscando…"
+  ],
+  "Rechercher": [
+    "Search",
+    "Buscar"
+  ],
+  "Rechercher dans ce dossier": [
+    "Search in this folder",
+    "Buscar en esta carpeta"
+  ],
+  "Rechercher dans ce dossier…": [
+    "Search in this folder…",
+    "Buscar en esta carpeta…"
+  ],
+  "Rechercher un bloc": [
+    "Search for a block",
+    "Buscar un bloque"
+  ],
+  "Relation (rel)": [
+    "Relationship (rel)",
+    "Relación (rel)"
+  ],
+  "Rendez-vous du mois": [
+    "This month’s appointments",
+    "Citas del mes"
+  ],
+  "Renommage…": [
+    "Renaming…",
+    "Renombrando…"
+  ],
+  "Renommer": [
+    "Rename",
+    "Renombrar"
+  ],
+  "Renommer le fichier": [
+    "Rename the file",
+    "Renombrar el archivo"
+  ],
+  "Renommer…": [
+    "Rename…",
+    "Renombrar…"
+  ],
+  "Replier": [
+    "Collapse",
+    "Plegar"
+  ],
+  "Restauration…": [
+    "Restoring…",
+    "Restaurando…"
+  ],
+  "Restaurer": [
+    "Restore",
+    "Restaurar"
+  ],
+  "Retirer": [
+    "Remove",
+    "Quitar"
+  ],
+  "Retoucher cette image…": [
+    "Retouch this image…",
+    "Retocar esta imagen…"
+  ],
+  "Retoucher l’image…": [
+    "Retouch the image…",
+    "Retocar la imagen…"
+  ],
+  "Réduire": [
+    "Shrink",
+    "Reducir"
+  ],
+  "Référencement": [
+    "Search engines",
+    "Posicionamiento"
+  ],
+  "Réseaux sociaux": [
+    "Social networks",
+    "Redes sociales"
+  ],
+  "Rétrécir la colonne": [
+    "Narrow the column",
+    "Estrechar la columna"
+  ],
+  "Saisissez d’abord une adresse.": [
+    "Type an address first.",
+    "Escriba primero una dirección."
+  ],
+  "Saisissez une adresse et cliquez sur « Rechercher », ou entrez directement des coordonnées.": [
+    "Type an address and click “Search”, or enter coordinates directly.",
+    "Escriba una dirección y pulse «Buscar», o introduzca directamente las coordenadas."
+  ],
+  "Sans bordure": [
+    "Borderless",
+    "Sin borde"
+  ],
+  "Sans empattement": [
+    "Sans serif",
+    "Sin serifa"
+  ],
+  "Sans le son": [
+    "Muted",
+    "Sin sonido"
+  ],
+  "Script JavaScript": [
+    "JavaScript script",
+    "Script JavaScript"
+  ],
+  "Script JavaScript...": [
+    "JavaScript script...",
+    "Script JavaScript..."
+  ],
+  "script vide": [
+    "empty script",
+    "script vacío"
+  ],
+  "Secondaire": [
+    "Secondary",
+    "Secundario"
+  ],
+  "Semaine": [
+    "Week",
+    "Semana"
+  ],
+  "Situe une adresse sur un plan OpenStreetMap": [
+    "Pinpoints an address on an OpenStreetMap map",
+    "Sitúa una dirección en un mapa de OpenStreetMap"
+  ],
+  "Souligné": [
+    "Underlined",
+    "Subrayado"
+  ],
+  "Source (lien)": [
+    "Source (link)",
+    "Fuente (enlace)"
+  ],
+  "sourire, cœur, drapeau…": [
+    "smile, heart, flag…",
+    "sonrisa, corazón, bandera…"
+  ],
+  "Sous-titre": [
+    "Subtitle",
+    "Subtítulo"
+  ],
+  "Sous-titre à l’intérieur d’une section": [
+    "A subheading inside a section",
+    "Un subtítulo dentro de una sección"
+  ],
+  "Style": [
+    "Style",
+    "Estilo"
+  ],
+  "Style du lien": [
+    "Link style",
+    "Estilo del enlace"
+  ],
+  "Style du texte": [
+    "Text style",
+    "Estilo del texto"
+  ],
+  "Style prédéfini": [
+    "Ready-made style",
+    "Estilo predefinido"
+  ],
+  "Suppression dans {0} secondes": [
+    "Deleting in {0} seconds",
+    "Eliminando en {0} segundos"
+  ],
+  "Suppression…": [
+    "Deleting…",
+    "Eliminando…"
+  ],
+  "Supprimer": [
+    "Delete",
+    "Eliminar"
+  ],
+  "Supprimer ce dossier": [
+    "Delete this folder",
+    "Eliminar esta carpeta"
+  ],
+  "Supprimer cet élément": [
+    "Delete this item",
+    "Eliminar este elemento"
+  ],
+  "Supprimer la colonne": [
+    "Delete the column",
+    "Eliminar la columna"
+  ],
+  "Supprimer la ligne et ses colonnes": [
+    "Delete the row and its columns",
+    "Eliminar la fila y sus columnas"
+  ],
+  "Supprimer le bloc": [
+    "Delete the block",
+    "Eliminar el bloque"
+  ],
+  "Supprimer le lien": [
+    "Remove the link",
+    "Quitar el enlace"
+  ],
+  "Supprimer le script": [
+    "Delete the script",
+    "Eliminar el script"
+  ],
+  "Supprimer le séparateur": [
+    "Delete the spacer",
+    "Eliminar el separador"
+  ],
+  "Sélectionner le bloc parent": [
+    "Select the parent block",
+    "Seleccionar el bloque contenedor"
+  ],
+  "Séparateur": [
+    "Spacer",
+    "Separador"
+  ],
+  "Séparateur réglable": [
+    "Adjustable spacer",
+    "Separador ajustable"
+  ],
+  "Séparateur vertical": [
+    "Vertical spacer",
+    "Separador vertical"
+  ],
+  "Séparateur vertical...": [
+    "Vertical spacer...",
+    "Separador vertical..."
+  ],
+  "Sépare visuellement deux parties de la page": [
+    "Visually separates two parts of the page",
+    "Separa visualmente dos partes de la página"
+  ],
+  "Séparés par des virgules.": [
+    "Separated by commas.",
+    "Separadas por comas."
+  ],
+  "Tableau": [
+    "Table",
+    "Tabla"
+  ],
+  "Tablette": [
+    "Tablet",
+    "Tableta"
+  ],
+  "Taille": [
+    "Size",
+    "Tamaño"
+  ],
+  "Taille des vignettes (px)": [
+    "Thumbnail size (px)",
+    "Tamaño de las miniaturas (px)"
+  ],
+  "Taille du texte (ex : 1.5rem)": [
+    "Text size (e.g. 1.5rem)",
+    "Tamaño del texto (p. ej. 1.5rem)"
+  ],
+  "Tailles rapides": [
+    "Quick sizes",
+    "Tamaños rápidos"
+  ],
+  "Texte": [
+    "Text",
+    "Texto"
+  ],
+  "Texte affiché par-dessus l’image": [
+    "Text shown over the image",
+    "Texto mostrado sobre la imagen"
+  ],
+  "Texte alternatif": [
+    "Alternative text",
+    "Texto alternativo"
+  ],
+  "Texte alternatif (lu par les lecteurs d’écran)": [
+    "Alternative text (read by screen readers)",
+    "Texto alternativo (leído por los lectores de pantalla)"
+  ],
+  "Texte de l’épingle": [
+    "Pin text",
+    "Texto del marcador"
+  ],
+  "Texte du bouton": [
+    "Button text",
+    "Texto del botón"
+  ],
+  "Texte déplié": [
+    "Text revealed",
+    "Texto desplegado"
+  ],
+  "Texte déployable": [
+    "Expandable text",
+    "Texto desplegable"
+  ],
+  "Texte par-dessus": [
+    "Text on top",
+    "Texto superpuesto"
+  ],
+  "Texte à afficher": [
+    "Text to show",
+    "Texto que se mostrará"
+  ],
+  "Titre": [
+    "Title",
+    "Título"
+  ],
+  "Titre (accessibilité)": [
+    "Title (accessibility)",
+    "Título (accesibilidad)"
+  ],
+  "Titre affiché": [
+    "Title shown",
+    "Título mostrado"
+  ],
+  "Titre affiché au survol": [
+    "Title shown on hover",
+    "Título mostrado al pasar el ratón"
+  ],
+  "Titre cliquable": [
+    "Clickable heading",
+    "Título en el que se puede pulsar"
+  ],
+  "Titre de niveau 2": [
+    "Heading level 2",
+    "Título de nivel 2"
+  ],
+  "Titre de niveau 3": [
+    "Heading level 3",
+    "Título de nivel 3"
+  ],
+  "Titre du lien": [
+    "Link title",
+    "Título del enlace"
+  ],
+  "Titre du site avec son logo": [
+    "Site name with its logo",
+    "Nombre del sitio con su logotipo"
+  ],
+  "Titre principal d’une section": [
+    "The main heading of a section",
+    "El título principal de una sección"
+  ],
+  "Tous": [
+    "All",
+    "Todos"
+  ],
+  "Tous les réseaux": [
+    "All networks",
+    "Todas las redes"
+  ],
+  "Tout ce qu’il contient sera perdu.": [
+    "Everything it contains will be lost.",
+    "Se perderá todo su contenido."
+  ],
+  "Tout détruire": [
+    "Destroy everything",
+    "Destruirlo todo"
+  ],
+  "Toutes": [
+    "All",
+    "Todas"
+  ],
+  "Toutes ses versions seront perdues.": [
+    "All of its versions will be lost.",
+    "Se perderán todas sus versiones."
+  ],
+  "Trait horizontal": [
+    "Horizontal rule",
+    "Línea horizontal"
+  ],
+  "Type": [
+    "Type",
+    "Tipo"
+  ],
+  "type inconnu": [
+    "unknown type",
+    "tipo desconocido"
+  ],
+  "Type MIME": [
+    "MIME type",
+    "Tipo MIME"
+  ],
+  "Types acceptés": [
+    "Accepted types",
+    "Tipos aceptados"
+  ],
+  "Typographie": [
+    "Typeface",
+    "Tipografía"
+  ],
+  "Téléphone": [
+    "Phone",
+    "Teléfono"
+  ],
+  "Téléversement…": [
+    "Uploading…",
+    "Subiendo…"
+  ],
+  "Téléverser…": [
+    "Upload…",
+    "Subir…"
+  ],
+  "Un bloc de texte courant": [
+    "A plain block of text",
+    "Un bloque de texto normal"
+  ],
+  "Un bouton qui enregistre votre événement dans l’agenda du visiteur": [
+    "A button that saves your event to the visitor’s calendar",
+    "Un botón que guarda su evento en la agenda del visitante"
+  ],
+  "Un bouton qui met en avant l’action principale": [
+    "A button that highlights the main action",
+    "Un botón que destaca la acción principal"
+  ],
+  "Un bouton « Acheter » qui ouvre le paiement PayPal": [
+    "A “Buy” button that opens PayPal checkout",
+    "Un botón «Comprar» que abre el pago con PayPal"
+  ],
+  "Un espace vertical ou un filet de séparation": [
+    "Vertical space, or a separating rule",
+    "Un espacio vertical o una línea de separación"
+  ],
+  "Un formulaire dont les messages arrivent dans votre boîte mail": [
+    "A form whose messages land in your mailbox",
+    "Un formulario cuyos mensajes llegan a su buzón"
+  ],
+  "Un titre accrocheur": [
+    "A headline that catches the eye",
+    "Un título que llama la atención"
+  ],
+  "Un titre cliquable qui déplie un texte : idéal pour une foire aux questions": [
+    "A clickable heading that reveals text: ideal for a FAQ",
+    "Un título en el que se pulsa para desplegar un texto: ideal para preguntas frecuentes"
+  ],
+  "Un titre et un texte éditables directement dans la page": [
+    "A heading and text edited straight in the page",
+    "Un título y un texto que se editan directamente en la página"
+  ],
+  "Une citation mise en avant avec son auteur": [
+    "A highlighted quotation with its author",
+    "Una cita destacada con su autor"
+  ],
+  "Une image avec sa légende et un lien optionnel": [
+    "An image with its caption and an optional link",
+    "Una imagen con su leyenda y un enlace opcional"
+  ],
+  "Une ligne de colonnes côte à côte, qui s’empilent sur mobile": [
+    "A row of side-by-side columns that stack on mobile",
+    "Una fila de columnas contiguas que se apilan en el móvil"
+  ],
+  "Une phrase qui marque les esprits.": [
+    "A sentence people remember.",
+    "Una frase que se recuerda."
+  ],
+  "Une à deux phrases, environ 160 caractères : c’est le texte affiché sous le titre dans les résultats de recherche.": [
+    "One or two sentences, about 160 characters: this is the text shown under the title in search results.",
+    "Una o dos frases, unos 160 caracteres: es el texto que aparece bajo el título en los resultados de búsqueda."
+  ],
+  "Unité": [
+    "Unit",
+    "Unidad"
+  ],
+  "Utiliser ce fichier": [
+    "Use this file",
+    "Usar este archivo"
+  ],
+  "Utiliser ces fichiers": [
+    "Use these files",
+    "Usar estos archivos"
+  ],
+  "Version enregistrée": [
+    "Saved version",
+    "Versión guardada"
+  ],
+  "Versions": [
+    "Versions",
+    "Versiones"
+  ],
+  "Vidéo": [
+    "Video",
+    "Vídeo"
+  ],
+  "Vintage": [
+    "Vintage",
+    "Vintage"
+  ],
+  "Voile sombre (0 à 100)": [
+    "Dark overlay (0 to 100)",
+    "Velo oscuro (0 a 100)"
+  ],
+  "Votre médiathèque est pleine. Supprimez des fichiers ou d’anciennes versions pour en ajouter.": [
+    "Your library is full. Delete files or old versions to add more.",
+    "Su biblioteca está llena. Elimine archivos o versiones antiguas para añadir más."
+  ],
+  "Vérification des quotas…": [
+    "Checking quotas…",
+    "Comprobando las cuotas…"
+  ],
+  "Widget HTML": [
+    "HTML widget",
+    "Widget HTML"
+  ],
+  "YouTube, Vimeo, Dailymotion ou toute autre adresse intégrable": [
+    "YouTube, Vimeo, Dailymotion or any other embeddable address",
+    "YouTube, Vimeo, Dailymotion o cualquier otra dirección integrable"
+  ],
+  "Zoom (1 = monde, 19 = rue)": [
+    "Zoom (1 = world, 19 = street)",
+    "Zoom (1 = mundo, 19 = calle)"
+  ],
+  "Zoom à la molette de la souris": [
+    "Zoom with the mouse wheel",
+    "Zoom con la rueda del ratón"
+  ],
+  "À l’emplacement du curseur": [
+    "Where the cursor is",
+    "En la posición del cursor"
+  ],
+  "Élargir la colonne": [
+    "Widen the column",
+    "Ensanchar la columna"
+  ],
+  "élément": [
+    "item",
+    "elemento"
+  ],
+  "éléments": [
+    "items",
+    "elementos"
+  ],
+  "Éléments du site": [
+    "Site elements",
+    "Elementos del sitio"
+  ],
+  "Éléments du site...": [
+    "Site elements...",
+    "Elementos del sitio..."
+  ],
+  "Énumération dont l’ordre compte : étapes, classement": [
+    "A list where the order matters: steps, rankings",
+    "Una lista donde el orden importa: pasos, clasificación"
+  ],
+  "Énumération sans ordre particulier": [
+    "A list in no particular order",
+    "Una lista sin orden particular"
+  ],
+  "Événement non renseigné": [
+    "Event not filled in",
+    "Evento sin indicar"
+  ],
+  "Événements": [
+    "Events",
+    "Eventos"
+  ],
+  "⚠️ DESTRUCTION": [
+    "⚠️ DESTRUCTION",
+    "⚠️ DESTRUCCIÓN"
+  ]
 }

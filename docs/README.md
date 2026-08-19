@@ -14,8 +14,7 @@ HugeRTE n'est pas modifié, chaque fonctionnalité s'active dans l'option `plugi
 | `onlclink` | Liens : liste prédéfinie via API, URL personnalisée, ancre, cible, rel | [doc](plugins/onlclink.md) |
 | `onlcspacer` | Séparateurs verticaux d'une hauteur personnalisée (30 px par défaut) | [doc](plugins/onlcspacer.md) |
 | `onlcicons` | Emojis dessinés par OpenMoji et deux polices d'icônes embarquées, avec moteur de recherche | [doc](plugins/onlcicons.md) |
-| `onlcwidgets` | Script JavaScript, source HTML et bibliothèque de blocs prédéfinis | [doc](plugins/onlcwidgets.md) |
-| `onlcshortcodes` | Codes courts des gabarits Online Création, affichés comme des blocs | [doc](plugins/onlcshortcodes.md) |
+| `onlcwidgets` | Blocs prédéfinis et éléments du site (codes courts), script JavaScript, source HTML, aperçu visiteur | [doc](plugins/onlcwidgets.md) |
 
 `onlcshared` n'est pas un plugin : c'est la bibliothèque interne (client HTTP, section « lien »,
 styles de dialogue) incluse dans les plugins qui en ont besoin.
@@ -24,8 +23,12 @@ styles de dialogue) incluse dans les plugins qui en ont besoin.
 
 | Sujet | Documentation |
 | --- | --- |
-| Langues de l'interface (français, anglais, espagnol) | [i18n.md](i18n.md) |
+| Langues de l'interface (cœur, thème et plugins) | [i18n.md](i18n.md) |
 | Sécurité, neutralisation des scripts et des intégrations | [securite.md](securite.md) |
+
+> **`onlcshortcodes` n'existe plus comme plugin.** Les codes courts font partie de
+> `onlcwidgets`, avec une seule bibliothèque pour les blocs et les éléments du site. Le nom
+> reste reconnu dans `plugins:` et signale qu'il faut écrire `onlcwidgets`.
 
 ## APIs à implémenter côté serveur
 
@@ -33,13 +36,14 @@ styles de dialogue) incluse dans les plugins qui en ont besoin.
 | --- | --- | --- |
 | Médias (fichiers et dossiers) | `onlcmedia` | [onlc-media-api.md](api/onlc-media-api.md) |
 | Liens prédéfinis | `onlclink`, `onlcmedia`, `onlcwidgets` | [onlc-link-api.md](api/onlc-link-api.md) |
-| Éditeur d'images Pixel | `onlcmedia` | [onlc-pixel-editor.md](api/onlc-pixel-editor.md) |
+| Éditeur d'images (Pixie / Pixel) | `onlcmedia` | [onlc-pixel-editor.md](api/onlc-pixel-editor.md) |
 | Dictionnaires emojis/icônes | `onlcicons` | [onlc-icons-api.md](api/onlc-icons-api.md) |
+| Gabarit de l'aperçu visiteur | `onlcwidgets` | [onlc-preview-api.md](api/onlc-preview-api.md) |
 
 ## Exemple complet
 
 Le dossier [`example/`](../example/README.md) contient une page de démonstration branchée sur
-des API simulées (médias, liens, icônes et éditeur Pixel) :
+des API simulées (médias, liens, icônes, gabarit d'aperçu et éditeur d'images) :
 
 ```bash
 yarn example-build   # icônes, habillages, tsc puis rollup (~3 à 5 min)
@@ -53,7 +57,7 @@ hugerte.init({
   selector: 'textarea',
   plugins: [
     'onlcblocks', 'onlcmedia', 'onlcresponsiveimages', 'onlclink',
-    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcshortcodes'
+    'onlcspacer', 'onlcicons', 'onlcwidgets'
   ].join(' '),
   toolbar: [
     'undo redo',
@@ -62,7 +66,7 @@ hugerte.init({
     'onlcimage onlcmedialibrary',
     'onlclink onlcunlink',
     'onlcspacer onlcemoji onlcicons',
-    'onlcwidget onlcshortcodes onlcscript onlcsource'
+    'onlcwidget onlcscript onlcsource onlcpreview'
   ].join(' | '),
 
   onlc_media_api_url: 'https://exemple.tld/api/media',

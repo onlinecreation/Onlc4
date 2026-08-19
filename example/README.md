@@ -46,9 +46,10 @@ Pour relancer uniquement le serveur ensuite : `yarn example` (ou `node example/s
 example/
 ├── server.js            serveur HTTP sans dépendance (Node 18+)
 ├── api/
-│   ├── media-api.js     simulation de l'API média (fichiers, dossiers, upload, Pixel)
+│   ├── media-api.js     simulation de l'API média (fichiers, dossiers, upload, versions, quotas)
 │   ├── links-api.js     simulation de l'API des liens prédéfinis
 │   ├── icons-api.js     simulation du catalogue d'icônes Material Design
+│   ├── template-api.js  gabarit du site, pour l'aperçu visiteur
 │   └── multipart.js     analyseur multipart/form-data minimal
 ├── public/
 │   ├── index.html       page de démonstration
@@ -56,10 +57,11 @@ example/
 │   ├── assets/demo.css  habillage de la page
 │   ├── assets/content.css  styles du contenu de l'éditeur
 │   ├── assets/contenu.html  contenu de départ, **généré** (voir plus bas)
-│   ├── assets/vendor/   grille Bootstrap et FontAwesome, servis localement
-│   └── pixel/index.html simulation de l'éditeur d'images Pixel
+│   ├── assets/vendor/   grille Bootstrap, servie localement
+│   └── pixel/index.html adaptateur vers l'éditeur d'images Pixie
 ├── tools/
-│   └── build-content.js générateur du contenu de démonstration
+│   ├── build-content.js générateur du contenu de démonstration
+│   └── install-pixie.js installe l'éditeur d'images Pixie (voir plus bas)
 ├── seed/                médiathèque de départ (images SVG, un PDF)
 └── storage/             espace de travail (créé au démarrage, non versionné)
 ```
@@ -95,7 +97,11 @@ prédéfinis, ce qui évite de les encoder à la main.
 | Blocs prédéfinis + bloc maison | Bouton `Blocs prédéfinis` (voir `onlc_widgets_custom` dans `demo.js`) |
 | Script JavaScript coloré | Bouton `Script JavaScript` |
 | Source HTML colorée | Bouton `Code source HTML` |
-| Codes courts des gabarits | Bouton `Codes courts` : `[MenuSite]`, `[Contact]`, `[SocialButtons]`, `[PaypalButton]`, `[LogoSite]`, `[add-to-calendar-button]` |
+| Codes courts des gabarits | Bouton `Blocs prédéfinis`, onglets `Navigation`, `Formulaires`, `Identité`… : `[MenuSite]`, `[Contact]`, `[SocialButtons]`, `[PaypalButton]`, `[LogoSite]`, `[add-to-calendar-button]` |
+| Aperçu comme un visiteur | Bouton `Aperçu` : la page dans le gabarit du site, en trois largeurs, tous les codes courts résolus |
+| Versions d'un fichier | Retouchez une image dans la bibliothèque, puis rouvrez son panneau d'informations |
+| Quotas | Jauge en bas de la médiathèque (60 fichiers dans la démonstration, versions comprises) |
+| Suppression par maintien | Supprimez un bloc ou un fichier : il faut garder « Tout détruire » enfoncé six secondes |
 | Vidéo, page intégrée, carte OpenStreetMap | Blocs prédéfinis, onglet `Médias` : dans l'éditeur ce sont des vignettes inertes, le vrai code part à l'enregistrement |
 | Calendrier mensuel | Bloc `Calendrier` : grille du mois, semaines au choix, événements par jour |
 | Texte déployable | Bloc `Texte déployable` (`<details>` / `<summary>`) |
@@ -122,16 +128,37 @@ paquet de langue **avant** `hugerte.init()` et déclarez `language` :
 Les paquets sont générés depuis `modules/hugerte/tools/i18n/translations.json` — voir
 [`docs/i18n.md`](../docs/i18n.md).
 
+## L'éditeur d'images
+
+`public/pixel/` n'est pas une imitation d'éditeur : c'est l'**adaptateur** entre ONLC 4 et
+[Pixie](https://pixie.vebto.com/), qui traduit le contrat postMessage décrit dans
+[`docs/api/onlc-pixel-editor.md`](../docs/api/onlc-pixel-editor.md) vers l'api de Pixie.
+
+Pixie est un produit sous licence commerciale : ses fichiers ne sont pas versionnés ici.
+Installez-les depuis l'archive que vous avez achetée :
+
+```bash
+node example/tools/install-pixie.js /chemin/vers/pixie.zip
+```
+
+Le script range le nécessaire (~2,5 Mo) dans `example/public/pixel/vendor/`, ignoré par git.
+Ajoutez `--full` pour embarquer aussi les autocollants, les cadres et les images d'exemple
+(~18 Mo). Sans installation, la page affiche la marche à suivre plutôt que de rester blanche.
+
+Vous pouvez aussi pointer `onlc_media_image_editor_url` vers une instance déjà déployée, par
+exemple `https://pixel.onlinecreation.me`.
+
 ## API simulées
 
-Les trois simulations suivent à la lettre les contrats documentés :
+Les simulations suivent à la lettre les contrats documentés :
 
 | Simulation | Contrat | Fichier |
 | --- | --- | --- |
 | `/api/media` | [API média](../docs/api/onlc-media-api.md) | `api/media-api.js` |
 | `/api/links` | [API des liens](../docs/api/onlc-link-api.md) | `api/links-api.js` |
 | `/api/icons` | [Dictionnaires d'icônes](../docs/api/onlc-icons-api.md) | `api/icons-api.js` |
-| `/pixel/` | [Éditeur Pixel](../docs/api/onlc-pixel-editor.md) | `public/pixel/index.html` |
+| `/api/template` | [Gabarit de l'aperçu](../docs/api/onlc-preview-api.md) | `api/template-api.js` |
+| `/pixel/` | [Éditeur d'images](../docs/api/onlc-pixel-editor.md) | `public/pixel/index.html` |
 
 Elles sont volontairement écrites de façon linéaire et commentée : reprenez-les comme
 spécification exécutable pour votre propre back-office. Les fichiers sont stockés dans

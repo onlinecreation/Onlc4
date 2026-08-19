@@ -4,7 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 import { EditorOptions } from 'hugerte/core/api/OptionTypes';
 
 import { ShortcodeDefinition } from './ShortcodeTypes';
-import { WidgetDefinition, WidgetFieldItem } from './Types';
+import { PreviewValue, WidgetDefinition, WidgetFieldItem } from './Types';
 
 const option: {
   <K extends keyof EditorOptions>(name: K): (editor: Editor) => EditorOptions[K];
@@ -130,6 +130,30 @@ const register = (editor: Editor): void => {
     default: true
   });
 
+  /* Aperçu comme un visiteur ---------------------------------------------- */
+
+  // Gabarit du site, donné tel quel. Prioritaire sur l'adresse ci-dessous.
+  registerOption('onlc_preview_template', {
+    processor: 'string',
+    default: ''
+  });
+
+  // Adresse d'une api rendant le gabarit, en texte ou en `{ "template": "…" }`.
+  registerOption('onlc_preview_template_url', {
+    processor: 'string',
+    default: ''
+  });
+
+  /**
+   * Valeurs des codes courts dans l'aperçu, par nom : une chaîne, ou une fonction des attributs
+   * du code. Un code sans valeur disparaît de l'aperçu — il n'a pas à s'afficher entre crochets
+   * sous les yeux du rédacteur.
+   */
+  registerOption('onlc_preview_values', {
+    processor: 'object',
+    default: {}
+  });
+
 };
 
 const getCustomWidgets = option<WidgetDefinition[]>('onlc_widgets_custom');
@@ -159,6 +183,10 @@ const allowIframeHosts = (editor: Editor, hosts: string[]): void => {
   editor.options.set('sandbox_iframes_exclusions', Arr.unique(current.concat(hosts)));
 };
 
+const getPreviewTemplate = option<string>('onlc_preview_template');
+const getPreviewTemplateUrl = option<string>('onlc_preview_template_url');
+const getPreviewValues = option<Record<string, PreviewValue>>('onlc_preview_values');
+
 const getCustomShortcodes = option<ShortcodeDefinition[]>('onlc_shortcodes_custom');
 const getExcludedShortcodes = option<string[]>('onlc_shortcodes_exclude');
 const shouldShowUnknownShortcodes = option<boolean>('onlc_shortcodes_show_unknown');
@@ -166,6 +194,9 @@ const shouldInjectShortcodeStyles = option<boolean>('onlc_shortcodes_inject_styl
 
 export {
   register,
+  getPreviewTemplate,
+  getPreviewTemplateUrl,
+  getPreviewValues,
   getCustomShortcodes,
   getExcludedShortcodes,
   shouldShowUnknownShortcodes,

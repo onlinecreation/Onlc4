@@ -69,6 +69,11 @@ l'écriture du markup.
   javascript. Une chaîne contenant `</script>` ne peut donc pas refermer la balise.
 * **Nombres** — toute valeur qui finit dans du code javascript (coordonnées, zoom, dimensions)
   passe par `Common.number` / `Common.integer`, qui la bornent et retombent sur une valeur sûre.
+* **Aperçu visiteur** — la page est montée dans un cadre `sandbox="allow-scripts"` **sans**
+  `allow-same-origin`. Les scripts du gabarit tournent — sinon l'aperçu ne montrerait ni menu
+  déroulant ni carrousel — mais dans une origine opaque : ils ne voient ni les cookies de session
+  du back-office ni le document qui les contient. `allow-modals` n'est pas accordé, de sorte
+  qu'une page d'aperçu ne peut pas bloquer l'éditeur derrière une boîte.
 * **Codes courts** — les crochets sont retirés des valeurs et les guillemets deviennent `&quot;` :
   un attribut ne peut pas refermer le code au milieu. À l'enregistrement, le texte d'origine est
   réécrit **sans échappement** — c'est la seule façon de restituer au caractère près un code que
@@ -102,6 +107,7 @@ Deux recommandations pour le site qui publie :
 
 | Ressource | Origine | Réglable par |
 |---|---|---|
+| Gabarit de l'aperçu visiteur | votre back-office | `onlc_preview_template_url` |
 | Leaflet, nanogallery2, jQuery, pdf.js | cdnjs.cloudflare.com | `onlc_widgets_cdn_base` |
 | Tuiles de l'aperçu cartographique | tile.openstreetmap.org | — |
 | Recherche d'adresse | nominatim.openstreetmap.org | `onlc_widgets_geocoder_url` |
@@ -125,6 +131,13 @@ décrit dans `docs/api/`. Deux points relèvent du serveur, et de lui seul :
   serveur de vérifier que le chemin résolu reste sous la racine autorisée.
 * **Autorisations** — l'éditeur n'a aucune idée de qui a le droit d'écrire où. Chaque appel doit
   être vérifié côté serveur, y compris ceux que l'interface ne propose pas.
+* **Quotas et types de fichiers** — les contrôles faits par la médiathèque (types mime acceptés,
+  poids, nombre de fichiers) épargnent un aller-retour inutile ; ils ne remplacent pas ceux du
+  serveur, qui seul fait autorité.
+* **Cible d'une retouche** — `POST /save` reçoit un champ `replaces` désignant le fichier dont ce
+  binaire devient la nouvelle version. C'est au serveur de le résoudre et de refuser toute
+  adresse qu'il ne sert pas lui-même : sans cela, une adresse arbitraire désignerait n'importe
+  quel fichier à écraser.
 
 Les réponses de ces api sont traitées comme des données non fiables : noms de fichiers, adresses
 et intitulés sont échappés avant d'entrer dans l'interface, et les adresses posées en fond

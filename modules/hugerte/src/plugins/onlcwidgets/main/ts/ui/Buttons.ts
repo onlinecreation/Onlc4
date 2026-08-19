@@ -108,6 +108,19 @@ const register = (editor: Editor): void => {
       editor.execCommand('OnlcEditWidget');
     }
   });
+
+  editor.ui.registry.addButton('onlcpreview', {
+    icon: 'preview',
+    tooltip: 'Aperçu comme un visiteur',
+    onAction: () => editor.execCommand('OnlcPreview')
+  });
+
+  editor.ui.registry.addMenuItem('onlcpreview', {
+    icon: 'preview',
+    text: 'Aperçu comme un visiteur...',
+    onAction: () => editor.execCommand('OnlcPreview')
+  });
+
 };
 
 export {

@@ -5,6 +5,7 @@ import Editor from 'hugerte/core/api/Editor';
 import * as Script from '../core/Script';
 import * as WidgetDom from '../core/WidgetDom';
 import * as Widgets from '../core/Widgets';
+import * as PreviewDialog from '../ui/PreviewDialog';
 import * as ScriptDialog from '../ui/ScriptDialog';
 import * as SourceDialog from '../ui/SourceDialog';
 import * as WidgetDialog from '../ui/WidgetDialog';
@@ -57,6 +58,12 @@ const register = (editor: Editor): void => {
   editor.addCommand('OnlcRemoveWidget', () => {
     WidgetDom.getSelected(editor).each((element) => WidgetDom.remove(editor, element));
   });
+
+  /** Ouvre l'aperçu de la page entière, gabarit du site compris. */
+  editor.addCommand('OnlcPreview', () => {
+    PreviewDialog.open(editor);
+  });
+
 };
 
 export {

@@ -149,18 +149,81 @@ Réponse : `{ "file": MediaFile }`.
 
 ### `POST /save`
 
-Enregistre une image produite par l'éditeur Pixel (création ou modification).
+Enregistre un binaire produit par l'éditeur d'images (création ou retouche).
 
 ```json
 {
   "path": "/photos",
   "name": "plage-retouchee.png",
-  "data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg…"
+  "data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg…",
+  "metadata": {
+    "title": "Plage au couchant",
+    "folder": "/photos",
+    "format": "image/png",
+    "label": "Avant retouche",
+    "replaces": "/photos/plage.jpg"
+  }
 }
 ```
 
-Réponse : `{ "file": MediaFile }`. Si un fichier du même nom existe déjà, c'est au serveur de
-décider : écrasement ou création d'un nom unique (le `MediaFile` renvoyé fait foi).
+`metadata` est facultatif. Son champ décisif est **`replaces`** : ce que ce binaire remplace.
+
+| `replaces` | Comportement attendu |
+|---|---|
+| chemin d'un fichier existant | archiver le contenu actuel comme **version**, puis le remplacer. Le fichier garde son nom et son adresse |
+| adresse publique d'un fichier servi par l'api | idem, après résolution de l'adresse en chemin |
+| adresse inconnue, ou absent | créer un **nouveau** fichier |
+
+Ne réécrivez jamais un fichier dont vous ne reconnaissez pas l'adresse : une image venue d'un
+autre site ne doit pas pouvoir en écraser une des vôtres.
+
+Réponse : `{ "file": MediaFile }`. Le `MediaFile` renvoyé fait foi.
+
+### `GET /versions?path=/photos/plage.jpg`
+
+Historique d'un fichier, **de la plus récente à la plus ancienne**.
+
+```json
+{
+  "versions": [
+    { "id": "current", "createdAt": "2026-04-18T09:12:00Z", "size": 184320,
+      "label": "Version actuelle", "url": "/media/photos/plage.jpg", "current": true },
+    { "id": "v2-lz9k", "createdAt": "2026-04-17T16:40:00Z", "size": 201118,
+      "label": "Avant retouche", "url": "/media/.versions/…/v2-lz9k.jpg" }
+  ]
+}
+```
+
+Exactement une entrée doit porter `current: true`. `thumbnailUrl`, `width` et `height` sont
+facultatifs. Une api qui ne gère pas les versions peut répondre `404` : la section disparaît
+simplement du panneau d'informations.
+
+### `POST /version/restore`
+
+```json
+{ "path": "/photos/plage.jpg", "versionId": "v2-lz9k" }
+```
+
+Remet cette version en service. Archivez l'état courant au passage : revenir en arrière doit
+rester réversible. Réponse : `{ "file": MediaFile }`.
+
+### `GET /quota`
+
+Plafonds du compte. Ils sont redemandés **à chaque fois qu'ils servent** — chargement d'un
+dossier, envoi, suppression — jamais gardés en mémoire par l'éditeur.
+
+```json
+{ "quota": { "files": 41, "maxFiles": 200, "maxFileSize": 4194304 } }
+```
+
+| Champ | Sens |
+|---|---|
+| `files` | fichiers utilisés, **versions comprises** |
+| `maxFiles` | plafond ; `0` ou absent : pas de plafond |
+| `maxFileSize` | poids maximal d'un fichier, en octets ; `0` ou absent : pas de plafond |
+
+Ces valeurs varient d'un utilisateur à l'autre : c'est le compte authentifié qui les détermine,
+pas la requête. Une api qui ne gère pas les quotas peut répondre `404` ; la jauge disparaît.
 
 ## Erreurs
 
@@ -168,10 +231,11 @@ décider : écrasement ou création d'un nom unique (le `MediaFile` renvoyé fai
 |--------|--------------------------------------------------------------|
 | `400`  | Requête invalide (chemin manquant, nom vide…)                 |
 | `401`  | Authentification requise                                      |
-| `403`  | Opération interdite (dossier en lecture seule, quota…)        |
+| `403`  | Opération interdite (dossier en lecture seule…)               |
 | `404`  | Dossier ou fichier introuvable                                |
 | `413`  | Fichier trop volumineux                                       |
 | `415`  | Type de fichier refusé                                        |
+| `507`  | Quota atteint                                                 |
 | `500`  | Erreur serveur                                                |
 
 Le message du corps de réponse est affiché tel quel à l'utilisateur : rédigez-le en français et
@@ -187,7 +251,11 @@ L'API est le seul garde-fou : l'éditeur s'exécute chez le client et ses contr�
   (`..`, chemins absolus système, liens symboliques).
 - Contrôlez le type réel des fichiers téléversés (et pas seulement l'extension), refusez
   les formats exécutables, et servez le dossier média sans exécution de script.
-- Pour `POST /save`, validez l'entête du `data:` reçu et la taille décodée avant écriture.
+- Pour `POST /save`, validez l'entête du `data:` reçu et la taille décodée avant écriture, et
+  résolvez `replaces` **côté serveur** : une adresse arbitraire ne doit jamais désigner un
+  fichier à écraser.
+- Comptez les quotas côté serveur et refusez au-delà (`507`) : le contrôle fait par l'éditeur
+  n'est là que pour épargner un aller-retour inutile.
 - Protégez les requêtes d'écriture contre le CSRF (jeton d'en-tête ou cookie `SameSite`).
 
 ## Surcharge en JavaScript

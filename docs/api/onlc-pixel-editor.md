@@ -1,9 +1,13 @@
-# Intégration de l'éditeur d'images Pixel
+# Intégration de l'éditeur d'images
 
-Le plugin `onlcmedia` ouvre l'éditeur d'images [Pixel](https://pixel.onlinecreation.me) dans une
-boîte de dialogue (`windowManager.openUrl`) pour retoucher une image existante ou en créer une.
-L'éditeur est basé sur une ancienne version de
-[Pixie](https://support.vebto.com/hc/articles/10/13/50/getting-started).
+Le plugin `onlcmedia` ouvre un éditeur d'images dans une boîte de dialogue
+(`windowManager.openUrl`) pour retoucher une image existante ou en créer une. L'éditeur employé
+par Online Création est [Pixie](https://pixie.vebto.com/), déployé sur
+[pixel.onlinecreation.me](https://pixel.onlinecreation.me).
+
+L'éditeur n'est jamais réécrit : ONLC ne fournit qu'un **adaptateur** — une page qui traduit le
+contrat ci-dessous vers l'api de l'éditeur. Celui de la démonstration tient en un fichier,
+[`example/public/pixel/index.html`](../../example/public/pixel/index.html), et sert de modèle.
 
 ## Configuration
 
@@ -59,6 +63,15 @@ window.parent.postMessage({
 contenu et ferme la fenêtre. En cas d'échec de l'enregistrement, une alerte est affichée et la
 fenêtre reste ouverte pour ne pas perdre le travail en cours.
 
+### Versions
+
+Retoucher une image ne l'écrase pas. HugeRTE ajoute aux métadonnées de `POST /save` un champ
+`replaces` désignant ce que ce binaire remplace — le chemin du fichier quand il le connaît, son
+adresse d'origine sinon — et l'api en fait une **version de plus**.
+
+L'éditeur n'a rien à faire pour cela : il lui suffit de renvoyer le binaire. C'est HugeRTE qui
+sait d'où venait l'image, puisque c'est lui qui l'a ouverte.
+
 ### Fermer sans enregistrer
 
 ```js
@@ -70,6 +83,7 @@ window.parent.postMessage({ mceAction: 'onlc:close' }, '*'); // 'close' est éga
 - L'image renvoyée doit être une *data URL* : aucun fichier n'est lu depuis le disque du serveur
   de Pixel.
 - Le stockage effectif est réalisé par votre API média, qui reste responsable des contrôles
-  (type MIME autorisé, taille, quota, droits de l'utilisateur).
+  (type MIME autorisé, taille, quota, droits de l'utilisateur) et de la résolution de
+  `replaces` : une adresse qu'elle ne sert pas ne doit jamais désigner un fichier à écraser.
 - Renseignez `onlc_media_image_editor_origin` si l'éditeur est hébergé sur un autre domaine que
   celui indiqué dans `onlc_media_image_editor_url`.

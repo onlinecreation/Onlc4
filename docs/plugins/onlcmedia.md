@@ -27,7 +27,10 @@ mais une largeur en pourcentage et une hauteur automatique.
    que l'on retrouve dans tous les gestionnaires de fichiers, et que l'on reconnaît donc sans
    explication :
 
-   - une **barre latérale** avec les emplacements, dépliés depuis la racine ;
+   - une **barre latérale** portant l'**arborescence** des dossiers : chacun se déplie par son
+     chevron, son contenu n'est demandé à l'api qu'à ce moment-là, et la branche du dossier
+     ouvert se déplie toute seule. Une liste à plat ne disait pas où l'on se trouvait — deux
+     dossiers nommés « photos » y étaient indiscernables ;
    - une **grille de vignettes** au centre : un clic sélectionne, un double clic ouvre le dossier
      ou choisit le fichier, exactement comme sur un bureau ;
    - un **panneau d'informations** à droite, qui décrit le fichier sélectionné — dimensions,
@@ -38,6 +41,9 @@ mais une largeur en pourcentage et une hauteur automatique.
    *Dessiner une image…*, *Supprimer ce dossier*, et une recherche dans le dossier courant. Un
    fil d'Ariane cliquable rappelle le chemin. Les fichiers se déposent directement sur la
    grille. Tous les boutons font au moins 50 × 50 pixels.
+
+   En bas à droite, une **jauge de quota** : le nombre de fichiers utilisés sur le nombre
+   autorisé. Chaque version d'un fichier y compte pour un fichier.
 2. **Propriétés de l'image** (`onlcimage`) : cinq onglets.
    - *Image* : aperçu, bouton **Choisir ou téléverser un média…** (l'action principale),
      bouton *Retoucher cette image…*, puis, en second choix, un champ pour coller l'adresse
@@ -70,6 +76,9 @@ mais une largeur en pourcentage et une hauteur automatique.
 | `onlc_media_inject_styles` | `true` | Charge `onlcmedia.css` dans la zone d'édition |
 | `onlc_media_replace_image_plugin` | `true` | Remplace les boutons `image` du cœur |
 | `onlc_media_max_upload_size` | `0` | Taille maximale d'un fichier en octets (`0` = pas de limite) |
+| `onlc_media_upload_mime_types` | `['image/', 'application/pdf']` | Types acceptés à l'envoi ; une entrée finissant par `/` vaut pour toute une famille, une entrée commençant par `.` pour une extension. Liste vide : tout est accepté |
+| `onlc_media_quota` | `true` | Interroge `/quota` et affiche la jauge |
+| `onlc_media_versions` | `true` | Interroge `/versions` et affiche l'historique d'un fichier |
 
 ### Classes prédéfinies
 
@@ -131,6 +140,46 @@ pas honoré, le fond défile normalement — ce qui reste un rendu correct.
 
 Cette adresse est recalculée à chaque écriture : elle n'apparaît pas dans le champ *CSS
 personnalisé*, qui ne contient que ce que le rédacteur y a mis.
+
+## Les versions
+
+Retoucher une image n'écrase pas l'originale : l'api enregistre une **version de plus**, et le
+fichier garde son nom et son adresse — les pages qui l'affichent déjà ne cassent pas. Le panneau
+d'informations liste alors l'historique, de la plus récente à la plus ancienne, avec un bouton
+*Restaurer* sur chacune.
+
+Revenir en arrière est lui aussi réversible : l'état courant est archivé au passage.
+
+L'éditeur d'images rend un binaire **et des métadonnées** — titre, dossier, format, dimensions,
+et surtout `replaces`, qui désigne ce que la retouche remplace. C'est le chemin du fichier quand
+l'appelant le connaît, son adresse publique sinon ; une adresse que l'api ne reconnaît pas donne
+un nouveau fichier plutôt que d'écraser quoi que ce soit.
+
+Trois points d'entrée s'ajoutent au contrat, décrits dans
+[l'API média](../api/onlc-media-api.md) : `GET /versions`, `POST /version/restore` et
+`GET /quota`.
+
+## Les quotas
+
+Deux plafonds, servis par l'api et **relus à chaque fois qu'ils servent** — au chargement d'un
+dossier, avant un envoi, après une suppression. Ils varient d'un compte à l'autre et peuvent
+changer pendant la session : les garder en mémoire reviendrait à travailler sur une valeur
+périmée.
+
+| Plafond | Effet |
+|---|---|
+| `maxFiles` | nombre de fichiers, **versions comprises** |
+| `maxFileSize` | poids maximal d'un fichier |
+
+L'envoi est refusé avant d'être tenté, avec un message qui nomme le fichier en cause et dit ce
+qui bloque.
+
+## Supprimer
+
+Une boîte « Êtes-vous sûr ? » ne protège de rien : on répond oui sans lire, par réflexe.
+Supprimer un fichier ou un dossier demande donc de **maintenir** le bouton « Tout détruire »
+pendant six secondes, un décompte à l'appui ; relâcher annule. Le bouton qui a le focus à
+l'ouverture est « Ne pas supprimer » — la touche Entrée ne détruit rien.
 
 ## Commandes
 

@@ -111,3 +111,9 @@ export interface ScriptData {
   readonly defer: boolean;
   readonly position: string;
 }
+
+/**
+ * Valeur d'un code court dans l'aperçu visiteur : une chaîne, ou une fonction des attributs
+ * relevés dans le gabarit — un menu peut ainsi rendre les classes css que le code lui demande.
+ */
+export type PreviewValue = string | ((values: Record<string, string>, name: string) => string);

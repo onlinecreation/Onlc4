@@ -49,6 +49,7 @@ hugerte.init({
     'onlclink onlcunlink',
     'onlcspacer onlcicons',
     'onlcwidget onlcscript onlcsource',
+    'onlcpreview',
     'fullscreen'
   ].join(' | '),
 
@@ -101,6 +102,35 @@ hugerte.init({
   onlc_widgets_cdn_base: 'https://cdnjs.cloudflare.com/ajax/libs',
   // Recherche d'adresse du bloc carte (Nominatim, OpenStreetMap).
   onlc_widgets_geocoder_url: 'https://nominatim.openstreetmap.org/search',
+
+  // --- Aperçu comme un visiteur --------------------------------------------
+  // Le gabarit du site est servi par une API ; l'éditeur y pose le contenu à la place de
+  // [ContenuPage] et remplace les autres codes courts par les valeurs ci-dessous.
+  onlc_preview_template_url: '/api/template',
+  onlc_preview_values: {
+    NomPage: 'Accueil',
+    TitreSite: 'ONLC 4 — démonstration',
+    DescriptionSite: 'Un éditeur de pages qui se fait oublier.',
+    KeywordsSite: 'éditeur, pages, blocs, ONLC',
+    TitreLogoSite: '<img src="/media/logo-onlc.svg" alt="ONLC" height="40">',
+    Copyrights: '© ' + new Date().getFullYear() + ' Online Création',
+    ContentAlert: 'Contenu de démonstration',
+    // Un code peut recevoir une fonction : elle lit les attributs écrits dans le gabarit et
+    // rend exactement ce que le serveur rendrait — ici, les classes css demandées.
+    MenuSite: function (attributs) {
+      var pages = [ 'Accueil', 'Nos offres', 'Réalisations', 'Contact' ];
+      var classeListe = attributs.classparent ? ' class="' + attributs.classparent + '"' : '';
+      return '<ul' + classeListe + '>' + pages.map(function (page, index) {
+        var classes = [ attributs.classchild, index === 0 ? attributs.classactivechild : '' ]
+          .filter(Boolean).join(' ');
+        return '<li' + (classes ? ' class="' + classes + '"' : '') + '><a href="#">' + page + '</a></li>';
+      }).join('') + '</ul>';
+    },
+    Contact: '<p><em>Le formulaire de contact s’affiche ici sur le site publié.</em></p>',
+    SocialButtons: '<p><em>Boutons de partage</em></p>',
+    PaypalButton: '<p><em>Bouton de paiement PayPal</em></p>',
+    LogoSite: '<img src="/media/logo-onlc.svg" alt="ONLC" height="60">'
+  },
   onlc_widgets_custom: [
     bloc({
       id: 'horaires',

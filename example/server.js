@@ -22,6 +22,7 @@ const path = require('path');
 const iconsApi = require('./api/icons-api');
 const linksApi = require('./api/links-api');
 const mediaApiFactory = require('./api/media-api');
+const templateApiFactory = require('./api/template-api');
 
 const argument = (name, fallback) => {
   const index = process.argv.indexOf('--' + name);
@@ -55,6 +56,7 @@ const prepareStorage = () => {
 prepareStorage();
 
 const mediaApi = mediaApiFactory.create({ root: storageDir, publicPrefix: '/media' });
+const templateApi = templateApiFactory.create();
 
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -144,7 +146,8 @@ const handleApi = async (request, response, url) => {
   const prefixes = [
     { prefix: '/api/media', api: mediaApi },
     { prefix: '/api/links', api: linksApi },
-    { prefix: '/api/icons', api: iconsApi }
+    { prefix: '/api/icons', api: iconsApi },
+    { prefix: '/api/template', api: templateApi }
   ];
 
   const matched = prefixes.find((entry) => url.pathname === entry.prefix || url.pathname.startsWith(entry.prefix + '/'));

@@ -1,13 +1,16 @@
-# `onlcwidgets` — script, source HTML et blocs prédéfinis
+# `onlcwidgets` — blocs, éléments du site, script et source HTML
 
-Trois outils réunis dans un même plugin :
+Tout ce qu'on pose dans une page sans l'écrire à la main :
 
-1. **Script JavaScript** (`onlcscript`) : insérer ou modifier un script, avec coloration
+1. **Blocs prédéfinis et éléments du site** (`onlcwidget`) : une bibliothèque unique de blocs
+   prêts à l'emploi — bandeau, galerie, carte, calendrier — et des codes courts des gabarits
+   Online Création (`[MenuSite]`, `[Contact]`…). Les uns comme les autres restent modifiables
+   après insertion.
+2. **Script JavaScript** (`onlcscript`) : insérer ou modifier un script, avec coloration
    syntaxique.
-2. **Code source HTML** (`onlcsource`) : éditer le HTML de la page, avec coloration syntaxique
+3. **Code source HTML** (`onlcsource`) : éditer le HTML de la page, avec coloration syntaxique
    et indentation.
-3. **Blocs prédéfinis** (`onlcwidget`) : une bibliothèque de blocs prêts à l'emploi qui restent
-   modifiables après insertion.
+4. **Aperçu visiteur** (`onlcpreview`) : la page entière, gabarit du site compris.
 
 ## Activation
 
@@ -15,9 +18,16 @@ Trois outils réunis dans un même plugin :
 hugerte.init({
   selector: 'textarea',
   plugins: 'onlcwidgets',
-  toolbar: 'onlcwidget onlcscript onlcsource'
+  toolbar: 'onlcwidget onlcscript onlcsource onlcpreview'
 });
 ```
+
+> **Les codes courts ont rejoint ce plugin.** `onlcshortcodes` était un plugin séparé ; il n'a
+> plus de raison de l'être. Un bandeau Hero et un menu de site sont deux choses différentes pour
+> le programme — l'un est du html, l'autre un code que le serveur remplace — mais la même pour le
+> rédacteur : un élément qu'on choisit dans une liste et qu'on règle dans un formulaire. Le nom
+> `onlcshortcodes` reste reconnu dans `plugins:` et signale simplement qu'il faut écrire
+> `onlcwidgets`.
 
 ## 1. Script JavaScript
 
@@ -209,6 +219,13 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_code_tab_size` | `2` | Taille d'une tabulation dans les éditeurs de code |
 | `onlc_code_line_numbers` | `true` | Affiche les numéros de ligne |
 | `onlc_source_pretty_print` | `true` | Indente le HTML à l'ouverture du code source |
+| `onlc_shortcodes_custom` | `[]` | Codes courts propres au projet |
+| `onlc_shortcodes_exclude` | `[]` | Codes intégrés à ne pas proposer |
+| `onlc_shortcodes_show_unknown` | `true` | Transforme aussi les codes inconnus en blocs |
+| `onlc_shortcodes_inject_styles` | `true` | Charge `onlcshortcodes.css` dans la zone d'édition |
+| `onlc_preview_template_url` | `''` | Adresse de l'api rendant le gabarit du site |
+| `onlc_preview_template` | `''` | Gabarit donné directement ; prioritaire sur l'adresse |
+| `onlc_preview_values` | `{}` | Valeurs des codes courts dans l'aperçu |
 
 ### Ajouter un bloc maison
 
@@ -260,6 +277,12 @@ complétée par `defaults` et doit renvoyer du HTML **déjà échappé**.
 | `OnlcInsertWidget` | Insère un bloc (`value` : identifiant, ex. `'cta'`) |
 | `OnlcEditWidget` | Modifie le bloc sélectionné |
 | `OnlcRemoveWidget` | Supprime le bloc sélectionné |
+| `OnlcShortcodeLibrary` | Ouvre la même bibliothèque (nom conservé) |
+| `OnlcInsertShortcode` | Ouvre le formulaire d'un code désigné par son nom |
+| `OnlcEditShortcode` | Modifie l'élément du site sélectionné |
+| `OnlcDuplicateShortcode` | Duplique l'élément sélectionné |
+| `OnlcRemoveShortcode` | Supprime l'élément sélectionné |
+| `OnlcPreview` | Ouvre l'aperçu de la page entière |
 
 ## API du plugin
 
@@ -267,6 +290,88 @@ complétée par `defaults` et doit renvoyer du HTML **déjà échappé**.
 const widgets = editor.plugins.onlcwidgets;
 widgets.listWidgets();                        // définitions disponibles
 widgets.insertWidget('cta', { label: 'Devis', url: '/devis' });
+widgets.listShortcodes();                     // codes courts disponibles
+widgets.insertShortcode('MenuSite');
 widgets.getSource();                          // HTML formaté
 widgets.setSource('<p>Bonjour</p>');
 ```
+
+## Les éléments du site
+
+Les gabarits d'Online Création acceptent des **codes courts** : des raccourcis entre crochets que
+le serveur remplace par du vrai contenu au moment d'afficher la page.
+
+```
+[MenuSite type="ul" classparent="nav navbar-nav" classchild="class-menuitem" classactivechild="active"]
+```
+
+Écrit tel quel, ce texte ne dit rien à personne, et une faute de frappe le casse sans prévenir.
+Le plugin l'affiche donc comme un **bloc** : un dessin, un nom, une phrase d'explication et un
+résumé des réglages. Un double clic ouvre un formulaire aux intitulés français ; à
+l'enregistrement, le code repart **à l'identique**.
+
+| Code | Bloc affiché | Ce que la page reçoit |
+|---|---|---|
+| `[MenuSite …]` | **Menu** — Liste des pages de votre site | la liste `<ul>` des pages |
+| `[Contact email="…"]` | **Formulaire de contact** | un formulaire relié à cette adresse |
+| `[Meta description="…"]` | **Description pour les moteurs de recherche** | les balises `<meta>` |
+| `[SocialButtons …]` | **Boutons de partage** | les boutons des réseaux cochés |
+| `[PaypalButton …]` | **Bouton de paiement PayPal** | le formulaire de paiement |
+| `[LogoSite;220;90]` | **Logo du site** | le logo, borné à 220 × 90 pixels |
+| `[TitreLogoSite]` | **Titre du site avec son logo** | le nom du site posé sur le logo |
+| `[add-to-calendar-button …]` | **Ajouter à mon calendrier** | le bouton d'ajout à l'agenda |
+
+Un code que le plugin ne connaît pas devient lui aussi un bloc, neutre, portant la mention
+« Code non reconnu ». Il est réécrit tel quel : rien n'est perdu.
+
+### Ajouter un code court
+
+```js
+onlc_shortcodes_custom: [
+  {
+    name: 'Avis',
+    label: 'Avis clients',
+    description: 'Les derniers avis publiés sur votre fiche',
+    category: 'Contenu',
+    icon: '<svg viewBox="0 0 24 24" width="28" height="28">…</svg>',
+    fields: [
+      { name: 'nombre', label: 'Nombre d’avis affichés', type: 'number', half: true },
+      { name: 'note', label: 'Note minimale', type: 'number', half: true,
+        help: 'De 1 à 5. Les avis en dessous ne sont pas affichés.' }
+    ],
+    defaults: { nombre: '3', note: '4' },
+    summary: (values) => `${values.nombre} avis, note ≥ ${values.note}`
+  }
+]
+```
+
+Produit `[Avis nombre="3" note="4"]`.
+
+Types de champ : `text`, `textarea`, `email`, `url`, `number`, `date` (AAAA-MM-JJ), `time`
+(HH:MM), `timezone` (fuseaux IANA) et `select` (avec `items`). Formes particulières : `fixed`
+(attributs toujours écrits), `flags` (drapeaux sans valeur), `positional` (`[LogoSite;220;90]`)
+et `paired` (`[Slideshow …]…[/Slideshow]`).
+
+### Comment le texte devient un bloc
+
+À l'ouverture, le plugin balaie la chaîne html **en sautant l'intérieur des balises** — un
+attribut peut contenir des crochets sans être un code court — et remplace chaque code par sa
+carte. Le texte d'origine voyage avec elle, encodé dans `data-onlc-shortcode-raw`.
+
+À l'enregistrement, chaque carte redevient ce texte, caractère pour caractère, **après
+vérification** qu'il s'agit bien d'un code court et de rien d'autre : un attribut forgé, arrivé
+par un collage, ressort en texte visible et non en markup.
+
+## L'aperçu visiteur
+
+Le bouton `onlcpreview` montre la page **dans le site** : en-tête, menu, polices, pied de page.
+Le gabarit vient d'une api, `[ContenuPage]` reçoit le contenu en cours d'écriture, et les autres
+codes courts — du gabarit comme du contenu — sont remplacés par les valeurs de
+`onlc_preview_values`.
+
+Trois largeurs sont proposées : ordinateur, tablette (820 px) et téléphone (390 px).
+
+La page s'affiche dans un cadre `sandbox="allow-scripts"` **sans** `allow-same-origin` : les
+scripts du gabarit tournent, mais dans une origine opaque, sans accès aux cookies du back-office
+ni au document qui les contient. Le contrat complet est décrit dans
+[`docs/api/onlc-preview-api.md`](../api/onlc-preview-api.md).

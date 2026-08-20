@@ -8,6 +8,7 @@ import * as Overlay from '../ui/Overlay';
 import * as Actions from './Actions';
 import * as Blocks from './Blocks';
 import * as DragDrop from './DragDrop';
+import * as Multilang from './Multilang';
 
 /**
  * Wires the overlay to the editor: which block is active, when the ui is refreshed and what
@@ -60,6 +61,9 @@ const setup = (editor: Editor): Controller => {
         block.each((elm) => Actions.remove(editor, elm));
         getOverlay().hide();
         break;
+      case 'lang':
+        getOverlay().toggleLanguageMenu();
+        return;
       case 'parent':
         block.each((elm) => {
           Blocks.getParentBlock(editor, elm).each((parent) => {
@@ -81,6 +85,13 @@ const setup = (editor: Editor): Controller => {
         openInsertDialog(Optional.none(), 'after');
         break;
       default:
+        // « lang:fr », « lang: » pour retirer le marquage : la langue du bloc, réglée depuis sa
+        // propre barre plutôt que depuis un menu au-dessus de la page.
+        if (action.indexOf('lang:') === 0) {
+          // `block` est le bloc gelé au `mousedown` : celui dont la barre a ouvert le menu.
+          block.each((elm) => Multilang.set(editor, elm, action.substring('lang:'.length)));
+          getOverlay().closeLanguageMenu();
+        }
         break;
     }
 
@@ -109,9 +120,28 @@ const setup = (editor: Editor): Controller => {
 
   const throttledRefresh = Throttler.last(refresh, 60);
 
+  /**
+   * Le pointeur est-il sur la barre d'outils des blocs plutôt que sur le contenu ?
+   *
+   * Cliquer dans cette barre fait passer l'éditeur par un `NodeChange` porteur du bloc **du
+   * curseur**, pas de celui qu'on survole — et l'éditeur l'émet depuis un gestionnaire posé en
+   * capture, donc avant celui de la barre. Sans ce drapeau, le bloc actif changeait entre le
+   * moment où l'on visait un bouton et celui où il agissait : on réglait la langue, ou l'on
+   * supprimait, un tout autre bloc que celui qu'on désignait.
+   */
+  let overUi = false;
+
   const bindEvents = () => {
-    editor.on('mouseover', (e) => showFor(e.target as Node));
-    editor.on('NodeChange', (e) => showFor(e.element));
+    editor.on('mouseover', (e) => {
+      overUi = Blocks.isUi(editor, e.target as Node);
+      showFor(e.target as Node);
+    });
+    // Le curseur ne commande l'overlay que si le pointeur n'a pas déjà la main.
+    editor.on('NodeChange', (e) => {
+      if (!overUi) {
+        showFor(e.element);
+      }
+    });
     Arr.each([ 'ScrollWindow', 'ResizeEditor', 'ResizeWindow', 'SetContent', 'Undo', 'Redo' ], (name) => {
       editor.on(name, () => throttledRefresh.throttle());
     });

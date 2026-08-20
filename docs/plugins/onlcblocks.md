@@ -35,12 +35,33 @@ plugin même si `content_css` change.
 | ⧉ | Dupliquer le bloc |
 | ✕ | Supprimer le bloc |
 | ⤒ | Sélectionner le bloc parent (colonne, ligne, section) |
+| 🌐 | Langue du bloc — n'apparaît que si [`onlcmultilang`](onlcmultilang.md) est chargé |
 | ＋ | Ajouter un bloc avant ou après. Le bouton du haut n'apparaît que sur le premier bloc d'un conteneur : ailleurs, celui du bas du bloc précédent occupe déjà cet espace |
+
+Chaque bouton fait **50 × 50 pixels**, comme les commandes des dialogues. Ils étaient dessinés
+pour la souris — vingt-quatre pixels, deux d'écart : au doigt on les manquait, et on attrapait
+celui d'à côté, dont « Supprimer ».
 
 Les zones « Ajouter un bloc au début » et « Ajouter un bloc à la fin » sont placées **dans le
 flux du document**, avant le premier bloc et après le dernier : elles ne recouvrent jamais le
 contenu. La barre d'outils, les boutons ＋ et ces zones portent `data-mce-bogus="all"` : rien
 de tout cela n'est enregistré dans le contenu.
+
+### La langue d'un bloc
+
+Le bouton au globe ouvre, sous la barre, la liste des langues du site. Il affiche le code de
+celle qui est posée — `FR`, `NL` — dès qu'il y en a une, et « Aucune — visible par tous » la
+retire.
+
+C'est le chemin le plus sûr pour marquer un bloc de média : un bandeau, une carte ou un
+séparateur ne se laisse pas toujours sélectionner d'un clic, alors que la barre, elle, sait
+toujours de quel bloc elle parle.
+
+Le menu est dessiné **dans la couche de l'overlay**, pas dans l'interface du thème : un menu du
+thème s'ouvrirait par-dessus l'iframe, à un autre endroit que le bouton qu'on vient de cliquer.
+
+`onlcblocks` ne dépend pas de `onlcmultilang` — le bouton n'apparaît que si le plugin est chargé
+et déclare au moins une langue, et la barre reste identique sans lui.
 
 ## Lignes et colonnes
 

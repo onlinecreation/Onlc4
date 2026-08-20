@@ -5,6 +5,7 @@ import * as Http from 'hugerte/plugins/onlcshared/Http';
 
 import * as Options from '../api/Options';
 import { PreviewValue } from '../api/Types';
+import * as Html from './Html';
 import * as Multilang from './Multilang';
 import * as FilterContent from './shortcodes/FilterContent';
 import * as Parse from './shortcodes/Parse';
@@ -41,6 +42,27 @@ const fallbackTemplate =
   '<!doctype html><html lang="fr"><head><meta charset="utf-8">' +
   '<meta name="viewport" content="width=device-width, initial-scale=1">' +
   '<title>[NomPage]</title></head><body>[ContenuPage]</body></html>';
+
+/**
+ * Ajoute à la page les feuilles de style du site.
+ *
+ * Elles vont **à la fin du `<head>`**, après celles du gabarit : ce sont les mêmes que la zone
+ * d'écriture charge, et l'aperçu doit ressembler à ce qu'on vient d'écrire. Un gabarit sans
+ * `</head>` — il en existe — les reçoit en tête de page, ce qui vaut mieux que pas du tout.
+ *
+ * Les adresses passent par `Html.attr`, qui les échappe et refuse les schémas exécutables : elles
+ * viennent de la configuration, mais elles finissent dans du html écrit à la main.
+ */
+const withStyles = (page: string, urls: string[]): string => {
+  if (urls.length === 0) {
+    return page;
+  }
+
+  const links = Arr.map(urls, (url) => `<link rel="stylesheet"${Html.attr('href', url)}>`).join('');
+
+  const closing = /<\/head\s*>/i.exec(page);
+  return closing === null ? links + page : page.slice(0, closing.index) + links + page.slice(closing.index);
+};
 
 const loadTemplate = (editor: Editor): Promise<string> => {
   const inline = Options.getPreviewTemplate(editor);
@@ -134,16 +156,20 @@ const fill = (template: string, content: string, values: Record<string, PreviewV
  */
 const render = (editor: Editor, language?: string): Promise<string> =>
   loadTemplate(editor).then((template) =>
-    Multilang.resolvePage(
-      editor,
-      fill(template, editor.getContent(), Options.getPreviewValues(editor)),
-      language
+    withStyles(
+      Multilang.resolvePage(
+        editor,
+        fill(template, editor.getContent(), Options.getPreviewValues(editor)),
+        language
+      ),
+      Options.getPreviewCss(editor)
     ));
 
 export {
   contentPlaceholder,
   fallbackTemplate,
   loadTemplate,
+  withStyles,
   valueOf,
   resolveText,
   resolveContent,

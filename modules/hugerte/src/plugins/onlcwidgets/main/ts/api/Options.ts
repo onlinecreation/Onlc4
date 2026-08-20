@@ -149,6 +149,26 @@ const register = (editor: Editor): void => {
    * du code. Un code sans valeur disparaît de l'aperçu — il n'a pas à s'afficher entre crochets
    * sous les yeux du rédacteur.
    */
+  /**
+   * Feuilles de style ajoutées à la page d'aperçu.
+   *
+   * Sans elles, l'aperçu ne montre le contenu qu'habillé par le gabarit — or c'est la feuille du
+   * site, celle que l'éditeur charge dans sa zone d'écriture, qui donne aux blocs leur grille,
+   * leurs marges et leurs polices. Deux rendus différents pour la même page, et l'aperçu ne vaut
+   * plus grand-chose.
+   *
+   * Par défaut, exactement ce que l'éditeur charge lui-même : `content_css`. Les feuilles des
+   * plugins ne sont pas reprises — elles dessinent les cartes et les cadres de l'écriture, qui
+   * n'existent plus dans la page publiée.
+   */
+  registerOption('onlc_preview_css', {
+    processor: (value) => {
+      const valid = value === undefined || Type.isArrayOf(value, Type.isString);
+      return valid ? { value, valid } : { valid: false, message: 'Must be an array of stylesheet urls.' };
+    },
+    default: undefined
+  });
+
   registerOption('onlc_preview_values', {
     processor: 'object',
     default: {}
@@ -183,6 +203,21 @@ const allowIframeHosts = (editor: Editor, hosts: string[]): void => {
   editor.options.set('sandbox_iframes_exclusions', Arr.unique(current.concat(hosts)));
 };
 
+/**
+ * Les feuilles à poser dans l'aperçu.
+ *
+ * `onlc_preview_css` si le projet l'a réglée, sinon le `content_css` de l'éditeur : dans les deux
+ * cas ce sont des adresses que le site sert déjà, puisque la zone d'écriture les charge.
+ */
+const getPreviewCss = (editor: Editor): string[] => {
+  const chosen = editor.options.get('onlc_preview_css') as string[] | undefined;
+  if (Type.isArray(chosen)) {
+    return chosen;
+  }
+  const content = editor.options.get('content_css');
+  return Type.isArrayOf(content, Type.isString) ? content : [];
+};
+
 const getPreviewTemplate = option<string>('onlc_preview_template');
 const getPreviewTemplateUrl = option<string>('onlc_preview_template_url');
 const getPreviewValues = option<Record<string, PreviewValue>>('onlc_preview_values');
@@ -194,6 +229,7 @@ const shouldInjectShortcodeStyles = option<boolean>('onlc_shortcodes_inject_styl
 
 export {
   register,
+  getPreviewCss,
   getPreviewTemplate,
   getPreviewTemplateUrl,
   getPreviewValues,

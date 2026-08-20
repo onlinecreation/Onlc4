@@ -91,4 +91,40 @@ describe('atomic.hugerte.plugins.onlcwidgets.PagePreviewTest', () => {
   it('trouve la valeur quelle que soit la casse du nom', () => {
     assert.equal(PagePreview.fill('[titresite]', '', values), 'Ma boutique');
   });
+
+  describe('feuilles de style de la page', () => {
+    const styles = [ '/assets/grille.css', '/assets/site.css' ];
+
+    it('les pose à la fin du head, après celles du gabarit', () => {
+      // Après, parce que ce sont celles que la zone d'écriture charge : l'aperçu doit ressembler
+      // à ce qu'on vient d'écrire, pas à ce que le gabarit imagine.
+      const page = '<html><head><link rel="stylesheet" href="/gabarit.css"></head><body>x</body></html>';
+      const out = PagePreview.withStyles(page, styles);
+
+      assert.isBelow(out.indexOf('/gabarit.css'), out.indexOf('/assets/grille.css'));
+      assert.isBelow(out.indexOf('/assets/site.css'), out.indexOf('</head>'));
+    });
+
+    it('les pose en tête quand le gabarit n’a pas de head', () => {
+      const out = PagePreview.withStyles('<body>x</body>', styles);
+      assert.isBelow(out.indexOf('/assets/grille.css'), out.indexOf('<body>'));
+    });
+
+    it('ne touche à rien sans feuille à poser', () => {
+      const page = '<html><head></head><body>x</body></html>';
+      assert.equal(PagePreview.withStyles(page, []), page);
+    });
+
+    it('refuse une adresse exécutable', () => {
+      // Les adresses viennent de la configuration, mais elles finissent dans du html écrit à la
+      // main : un `javascript:` ne doit pas en ressortir.
+      const out = PagePreview.withStyles('<head></head>', [ 'javascript:alert(1)' ]);
+      assert.notInclude(out, 'javascript:');
+    });
+
+    it('échappe les guillemets d’une adresse', () => {
+      const out = PagePreview.withStyles('<head></head>', [ '/a.css" onload="x' ]);
+      assert.notInclude(out, 'onload="x"');
+    });
+  });
 });

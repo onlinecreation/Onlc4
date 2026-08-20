@@ -1,9 +1,12 @@
+import { Fun } from '@ephox/katamari';
+
 import PluginManager from 'hugerte/core/api/PluginManager';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
 import * as Options from './api/Options';
 import { Language, Syntax } from './api/Types';
+import * as Dom from './core/Dom';
 import * as FilterContent from './core/FilterContent';
 import * as Languages from './core/Languages';
 import * as Parse from './core/Parse';
@@ -53,6 +56,17 @@ export interface OnlcMultilangApi {
   readonly usedLanguages: () => string[];
   readonly mark: (code: string, syntax?: Syntax) => void;
   readonly unmark: () => void;
+  /**
+   * Les trois mêmes gestes, sur un élément désigné plutôt que sur la sélection.
+   *
+   * C'est par là que passe la barre d'outils des blocs : elle sait déjà quel bloc elle commande,
+   * et le retrouver par la sélection reviendrait à deviner ce qu'elle vient de dire.
+   */
+  readonly markElement: (element: HTMLElement, code: string) => void;
+  readonly unmarkElement: (element: HTMLElement) => void;
+  readonly completeElement: (element: HTMLElement) => void;
+  /** Langue portée par la section qui contient cet élément, ou chaîne vide. */
+  readonly codeOfElement: (element: HTMLElement) => string;
   /** N'affiche plus qu'une langue dans l'éditeur ; une valeur vide les rend toutes. */
   readonly view: (code: string) => void;
   readonly viewed: () => string;
@@ -106,6 +120,13 @@ export default (): void => {
       usedLanguages: () => Sections.codesInUse(editor),
       mark: (code: string, syntax?: Syntax) => Sections.mark(editor, code, syntax),
       unmark: () => Sections.unmark(editor),
+      markElement: (element: HTMLElement, code: string) => Sections.markElement(editor, element, code),
+      unmarkElement: (element: HTMLElement) => Sections.unmarkElement(editor, element),
+      completeElement: (element: HTMLElement) => {
+        Sections.sectionOf(editor, element).each((section) => Sections.completeFrom(editor, section));
+      },
+      codeOfElement: (element: HTMLElement) =>
+        Sections.sectionOf(editor, element).fold(Fun.constant(''), (section) => Dom.codeOf(editor, section)),
       view: (code: string) => View.show(editor, code),
       viewed: () => View.current(editor),
       resolve: (code?: string) => resolveHtml(editor.getContent(), code),

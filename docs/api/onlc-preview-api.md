@@ -44,6 +44,19 @@ rendu manipule au moment de publier :
 Les codes courts présents **dans le contenu** sont résolus eux aussi, avec les mêmes valeurs : un
 `[Contact email="…"]` posé dans la page devient le formulaire, pas le texte entre crochets.
 
+## Les feuilles de style
+
+Les feuilles de la zone d'écriture sont ajoutées **à la fin du `<head>`**, après celles du
+gabarit. Ce sont celles que l'éditeur charge pour écrire ; sans elles, l'aperçu montrerait la
+même page avec une autre mise en forme, et ne servirait plus à grand-chose.
+
+Par défaut ce sont exactement celles de `content_css`. `onlc_preview_css` permet d'en donner une
+autre liste — un site dont la feuille d'écriture diffère de celle de publication, par exemple.
+Les adresses sont échappées et les schémas exécutables refusés.
+
+Les feuilles des plugins ne sont pas reprises : elles dessinent les cartes et les cadres de
+l'écriture, qui n'existent plus dans la page publiée.
+
 ## Les valeurs
 
 `onlc_preview_values` associe à chaque nom de code soit une chaîne, soit une fonction :
@@ -82,6 +95,7 @@ Le html est passé par `srcdoc` : rien n'est écrit sur le serveur pour un simpl
 
 | Option | Type | Défaut | Rôle |
 |---|---|---|---|
+| `onlc_preview_css` | `string[]` | le `content_css` de l'éditeur | feuilles ajoutées à la fin du `<head>` de l'aperçu |
 | `onlc_preview_template_url` | `string` | `''` | adresse de l'api rendant le gabarit |
 | `onlc_preview_template` | `string` | `''` | gabarit donné directement ; prioritaire |
 | `onlc_preview_values` | `object` | `{}` | valeurs des codes courts dans l'aperçu |

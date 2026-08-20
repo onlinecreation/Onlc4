@@ -157,7 +157,7 @@ passent par l'encodage css décrit plus haut.
 
 Deux filets, décrits dans [tests.md](tests.md) :
 
-* une **suite automatisée** — 163 cas dans un navigateur, 66 en Node — dont plusieurs portent
+* une **suite automatisée** — 184 cas dans un navigateur, 66 en Node — dont plusieurs portent
   précisément sur les garde-fous décrits ici : le bac à sable de l'aperçu (`allow-scripts` sans
   `allow-same-origin`), le garde-fou du texte brut d'un code court, la revalidation d'un code de
   langue avant écriture, l'échappement des adresses posées en css, les types acceptés à l'envoi,

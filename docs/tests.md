@@ -5,7 +5,7 @@ Deux suites, qui ne tournent pas au même endroit et ne coûtent pas le même te
 | Suite | Ce qu'elle couvre | Commande | Durée |
 |---|---|---|---|
 | **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs | `yarn test-node` | ~1 s |
-| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | ~40 s |
+| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | ~45 s |
 
 `yarn test` enchaîne les deux, plus les tests d'origine de HugeRTE.
 
@@ -60,6 +60,8 @@ inspecte le dom au moment où l'assertion tombe.
 | `onlcwidgets/…/browser/PreviewDialogTest` | le bac à sable de l'aperçu, le remplissage, les trois largeurs |
 | `onlcmedia/…/browser/FinderLibraryTest` | arborescence et chargement à la demande, actif au survol, quota, historique |
 | `onlcmultilang/…/browser/MultilangTest` | l'aller-retour à l'identique, span ou div, marquer/compléter/retirer, aperçu par langue, codes forgés |
+| `onlcmultilang/…/browser/ScopeTest` | ce que le marquage englobe : en ligne ou bloc, la colonne Bootstrap qui survit, le curseur laissé dans la section |
+| `onlcblocks/…/browser/BlockLanguageTest` | la langue réglée depuis la barre du bloc, sur le bloc désigné et non sur celui du curseur ; boutons de 50 pixels |
 
 Les tests d'interface **mesurent le rendu** plutôt que la présence des règles css : ces règles
 corrigent le thème, et une montée de version d'Oxide peut en défaire une en silence. Vérifier

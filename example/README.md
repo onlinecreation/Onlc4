@@ -99,7 +99,7 @@ prédéfinis, ce qui évite de les encoder à la main.
 | Script JavaScript coloré | Bouton `Script JavaScript` |
 | Source HTML colorée | Bouton `Code source HTML` |
 | Codes courts des gabarits | Bouton `Blocs prédéfinis`, onglets `Navigation`, `Formulaires`, `Identité`… : `[MenuSite]`, `[Contact]`, `[SocialButtons]`, `[PaypalButton]`, `[LogoSite]`, `[add-to-calendar-button]` |
-| Aperçu comme un visiteur | Bouton `Aperçu` : la page dans le gabarit du site, en trois largeurs, tous les codes courts résolus et une seule langue |
+| Aperçu comme un visiteur | Bouton `Aperçu` : la page dans le gabarit du site **et les feuilles de style de la zone d'écriture**, en trois largeurs, tous les codes courts résolus et une seule langue |
 | Versions d'un fichier | Retouchez une image dans la bibliothèque, puis rouvrez son panneau d'informations |
 | Quotas | Jauge en bas de la médiathèque (60 fichiers dans la démonstration, versions comprises) |
 | Suppression par maintien | Supprimez un bloc ou un fichier : il faut garder « Tout détruire » enfoncé six secondes |
@@ -110,7 +110,8 @@ prédéfinis, ce qui évite de les encoder à la main.
 | Document PDF | Bloc `Document PDF` (pdf.js), sur `seed/documents/presentation-onlc.pdf` |
 | Emojis dessinés | Tapez un emoji au clavier : il devient un svg OpenMoji |
 | Effet parallaxe | Propriétés d'une image → `Habillage` → `Parallaxe` |
-| Pages polyglottes | Section `Pages polyglottes` : les `[LG]` et `<multilang>` du contenu sont des sections encadrées. Menu `Langues` : marquer, compléter, n'afficher qu'une langue |
+| Pages polyglottes | Section `Pages polyglottes` : les `[LG]` et `<multilang>` du contenu sont des sections encadrées. Le globe de la barre d'un bloc lui donne une langue ; le menu `Langues` fait de même pour une sélection de texte |
+| Barre d'outils des blocs | Survolez un bloc : sept boutons de 50 × 50 px — déplacer, monter, descendre, parent, dupliquer, supprimer, langue |
 | Aperçu par langue | Bouton `Aperçu` : la bande de droite choisit la langue du visiteur |
 | Interface en trois langues | Voir la section suivante |
 

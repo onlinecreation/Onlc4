@@ -3,27 +3,53 @@ import { Arr } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 
-import * as Dom from '../core/Dom';
 import * as Languages from '../core/Languages';
+import * as Scope from '../core/Scope';
 import * as Sections from '../core/Sections';
 import * as View from '../core/View';
 
 /**
  * Les commandes polyglottes, dans un seul menu.
  *
- * Un rédacteur ne rencontre le multilingue que par intermittence : mettre huit boutons dans la
- * barre d'outils coûterait de la place tous les jours pour un besoin occasionnel. Un menu unique,
- * intitulé « Langues », rassemble donc tout — marquer, compléter, retirer, et l'aperçu par
- * langue. Ce qui est fréquent une fois dans une section — changer sa langue, la retirer — est
- * repris dans la barre contextuelle qui apparaît au contact.
+ * Un rédacteur ne rencontre le multilingue que par intermittence : huit boutons dans la barre
+ * d'outils coûteraient de la place tous les jours pour un besoin occasionnel. Un menu unique,
+ * intitulé « Langues », rassemble donc tout.
+ *
+ * ## Ce que l'interface ne demande pas
+ *
+ * Le site connaît deux écritures pour une section de langue — `[LG]` et `<multilang>`. Les deux
+ * sont **lues** et **réécrites** telles qu'elles arrivent, mais aucune n'est jamais proposée au
+ * choix : c'est une distinction de gabarit, sans effet visible sur la page, et la faire trancher
+ * par le rédacteur ne lui apprendrait qu'une chose — que le sujet est compliqué.
+ *
+ * De même, il n'y a **qu'un seul geste** pour marquer : poser une langue là où l'on est. Ce que
+ * cela englobe se déduit de la sélection (voir `core/Scope.ts`), et l'intitulé du menu le dit
+ * avant qu'on ait cliqué — « la sélection » quand du texte est sélectionné, « ce bloc » sinon.
  */
 
-const markItems = (editor: Editor): Menu.MenuItemSpec[] =>
-  Arr.map(Languages.list(editor), (language) => ({
-    type: 'menuitem',
+/** Ce que le marquage va englober, dit en clair avant le clic. */
+const targetLabel = (editor: Editor): string =>
+  Scope.resolve(editor)
+    .map((scope) => scope.kind === 'inline' ? 'Définir la langue de la sélection' : 'Définir la langue de ce bloc')
+    .getOr('Définir la langue');
+
+const languageItems = (editor: Editor): Menu.ToggleMenuItemSpec[] => {
+  const current = Sections.currentCode(editor);
+
+  const none: Menu.ToggleMenuItemSpec = {
+    type: 'togglemenuitem',
+    text: 'Aucune — visible par tous',
+    active: current === '',
+    onAction: () => editor.execCommand('OnlcUnmarkLanguage')
+  };
+
+  return [ none ].concat(Arr.map(Languages.list(editor), (language): Menu.ToggleMenuItemSpec => ({
+    type: 'togglemenuitem',
     text: language.label,
+    active: current === language.code,
     onAction: () => editor.execCommand('OnlcMarkLanguage', false, language.code)
-  }));
+  })));
+};
 
 const viewItems = (editor: Editor): Menu.ToggleMenuItemSpec[] => {
   const viewed = View.current(editor);
@@ -46,33 +72,24 @@ const viewItems = (editor: Editor): Menu.ToggleMenuItemSpec[] => {
 const fetchItems = (editor: Editor): Menu.NestedMenuItemContents[] => {
   const inside = Sections.getSelected(editor).isSome();
 
-  const marking: Menu.NestedMenuItemContents[] = [
+  const setting: Menu.NestedMenuItemContents[] = [
     {
       type: 'nestedmenuitem',
-      text: inside ? 'Changer la langue de cette section' : 'Marquer dans une langue',
-      getSubmenuItems: () => markItems(editor)
-    },
-    {
-      type: 'menuitem',
-      text: 'Langue de la section…',
-      onAction: () => editor.execCommand('OnlcEditLanguageSection')
+      text: targetLabel(editor),
+      getSubmenuItems: () => languageItems(editor)
     }
   ];
 
-  const onSection: Menu.NestedMenuItemContents[] = inside ? [
+  const completing: Menu.NestedMenuItemContents[] = inside ? [
     {
       type: 'menuitem',
       text: 'Compléter les langues manquantes',
       onAction: () => editor.execCommand('OnlcCompleteLanguages')
-    },
-    {
-      type: 'menuitem',
-      text: 'Retirer le marquage',
-      onAction: () => editor.execCommand('OnlcUnmarkLanguage')
     }
   ] : [];
 
   const viewing: Menu.NestedMenuItemContents[] = [
+    { type: 'separator' },
     {
       type: 'nestedmenuitem',
       text: 'Afficher comme un visiteur',
@@ -80,7 +97,7 @@ const fetchItems = (editor: Editor): Menu.NestedMenuItemContents[] => {
     }
   ];
 
-  return marking.concat(onSection, viewing);
+  return setting.concat(completing, viewing);
 };
 
 const register = (editor: Editor): void => {
@@ -95,35 +112,11 @@ const register = (editor: Editor): void => {
     text: 'Langues',
     getSubmenuItems: () => fetchItems(editor)
   });
-
-  editor.ui.registry.addContextToolbar('onlcmultilang', {
-    predicate: (node) => Dom.isSection(editor, node) && editor.dom.isEditable(node.parentNode),
-    items: 'onlcmultilangedit onlcmultilangcomplete onlcmultilangunmark',
-    position: 'node',
-    scope: 'node'
-  });
-
-  editor.ui.registry.addButton('onlcmultilangedit', {
-    icon: 'language',
-    tooltip: 'Langue de la section',
-    onAction: () => editor.execCommand('OnlcEditLanguageSection')
-  });
-
-  editor.ui.registry.addButton('onlcmultilangcomplete', {
-    icon: 'duplicate',
-    tooltip: 'Compléter les langues manquantes',
-    onAction: () => editor.execCommand('OnlcCompleteLanguages')
-  });
-
-  editor.ui.registry.addButton('onlcmultilangunmark', {
-    icon: 'remove',
-    tooltip: 'Retirer le marquage de langue',
-    onAction: () => editor.execCommand('OnlcUnmarkLanguage')
-  });
 };
 
 export {
-  markItems,
+  targetLabel,
+  languageItems,
   viewItems,
   fetchItems,
   register

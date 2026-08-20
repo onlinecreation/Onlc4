@@ -226,6 +226,7 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_preview_template_url` | `''` | Adresse de l'api rendant le gabarit du site |
 | `onlc_preview_template` | `''` | Gabarit donné directement ; prioritaire sur l'adresse |
 | `onlc_preview_values` | `{}` | Valeurs des codes courts dans l'aperçu |
+| `onlc_preview_css` | `content_css` de l'éditeur | Feuilles de style ajoutées à la page d'aperçu |
 
 ### Ajouter un bloc maison
 
@@ -376,6 +377,17 @@ codes courts — du gabarit comme du contenu — sont remplacés par les valeurs
 `onlc_preview_values`.
 
 Trois largeurs sont proposées : ordinateur, tablette (820 px) et téléphone (390 px).
+
+Les **feuilles de style de la zone d'écriture** sont ajoutées à la fin du `<head>` de la page
+d'aperçu, après celles du gabarit. Sans elles, l'aperçu ne montre le contenu qu'habillé par le
+gabarit — or c'est la feuille du site, celle que l'éditeur charge pour écrire, qui donne aux
+blocs leur grille, leurs marges et leurs polices. Par défaut ce sont exactement celles de
+`content_css` ; `onlc_preview_css` permet d'en donner une autre liste.
+
+L'aperçu s'affiche au plus tard **deux secondes et demie** après avoir été monté, même si la page
+n'a pas fini de charger. L'événement `load` d'un cadre attend toutes ses ressources — chaque
+feuille, chaque police, chaque image : une seule qui ne répond pas, et l'aperçu ne s'affichait
+jamais. C'est ce qui arrive derrière un filtrage d'entreprise ou quand un cdn est injoignable.
 
 Quand [`onlcmultilang`](onlcmultilang.md) est chargé et que la page emploie plusieurs langues,
 une seconde bande apparaît à droite : la **langue du visiteur**. L'aperçu n'en montre qu'une à la

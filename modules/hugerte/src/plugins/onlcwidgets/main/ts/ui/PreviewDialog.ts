@@ -40,6 +40,14 @@ const styles = `
 .tox .onlc-pagepreview__legend { color: #5a6570; }
 `;
 
+/**
+ * Délai au bout duquel l'aperçu s'affiche, même incomplet.
+ *
+ * Deux secondes et demie : assez pour qu'une page correcte arrive entière et n'apparaisse qu'une
+ * fois, trop peu pour qu'on croie l'aperçu bloqué.
+ */
+const revealDelay = 2500;
+
 /** Largeurs d'aperçu, en pixels. Zéro vaut « toute la place disponible ». */
 const devices: Array<{ label: string; width: number }> = [
   { label: 'Ordinateur', width: 0 },
@@ -174,15 +182,33 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
 
     // Le gabarit charge ses feuilles de style avant de peindre quoi que ce soit : sur une
     // connexion lente, le cadre reste blanc plusieurs secondes. Le message d'attente est donc
-    // gardé jusqu'à l'événement `load`, et le cadre monté par-dessous, invisible.
+    // gardé, et le cadre monté par-dessous, invisible.
     created.style.visibility = 'hidden';
     created.style.position = 'absolute';
-    created.addEventListener('load', () => {
+
+    let shown = false;
+    const reveal = () => {
+      if (shown) {
+        return;
+      }
+      shown = true;
       created.style.visibility = '';
       created.style.position = '';
       stage.innerHTML = '';
       stage.appendChild(created);
       apply();
+    };
+
+    created.addEventListener('load', reveal, { once: true });
+
+    // `load` attend **toutes** les ressources du gabarit — chaque feuille, chaque police, chaque
+    // image. Une seule qui ne répond pas, et l'aperçu ne s'affiche jamais : c'est ce qui arrive
+    // derrière un filtrage d'entreprise ou quand un cdn est injoignable. Passé ce délai, on
+    // montre donc ce qui est là. Les feuilles du site, elles, sont servies par le site : ce qui
+    // manque à l'écran est ce qui manquerait aussi au visiteur.
+    const deadline = element.ownerDocument.defaultView?.setTimeout(reveal, revealDelay);
+    created.addEventListener('load', () => {
+      element.ownerDocument.defaultView?.clearTimeout(deadline);
     }, { once: true });
 
     stage.appendChild(created);
@@ -231,6 +257,7 @@ const open = (editor: Editor): void => {
 
 export {
   devices,
+  revealDelay,
   styles,
   create,
   open

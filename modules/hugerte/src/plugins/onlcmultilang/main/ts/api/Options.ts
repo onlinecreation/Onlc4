@@ -56,17 +56,31 @@ const register = (editor: Editor): void => {
     processor: 'boolean',
     default: true
   });
+
+  /**
+   * Éléments qui contiennent des blocs sans en être un eux-mêmes.
+   *
+   * C'est ce qui décide jusqu'où remonte un marquage : un paragraphe dans une colonne est marqué
+   * pour lui-même, la colonne reste intacte. Même valeur que `onlc_blocks_containers`, pour que
+   * la barre d'outils des blocs et le marquage de langue s'arrêtent au même endroit.
+   */
+  registerOption('onlc_multilang_containers', {
+    processor: 'string',
+    default: '.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col'
+  });
 };
 
 const getLanguages = option<LanguageOption[]>('onlc_multilang_languages');
 const getDefaultSyntax = option<Syntax>('onlc_multilang_default_syntax');
 const getPreviewLanguage = option<string>('onlc_multilang_preview_language');
 const shouldInjectStyles = option<boolean>('onlc_multilang_inject_styles');
+const getContainerSelector = option<string>('onlc_multilang_containers');
 
 export {
   register,
   getLanguages,
   getDefaultSyntax,
   getPreviewLanguage,
-  shouldInjectStyles
+  shouldInjectStyles,
+  getContainerSelector
 };

@@ -47,19 +47,51 @@ L'attribut `lang` est posé pour de bon sur chaque section : le correcteur ortho
 navigateur vérifie « Bonjour » avec le dictionnaire français et « Hello » avec l'anglais, dans
 la même page.
 
-## Les quatre gestes
+## Où l'on règle la langue
+
+Deux endroits, et un seul geste dans chacun.
+
+**Dans la barre d'outils du bloc**, celle qui apparaît au survol — là où l'on déplace, duplique
+et supprime déjà. Un bouton en plus, un globe : il ouvre la liste des langues du site, et affiche
+le code de celle qui est posée (`FR`, `NL`) dès qu'il y en a une. C'est le chemin habituel, et
+c'est le seul qui marche à coup sûr sur un bloc de média — un bandeau, une carte, un séparateur —
+qu'un clic ne parvient pas toujours à sélectionner.
+
+**Dans le menu « Langues »** de la barre d'outils principale, pour tout le reste :
 
 | Geste | Ce qu'il fait |
 | --- | --- |
-| **Marquer dans une langue** | entoure la sélection — ou le paragraphe courant si rien n'est sélectionné |
-| **Langue de la section…** | ouvre le formulaire : langue, écriture, et le bouton pour retirer le marquage |
+| **Définir la langue de la sélection** | quand du texte est sélectionné : marquage en ligne |
+| **Définir la langue de ce bloc** | sinon : un bloc englobant autour du bloc courant |
 | **Compléter les langues manquantes** | pose à côté de la section une copie pour chaque langue déclarée qui manque |
 | **Afficher comme un visiteur** | ne laisse à l'écran que les sections d'une langue |
+
+L'intitulé du premier change tout seul selon ce que le geste va faire : la règle se lit avant
+d'avoir cliqué, plutôt que de s'apprendre après coup. La liste des langues commence toujours par
+**« Aucune — visible par tous »**, qui retire le marquage : c'est le même geste, dans l'autre
+sens, et non une commande séparée à aller chercher ailleurs.
 
 « Compléter » est le geste qui sert tous les jours : on écrit le passage en français, et il faut
 la même chose en anglais et en néerlandais. Les copies partent avec le texte français dedans —
 un point de départ à traduire, plutôt qu'un cadre vide à remplir de mémoire. Relancer la
 commande ne crée pas de doublon.
+
+## Ce que le marquage englobe
+
+Une seule règle :
+
+* **du texte sélectionné à l'intérieur d'un seul bloc** reçoit un marquage **en ligne**, qui ne
+  coupe pas le paragraphe ;
+* **tout le reste** reçoit un **bloc englobant** : un bloc entier, plusieurs blocs d'affilée, une
+  carte de média, ou simplement le paragraphe où se trouve le curseur.
+
+Une sélection qui contient un élément non modifiable — la carte d'un élément de site, un bloc de
+média — n'est pas « du texte » : elle reçoit donc un bloc englobant. L'entourer en ligne coupait
+le marquage en deux morceaux, un avant la carte et un après.
+
+L'englobage **déplace des nœuds** ; il ne réécrit pas de markup. Une colonne Bootstrap marquée
+dans une langue garde son `col-sm-6`, et c'est son contenu qui est entouré — un `div` entre une
+ligne et ses colonnes casserait la grille.
 
 L'affichage par langue est **entièrement en css** : une classe posée sur le corps du document,
 et des règles qui masquent les sections des autres langues. Rien n'est déplacé, rien n'est
@@ -73,6 +105,7 @@ retiré ; un enregistrement fait pendant un aperçu ne peut donc pas amputer la 
 | `onlc_multilang_default_syntax` | `'multilang'` | Écriture des sections créées ici : `'multilang'` ou `'lg'` |
 | `onlc_multilang_preview_language` | `''` | Langue affichée à l'ouverture ; vide : toutes |
 | `onlc_multilang_inject_styles` | `true` | Charge `css/onlcmultilang.css` dans la zone d'édition |
+| `onlc_multilang_containers` | comme `onlc_blocks_containers` | Éléments qui contiennent des blocs sans en être un : jusqu'où remonte un marquage |
 
 Une langue se déclare par son code sur deux lettres, ou par un objet quand on veut choisir
 l'intitulé :
@@ -98,6 +131,12 @@ noms usuels reçoit son code en capitales.
 | Blocs entiers | oui | oui |
 | Contenu avec un code court | **oui** | non |
 | Longueur | 40 caractères | 14 caractères |
+
+**Ce choix n'est jamais demandé au rédacteur.** Les deux écritures font la même chose sur la page
+publiée ; les distinguer est une affaire de gabarit, pas de rédaction, et la faire trancher par
+quelqu'un qui écrit du texte ne lui apprendrait qu'une chose — que le sujet est compliqué. Chaque
+section garde donc l'écriture d'où elle vient, les nouvelles suivent
+`onlc_multilang_default_syntax`, et le reste est automatique.
 
 La différence tient à une seule chose. Le motif du site pour `[LG]` s'arrête au premier crochet
 ouvrant :
@@ -165,9 +204,8 @@ précède ne se retrouve dans la page publiée.
 
 | Commande | Effet |
 | --- | --- |
-| `OnlcMarkLanguage` | Marque la sélection (`value` : code sur deux lettres) |
+| `OnlcMarkLanguage` | Pose une langue là où l'on est (`value` : code sur deux lettres) |
 | `OnlcUnmarkLanguage` | Retire le marquage, sans toucher au contenu |
-| `OnlcEditLanguageSection` | Ouvre le formulaire de la section |
 | `OnlcCompleteLanguages` | Ajoute les traductions manquantes à côté de la section |
 | `OnlcViewLanguage` | N'affiche qu'une langue (`value` vide : toutes) |
 
@@ -183,6 +221,9 @@ langues.listLanguages();          // [ { code: 'fr', label: 'Français' }, … ]
 langues.usedLanguages();          // [ 'fr', 'en' ] — ce que la page emploie vraiment
 langues.mark('nl');               // marque la sélection
 langues.unmark();
+langues.markElement(bloc, 'nl');  // sur un élément désigné, sans passer par la sélection
+langues.unmarkElement(bloc);
+langues.codeOfElement(bloc);      // 'nl', ou '' si le bloc n'est marqué dans aucune langue
 langues.view('en');               // n'affiche que l'anglais ; '' les rend toutes
 langues.viewed();                 // 'en'
 langues.resolve('en');            // le contenu réduit à une langue

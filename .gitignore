@@ -20,3 +20,6 @@ modules/*/LICENSE.TXT
 # Éditeur d’images Pixie : produit sous licence commerciale, installé localement par
 # `node example/tools/install-pixie.js` (voir example/README.md).
 example/public/pixie/vendor/
+# Ancien emplacement, avant que « pixel » ne redevienne « pixie » : une installation qui date
+# d'alors traîne encore chez certains, et ces fichiers ne doivent jamais entrer dans le dépôt.
+example/public/pixel/

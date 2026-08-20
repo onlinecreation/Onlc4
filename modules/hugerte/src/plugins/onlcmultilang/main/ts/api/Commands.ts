@@ -4,10 +4,14 @@ import Editor from 'hugerte/core/api/Editor';
 
 import * as Sections from '../core/Sections';
 import * as View from '../core/View';
-import * as Dialog from '../ui/Dialog';
 
 const register = (editor: Editor): void => {
-  /** Marque la sélection dans une langue. La valeur est un code à deux lettres. */
+  /**
+   * Pose une langue là où l'on est. La valeur est un code à deux lettres.
+   *
+   * Ce que cela englobe — quelques mots, un bloc, plusieurs blocs — se déduit de la sélection ;
+   * l'appelant n'a pas à le dire.
+   */
   editor.addCommand('OnlcMarkLanguage', (_ui, value?: string) => {
     if (Type.isString(value)) {
       Sections.mark(editor, value);
@@ -17,10 +21,6 @@ const register = (editor: Editor): void => {
   /** Rend le contenu de la section au document, sans rien supprimer. */
   editor.addCommand('OnlcUnmarkLanguage', () => {
     Sections.unmark(editor);
-  });
-
-  editor.addCommand('OnlcEditLanguageSection', () => {
-    Dialog.open(editor, Sections.getSelected(editor));
   });
 
   /** Ajoute les traductions manquantes à côté de la section courante. */

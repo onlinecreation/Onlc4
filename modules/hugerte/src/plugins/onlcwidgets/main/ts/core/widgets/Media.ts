@@ -305,16 +305,31 @@ const pdf = (editor: Editor): WidgetDefinition => ({
       limit: Common.integer(c.pages, 0, 0, 200)
     };
 
+    /**
+     * Les adresses sont rendues absolues **à l'exécution**, dans la page.
+     *
+     * pdf.js résout celle du document contre `window.location`, jamais contre la balise `<base>`
+     * de la page. Dans un aperçu, `window.location` est une adresse `blob:` — et `/media/doc.pdf`
+     * ne s'y rapporte à rien : `new URL('/media/doc.pdf', 'blob:…')` lève une erreur. La
+     * bibliothèque refusait donc l'adresse avant même d'aller chercher le fichier, et le bloc
+     * restait vide sans un mot dans la console.
+     *
+     * Le calcul ne peut pas se faire ici : au moment où ce code est écrit, on ne connaît pas
+     * l'adresse de la page qui l'accueillera. Il se fait donc dans la page, contre `baseURI`.
+     */
     const script = `(function () {
   var element = document.currentScript && document.currentScript.previousElementSibling;
   if (!element || element.getAttribute('data-onlc-ready')) { return; }
   element.setAttribute('data-onlc-ready', '1');
   var settings = ${Html.jsonForScript(settings)};
+  var resoudre = function (adresse) {
+    try { return new URL(adresse, document.baseURI || location.href).href; } catch (e) { return adresse; }
+  };
   var start = function () {
     var lib = window.pdfjsLib;
     if (!lib) { return window.setTimeout(start, 150); }
-    lib.GlobalWorkerOptions.workerSrc = settings.worker;
-    lib.getDocument(settings.url).promise.then(function (doc) {
+    lib.GlobalWorkerOptions.workerSrc = resoudre(settings.worker);
+    lib.getDocument(resoudre(settings.url)).promise.then(function (doc) {
       var total = settings.limit > 0 ? Math.min(settings.limit, doc.numPages) : doc.numPages;
       var draw = function (number) {
         if (number > total) { return; }

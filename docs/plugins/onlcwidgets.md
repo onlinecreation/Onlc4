@@ -93,7 +93,7 @@ La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
 | Vidéo | Médias | adresse YouTube / Vimeo / Dailymotion ou autre, format, lecture auto, boucle, sourdine |
 | Page intégrée (iframe) | Médias | adresse, titre, format ou hauteur fixe, défilement |
 | Carte | Médias | lieu (recherche d'adresse), épingle, hauteur, déplaçable, zoom molette |
-| Document PDF | Médias | fichier, titre, hauteur, nombre de pages, téléchargement |
+| Document PDF | Médias | fichier, titre, hauteur, nombre de pages, téléchargement. L'adresse du fichier est **rendue absolue à l'exécution**, contre la base de la page : pdf.js la résout contre `window.location`, jamais contre `<base>`, et refusait `/media/document.pdf` dès que la page n'avait pas d'adresse hiérarchique — dans un aperçu, elle n'en a pas |
 | Agenda partagé | Médias | adresse de l'agenda, affichage, hauteur |
 | Widget HTML | Avancé | code HTML fourni par un service tiers |
 

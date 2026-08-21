@@ -89,7 +89,16 @@ button {
 button + button { margin-left: 8px; background: #5a6570; }
 button:hover { filter: brightness(1.08); }
 
-pre {
+/*
+ * Panneau « html enregistré » de cette page.
+ *
+ * La règle vise **cet élément-là**, pas tous les `pre` du document. Les dialogues de l'éditeur
+ * vivent dans le même document que cette page : un sélecteur écrit sur un nom d'élément les
+ * atteint. Écrite sur `pre` tout court, celle-ci bornait à 340 pixels la couche colorée de
+ * l'éditeur de code — le code source d'une page s'y trouvait coupé à la dix-septième ligne, sans
+ * moyen de défiler.
+ */
+#sortie {
   max-height: 340px;
   margin: 0;
   padding: 16px;

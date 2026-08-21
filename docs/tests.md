@@ -57,6 +57,7 @@ inspecte le dom au moment où l'assertion tombe.
 | `onlcicons/…/atomic/IconDedupeTest` | dédoublonnage par nom, et priorité de la famille |
 | `onlcshared/…/browser/DestroyTest` | la confirmation par maintien : annulation au relâchement, suppression au bout, une seule fois |
 | `onlcshared/…/browser/DialogStylesTest` | onglets, croix de fermeture centrée, cibles tactiles, pied dans le cadre, intitulé non répété |
+| `onlcwidgets/…/browser/CodeEditorTest` | l'éditeur de code face à une règle hostile de la page (`pre { max-height }`) : couche colorée entière, cadre qui défile, les deux couches superposées |
 | `onlcwidgets/…/browser/LibraryMergeTest` | la bibliothèque unique : les deux catalogues, la recherche, l'aiguillage des cartes |
 | `onlcwidgets/…/browser/PreviewDialogTest` | la page servie par une adresse et non par un attribut, les jetons du bac à sable et la possibilité de le resserrer, le remplissage, les trois largeurs |
 | `onlcmedia/…/browser/FinderLibraryTest` | arborescence et chargement à la demande, actif au survol, quota, historique |

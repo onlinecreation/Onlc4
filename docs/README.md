@@ -147,3 +147,10 @@ pour faciliter une remontée éventuelle en amont.
   l'écriture. On peut cliquer, sélectionner et déplacer le bloc sans jamais déclencher le média.
 - **Langue** : les libellés sont en français par défaut ; l'anglais et l'espagnol se chargent en
   ajoutant un fichier (voir [i18n.md](i18n.md)).
+- **Rien qui dépende de la page d'accueil** : les dialogues vivent dans le document du
+  back-office, pas dans un cadre à part. Une règle css que cette page écrit sur un **nom
+  d'élément** — `pre`, `textarea`, `summary`, `iframe` — atteint donc l'interface de l'éditeur.
+  Chaque composant déclare lui-même ce dont il a besoin (hauteur, débordement, marqueur de liste)
+  plutôt que de compter sur les valeurs par défaut du navigateur. Deux bugs sont venus de là : un
+  `pre { max-height: 340px }` qui coupait l'éditeur de code à la dix-septième ligne, et un
+  `summary { display: block }` qui effaçait le chevron du texte déployable.

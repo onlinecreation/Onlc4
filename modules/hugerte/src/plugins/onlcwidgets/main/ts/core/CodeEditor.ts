@@ -37,15 +37,26 @@ const gutterWidth = 52;
 
 const styles = `
 /* Le thème applique un reset très large - .tox :not(svg):not(rect) - qui remet à zéro fond,
-   bordure et largeur : chaque règle est donc préfixée par .tox pour passer devant lui. */
-.tox .onlc-code { display: block; box-sizing: border-box; width: 100%; min-height: 240px; max-height: 44vh; overflow-x: hidden; overflow-y: auto; border: 1px solid rgba(34, 47, 62, 0.2); border-radius: 6px; background: #1f2430; color: #e6e6e6; }
-.tox .onlc-code__stack { position: relative; box-sizing: border-box; min-height: 240px; }
+   bordure et largeur : chaque règle est donc préfixée par .tox pour passer devant lui.
+
+   Les dialogues vivent dans le document de la page d'accueil, pas dans un cadre à part : une
+   règle de cette page écrite sur un nom d'élément — pre, textarea — atteint donc l'éditeur de
+   code. C'est arrivé : la page de démonstration bornait ses blocs pre à 340 pixels pour son
+   propre panneau « html enregistré », et le code source de la page s'en trouvait coupé à la
+   dix-septième ligne, sans pouvoir défiler — la couche colorée était tronquée, et la zone de
+   saisie posée dessus n'était pas plus haute.
+
+   Les deux couches déclarent donc elles-mêmes leur hauteur et leur débordement, au lieu de les
+   laisser au hasard de la feuille de style qui les entoure. La seule qui défile est le cadre. */
+.tox .onlc-code { display: block; box-sizing: border-box; width: 100%; min-height: 240px; max-height: 100%; overflow-x: hidden; overflow-y: auto; border: 1px solid rgba(34, 47, 62, 0.2); border-radius: 6px; background: #1f2430; color: #e6e6e6; }
+.tox .onlc-code__stack { position: relative; box-sizing: border-box; min-height: 240px; height: auto; max-height: none; overflow: visible; }
 .tox .onlc-code__view, .tox .onlc-code__input {
   box-sizing: border-box; display: block; width: 100%; margin: 0;
   padding: 12px 12px 12px ${gutterWidth}px; border: 0; font: inherit; white-space: pre-wrap;
   word-break: break-word; overflow-wrap: anywhere; tab-size: 2;
+  min-height: 0; max-height: none;
 }
-.tox .onlc-code__view { position: relative; background: transparent; pointer-events: none; }
+.tox .onlc-code__view { position: relative; height: auto; overflow: visible; background: transparent; pointer-events: none; }
 .tox .onlc-code__input { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; overflow: hidden; color: transparent; background: transparent; caret-color: #ffffff; outline: none; resize: none; }
 .tox .onlc-code__input::selection { color: transparent; background: rgba(0, 108, 231, 0.45); }
 .tox .onlc-code__line { position: relative; display: block; min-height: 1.5em; }

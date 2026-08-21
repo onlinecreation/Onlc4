@@ -66,7 +66,24 @@ const register = (editor: Editor): void => {
    */
   registerOption('onlc_multilang_containers', {
     processor: 'string',
-    default: '.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col'
+    default: '.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col,[data-onlc-lang]'
+  });
+
+  /**
+   * Éléments à l'intérieur desquels seul le marquage **en ligne** a un sens.
+   *
+   * Le markup d'un bloc prédéfini — un bandeau, une visionneuse, un calendrier — appartient au
+   * plugin qui le dessine : il a sa structure, ses classes, son placement. Y glisser un `div` de
+   * section le disloque, et la prochaine relecture du bloc le reconstruit sans lui. À l'intérieur,
+   * on peut donc donner une langue à **du texte sélectionné**, jamais à une tranche de la
+   * structure.
+   *
+   * Le bloc lui-même n'est pas concerné : une section posée **autour** de lui ne touche à rien de
+   * ce qu'il contient, et reste le moyen normal de réserver un bandeau entier à une langue.
+   */
+  registerOption('onlc_multilang_inline_only', {
+    processor: 'string',
+    default: '[data-onlc-widget]'
   });
 };
 
@@ -75,6 +92,7 @@ const getDefaultSyntax = option<Syntax>('onlc_multilang_default_syntax');
 const getPreviewLanguage = option<string>('onlc_multilang_preview_language');
 const shouldInjectStyles = option<boolean>('onlc_multilang_inject_styles');
 const getContainerSelector = option<string>('onlc_multilang_containers');
+const getInlineOnlySelector = option<string>('onlc_multilang_inline_only');
 
 export {
   register,
@@ -82,5 +100,6 @@ export {
   getDefaultSyntax,
   getPreviewLanguage,
   shouldInjectStyles,
-  getContainerSelector
+  getContainerSelector,
+  getInlineOnlySelector
 };

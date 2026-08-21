@@ -44,24 +44,54 @@ const fallbackTemplate =
   '<title>[NomPage]</title></head><body>[ContenuPage]</body></html>';
 
 /**
- * Ajoute à la page les feuilles de style du site.
+ * Ajoute à la page les styles qui lui manquent : les feuilles du site et des plugins, puis les
+ * règles que les plugins écrivent à la volée.
  *
- * Elles vont **à la fin du `<head>`**, après celles du gabarit : ce sont les mêmes que la zone
- * d'écriture charge, et l'aperçu doit ressembler à ce qu'on vient d'écrire. Un gabarit sans
- * `</head>` — il en existe — les reçoit en tête de page, ce qui vaut mieux que pas du tout.
+ * Tout va **à la fin du `<head>`**, après ce que le gabarit y a mis : ce sont les mêmes styles que
+ * la zone d'écriture charge, et l'aperçu doit ressembler à ce qu'on vient d'écrire. Un gabarit
+ * sans `</head>` — il en existe — les reçoit en tête de page, ce qui vaut mieux que pas du tout.
  *
  * Les adresses passent par `Html.attr`, qui les échappe et refuse les schémas exécutables : elles
- * viennent de la configuration, mais elles finissent dans du html écrit à la main.
+ * viennent de la configuration, mais elles finissent dans du html écrit à la main. Les règles,
+ * elles, sont écrites par les plugins eux-mêmes, mais entrent dans un `<style>` : une accolade
+ * fermante suivie de `</style>` y rouvrirait la page au html, la séquence est donc neutralisée.
  */
-const withStyles = (page: string, urls: string[]): string => {
-  if (urls.length === 0) {
+/**
+ * Donne à la page un point de départ pour ses adresses relatives.
+ *
+ * Le cadre reçoit son contenu par `srcdoc`, dans une origine opaque : la page n'a plus d'adresse
+ * propre, et une image en `/media/photo.jpg`, un pdf, une police appelée par le gabarit n'ont plus
+ * rien à quoi se rapporter. Elles ne se chargent tout simplement pas, sans le moindre message.
+ *
+ * Une balise `<base>` posée en tête de `<head>` rend leur point de départ à toutes en une fois :
+ * celui du document où l'on écrit, c'est-à-dire le site lui-même. Elle doit venir **avant** tout
+ * ce qui porte une adresse, d'où sa place tout en haut.
+ *
+ * Un gabarit qui en déclare déjà une garde la sienne : c'est un choix du site, pas un oubli.
+ */
+const withBase = (page: string, url: string): string => {
+  if (url === '' || /<base\b/i.test(page)) {
     return page;
   }
 
+  const tag = `<base${Html.attr('href', url)}>`;
+  const opening = /<head\b[^>]*>/i.exec(page);
+  return opening === null ? tag + page : page.slice(0, opening.index + opening[0].length) + tag + page.slice(opening.index + opening[0].length);
+};
+
+const withStyles = (page: string, urls: string[], rules: string[] = []): string => {
   const links = Arr.map(urls, (url) => `<link rel="stylesheet"${Html.attr('href', url)}>`).join('');
+  const inline = rules.length === 0
+    ? ''
+    : `<style>${Arr.map(rules, (rule) => rule.replace(/<\//g, '<\\/')).join('')}<\/style>`;
+  const styles = links + inline;
+
+  if (styles === '') {
+    return page;
+  }
 
   const closing = /<\/head\s*>/i.exec(page);
-  return closing === null ? links + page : page.slice(0, closing.index) + links + page.slice(closing.index);
+  return closing === null ? styles + page : page.slice(0, closing.index) + styles + page.slice(closing.index);
 };
 
 const loadTemplate = (editor: Editor): Promise<string> => {
@@ -156,19 +186,24 @@ const fill = (template: string, content: string, values: Record<string, PreviewV
  */
 const render = (editor: Editor, language?: string): Promise<string> =>
   loadTemplate(editor).then((template) =>
-    withStyles(
-      Multilang.resolvePage(
-        editor,
-        fill(template, editor.getContent(), Options.getPreviewValues(editor)),
-        language
+    withBase(
+      withStyles(
+        Multilang.resolvePage(
+          editor,
+          fill(template, editor.getContent(), Options.getPreviewValues(editor)),
+          language
+        ),
+        Options.getPreviewCss(editor),
+        Options.getPreviewRules(editor)
       ),
-      Options.getPreviewCss(editor)
+      editor.documentBaseURI.getURI()
     ));
 
 export {
   contentPlaceholder,
   fallbackTemplate,
   loadTemplate,
+  withBase,
   withStyles,
   valueOf,
   resolveText,

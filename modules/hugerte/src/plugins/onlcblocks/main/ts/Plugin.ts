@@ -1,6 +1,7 @@
 import { Optional } from '@ephox/katamari';
 
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
@@ -38,11 +39,33 @@ export default (): void => {
     }
 
     // Grille du site (Bootstrap par exemple) : sans elle, les lignes et les colonnes
-    // s'empilent dans l'éditeur alors qu'elles seront côte à côte sur la page publiée.
+    // s'empilent dans l'éditeur alors qu'elles seront côte à côte sur la page publiée. L'aperçu
+    // la reprend pour la même raison ; un gabarit qui la charge déjà ne la charge pas deux fois.
+    //
+    // `onlcblocks.css`, elle, ne sort jamais de l'éditeur : elle ne décrit que les outils.
     const gridCss = Options.getGridCss(editor);
     if (gridCss !== '') {
       editor.contentCSS.push(gridCss);
+      PublishedCss.declareSheets(editor, [ gridCss ]);
     }
+
+    /**
+     * Les gouttières négatives des lignes de premier niveau.
+     *
+     * Une ligne de grille porte des marges négatives — `margin: 0 -12px` chez Bootstrap — qu'un
+     * conteneur compense sur la page publiée. Dans la zone d'écriture il n'y a pas de conteneur :
+     * la ligne déborde alors des deux côtés, et une barre de défilement horizontale apparaît sans
+     * rien à faire défiler.
+     *
+     * Elles sont donc remises à zéro, mais **seulement pour les lignes posées directement dans le
+     * corps du document** : une ligne à l'intérieur d'une colonne ou d'un conteneur est déjà
+     * compensée par le retrait de celui-ci, et l'aplatir décalerait son contenu. Les colonnes
+     * gardent leur propre retrait : la ligne reste inscrite dans la page comme elle le sera sur le
+     * site, sans pouvoir en sortir quelle que soit la largeur de gouttière choisie.
+     */
+    editor.contentStyles.push(
+      `body.onlc-blocks-enabled > .${Options.getRowClass(editor)} { margin-right: 0; margin-left: 0; }`
+    );
 
     const controller = Controller.setup(editor);
 

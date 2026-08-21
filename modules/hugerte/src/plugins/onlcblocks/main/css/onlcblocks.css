@@ -4,15 +4,17 @@
  */
 
 /**
- * Les lignes de la grille Bootstrap portent des gouttières négatives (`margin: 0 -12px`) qu'un
- * conteneur compense sur la page publiée. Dans la zone d'édition il n'y a pas de conteneur : sans
- * cette marge intérieure, chaque ligne déborde de douze pixels de chaque côté et fait apparaître
- * une barre de défilement horizontale.
+ * L'overlay est posé en absolu dans le corps du document : il lui faut un repère.
+ *
+ * Les gouttières négatives des lignes de grille sont neutralisées ailleurs — dans `Plugin.ts`,
+ * qui connaît la classe de ligne choisie par le projet. Elles l'étaient ici, par une marge
+ * intérieure sur le corps : c'était une compensation à l'aveugle, calculée sur une variable css
+ * que Bootstrap ne pose que sur les lignes. Une grille aux gouttières plus larges débordait donc
+ * quand même, et un site qui donne une largeur explicite à son `body` débordait de la marge
+ * elle-même. Dans les deux cas : une barre de défilement horizontale, sans rien à faire défiler.
  */
 body.onlc-blocks-enabled {
   position: relative;
-  padding-right: calc(var(--bs-gutter-x, 1.5rem) * 0.5);
-  padding-left: calc(var(--bs-gutter-x, 1.5rem) * 0.5);
 }
 
 .onlc-blocks-ui {
@@ -224,8 +226,18 @@ body.onlc-blocks-enabled {
 
 /* Zones d'ajout de début et de fin : dans le flux, jamais par-dessus le contenu */
 
+.onlc-blocks-edge-zone,
+.onlc-blocks-edge,
+.onlc-blocks-edge * {
+  /* Le contenu de la page décide de son propre `box-sizing` ; les outils décident du leur. Sans
+     cette règle, la zone d'ajout — large de 100 % plus vingt-quatre pixels de retrait et deux de
+     filet — dépassait de vingt-six pixels dans tout document sans règle globale `border-box`. */
+  box-sizing: border-box;
+}
+
 .onlc-blocks-edge-zone {
   display: block;
+  max-width: 100%;
   margin: 0;
   padding: 8px 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

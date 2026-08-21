@@ -126,5 +126,53 @@ describe('atomic.hugerte.plugins.onlcwidgets.PagePreviewTest', () => {
       const out = PagePreview.withStyles('<head></head>', [ '/a.css" onload="x' ]);
       assert.notInclude(out, 'onload="x"');
     });
+
+    it('pose les règles écrites à la volée après les feuilles', () => {
+      const out = PagePreview.withStyles('<head></head>', [ '/a.css' ], [ '.onlc-spacer { min-height: 4px; }' ]);
+      assert.isBelow(out.indexOf('/a.css'), out.indexOf('<style>'));
+      assert.include(out, '.onlc-spacer { min-height: 4px; }');
+      assert.isBelow(out.indexOf('</style>'), out.indexOf('</head>'));
+    });
+
+    it('neutralise une fermeture de balise glissée dans une règle', () => {
+      // Une règle entre dans un `<style>` : `</style>` y rouvrirait la page au html.
+      const out = PagePreview.withStyles('<head></head>', [], [ 'a{}</style><script>x()<\/script>' ]);
+      assert.notInclude(out, '</style><script>');
+    });
+
+    it('ne pose rien quand il n’y a ni feuille ni règle', () => {
+      const page = '<html><head></head><body>x</body></html>';
+      assert.equal(PagePreview.withStyles(page, [], []), page);
+    });
+  });
+
+  /**
+   * Le cadre de l'aperçu reçoit son contenu par `srcdoc`, dans une origine opaque : sans point de
+   * départ, une image en `/media/photo.jpg` ou un pdf ne se chargent tout simplement pas.
+   */
+  describe('adresse de base', () => {
+    it('pose la base juste après l’ouverture du head', () => {
+      const out = PagePreview.withBase('<html><head><link href="a.css"></head><body>x</body></html>', 'https://exemple.fr/');
+      assert.include(out, '<head><base href="https://exemple.fr/">');
+      assert.isBelow(out.indexOf('<base'), out.indexOf('<link'));
+    });
+
+    it('laisse au gabarit la base qu’il déclare lui-même', () => {
+      const page = '<head><base href="https://autre.fr/"></head>';
+      assert.equal(PagePreview.withBase(page, 'https://exemple.fr/'), page);
+    });
+
+    it('la pose en tête quand le gabarit n’a pas de head', () => {
+      const out = PagePreview.withBase('<body>x</body>', 'https://exemple.fr/');
+      assert.isBelow(out.indexOf('<base'), out.indexOf('<body>'));
+    });
+
+    it('ne pose rien sans adresse', () => {
+      assert.equal(PagePreview.withBase('<head></head>', ''), '<head></head>');
+    });
+
+    it('refuse une adresse exécutable', () => {
+      assert.notInclude(PagePreview.withBase('<head></head>', 'javascript:alert(1)'), 'javascript:');
+    });
   });
 });

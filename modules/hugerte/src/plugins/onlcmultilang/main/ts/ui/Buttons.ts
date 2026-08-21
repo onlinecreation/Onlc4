@@ -1,4 +1,4 @@
-import { Arr } from '@ephox/katamari';
+import { Arr, Fun } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
@@ -69,16 +69,36 @@ const viewItems = (editor: Editor): Menu.ToggleMenuItemSpec[] => {
   })));
 };
 
+/**
+ * L'entrée qui pose une langue — ou la phrase qui explique pourquoi on ne peut pas.
+ *
+ * À l'intérieur d'un bloc prédéfini, une section de bloc disloquerait la structure du bloc : seule
+ * une sélection de texte peut y être marquée. Plutôt qu'une entrée qui ne ferait rien, le menu dit
+ * ce qu'il faut faire — c'est la seule chose utile à savoir à cet instant.
+ */
+const settingItems = (editor: Editor): Menu.NestedMenuItemContents[] =>
+  Scope.resolve(editor).fold<Menu.NestedMenuItemContents[]>(
+    () => [
+      {
+        type: 'menuitem',
+        text: 'Sélectionnez du texte pour lui donner une langue',
+        enabled: false,
+        onAction: Fun.noop
+      }
+    ],
+    () => [
+      {
+        type: 'nestedmenuitem',
+        text: targetLabel(editor),
+        getSubmenuItems: () => languageItems(editor)
+      }
+    ]
+  );
+
 const fetchItems = (editor: Editor): Menu.NestedMenuItemContents[] => {
   const inside = Sections.getSelected(editor).isSome();
 
-  const setting: Menu.NestedMenuItemContents[] = [
-    {
-      type: 'nestedmenuitem',
-      text: targetLabel(editor),
-      getSubmenuItems: () => languageItems(editor)
-    }
-  ];
+  const setting = settingItems(editor);
 
   const completing: Menu.NestedMenuItemContents[] = inside ? [
     {
@@ -116,6 +136,7 @@ const register = (editor: Editor): void => {
 
 export {
   targetLabel,
+  settingItems,
   languageItems,
   viewItems,
   fetchItems,

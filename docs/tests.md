@@ -46,10 +46,11 @@ inspecte le dom au moment où l'assertion tombe.
 
 | Fichier | Ce qu'il vérifie |
 |---|---|
-| `onlcwidgets/…/atomic/PagePreviewTest` | remplissage du gabarit d'aperçu : `[ContenuPage]`, valeurs fixes et fonctions, codes du contenu, balises sautées ou non |
+| `onlcwidgets/…/atomic/PagePreviewTest` | remplissage du gabarit d'aperçu : `[ContenuPage]`, valeurs fixes et fonctions, codes du contenu, balises sautées ou non, feuilles et règles posées, adresse de base |
 | `onlcwidgets/…/atomic/MonthFieldTest` | lecture et écriture de `AAAA-MM`, et refus des formats approchants |
 | `onlcwidgets/…/atomic/MediaFieldTest` | échappement des adresses posées en css, noms de fichiers lisibles |
 | `onlcwidgets/…/atomic/ShortcodeGuardTest` | le garde-fou du texte brut d'un code court, et l'analyse des codes |
+| `onlcwidgets/…/atomic/SegmentsTest` | où un code court peut être reconnu : ni dans une balise, ni dans le corps d'un script ou d'une feuille de style |
 | `onlcmultilang/…/atomic/ParseTest` | les deux écritures polyglottes, ce que le site ne reconnaît pas, l'équilibre des balises, le rendu par langue |
 | `onlcmultilang/…/atomic/LanguagesTest` | intitulés des langues et lecture de leur configuration |
 | `onlcmedia/…/atomic/UploadFilterTest` | types acceptés à l'envoi, filtrage de la grille, dates de version |
@@ -60,8 +61,8 @@ inspecte le dom au moment où l'assertion tombe.
 | `onlcwidgets/…/browser/PreviewDialogTest` | le bac à sable de l'aperçu, le remplissage, les trois largeurs |
 | `onlcmedia/…/browser/FinderLibraryTest` | arborescence et chargement à la demande, actif au survol, quota, historique |
 | `onlcmultilang/…/browser/MultilangTest` | l'aller-retour à l'identique, span ou div, marquer/compléter/retirer, aperçu par langue, codes forgés |
-| `onlcmultilang/…/browser/ScopeTest` | ce que le marquage englobe : en ligne ou bloc, la colonne Bootstrap qui survit, le curseur laissé dans la section |
-| `onlcblocks/…/browser/BlockLanguageTest` | la langue réglée depuis la barre du bloc, sur le bloc désigné et non sur celui du curseur ; boutons de 50 pixels |
+| `onlcmultilang/…/browser/ScopeTest` | ce que le marquage englobe : en ligne ou bloc, la colonne Bootstrap qui survit, le curseur laissé dans la section, le bandeau où seul l'en ligne est possible |
+| `onlcblocks/…/browser/BlockLanguageTest` | la langue réglée depuis la barre du bloc, sur le bloc désigné et non sur celui du curseur ; le globe retiré dans un bloc prédéfini ; les blocs visés à l'intérieur d'une section de langue ; boutons de 50 pixels |
 
 Les tests d'interface **mesurent le rendu** plutôt que la présence des règles css : ces règles
 corrigent le thème, et une montée de version d'Oxide peut en défaire une en silence. Vérifier

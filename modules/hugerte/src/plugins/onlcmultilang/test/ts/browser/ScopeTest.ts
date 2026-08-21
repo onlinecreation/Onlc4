@@ -4,6 +4,7 @@ import { assert } from 'chai';
 
 import Editor from 'hugerte/core/api/Editor';
 import * as Dom from 'hugerte/plugins/onlcmultilang/core/Dom';
+import * as Scope from 'hugerte/plugins/onlcmultilang/core/Scope';
 import Plugin from 'hugerte/plugins/onlcmultilang/Plugin';
 
 /**
@@ -153,6 +154,57 @@ describe('browser.hugerte.plugins.onlcmultilang.ScopeTest', () => {
       editor.execCommand('OnlcUnmarkLanguage');
 
       TinyAssertions.assertContent(editor, '<p>Un seul</p>');
+    });
+  });
+
+  /**
+   * Un bloc prédéfini — un bandeau, une visionneuse — a une structure qui appartient au plugin qui
+   * la dessine. Un `div` de section glissé entre ses parties la disloque, et la prochaine relecture
+   * du bloc la reconstruit sans lui. À l'intérieur, seule une sélection de texte peut être marquée.
+   */
+  describe('à l’intérieur d’un bloc prédéfini', () => {
+    const banner =
+      '<div data-onlc-widget="hero"><section class="onlc-hero">' +
+      '<div class="onlc-hero__content"><h2 class="onlc-hero__title">Un titre</h2>' +
+      '<div class="onlc-hero__subtitle"><p>Une phrase</p></div></div></section></div>';
+
+    it('ne pose pas de bloc englobant autour d’une partie du bandeau', () => {
+      const editor = hook.editor();
+      editor.setContent(banner);
+      TinyApis(editor).setCursor([ 0, 0, 0, 0, 0 ], 3);
+      editor.execCommand('OnlcMarkLanguage', false, 'en');
+
+      assert.lengthOf(editor.dom.select(`div${Dom.selector}`), 0, 'aucune section de bloc');
+      assert.lengthOf(editor.dom.select('.onlc-hero__title'), 1, 'le bandeau est intact');
+    });
+
+    it('marque en ligne du texte sélectionné dans le bandeau', () => {
+      const editor = hook.editor();
+      editor.setContent(banner);
+      selectText(editor, editor.dom.select('.onlc-hero__title')[0], 0, 2);
+      editor.execCommand('OnlcMarkLanguage', false, 'en');
+
+      assert.lengthOf(editor.dom.select(`span${Dom.selector}`), 1);
+      assert.lengthOf(editor.dom.select('.onlc-hero__title'), 1, 'le titre reste un titre');
+    });
+
+    it('accepte au contraire une section autour du bandeau entier', () => {
+      const editor = hook.editor();
+      editor.setContent(banner);
+      const widget = editor.dom.select('[data-onlc-widget]')[0];
+      assert.isTrue(Scope.allowsBlockFor(editor, widget));
+
+      editor.execCommand('OnlcMarkLanguage', false, 'en');
+      // La commande part de la sélection ; l'important est que la portée existe pour le bloc lui-même.
+      assert.isTrue(Scope.forElement(editor, widget).isSome());
+    });
+
+    it('ne refuse rien quand le sélecteur est vide', () => {
+      const editor = hook.editor();
+      editor.options.set('onlc_multilang_inline_only', '');
+      editor.setContent(banner);
+      assert.isTrue(Scope.allowsBlockFor(editor, editor.dom.select('.onlc-hero__title')[0]));
+      editor.options.set('onlc_multilang_inline_only', '[data-onlc-widget]');
     });
   });
 });

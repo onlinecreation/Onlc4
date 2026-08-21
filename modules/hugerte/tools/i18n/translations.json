@@ -1763,6 +1763,10 @@
     "Select the parent block",
     "Seleccionar el bloque contenedor"
   ],
+  "Sélectionnez du texte pour lui donner une langue": [
+    "Select some text to give it a language",
+    "Seleccione un texto para asignarle un idioma"
+  ],
   "Séparateur": [
     "Spacer",
     "Separador"

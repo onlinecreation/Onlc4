@@ -1,6 +1,7 @@
 import { Arr } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 
 import * as Options from '../api/Options';
 
@@ -45,6 +46,12 @@ const stylesheetsOf = (editor: Editor, pluginUrl: string): string[] => {
 
 const load = (editor: Editor, pluginUrl: string): void => {
   const sheets = stylesheetsOf(editor, pluginUrl);
+
+  // Ces feuilles décrivent ce qui est **inséré dans la page** : le dessin d'une icône, et la
+  // taille d'un emoji. Sans elles, un emoji reprend la taille naturelle de son image — plusieurs
+  // fois celle du texte — et les icônes ne sont que des carrés vides. L'aperçu visiteur et le
+  // html rendu les reprennent donc, comme le fera le site.
+  PublishedCss.declareSheets(editor, sheets);
 
   const warn = (url: string) => () => {
     // eslint-disable-next-line no-console

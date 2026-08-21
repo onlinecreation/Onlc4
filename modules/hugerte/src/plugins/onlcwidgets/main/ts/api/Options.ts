@@ -2,6 +2,7 @@ import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { EditorOptions } from 'hugerte/core/api/OptionTypes';
+import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 
 import { ShortcodeDefinition } from './ShortcodeTypes';
 import { PreviewValue, WidgetDefinition, WidgetFieldItem } from './Types';
@@ -206,17 +207,45 @@ const allowIframeHosts = (editor: Editor, hosts: string[]): void => {
 /**
  * Les feuilles à poser dans l'aperçu.
  *
- * `onlc_preview_css` si le projet l'a réglée, sinon le `content_css` de l'éditeur : dans les deux
- * cas ce sont des adresses que le site sert déjà, puisque la zone d'écriture les charge.
+ * Deux familles, dans l'ordre où la zone d'écriture les charge :
+ *
+ * 1. celles que **les plugins** déclarent nécessaires à la page publiée — l'allure d'un bandeau,
+ *    la grille d'un calendrier, la taille d'un emoji. Le projet ne les nomme pas : elles sont
+ *    livrées avec les plugins, et l'aperçu les reprend toujours ;
+ * 2. celles du **site** : `onlc_preview_css` si le projet l'a réglée, sinon son `content_css`.
+ *    Elles viennent en dernier, et ont donc le dernier mot, comme dans l'éditeur.
+ *
+ * Les adresses sont rendues absolues. Le cadre de l'aperçu reçoit son contenu par `srcdoc`, dans
+ * une origine opaque : une adresse relative — ou même commençant par une barre — n'y a plus de
+ * point de départ auquel se rapporter, et la feuille ne se charge pas.
+ *
+ * Un nom d'habillage (`default`, `dark`) est écarté : ce n'est pas une adresse, mais une
+ * ressource interne de l'éditeur, qui ne décrit rien de la page publiée.
  */
-const getPreviewCss = (editor: Editor): string[] => {
+const isSkinName = (url: string): boolean => /^[a-z0-9\-]+$/i.test(url);
+
+const siteCss = (editor: Editor): string[] => {
   const chosen = editor.options.get('onlc_preview_css') as string[] | undefined;
   if (Type.isArray(chosen)) {
-    return chosen;
+    return Arr.filter(chosen, Type.isString);
   }
   const content = editor.options.get('content_css');
   return Type.isArrayOf(content, Type.isString) ? content : [];
 };
+
+const getPreviewCss = (editor: Editor): string[] =>
+  // Dédoublonné une fois les adresses résolues : la grille du site est souvent citée deux fois —
+  // dans `content_css` et dans `onlc_blocks_grid_css` — et rien ne dit qu'elle l'est à l'identique.
+  Arr.unique(Arr.map(
+    Arr.filter(PublishedCss.sheets(editor).concat(siteCss(editor)), (url) => !isSkinName(url)),
+    (url) => editor.documentBaseURI.toAbsolute(url)
+  ));
+
+/**
+ * Les règles écrites à la volée par les plugins — ce qui dépend de la configuration et n'existe
+ * dans aucun fichier, comme la classe choisie pour les espaceurs.
+ */
+const getPreviewRules = (editor: Editor): string[] => PublishedCss.rules(editor);
 
 const getPreviewTemplate = option<string>('onlc_preview_template');
 const getPreviewTemplateUrl = option<string>('onlc_preview_template_url');
@@ -230,6 +259,7 @@ const shouldInjectShortcodeStyles = option<boolean>('onlc_shortcodes_inject_styl
 export {
   register,
   getPreviewCss,
+  getPreviewRules,
   getPreviewTemplate,
   getPreviewTemplateUrl,
   getPreviewValues,

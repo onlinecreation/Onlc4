@@ -10,6 +10,7 @@ import * as Dom from './core/Dom';
 import * as FilterContent from './core/FilterContent';
 import * as Languages from './core/Languages';
 import * as Parse from './core/Parse';
+import * as Scope from './core/Scope';
 import * as Sections from './core/Sections';
 import * as View from './core/View';
 import * as Buttons from './ui/Buttons';
@@ -67,6 +68,15 @@ export interface OnlcMultilangApi {
   readonly completeElement: (element: HTMLElement) => void;
   /** Langue portée par la section qui contient cet élément, ou chaîne vide. */
   readonly codeOfElement: (element: HTMLElement) => string;
+  /**
+   * Cet élément peut-il recevoir une langue d'un seul geste, sans rien sélectionner ?
+   *
+   * Non à l'intérieur d'un bloc prédéfini — un bandeau, une visionneuse : sa structure appartient
+   * au plugin qui la dessine, et une section glissée entre ses parties le disloque. Là, seule une
+   * sélection de texte peut être marquée. La barre d'outils des blocs pose la question avant
+   * d'afficher son bouton : un bouton qui ne ferait rien vaut moins que pas de bouton du tout.
+   */
+  readonly allowsBlockAt: (element: HTMLElement) => boolean;
   /** N'affiche plus qu'une langue dans l'éditeur ; une valeur vide les rend toutes. */
   readonly view: (code: string) => void;
   readonly viewed: () => string;
@@ -127,6 +137,10 @@ export default (): void => {
       },
       codeOfElement: (element: HTMLElement) =>
         Sections.sectionOf(editor, element).fold(Fun.constant(''), (section) => Dom.codeOf(editor, section)),
+      // Une section déjà posée se change toujours de langue, où qu'elle soit : la question ne se
+      // pose que pour un élément qu'il faudrait entourer.
+      allowsBlockAt: (element: HTMLElement) =>
+        Sections.sectionOf(editor, element).isSome() || Scope.allowsBlockFor(editor, element),
       view: (code: string) => View.show(editor, code),
       viewed: () => View.current(editor),
       resolve: (code?: string) => resolveHtml(editor.getContent(), code),

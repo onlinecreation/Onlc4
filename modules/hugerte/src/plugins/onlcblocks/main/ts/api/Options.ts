@@ -62,9 +62,16 @@ const register = (editor: Editor): void => {
     default: true
   });
 
+  /**
+   * Éléments qui contiennent des blocs sans en être un eux-mêmes.
+   *
+   * `[data-onlc-lang]` y figure pour les sections de langue : sans cela, une section entière
+   * comptait pour un seul bloc, et il devenait impossible d'en déplacer le contenu — ou d'y
+   * déposer quoi que ce soit, puisque le glisser-déposer ne visait jamais l'intérieur.
+   */
   registerOption('onlc_blocks_containers', {
     processor: 'string',
-    default: '.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col'
+    default: '.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col,[data-onlc-lang]'
   });
 
   registerOption('onlc_blocks_exclude', {

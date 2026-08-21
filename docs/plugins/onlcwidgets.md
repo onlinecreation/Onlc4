@@ -226,7 +226,7 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_preview_template_url` | `''` | Adresse de l'api rendant le gabarit du site |
 | `onlc_preview_template` | `''` | Gabarit donné directement ; prioritaire sur l'adresse |
 | `onlc_preview_values` | `{}` | Valeurs des codes courts dans l'aperçu |
-| `onlc_preview_css` | `content_css` de l'éditeur | Feuilles de style ajoutées à la page d'aperçu |
+| `onlc_preview_css` | `content_css` de l'éditeur | Feuilles du **site** dans l'aperçu ; celles des plugins s'y ajoutent toujours |
 
 ### Ajouter un bloc maison
 
@@ -378,11 +378,15 @@ codes courts — du gabarit comme du contenu — sont remplacés par les valeurs
 
 Trois largeurs sont proposées : ordinateur, tablette (820 px) et téléphone (390 px).
 
-Les **feuilles de style de la zone d'écriture** sont ajoutées à la fin du `<head>` de la page
-d'aperçu, après celles du gabarit. Sans elles, l'aperçu ne montre le contenu qu'habillé par le
-gabarit — or c'est la feuille du site, celle que l'éditeur charge pour écrire, qui donne aux
-blocs leur grille, leurs marges et leurs polices. Par défaut ce sont exactement celles de
-`content_css` ; `onlc_preview_css` permet d'en donner une autre liste.
+Les **feuilles de style nécessaires à la page publiée** sont ajoutées à la fin du `<head>`, après
+celles du gabarit : d'abord celles que les plugins déclarent — l'allure d'un bandeau, la grille
+d'un calendrier, la visionneuse d'un pdf, la taille d'un emoji, la parallaxe d'une image — puis
+celles du site, `onlc_preview_css` ou à défaut `content_css`. Les feuilles d'écriture, elles, ne
+sortent jamais de l'éditeur. Voir [l'api d'aperçu](../api/onlc-preview-api.md).
+
+Une balise **`<base>`** est posée en tête de `<head>`. Le cadre reçoit son contenu par `srcdoc`,
+dans une origine opaque : sans elle, une image en `/media/photo.jpg`, un pdf ou une police du
+gabarit n'ont plus de point de départ et ne se chargent pas du tout.
 
 L'aperçu s'affiche au plus tard **deux secondes et demie** après avoir été monté, même si la page
 n'a pas fini de charger. L'événement `load` d'un cadre attend toutes ses ressources — chaque

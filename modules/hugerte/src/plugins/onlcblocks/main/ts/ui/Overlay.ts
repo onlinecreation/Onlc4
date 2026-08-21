@@ -261,6 +261,39 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     return available <= 0 || width <= 0 ? Math.max(0, left) : Math.max(0, Math.min(left, available - width));
   };
 
+  /**
+   * Le bouton de langue, ajusté au bloc survolé.
+   *
+   * Deux ajustements, et l'ordre compte : il est mis à jour **avant** que la barre ne soit
+   * mesurée, puisqu'il en change la largeur.
+   *
+   * * il disparaît sur un morceau de bloc prédéfini — le titre d'un bandeau, la légende d'une
+   *   visionneuse — où une section de bloc disloquerait la structure du bloc. On y donne une
+   *   langue à du texte sélectionné, par le menu « Langues » ;
+   * * ailleurs, il porte le code posé sur le bloc : on voit d'un coup d'œil, sans ouvrir le menu,
+   *   si ce bloc est réservé à une langue.
+   *
+   * Il n'est redessiné que lorsque ce code **change**. Le repositionnement tourne à chaque
+   * mouvement de souris ; remplacer le contenu du bouton à chaque passage détachait le nœud visé
+   * par le `mousedown` avant que le `mouseup` n'arrive, et le navigateur n'émettait alors aucun
+   * `click` — le bouton restait inerte sans que rien ne le signale.
+   */
+  const updateLanguageButton = (toolbar: HTMLElement, block: HTMLElement) => {
+    const lang = toolbar.querySelector<HTMLElement>('[data-onlc-action="lang"]');
+    if (!Type.isNonNullable(lang)) {
+      return;
+    }
+
+    setVisible(lang, Multilang.allowsBlock(editor, block));
+
+    const code = Multilang.codeOf(editor, block);
+    if (lang.getAttribute(languageStateAttribute) !== code) {
+      lang.setAttribute(languageStateAttribute, code);
+      editor.dom.toggleClass(lang, 'onlc-blocks-btn--on', code !== '');
+      lang.innerHTML = code === '' ? globeIcon(20) : editor.dom.encode(code.toUpperCase());
+    }
+  };
+
   const positionForBlock = (block: HTMLElement) => {
     const rect = rectOf(block);
 
@@ -276,6 +309,7 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     const toolbar = part('toolbar');
     if (Type.isNonNullable(toolbar)) {
       setVisible(toolbar, true);
+      updateLanguageButton(toolbar, block);
       const height = toolbar.offsetHeight > 0 ? toolbar.offsetHeight : 30;
       setPosition(toolbar, {
         top: `${Math.max(0, rect.y - height - 2)}px`,
@@ -286,41 +320,34 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     // Les boutons + sont centrés sur le bord haut et sur le bord bas du bloc. Celui du haut
     // n'apparaît que sur le premier bloc d'un conteneur : ailleurs, le bouton du bas du bloc
     // précédent occupe déjà le même espace.
+    //
+    // Ils sont rendus visibles **avant** d'être mesurés : un élément masqué mesure zéro, et on
+    // retombait alors sur le diamètre écrit ici. Or la feuille de styles l'augmente sur écran
+    // tactile : le centrage et le maintien dans les bords se faisaient sur une taille qui n'était
+    // plus la bonne, et le bouton pouvait dépasser du cadre à droite.
     const before = part('add-before');
-    const measured = Type.isNonNullable(before) && before.offsetWidth > 0 ? before.offsetWidth : addButtonSize;
-    const half = measured / 2;
+    const after = part('add-after');
     const siblings = Blocks.siblingBlocks(editor, block);
     const isFirst = siblings.length === 0 || siblings[0] === block;
+
+    Arr.each([ 'outline', 'toolbar' ], (name) => setVisible(part(name), true));
+    setVisible(after, true);
+    setVisible(before, isFirst);
+
+    const measured = Arr.findMap([ before, after ], (button) =>
+      Type.isNonNullable(button) && button.offsetWidth > 0 ? Optional.some(button.offsetWidth) : Optional.none<number>()
+    ).getOr(addButtonSize);
+    const half = measured / 2;
     const centre = clampLeft(rect.x + rect.width / 2 - half, measured);
 
     setPosition(before, {
       top: `${Math.max(0, rect.y - half)}px`,
       left: `${centre}px`
     });
-    setPosition(part('add-after'), {
+    setPosition(after, {
       top: `${rect.y + rect.height - half}px`,
       left: `${centre}px`
     });
-
-    Arr.each([ 'outline', 'toolbar', 'add-after' ], (name) => setVisible(part(name), true));
-    setVisible(part('add-before'), isFirst);
-
-    // Le bouton porte le code de la langue posée sur le bloc : on voit d'un coup d'œil, sans
-    // ouvrir le menu, si ce bloc est réservé à une langue.
-    //
-    // Il n'est redessiné que lorsque ce code **change**. Le repositionnement tourne à chaque
-    // mouvement de souris ; remplacer le contenu du bouton à chaque passage détachait le nœud
-    // visé par le `mousedown` avant que le `mouseup` n'arrive, et le navigateur n'émettait alors
-    // aucun `click` — le bouton restait inerte sans que rien ne le signale.
-    const lang = Type.isNonNullable(toolbar) ? toolbar.querySelector<HTMLElement>('[data-onlc-action="lang"]') : null;
-    if (Type.isNonNullable(lang)) {
-      const code = Multilang.codeOf(editor, block);
-      if (lang.getAttribute(languageStateAttribute) !== code) {
-        lang.setAttribute(languageStateAttribute, code);
-        editor.dom.toggleClass(lang, 'onlc-blocks-btn--on', code !== '');
-        lang.innerHTML = code === '' ? globeIcon(20) : editor.dom.encode(code.toUpperCase());
-      }
-    }
   };
 
   /**

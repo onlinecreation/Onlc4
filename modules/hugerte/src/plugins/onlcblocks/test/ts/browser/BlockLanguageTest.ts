@@ -96,6 +96,41 @@ describe('browser.hugerte.plugins.onlcblocks.BlockLanguageTest', () => {
     assert.lengthOf(editor.dom.select('.onlc-blocks-btn[data-onlc-action="lang"]'), 1);
   });
 
+  it('retire le bouton de langue à l’intérieur d’un bloc prédéfini', () => {
+    // La structure d'un bandeau appartient au plugin qui la dessine : une section de bloc glissée
+    // entre ses parties la disloque. On y marque du texte sélectionné, par le menu « Langues ».
+    const editor = hook.editor();
+    editor.setContent(
+      '<div data-onlc-widget="hero"><section class="onlc-hero">' +
+      '<div class="onlc-hero__content"><h2 class="onlc-hero__title">Un titre</h2></div>' +
+      '</section></div>');
+    editor.dispatch('mouseover', { target: first(editor, '.onlc-hero__content') } as unknown as MouseEvent);
+
+    const lang = editor.dom.select<HTMLElement>('.onlc-blocks-btn[data-onlc-action="lang"]')[0];
+    assert.isTrue(editor.dom.hasClass(lang, 'onlc-blocks-hidden'), 'le bouton doit être masqué');
+  });
+
+  it('garde le bouton sur un bloc ordinaire', () => {
+    const editor = hook.editor();
+    editor.setContent('<p>Un</p>');
+    editor.dispatch('mouseover', { target: first(editor, 'p') } as unknown as MouseEvent);
+
+    const lang = editor.dom.select<HTMLElement>('.onlc-blocks-btn[data-onlc-action="lang"]')[0];
+    assert.isFalse(editor.dom.hasClass(lang, 'onlc-blocks-hidden'));
+  });
+
+  it('vise les blocs qui sont dans une section de langue, pas la section', () => {
+    // Sans cela, une section entière comptait pour un seul bloc : on ne pouvait ni en déplacer le
+    // contenu, ni y déposer quoi que ce soit.
+    const editor = hook.editor();
+    editor.setContent('<div data-onlc-lang="fr" class="onlc-lang" lang="fr"><p>dedans</p></div>');
+    const paragraph = first(editor, '[data-onlc-lang] p');
+    editor.dispatch('mouseover', { target: paragraph } as unknown as MouseEvent);
+
+    const active = editor.plugins.onlcblocks.getActiveBlock();
+    assert.isTrue(active.exists((block: HTMLElement) => block === paragraph), 'le bloc actif doit être le paragraphe');
+  });
+
   it('donne aux boutons de la barre une cible de 50 pixels', () => {
     const editor = hook.editor();
     editor.setContent('<p>Un</p>');

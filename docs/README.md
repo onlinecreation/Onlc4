@@ -18,7 +18,8 @@ HugeRTE n'est pas modifié, chaque fonctionnalité s'active dans l'option `plugi
 | `onlcmultilang` | Pages polyglottes : les passages `[LG]` et `<multilang>` deviennent des sections encadrées et nommées | [doc](plugins/onlcmultilang.md) |
 
 `onlcshared` n'est pas un plugin : c'est la bibliothèque interne (client HTTP, section « lien »,
-styles de dialogue) incluse dans les plugins qui en ont besoin.
+styles de dialogue, registre des feuilles de style de publication) incluse dans les plugins qui
+en ont besoin.
 
 ## Repères
 

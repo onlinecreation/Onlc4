@@ -1,4 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
@@ -49,8 +50,12 @@ export default (): void => {
 
     DialogStyles.setup(editor);
 
+    // Ces deux feuilles décrivent l'allure des blocs sur le site — un bandeau, une grille de
+    // calendrier, une visionneuse de pdf — et pas la façon de les modifier : la page publiée en a
+    // besoin autant que la zone d'écriture, l'aperçu visiteur les reprend donc telles quelles.
     if (Options.shouldInjectStyles(editor)) {
       editor.contentCSS.push(`${pluginUrl}/css/onlcwidgets.css`);
+      PublishedCss.declareSheets(editor, [ `${pluginUrl}/css/onlcwidgets.css` ]);
     }
     if (Options.shouldInjectShortcodeStyles(editor)) {
       editor.contentCSS.push(`${pluginUrl}/css/onlcshortcodes.css`);

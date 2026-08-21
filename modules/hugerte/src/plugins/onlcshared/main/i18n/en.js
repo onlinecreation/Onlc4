@@ -441,6 +441,7 @@
   "script vide": "empty script",
   "Secondaire": "Secondary",
   "Sélectionner le bloc parent": "Select the parent block",
+  "Sélectionnez du texte pour lui donner une langue": "Select some text to give it a language",
   "Semaine": "Week",
   "Séparateur": "Spacer",
   "Séparateur réglable": "Adjustable spacer",

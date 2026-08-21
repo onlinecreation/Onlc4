@@ -35,7 +35,7 @@ plugin même si `content_css` change.
 | ⧉ | Dupliquer le bloc |
 | ✕ | Supprimer le bloc |
 | ⤒ | Sélectionner le bloc parent (colonne, ligne, section) |
-| 🌐 | Langue du bloc — n'apparaît que si [`onlcmultilang`](onlcmultilang.md) est chargé |
+| 🌐 | Langue du bloc — n'apparaît que si [`onlcmultilang`](onlcmultilang.md) est chargé, et jamais sur une partie intérieure d'un bloc prédéfini |
 | ＋ | Ajouter un bloc avant ou après. Le bouton du haut n'apparaît que sur le premier bloc d'un conteneur : ailleurs, celui du bas du bloc précédent occupe déjà cet espace |
 
 Chaque bouton fait **50 × 50 pixels**, comme les commandes des dialogues. Ils étaient dessinés
@@ -46,6 +46,19 @@ Les zones « Ajouter un bloc au début » et « Ajouter un bloc à la fin » son
 flux du document**, avant le premier bloc et après le dernier : elles ne recouvrent jamais le
 contenu. La barre d'outils, les boutons ＋ et ces zones portent `data-mce-bogus="all"` : rien
 de tout cela n'est enregistré dans le contenu.
+
+### Rien qui déborde
+
+Deux précautions, prises parce qu'une barre de défilement horizontale apparaissait dans des pages
+qui n'avaient rien à faire défiler :
+
+* les zones d'ajout imposent leur propre `box-sizing` ; large de 100 % plus vingt-quatre pixels de
+  retrait et deux de filet, une zone dépassait de vingt-six pixels dans tout document dont la
+  feuille de style ne pose pas de règle globale `border-box` — c'est-à-dire la plupart ;
+* les **gouttières négatives** des lignes de grille de premier niveau sont remises à zéro. Une
+  ligne Bootstrap porte `margin: 0 -12px`, qu'un conteneur compense sur la page publiée ; dans la
+  zone d'écriture il n'y en a pas. Seules les lignes posées directement dans le corps du document
+  sont concernées : ailleurs, le retrait de la colonne ou du conteneur les compense déjà.
 
 ### La langue d'un bloc
 
@@ -59,6 +72,15 @@ toujours de quel bloc elle parle.
 
 Le menu est dessiné **dans la couche de l'overlay**, pas dans l'interface du thème : un menu du
 thème s'ouvrirait par-dessus l'iframe, à un autre endroit que le bouton qu'on vient de cliquer.
+
+Le globe **disparaît à l'intérieur d'un bloc prédéfini** — le titre d'un bandeau, la légende
+d'une visionneuse. La structure de ces blocs appartient au plugin qui la dessine, et une section
+de langue glissée entre leurs parties la disloque : on y donne une langue à du texte sélectionné,
+par le menu « Langues ». Le bloc entier, lui, se marque normalement ; **⤒** amène la barre sur
+lui, globe compris.
+
+Une **section de langue** compte comme un conteneur : ses blocs se déplacent et s'y déposent comme
+partout ailleurs, et c'est bien le bloc visé qui reçoit la barre, pas la section.
 
 `onlcblocks` ne dépend pas de `onlcmultilang` — le bouton n'apparaît que si le plugin est chargé
 et déclare au moins une langue, et la barre reste identique sans lui.
@@ -101,7 +123,7 @@ Le point de rupture est `sm` par défaut : une ligne produit `col-sm-4`, `col-sm
 | Option | Défaut | Description |
 | --- | --- | --- |
 | `onlc_blocks_enabled` | `true` | Active l'interface au démarrage (`OnlcBlocksToggle` la bascule) |
-| `onlc_blocks_containers` | `.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col` | Éléments considérés comme des conteneurs de blocs |
+| `onlc_blocks_containers` | `.row,.container,.container-fluid,section,article,aside,main,header,footer,[class*="col-"],.col,[data-onlc-lang]` | Éléments considérés comme des conteneurs de blocs |
 | `onlc_blocks_exclude` | `li,td,th,thead,tbody,tfoot,tr,figcaption,caption,option,legend` | Éléments qui ne reçoivent jamais d'outils |
 | `onlc_blocks_row_class` | `row` | Classe d'une ligne de grille |
 | `onlc_blocks_breakpoint` | `sm` | Point de rupture des colonnes (`sm`, `md`, `lg`, `xl`, `xxl`, ou vide) |

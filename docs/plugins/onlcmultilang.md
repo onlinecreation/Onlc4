@@ -55,7 +55,8 @@ Deux endroits, et un seul geste dans chacun.
 et supprime déjà. Un bouton en plus, un globe : il ouvre la liste des langues du site, et affiche
 le code de celle qui est posée (`FR`, `NL`) dès qu'il y en a une. C'est le chemin habituel, et
 c'est le seul qui marche à coup sûr sur un bloc de média — un bandeau, une carte, un séparateur —
-qu'un clic ne parvient pas toujours à sélectionner.
+qu'un clic ne parvient pas toujours à sélectionner. Il ne s'affiche pas sur les parties intérieures
+d'un bloc prédéfini, où seul le marquage en ligne a un sens (voir plus bas).
 
 **Dans le menu « Langues »** de la barre d'outils principale, pour tout le reste :
 
@@ -97,6 +98,37 @@ L'affichage par langue est **entièrement en css** : une classe posée sur le co
 et des règles qui masquent les sections des autres langues. Rien n'est déplacé, rien n'est
 retiré ; un enregistrement fait pendant un aperçu ne peut donc pas amputer la page.
 
+### À l'intérieur d'un bloc prédéfini
+
+Un bloc prédéfini — un bandeau, une visionneuse de pdf, une galerie — a une structure qui
+appartient au plugin qui la dessine : ses classes, son placement, ses parties décoratives. Un
+`div` de section glissé entre ces parties la disloque, et la prochaine relecture du bloc la
+reconstruit sans lui.
+
+À l'intérieur, seul le marquage **en ligne** est donc possible : on sélectionne du texte, on lui
+donne une langue. Le globe disparaît de la barre de ces blocs — un bouton qui ne ferait rien vaut
+moins que pas de bouton — et le menu « Langues » y propose, à la place du geste habituel,
+« Sélectionnez du texte pour lui donner une langue ».
+
+Le bloc **entier**, lui, se marque normalement : la section se pose autour de lui et ne touche à
+rien de ce qu'il contient. C'est le moyen de réserver un bandeau à une langue. Depuis l'intérieur
+du bloc, le bouton **⤒ Sélectionner le bloc parent** amène la barre sur le bloc lui-même, globe
+compris.
+
+La liste des éléments concernés se règle par `onlc_multilang_inline_only` ; une valeur vide lève
+la restriction.
+
+### Les sections comme conteneurs
+
+Une section de bloc contient des blocs : elle figure donc dans `onlc_multilang_containers` et dans
+`onlc_blocks_containers`. C'est ce qui permet de déplacer les blocs qu'elle contient et d'y en
+déposer d'autres. Sans cela, une section entière comptait pour un seul bloc et son contenu était
+inatteignable.
+
+Donner une langue à un bloc **déjà dans une section** change la langue de la section, il n'en crée
+pas une seconde à l'intérieur : les deux écritures du site ne s'imbriquent pas, et une section dans
+une autre tairait tout ce qu'elle contient.
+
 ## Options
 
 | Option | Défaut | Description |
@@ -106,6 +138,7 @@ retiré ; un enregistrement fait pendant un aperçu ne peut donc pas amputer la 
 | `onlc_multilang_preview_language` | `''` | Langue affichée à l'ouverture ; vide : toutes |
 | `onlc_multilang_inject_styles` | `true` | Charge `css/onlcmultilang.css` dans la zone d'édition |
 | `onlc_multilang_containers` | comme `onlc_blocks_containers` | Éléments qui contiennent des blocs sans en être un : jusqu'où remonte un marquage |
+| `onlc_multilang_inline_only` | `'[data-onlc-widget]'` | Éléments à l'intérieur desquels seul le marquage en ligne est possible ; vide : aucune restriction |
 
 Une langue se déclare par son code sur deux lettres, ou par un objet quand on veut choisir
 l'intitulé :
@@ -224,6 +257,7 @@ langues.unmark();
 langues.markElement(bloc, 'nl');  // sur un élément désigné, sans passer par la sélection
 langues.unmarkElement(bloc);
 langues.codeOfElement(bloc);      // 'nl', ou '' si le bloc n'est marqué dans aucune langue
+langues.allowsBlockAt(bloc);      // false à l'intérieur d'un bloc prédéfini : là, seul l'en ligne
 langues.view('en');               // n'affiche que l'anglais ; '' les rend toutes
 langues.viewed();                 // 'en'
 langues.resolve('en');            // le contenu réduit à une langue

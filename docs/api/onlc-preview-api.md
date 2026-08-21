@@ -46,16 +46,40 @@ Les codes courts présents **dans le contenu** sont résolus eux aussi, avec les
 
 ## Les feuilles de style
 
-Les feuilles de la zone d'écriture sont ajoutées **à la fin du `<head>`**, après celles du
-gabarit. Ce sont celles que l'éditeur charge pour écrire ; sans elles, l'aperçu montrerait la
-même page avec une autre mise en forme, et ne servirait plus à grand-chose.
+Elles sont ajoutées **à la fin du `<head>`**, après celles du gabarit, en deux temps :
 
-Par défaut ce sont exactement celles de `content_css`. `onlc_preview_css` permet d'en donner une
-autre liste — un site dont la feuille d'écriture diffère de celle de publication, par exemple.
-Les adresses sont échappées et les schémas exécutables refusés.
+1. **celles que les plugins déclarent nécessaires à la page publiée** — l'allure d'un bandeau, la
+   grille d'un calendrier, la visionneuse d'un pdf, la taille d'un emoji, la parallaxe d'une
+   image. Elles sont livrées avec les plugins ; le projet n'a rien à en dire ;
+2. **celles du site** : `onlc_preview_css` si le projet l'a réglée, sinon son `content_css`. Elles
+   viennent en dernier et ont donc le dernier mot, comme dans la zone d'écriture.
 
-Les feuilles des plugins ne sont pas reprises : elles dessinent les cartes et les cadres de
-l'écriture, qui n'existent plus dans la page publiée.
+Les adresses sont rendues absolues, dédoublonnées, échappées, et les schémas exécutables refusés.
+Un nom d'habillage (`default`, `dark`) est écarté : ce n'est pas une adresse, mais une ressource
+interne de l'éditeur, qui ne décrit rien de la page publiée.
+
+Les feuilles **d'écriture** ne sont jamais reprises : le pointillé d'un bloc survolé, la pastille
+d'une section de langue, les hachures d'un espaceur vide n'existent pas dans la page publiée. Le
+partage se fait dans `hugerte/plugins/onlcshared/PublishedCss` — un plugin y range ce dont le site
+a besoin, et rien d'autre :
+
+```ts
+import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
+
+PublishedCss.declareSheets(editor, [ `${pluginUrl}/css/monplugin.css` ]);
+PublishedCss.declareRules(editor, `.${classe} { min-height: 4px; }`);
+```
+
+## L'adresse de base
+
+Le cadre reçoit son contenu par `srcdoc`, dans une origine opaque : la page n'a alors plus
+d'adresse propre, et une image en `/media/photo.jpg`, un pdf, une police appelée par le gabarit
+n'ont plus rien à quoi se rapporter — elles ne se chargent tout simplement pas, sans le moindre
+message.
+
+Une balise `<base>` posée en tête de `<head>` leur rend ce point de départ en une fois : celui du
+document où l'on écrit, c'est-à-dire le site. Un gabarit qui déclare déjà sa propre base garde la
+sienne, c'est un choix du site et non un oubli.
 
 ## Les valeurs
 
@@ -95,7 +119,7 @@ Le html est passé par `srcdoc` : rien n'est écrit sur le serveur pour un simpl
 
 | Option | Type | Défaut | Rôle |
 |---|---|---|---|
-| `onlc_preview_css` | `string[]` | le `content_css` de l'éditeur | feuilles ajoutées à la fin du `<head>` de l'aperçu |
+| `onlc_preview_css` | `string[]` | le `content_css` de l'éditeur | feuilles du **site** dans l'aperçu ; celles des plugins s'y ajoutent toujours |
 | `onlc_preview_template_url` | `string` | `''` | adresse de l'api rendant le gabarit |
 | `onlc_preview_template` | `string` | `''` | gabarit donné directement ; prioritaire |
 | `onlc_preview_values` | `object` | `{}` | valeurs des codes courts dans l'aperçu |

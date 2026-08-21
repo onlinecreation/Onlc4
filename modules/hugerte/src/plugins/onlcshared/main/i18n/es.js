@@ -441,6 +441,7 @@
   "script vide": "script vacío",
   "Secondaire": "Secundario",
   "Sélectionner le bloc parent": "Seleccionar el bloque contenedor",
+  "Sélectionnez du texte pour lui donner une langue": "Seleccione un texto para asignarle un idioma",
   "Semaine": "Semana",
   "Séparateur": "Separador",
   "Séparateur réglable": "Separador ajustable",

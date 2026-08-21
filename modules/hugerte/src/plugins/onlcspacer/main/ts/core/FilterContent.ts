@@ -2,6 +2,7 @@ import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import AstNode from 'hugerte/core/api/html/Node';
+import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 
 import * as Options from '../api/Options';
 
@@ -31,6 +32,11 @@ const setup = (editor: Editor): void => {
   });
 
   const cls = Options.getSpacerClass(editor);
+
+  // Seule la première règle décrit l'espaceur publié ; les deux autres — hachures et liseré de
+  // sélection — ne servent qu'à le voir pendant qu'on écrit.
+  PublishedCss.declareRules(editor, `.${cls} { position: relative; min-height: 4px; }`);
+
   editor.contentStyles.push(
     `.${cls} { position: relative; min-height: 4px; }` +
     `.${cls}[contenteditable="false"] { background-image: repeating-linear-gradient(135deg, rgba(0, 108, 231, 0.06), rgba(0, 108, 231, 0.06) 6px, transparent 6px, transparent 12px); outline: 1px dashed rgba(0, 108, 231, 0.4); outline-offset: -1px; }` +

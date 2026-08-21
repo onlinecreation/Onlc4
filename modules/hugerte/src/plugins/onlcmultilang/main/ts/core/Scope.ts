@@ -148,6 +148,26 @@ const containerFor = (editor: Editor, node: Node | null): Optional<HTMLElement> 
   return Optional.none();
 };
 
+/**
+ * Un bloc englobant peut-il être posé **autour** de ce nœud ?
+ *
+ * Non lorsqu'il se trouve à l'intérieur d'un bloc prédéfini : le markup d'un bandeau ou d'une
+ * visionneuse appartient au plugin qui le dessine, et un `div` de section glissé entre ses parties
+ * le disloque — la prochaine relecture du bloc le reconstruira d'ailleurs sans lui. Là, seule une
+ * sélection de texte peut recevoir une langue.
+ *
+ * Le test porte sur les **ancêtres** du nœud, pas sur lui-même : une section posée autour d'un
+ * bandeau entier ne touche à rien de ce qu'il contient, et reste le moyen normal de le réserver à
+ * une langue.
+ */
+const allowsBlockAround = (editor: Editor, node: Node): boolean => {
+  const selector = Options.getInlineOnlySelector(editor).trim();
+  if (selector === '') {
+    return true;
+  }
+  return !Type.isNonNullable(editor.dom.getParent(node.parentNode, selector, editor.getBody()));
+};
+
 /** Tous les nœuds voisins de `first` à `last` inclus — les blancs entre eux compris. */
 const run = (first: Node, last: Node): Node[] => {
   const nodes: Node[] = [ first ];
@@ -191,6 +211,17 @@ const isInlineSelection = (editor: Editor, range: Range): boolean => {
 };
 
 /**
+ * Une portée de bloc, si l'endroit en accepte une.
+ *
+ * `Optional.none` lorsque les nœuds sont à l'intérieur d'un bloc prédéfini : on préfère ne rien
+ * faire — et le dire dans l'interface — plutôt que d'abîmer le bloc.
+ */
+const blockScope = (editor: Editor, nodes: Node[]): Optional<Scope> =>
+  nodes.length > 0 && Arr.forall(nodes, (node) => allowsBlockAround(editor, node))
+    ? Optional.some({ kind: 'block', nodes } as Scope)
+    : Optional.none<Scope>();
+
+/**
  * Ce que la sélection courante désigne.
  *
  * `Optional.none` quand il n'y a rien à marquer : une sélection hors du corps, ou un document
@@ -212,21 +243,34 @@ const resolve = (editor: Editor): Optional<Scope> => {
   return first.fold(
     // Rien qui soit un bloc : on est dans un conteneur, et c'est son contenu qu'on entoure.
     () => containerFor(editor, startNode)
-      .map((container) => ({ kind: 'block', nodes: Arr.from(container.childNodes) } as Scope)),
+      .bind((container) => blockScope(editor, Arr.from(container.childNodes))),
     (from) => {
       const to = last.getOr(from);
       const nodes = from.parentNode === to.parentNode ? run(from, to) : [ from ];
-      return Optional.some({ kind: 'block', nodes } as Scope);
+      return blockScope(editor, nodes);
     }
   );
 };
 
 /** Le bloc désigné par un élément précis — la barre d'outils des blocs passe par là. */
 const forElement = (editor: Editor, element: HTMLElement): Optional<Scope> =>
-  blockFor(editor, element).map((block) => ({ kind: 'block', nodes: [ block ] } as Scope));
+  blockFor(editor, element).bind((block) => blockScope(editor, [ block ]));
+
+/**
+ * La langue de cet élément peut-elle être réglée d'un seul geste, sans rien sélectionner ?
+ *
+ * C'est la question que pose la barre d'outils des blocs avant d'afficher son bouton : sur un
+ * morceau de bandeau, la réponse est non, et un bouton qui ne ferait rien vaut moins que pas de
+ * bouton du tout.
+ */
+const allowsBlockFor = (editor: Editor, element: HTMLElement): boolean =>
+  forElement(editor, element).isSome();
 
 export {
   isContainer,
+  allowsBlockAround,
+  allowsBlockFor,
+  blockScope,
   outermostStatic,
   edgeNode,
   containerFor,

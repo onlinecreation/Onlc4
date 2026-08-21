@@ -24,7 +24,31 @@ const hasClass = (node: AstNode, cls: string): boolean => {
   return Type.isString(className) && Arr.contains(className.split(/\s+/), cls);
 };
 
-/** Découpe une chaîne html en segments de texte et segments de balise. */
+/**
+ * Éléments dont le contenu n'est pas du texte de page.
+ *
+ * Le corps d'un `<script>` est du javascript : `lignes[index]` y ressemble à s'y méprendre à un
+ * code court, et le remplacer par la valeur configurée — le plus souvent rien du tout — casse le
+ * script sans que rien ne le signale. Un `<style>` a le même problème avec ses sélecteurs, et le
+ * contenu d'un `<textarea>` est du texte brut que personne n'a demandé de résoudre.
+ *
+ * Ces éléments s'arrêtent à leur balise fermante et à elle seule : c'est ainsi que le navigateur
+ * les lit, et c'est pourquoi on peut la chercher directement.
+ */
+const rawTextElements = [ 'script', 'style', 'textarea', 'title' ];
+
+const rawTextName = (tag: string): string => {
+  const match = /^<([a-zA-Z][a-zA-Z0-9]*)/.exec(tag);
+  const name = match === null ? '' : match[1].toLowerCase();
+  return Arr.contains(rawTextElements, name) && !/\/>$/.test(tag) ? name : '';
+};
+
+/**
+ * Découpe une chaîne html en segments de texte et segments de balise.
+ *
+ * Le contenu des éléments à texte brut est rendu avec leur balise ouvrante, en un seul segment
+ * non textuel : il traverse ainsi les remplacements sans y être soumis.
+ */
 const segments = (html: string): Array<{ text: boolean; value: string }> => {
   const parts: Array<{ text: boolean; value: string }> = [];
   let index = 0;
@@ -43,8 +67,21 @@ const segments = (html: string): Array<{ text: boolean; value: string }> => {
       parts.push({ text: false, value: html.substring(open) });
       break;
     }
-    parts.push({ text: false, value: html.substring(open, close + 1) });
-    index = close + 1;
+
+    const tag = html.substring(open, close + 1);
+    const raw = rawTextName(tag);
+    if (raw === '') {
+      parts.push({ text: false, value: tag });
+      index = close + 1;
+      continue;
+    }
+
+    // Sans balise fermante, le reste de la chaîne appartient à l'élément : c'est aussi ce que
+    // ferait le navigateur, et rien n'y est donc résolu.
+    const end = new RegExp(`</${raw}\\s*>`, 'i').exec(html.substring(close + 1));
+    const stop = end === null ? html.length : close + 1 + end.index + end[0].length;
+    parts.push({ text: false, value: html.substring(open, stop) });
+    index = stop;
   }
 
   return parts;

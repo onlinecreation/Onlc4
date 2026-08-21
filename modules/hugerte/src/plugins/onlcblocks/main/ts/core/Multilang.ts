@@ -19,6 +19,7 @@ interface MultilangPluginApi {
   readonly markElement: (element: HTMLElement, code: string) => void;
   readonly unmarkElement: (element: HTMLElement) => void;
   readonly codeOfElement: (element: HTMLElement) => string;
+  readonly allowsBlockAt: (element: HTMLElement) => boolean;
 }
 
 const apiOf = (editor: Editor): MultilangPluginApi | null => {
@@ -42,6 +43,22 @@ const codeOf = (editor: Editor, block: HTMLElement): string => {
   return api === null ? '' : api.codeOfElement(block);
 };
 
+/**
+ * Ce bloc accepte-t-il qu'on lui donne une langue depuis sa barre ?
+ *
+ * Non lorsqu'il est une partie d'un bloc prédéfini — le titre d'un bandeau, la légende d'une
+ * visionneuse : sa structure appartient au plugin qui la dessine, et une section glissée entre ses
+ * morceaux le disloque. À l'intérieur, la langue se pose sur du texte sélectionné, par le menu
+ * « Langues ». Le bouton disparaît donc plutôt que de ne rien faire.
+ *
+ * Une version du plugin polyglotte qui ne connaîtrait pas encore la question répond oui : c'est
+ * l'état d'avant, et il vaut mieux qu'un bouton absent.
+ */
+const allowsBlock = (editor: Editor, block: HTMLElement): boolean => {
+  const api = apiOf(editor);
+  return api === null || !Type.isFunction(api.allowsBlockAt) || api.allowsBlockAt(block);
+};
+
 /** Une valeur vide retire le marquage : « aucune langue » veut dire « visible par tous ». */
 const set = (editor: Editor, block: HTMLElement, code: string): void => {
   const api = apiOf(editor);
@@ -59,6 +76,7 @@ export {
   apiOf,
   isAvailable,
   languages,
+  allowsBlock,
   codeOf,
   set
 };

@@ -175,6 +175,29 @@ const register = (editor: Editor): void => {
     default: {}
   });
 
+  /**
+   * Jetons du bac à sable de l'aperçu.
+   *
+   * L'aperçu montre la page telle qu'un visiteur la recevra : ses polices d'icônes, ses
+   * intégrations, ses blocs qui vont chercher un fichier sur le site. Toutes ces choses ont besoin
+   * d'une **origine** — une page sans origine propre ne peut ni charger une police (le chargement
+   * d'une police est toujours soumis au contrôle d'origine), ni lire un fichier du site, ni loger
+   * une intégration tierce, qui hériterait de son isolement.
+   *
+   * `allow-same-origin` la lui rend. Le prix est réel et il faut le connaître : l'aperçu est alors
+   * dans la même origine que le back-office, et un script de la page — celui du gabarit, ou celui
+   * qu'un rédacteur a collé dans un bloc « Script » — peut atteindre le document qui l'entoure.
+   *
+   * Un projet qui préfère l'isolement stricte met `'allow-scripts'` : la page est alors sans
+   * origine, et l'aperçu perd ses icônes, ses pdf et ses intégrations. Un projet qui veut les deux
+   * sert le back-office et le site depuis **deux origines distinctes** : `allow-same-origin` ne
+   * désigne alors plus que celle du site.
+   */
+  registerOption('onlc_preview_sandbox', {
+    processor: 'string',
+    default: 'allow-scripts allow-same-origin allow-popups allow-forms allow-presentation'
+  });
+
 };
 
 const getCustomWidgets = option<WidgetDefinition[]>('onlc_widgets_custom');
@@ -247,6 +270,7 @@ const getPreviewCss = (editor: Editor): string[] =>
  */
 const getPreviewRules = (editor: Editor): string[] => PublishedCss.rules(editor);
 
+const getPreviewSandbox = option<string>('onlc_preview_sandbox');
 const getPreviewTemplate = option<string>('onlc_preview_template');
 const getPreviewTemplateUrl = option<string>('onlc_preview_template_url');
 const getPreviewValues = option<Record<string, PreviewValue>>('onlc_preview_values');
@@ -260,6 +284,7 @@ export {
   register,
   getPreviewCss,
   getPreviewRules,
+  getPreviewSandbox,
   getPreviewTemplate,
   getPreviewTemplateUrl,
   getPreviewValues,

@@ -84,7 +84,7 @@ La bibliothèque s'ouvre sur une recherche et un onglet par catégorie.
 | Bouton d'appel à l'action | Actions | texte, lien, cible, `rel`, style, taille, alignement, pleine largeur |
 | Hero | Mise en avant | titre, sous-titre, image de fond, hauteur, voile, bouton, **style du texte** |
 | Bloc de texte | Contenu | titre, texte, alignement, largeur maximale, **style du texte** |
-| Texte déployable | Contenu | titre cliquable, texte déplié, déplié au chargement, présentation |
+| Texte déployable | Contenu | titre cliquable, texte déplié, déplié au chargement, présentation. Le chevron est **dessiné par la feuille du plugin**, pas emprunté au marqueur natif : celui-ci n'a pas la même forme d'un navigateur à l'autre, ne se style pas de la même façon, et disparaît au premier `summary { display: block }` du thème du site — le titre devenait alors un texte en gras sur lequel rien n'invitait à cliquer |
 | Calendrier du mois | Contenu | titre, mois, premier jour de la semaine, couleur, rendez-vous |
 | Séparateur | Contenu | hauteur, espace ou filet, couleur, largeur |
 | Citation | Contenu | citation, auteur, source |
@@ -227,6 +227,7 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_preview_template` | `''` | Gabarit donné directement ; prioritaire sur l'adresse |
 | `onlc_preview_values` | `{}` | Valeurs des codes courts dans l'aperçu |
 | `onlc_preview_css` | `content_css` de l'éditeur | Feuilles du **site** dans l'aperçu ; celles des plugins s'y ajoutent toujours |
+| `onlc_preview_sandbox` | `allow-scripts allow-same-origin allow-popups allow-forms allow-presentation` | Jetons du bac à sable du cadre d'aperçu |
 
 ### Ajouter un bloc maison
 
@@ -399,7 +400,9 @@ fois — c'est ce que verra un visiteur, et une page qui les empilerait ne montr
 réelle. La réduction est faite sur la page **assemblée**, gabarit compris, exactement dans
 l'ordre du moteur du site.
 
-La page s'affiche dans un cadre `sandbox="allow-scripts"` **sans** `allow-same-origin` : les
-scripts du gabarit tournent, mais dans une origine opaque, sans accès aux cookies du back-office
-ni au document qui les contient. Le contrat complet est décrit dans
-[`docs/api/onlc-preview-api.md`](../api/onlc-preview-api.md).
+La page est servie par une adresse **`blob:`**, pas par `srcdoc` : un document logé dans un
+attribut arrive tronqué au-delà d'une dizaine de milliers de caractères dès que le cadre est isolé,
+sans le moindre message. Le bac à sable du cadre se règle par `onlc_preview_sandbox` ; il comprend
+`allow-same-origin` par défaut, faute de quoi les polices d'icônes, les pdf et les intégrations
+tierces ne fonctionnent pas. Le contrat complet, et les deux façons de retrouver l'isolement, sont
+décrits dans [`docs/api/onlc-preview-api.md`](../api/onlc-preview-api.md).

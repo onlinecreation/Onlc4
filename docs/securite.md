@@ -69,11 +69,23 @@ l'écriture du markup.
   javascript. Une chaîne contenant `</script>` ne peut donc pas refermer la balise.
 * **Nombres** — toute valeur qui finit dans du code javascript (coordonnées, zoom, dimensions)
   passe par `Common.number` / `Common.integer`, qui la bornent et retombent sur une valeur sûre.
-* **Aperçu visiteur** — la page est montée dans un cadre `sandbox="allow-scripts"` **sans**
-  `allow-same-origin`. Les scripts du gabarit tournent — sinon l'aperçu ne montrerait ni menu
-  déroulant ni carrousel — mais dans une origine opaque : ils ne voient ni les cookies de session
-  du back-office ni le document qui les contient. `allow-modals` n'est pas accordé, de sorte
-  qu'une page d'aperçu ne peut pas bloquer l'éditeur derrière une boîte.
+* **Aperçu visiteur** — la page est montée dans un cadre dont le bac à sable se règle par
+  `onlc_preview_sandbox`. Il comprend `allow-same-origin` par défaut, et c'est un compromis
+  assumé : une page **sans origine** ne peut charger aucune police (le chargement d'une police est
+  toujours soumis au contrôle d'origine), ne peut lire aucun fichier du site, et toute intégration
+  tierce qu'elle contient hérite de son isolement et refuse de démarrer. Un aperçu ainsi isolé
+  montre une page dont les icônes sont vides, le pdf absent et la vidéo noire — il ne montre plus
+  la page du visiteur, ce qui est sa seule raison d'être.
+
+  En contrepartie, l'aperçu partage l'origine du back-office : un script de la page peut atteindre
+  le document qui l'entoure. Deux façons de le refermer, décrites dans
+  [l'api d'aperçu](api/onlc-preview-api.md) : `onlc_preview_sandbox: 'allow-scripts'` pour
+  l'isolement strict, ou — recommandé en production — **servir le site et le back-office depuis
+  deux origines distinctes**, auquel cas `allow-same-origin` ne désigne plus que celle du site.
+
+  `allow-modals` n'est jamais accordé, de sorte qu'une page d'aperçu ne peut pas bloquer l'éditeur
+  derrière une boîte ; `allow-top-navigation` non plus, elle ne peut donc pas quitter le
+  back-office.
 * **Codes courts** — les crochets sont retirés des valeurs et les guillemets deviennent `&quot;` :
   un attribut ne peut pas refermer le code au milieu. À l'enregistrement, le texte d'origine est
   réécrit **sans échappement** — c'est la seule façon de restituer au caractère près un code que
@@ -157,9 +169,9 @@ passent par l'encodage css décrit plus haut.
 
 Deux filets, décrits dans [tests.md](tests.md) :
 
-* une **suite automatisée** — 184 cas dans un navigateur, 66 en Node — dont plusieurs portent
-  précisément sur les garde-fous décrits ici : le bac à sable de l'aperçu (`allow-scripts` sans
-  `allow-same-origin`), le garde-fou du texte brut d'un code court, la revalidation d'un code de
+* une **suite automatisée** — 211 cas dans un navigateur, 66 en Node — dont plusieurs portent
+  précisément sur les garde-fous décrits ici : les jetons du bac à sable de l'aperçu et la
+  possibilité de le resserrer, le garde-fou du texte brut d'un code court, la revalidation d'un code de
   langue avant écriture, l'échappement des adresses posées en css, les types acceptés à l'envoi,
   et l'impossibilité pour un chemin d'api de sortir de la racine autorisée ;
 * un **contrôle de bout en bout** dans un navigateur réel (Chromium piloté par Playwright) sur la

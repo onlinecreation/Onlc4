@@ -72,10 +72,8 @@ PublishedCss.declareRules(editor, `.${classe} { min-height: 4px; }`);
 
 ## L'adresse de base
 
-Le cadre reçoit son contenu par `srcdoc`, dans une origine opaque : la page n'a alors plus
-d'adresse propre, et une image en `/media/photo.jpg`, un pdf, une police appelée par le gabarit
-n'ont plus rien à quoi se rapporter — elles ne se chargent tout simplement pas, sans le moindre
-message.
+L'adresse `blob:` du cadre n'est pas celle du site : une image en `/media/photo.jpg`, un pdf, une
+police appelée par le gabarit n'ont donc rien à quoi se rapporter, et ne se chargent pas.
 
 Une balise `<base>` posée en tête de `<head>` leur rend ce point de départ en une fois : celui du
 document où l'on écrit, c'est-à-dire le site. Un gabarit qui déclare déjà sa propre base garde la
@@ -101,25 +99,64 @@ Ces valeurs sont **de l'aperçu**, pas de la publication : elles peuvent être a
 formulaire de contact peut se résumer à une phrase, l'important étant que la page ait la bonne
 forme et la bonne hauteur.
 
+## Comment la page est servie
+
+Par une adresse **`blob:`**, que le navigateur charge comme n'importe quelle page. Rien n'est
+écrit sur le serveur pour autant : l'adresse ne vit que dans l'onglet, et elle est révoquée dès
+que l'aperçu change ou se ferme.
+
+Elle ne passe **pas** par `srcdoc`. Un document logé dans un attribut doit être transmis d'un
+processus à l'autre dès que le cadre est isolé, et au-delà d'une dizaine de milliers de caractères
+il arrive **tronqué**. Rien ne le signale : l'analyseur referme les balises ouvertes et rend une
+page complète, amputée de sa fin. Une page de démonstration y perdait sept blocs sur treize — la
+visionneuse de pdf et la vidéo n'étaient pas cassées, elles n'existaient pas.
+
 ## Ce que l'aperçu exécute
 
-La page est affichée dans un cadre portant `sandbox="allow-scripts"`, **sans**
-`allow-same-origin`. Conséquences :
+Les jetons du bac à sable viennent de `onlc_preview_sandbox`. Par défaut :
 
-* les scripts du gabarit tournent — sans eux, ni menu déroulant ni carrousel, et l'aperçu ne
-  montrerait pas grand-chose ;
-* ils s'exécutent dans une **origine opaque** : ils ne voient ni les cookies de session du
-  back-office, ni le document qui les contient ;
-* `alert()`, `confirm()` et `prompt()` sont ignorés (`allow-modals` n'est pas accordé) — une page
-  d'aperçu n'a pas à pouvoir bloquer l'éditeur.
+```
+allow-scripts allow-same-origin allow-popups allow-forms allow-presentation
+```
 
-Le html est passé par `srcdoc` : rien n'est écrit sur le serveur pour un simple aperçu.
+* les scripts du gabarit tournent — sans eux, ni menu déroulant ni carrousel ;
+* `alert()`, `confirm()` et `prompt()` sont ignorés (`allow-modals` n'est pas accordé) : une page
+  d'aperçu n'a pas à pouvoir bloquer l'éditeur ;
+* la navigation de la fenêtre entière est refusée (`allow-top-navigation` non plus).
+
+### Pourquoi `allow-same-origin`
+
+Parce qu'une page **sans origine** ne peut presque rien faire de ce qu'une vraie page fait :
+
+| Sans `allow-same-origin` | Pourquoi |
+| --- | --- |
+| Les polices d'icônes ne s'affichent pas | Le chargement d'une police est **toujours** soumis au contrôle d'origine ; depuis une origine opaque la requête part avec `Origin: null` et le serveur la refuse |
+| La visionneuse de pdf reste vide | Elle va chercher le fichier sur le site : requête inter-origines, refusée |
+| Une intégration tierce (YouTube, une carte) reste noire | Un cadre imbriqué **hérite** de l'isolement du cadre parent : le lecteur perd sa propre origine et refuse de démarrer |
+
+En contrepartie, l'aperçu partage l'origine du back-office : un script de la page — celui du
+gabarit, ou celui qu'un rédacteur a collé dans un bloc « Script » — peut atteindre le document qui
+l'entoure.
+
+### Les deux façons de retrouver l'isolement
+
+**Isolement strict** — le projet accepte un aperçu approximatif :
+
+```js
+onlc_preview_sandbox: 'allow-scripts'
+```
+
+**Isolement réel, sans rien perdre** — servir le back-office et le site depuis **deux origines
+distinctes** (`admin.exemple.fr` et `www.exemple.fr`). `allow-same-origin` ne désigne alors plus
+que l'origine du site, et le back-office reste hors d'atteinte. C'est la configuration
+recommandée en production.
 
 ## Options
 
 | Option | Type | Défaut | Rôle |
 |---|---|---|---|
 | `onlc_preview_css` | `string[]` | le `content_css` de l'éditeur | feuilles du **site** dans l'aperçu ; celles des plugins s'y ajoutent toujours |
+| `onlc_preview_sandbox` | `string` | `allow-scripts allow-same-origin allow-popups allow-forms allow-presentation` | jetons du bac à sable du cadre d'aperçu |
 | `onlc_preview_template_url` | `string` | `''` | adresse de l'api rendant le gabarit |
 | `onlc_preview_template` | `string` | `''` | gabarit donné directement ; prioritaire |
 | `onlc_preview_values` | `object` | `{}` | valeurs des codes courts dans l'aperçu |

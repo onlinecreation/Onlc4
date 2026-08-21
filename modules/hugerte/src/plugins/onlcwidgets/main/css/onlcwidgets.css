@@ -413,10 +413,45 @@
   border-bottom: 1px solid rgba(34, 47, 62, 0.15);
 }
 
+/**
+ * Le chevron du titre déployable.
+ *
+ * Il est **dessiné ici**, et le marqueur natif est retiré. Trois raisons, et la troisième est
+ * celle qui a fait le bug : le marqueur natif n'a pas la même forme d'un navigateur à l'autre, il
+ * ne se style pas de la même façon (`::marker` d'un côté, `::-webkit-details-marker` de l'autre),
+ * et surtout **n'importe quelle feuille de style du site le fait disparaître** — il suffit d'un
+ * `summary { display: block }` ou d'un `list-style: none` dans le thème. Le titre devenait alors
+ * un texte en gras sur lequel rien n'invitait à cliquer.
+ *
+ * Le triangle est tracé avec des bordures : ni police, ni image, ni caractère. Il prend la couleur
+ * du texte, et pivote d'un quart de tour quand le bloc est déplié.
+ */
 .onlc-details__summary {
   padding: 12px 0;
   font-weight: 600;
   cursor: pointer;
+  list-style: none;
+}
+
+.onlc-details__summary::-webkit-details-marker {
+  display: none;
+}
+
+.onlc-details__summary::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 10px;
+  vertical-align: 0.05em;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid currentColor;
+  transition: transform 0.15s ease-in-out;
+}
+
+.onlc-details[open] > .onlc-details__summary::before {
+  transform: rotate(90deg);
 }
 
 .onlc-details__body {

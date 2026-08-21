@@ -58,7 +58,7 @@ inspecte le dom au moment où l'assertion tombe.
 | `onlcshared/…/browser/DestroyTest` | la confirmation par maintien : annulation au relâchement, suppression au bout, une seule fois |
 | `onlcshared/…/browser/DialogStylesTest` | onglets, croix de fermeture centrée, cibles tactiles, pied dans le cadre, intitulé non répété |
 | `onlcwidgets/…/browser/LibraryMergeTest` | la bibliothèque unique : les deux catalogues, la recherche, l'aiguillage des cartes |
-| `onlcwidgets/…/browser/PreviewDialogTest` | le bac à sable de l'aperçu, le remplissage, les trois largeurs |
+| `onlcwidgets/…/browser/PreviewDialogTest` | la page servie par une adresse et non par un attribut, les jetons du bac à sable et la possibilité de le resserrer, le remplissage, les trois largeurs |
 | `onlcmedia/…/browser/FinderLibraryTest` | arborescence et chargement à la demande, actif au survol, quota, historique |
 | `onlcmultilang/…/browser/MultilangTest` | l'aller-retour à l'identique, span ou div, marquer/compléter/retirer, aperçu par langue, codes forgés |
 | `onlcmultilang/…/browser/ScopeTest` | ce que le marquage englobe : en ligne ou bloc, la colonne Bootstrap qui survit, le curseur laissé dans la section, le bandeau où seul l'en ligne est possible |

@@ -3,20 +3,38 @@ import { Arr, Fun } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
 
+import * as Options from '../api/Options';
 import * as Multilang from '../core/Multilang';
 import * as PagePreview from '../core/PagePreview';
 
 /**
- * Fenêtre d'aperçu : la page entière, dans un cadre isolé.
+ * Fenêtre d'aperçu : la page entière, dans un cadre.
  *
- * Le cadre porte `sandbox="allow-scripts"` **sans** `allow-same-origin`. Les deux jetons pris
- * ensemble annuleraient le bac à sable, puisque la page pourrait alors se dé-sandboxer
- * elle-même ; pris séparément, `allow-scripts` seul donne exactement ce qu'il faut : les
- * scripts du gabarit tournent — sans eux l'aperçu ne montrerait ni menu déroulant ni carrousel —
- * mais dans une origine opaque, d'où ils ne voient ni les cookies du back-office ni le document
- * qui les contient.
+ * ## Pourquoi la page n'est plus passée par `srcdoc`
  *
- * Le contenu est passé par `srcdoc` : rien n'est écrit sur le serveur pour un simple aperçu.
+ * `srcdoc` transporte le document dans un **attribut**. Dès que le cadre est isolé dans une
+ * origine à part, il est peint par un autre processus, et l'attribut doit lui être transmis d'un
+ * processus à l'autre : passé une dizaine de milliers de caractères, il arrive **tronqué**. Ce
+ * n'est pas une erreur visible — l'analyseur referme simplement les balises ouvertes et rend une
+ * page complète, amputée de sa fin. Une page de démonstration y perdait sept blocs sur treize,
+ * dont la visionneuse de pdf et la vidéo : ils n'étaient pas cassés, ils n'existaient pas.
+ *
+ * Le document est donc servi par une adresse `blob:`, que le navigateur charge comme n'importe
+ * quelle page. Rien n'est écrit sur le serveur pour autant : l'adresse ne vit que dans l'onglet,
+ * et elle est révoquée dès que l'aperçu change ou se ferme.
+ *
+ * ## Ce que le bac à sable laisse passer
+ *
+ * Les jetons viennent de `onlc_preview_sandbox`. Ils comprennent `allow-same-origin` par défaut,
+ * et c'est un choix qu'il faut connaître : une page **sans origine** ne peut ni charger une police
+ * — le chargement d'une police est toujours soumis au contrôle d'origine —, ni lire un fichier du
+ * site, ni loger une intégration tierce, qui hériterait de son isolement. Sans ce jeton, l'aperçu
+ * montre une page dont les icônes sont vides, le pdf absent et la vidéo noire : il ne montre plus
+ * la page du visiteur, ce qui est sa seule raison d'être.
+ *
+ * En contrepartie, l'aperçu partage l'origine du back-office. Le commentaire de l'option dit
+ * comment retrouver les deux à la fois — en servant le site depuis une autre origine — et comment
+ * revenir à l'isolement strict.
  */
 
 const styleId = 'onlc-preview-styles';
@@ -35,6 +53,10 @@ const styles = `
 .tox .onlc-pagepreview__stage { display: flex; flex: 1 1 auto; justify-content: center; min-height: 0; background: #eef1f4; border-radius: 8px; padding: 12px; }
 .tox .onlc-pagepreview__frame { width: 100%; max-width: 100%; height: 100%; border: 0; border-radius: 6px; background: #ffffff; box-shadow: 0 1px 6px rgba(0, 0, 0, .18); }
 .tox .onlc-pagepreview__message { margin: auto; padding: 24px; color: #5a6570; text-align: center; }
+/* Posé par-dessus le cadre pendant qu'il charge : le sortir du flux évite de déplacer l'iframe,
+   ce qui rechargerait sa page et rejouerait tous ses scripts. */
+.tox .onlc-pagepreview__stage { position: relative; }
+.tox .onlc-pagepreview__message--over { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #eef1f4; border-radius: 8px; }
 .tox .onlc-pagepreview__spacer { flex: 1 1 auto; }
 .tox .onlc-pagepreview__group { display: flex; gap: 8px; align-items: center; }
 .tox .onlc-pagepreview__legend { color: #5a6570; }
@@ -157,34 +179,52 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     stage.appendChild(paragraph);
   };
 
+  /** Adresse `blob:` du document affiché, révoquée dès qu'une autre prend sa place. */
+  let objectUrl = '';
+
+  const releaseUrl = () => {
+    if (objectUrl !== '') {
+      URL.revokeObjectURL(objectUrl);
+      objectUrl = '';
+    }
+  };
+
   /**
-   * Le cadre est construit **une fois la page prête**, avec son contenu déjà en place.
+   * Le cadre est construit **une fois la page prête**, avec son adresse déjà posée.
    *
-   * Un iframe déplacé dans le dom recharge son document : lui poser `srcdoc` avant de l'attacher,
-   * puis l'attacher une seule fois, évite d'avoir à deviner quand il est réellement en place.
+   * Il n'est attaché qu'une seule fois et n'est plus jamais déplacé : sortir un iframe du dom puis
+   * l'y remettre recharge son document, ce qui rejouerait tous les scripts de la page. Le message
+   * d'attente est donc un élément à part, posé par-dessus, que l'on retire au lieu de vider la
+   * scène.
    */
   const show = (html: string) => {
+    releaseUrl();
+    objectUrl = URL.createObjectURL(new Blob([ html ], { type: 'text/html;charset=utf-8' }));
+
     const created = doc.createElement('iframe');
     created.className = 'onlc-pagepreview__frame';
-    // `allow-scripts` sans `allow-same-origin` : les scripts du gabarit tournent, mais dans une
-    // origine opaque, sans accès aux cookies ni au document du back-office.
-    created.setAttribute('sandbox', 'allow-scripts');
+    created.setAttribute('sandbox', Options.getPreviewSandbox(editor));
     created.setAttribute('title', t('Aperçu de la page'));
     // Le gabarit charge ses feuilles et ses scripts depuis les serveurs du site : le référent
     // n'a pas à leur apprendre d'où l'on écrit.
     created.setAttribute('referrerpolicy', 'no-referrer');
-    created.setAttribute('srcdoc', html);
+    created.setAttribute('src', objectUrl);
 
     // Le cadre est adopté tout de suite, avant même d'avoir peint : une largeur choisie pendant
     // le chargement doit s'appliquer, pas se perdre.
     frame = created;
-    apply();
 
     // Le gabarit charge ses feuilles de style avant de peindre quoi que ce soit : sur une
-    // connexion lente, le cadre reste blanc plusieurs secondes. Le message d'attente est donc
-    // gardé, et le cadre monté par-dessous, invisible.
-    created.style.visibility = 'hidden';
-    created.style.position = 'absolute';
+    // connexion lente, le cadre reste blanc plusieurs secondes. Le message d'attente reste donc
+    // affiché par-dessus, et le cadre travaille dessous.
+    const waiting = doc.createElement('p');
+    waiting.className = 'onlc-pagepreview__message onlc-pagepreview__message--over';
+    waiting.textContent = t('Construction de l’aperçu…');
+
+    stage.innerHTML = '';
+    stage.appendChild(created);
+    stage.appendChild(waiting);
+    apply();
 
     let shown = false;
     const reveal = () => {
@@ -192,11 +232,9 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
         return;
       }
       shown = true;
-      created.style.visibility = '';
-      created.style.position = '';
-      stage.innerHTML = '';
-      stage.appendChild(created);
-      apply();
+      if (waiting.parentNode !== null) {
+        waiting.parentNode.removeChild(waiting);
+      }
     };
 
     created.addEventListener('load', reveal, { once: true });
@@ -210,8 +248,6 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     created.addEventListener('load', () => {
       element.ownerDocument.defaultView?.clearTimeout(deadline);
     }, { once: true });
-
-    stage.appendChild(created);
   };
 
   /** Construit — ou reconstruit — l'aperçu pour la langue choisie. */
@@ -220,6 +256,7 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     message('Construction de l’aperçu…');
 
     PagePreview.render(editor, language === '' ? undefined : language).then(show, (err: unknown) => {
+      releaseUrl();
       message(`${t('L’aperçu n’a pas pu être construit')} : ${err instanceof Error ? err.message : String(err)}`);
     });
   };
@@ -234,6 +271,7 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     getValue: Fun.constant(''),
     setValue: Fun.noop,
     destroy: () => {
+      releaseUrl();
       element.innerHTML = '';
     }
   });

@@ -5,6 +5,17 @@
  * qu'il représente, et rien de tout cela ne se retrouve sur le site.
  */
 
+/* Le contenu de la page décide de son propre `box-sizing` ; les décorations de l'éditeur
+   décident du leur. Sans cette règle, un jeton large de 100 % plus son retrait et son filet
+   dépassait de vingt-six pixels dans tout document dont la feuille de style ne pose pas de
+   règle globale `border-box` — c'est-à-dire la plupart. La zone d'écriture montrait alors une
+   barre de défilement horizontale dès que la fenêtre se resserrait. */
+
+.onlc-shortcode,
+.onlc-shortcode * {
+  box-sizing: border-box;
+}
+
 .onlc-shortcode {
   display: flex;
   gap: 12px;

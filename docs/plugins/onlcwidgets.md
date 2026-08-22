@@ -43,6 +43,13 @@ rouvre la boîte de dialogue.
 Le widget HTML suit la même règle : l'éditeur montre son nom et les trois premières lignes de son
 code, la page reçoit le code lui-même.
 
+Le jeton **compte son retrait dans sa largeur**. Large de 100 % plus douze pixels de retrait de
+chaque côté et un de filet, il dépassait sinon de vingt-six pixels dans tout document dont la
+feuille de style ne pose pas de règle globale `border-box` — c'est-à-dire la plupart — et la zone
+d'écriture montrait une barre de défilement horizontale dès que la fenêtre descendait sous le
+millier de pixels. Le contenu de la page décide de son propre `box-sizing` ; les décorations de
+l'éditeur décident du leur. Le jeton d'un code court suit la même règle.
+
 À l'enregistrement, la pastille redevient une vraie balise :
 
 ```html

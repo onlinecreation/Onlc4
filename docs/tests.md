@@ -5,7 +5,7 @@ Deux suites, qui ne tournent pas au même endroit et ne coûtent pas le même te
 | Suite | Ce qu'elle couvre | Commande | Durée |
 |---|---|---|---|
 | **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs | `yarn test-node` | 74 épreuves, ~1 s |
-| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | 362 épreuves, ~90 s |
+| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | 371 épreuves, ~90 s |
 
 `yarn test` enchaîne les deux, plus les tests d'origine de HugeRTE.
 

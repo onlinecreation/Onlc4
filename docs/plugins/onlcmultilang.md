@@ -307,8 +307,10 @@ Le bouton porte le **nom de la langue en cours** et s'allume quand le mode est o
 premier coup d'œil qu'on n'écrit pas dans toutes les langues. Son icône — lettre latine et
 idéogramme — ne se confond pas avec le globe du bouton voisin, qui règle la langue d'un bloc. Il vivait au troisième niveau du
 menu des langues — « Langues › Travailler dans une seule langue › Français » —, c'est-à-dire
-nulle part : personne ne va chercher un mode de travail à trois crans de profondeur. L'entrée de
-menu reste, pour les projets qui préfèrent une barre d'outils courte.
+nulle part : personne ne va chercher un mode de travail à trois crans de profondeur. Il a
+maintenant sa **propre entrée** dans le menu « Outils » — c'est une façon de travailler, pas une
+propriété du contenu — en plus de rester accessible sous « Langues » pour les projets qui
+préfèrent une barre d'outils courte.
 
 Deux choses s'y produisent :
 

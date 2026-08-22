@@ -150,6 +150,7 @@ pour faciliter une remontée éventuelle en amont.
 | `themes/silver/ui/alien/DialogTabHeight.ts` | La hauteur des onglets était calculée d'après la fenêtre, sans tenir compte de la hauteur propre du dialogue : les boutons du bas se retrouvaient coupés. |
 | `oxide/…/dialog.less` | `min-height: 0` sur le corps du dialogue : un contenu haut poussait le pied de page hors du cadre. La chaîne complète (`content-js` → `body` → `form`) est complétée par `onlcshared/ui/DialogStyles`, qui s'applique sans recompiler l'habillage. |
 | `Gruntfile.js` (copie des icônes) | Le pack d'icônes s'enregistrait sur le global `tinymce`, inexistant dans HugeRTE : aucune icône ne se chargeait hors webpack. |
+| `themes/silver/ui/menus/menubar/Integration.ts` | Les listes par défaut des menus sont désormais **exportées**. L'option `menu` remplace la liste d'un menu et ne la complète jamais : un plugin qui veut y ranger une entrée doit connaître ces listes. Voir `onlcshared/ui/MenuEntries`, dont une épreuve compare sa copie à l'original. |
 
 ## Principes d'interface
 

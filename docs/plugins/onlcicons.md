@@ -60,6 +60,25 @@ comme elle est servie par le plugin, elle n'est jamais absente.
 Deux compléments automatiques dans le texte : `:sourire` propose des emojis, `::maison` des
 icônes.
 
+Les trois boutons ont leur **entrée de menu**, et « Emojis et icônes… » est rangée dans
+« Insertion » sans que le projet ait à configurer quoi que ce soit — voir
+[`onlcblocks`](onlcblocks.md#chaque-commande-a-son-entrée-de-menu). Une barre d'outils courte ne
+fait donc plus disparaître la fonction.
+
+## Changer une icône déjà posée
+
+Un **double clic** sur un emoji ou une icône rouvre le sélectionneur, et le choix suivant
+**remplace** l'icône au lieu d'en poser une seconde à côté : l'élément est sélectionné avant
+l'ouverture.
+
+Cela vaut aussi pour les icônes qu'aucun de ces boutons n'a insérées — `<i class="fa-solid
+fa-star">`, `<span class="material-icons">` — écrites à la main bien avant l'éditeur. Les
+reconnaître, c'est permettre de les changer sans passer par le code source.
+
+Un emoji est un `img`, et le plugin des médias l'ignore désormais : ses « propriétés d'image »
+n'ont aucun sens sur un dessin du catalogue, dont l'adresse n'est pas celle d'un fichier du site.
+C'est l'attribut `data-onlc-emoji` qui les distingue.
+
 ## Options
 
 | Option | Type | Défaut | Rôle |

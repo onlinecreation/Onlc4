@@ -66,6 +66,11 @@ qui n'avaient rien à faire défiler :
 * les zones d'ajout imposent leur propre `box-sizing` ; large de 100 % plus vingt-quatre pixels de
   retrait et deux de filet, une zone dépassait de vingt-six pixels dans tout document dont la
   feuille de style ne pose pas de règle globale `border-box` — c'est-à-dire la plupart ;
+* les **décorations posées dans le document** — le jeton d'un script, celui d'un code court —
+  imposent aussi leur `box-sizing`. Large de 100 % plus son retrait et son filet, un jeton
+  dépassait de vingt-six pixels, et la barre de défilement réapparaissait dès que la fenêtre
+  descendait sous le millier de pixels. Rien ne débordait au-dessus : c'est pourquoi la mesure
+  précédente, faite sur une fenêtre large, n'avait rien trouvé ;
 * les **gouttières négatives** des lignes de grille de premier niveau sont remises à zéro. Une
   ligne Bootstrap porte `margin: 0 -12px`, qu'un conteneur compense sur la page publiée ; dans la
   zone d'écriture il n'y en a pas. Seules les lignes posées directement dans le corps du document
@@ -243,12 +248,57 @@ Deux règles départagent les boutons quand plusieurs conviennent :
 Un bouton dont la cible ne **contient** pas le nœud visé n'est jamais retenu : sans cette
 condition, viser le titre d'une colonne ouvrirait l'image posée à côté.
 
+Le double clic sait sur **quoi** on a cliqué ; la barre des blocs, elle, ne le sait pas — elle
+apparaît au survol, et `BlockActions.matchIn` doit deviner sur quoi son bouton agira. `openFor`
+dépose donc le nœud visé sur l'objet éditeur le temps de départager les boutons, et `matchIn` le
+préfère à la sélection. Sans cela, un paragraphe portant trois icônes ne permettait d'en changer
+aucune : « le seul élément de ce genre » n'existait pas, et la sélection, après un double clic sur
+une icône dans un lien, désigne le lien.
+
 Rien ne s'ouvre sur un contenu **non modifiable** — l'image d'une vue de diaporama, par exemple :
-c'est le bloc entier qui répond, par son propre bouton. Rien ne s'ouvre non plus quand l'éditeur
+un bloc verrouillé ne répond que **dans son ensemble**, et aucun bouton visant son intérieur n'est
+retenu. C'est la contrepartie de la précision ci-dessus : sans elle, viser l'image d'une vue
+aurait ouvert le formulaire des images. Rien ne s'ouvre non plus quand l'éditeur
 est **en lecture seule** : la barre des blocs s'y retire déjà, et le double clic ne doit pas
 rouvrir par une autre porte des formulaires qui écrivent dans le document. Chaque plugin garde
 par ailleurs son écouteur de secours pour le cas où `onlcblocks` n'est pas chargé, sous la garde
 de `BlockActions.hasToolbar`.
+
+### Chaque commande a son entrée de menu
+
+Une barre d'outils est **courte**. Un projet en retire ce qui ne lui sert pas tous les jours, et
+ce jour-là la fonction disparaît : le bouton des icônes a ainsi cessé d'exister pour tout un site,
+parce qu'il avait été coupé d'une ligne de configuration.
+
+Le thème ne montre en effet dans « Insertion » ou « Outils » que ce que l'option `menu` énumère,
+et cette option est **remplacée**, jamais complétée : y ajouter une entrée obligeait à réécrire la
+liste entière de ce menu, valeurs par défaut comprises. Personne ne le fait.
+
+Un registre partagé, `onlcshared/ui/MenuEntries`, recompose donc l'option à partir de ce que le
+projet a écrit — ou, à défaut, des listes du thème, dont il garde une copie qu'une épreuve compare
+à l'original :
+
+```ts
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
+
+MenuEntries.declare(editor, 'insert', [ 'onlcimage', 'onlcmedialibrary' ]);
+```
+
+Voici où chaque plugin range les siennes :
+
+| Menu | Entrées |
+| --- | --- |
+| Insertion | Ajouter un bloc, Ajouter des colonnes, Image, Explorateur de fichiers, Lien, Supprimer le lien, Séparateur vertical, Emojis et icônes, Blocs prédéfinis, Script JavaScript, Code source HTML, Blocs et éléments du site, Diaporama |
+| Format | Langues |
+| Outils | Outils de blocs, Aperçu comme un visiteur, Travailler dans une seule langue, Référencement |
+
+Une entrée déjà présente dans la liste n'est pas ajoutée une seconde fois, et un menu que ni le
+projet ni le thème ne connaissent n'est pas inventé. Le registre vit sur l'objet éditeur :
+**l'ordre de chargement des plugins n'a aucun effet**.
+
+Les boutons des **barres contextuelles** — « Modifier le script », « Hauteur du séparateur »,
+« Disposition des colonnes » — n'ont pas d'entrée de menu : ils agissent sur l'objet qu'on vient
+de désigner, et une commande de menu ne désigne rien. C'est le double clic qui les ouvre.
 
 ### Ce qui n'est pas modifiable ne se sélectionne pas
 

@@ -679,6 +679,14 @@
     "This view holds more than a single image — several images, or a layout. It can be moved, but its content is never rewritten.",
     "Esta vista no contiene solo una imagen: son varias imágenes o una maquetación. Se puede mover, pero su contenido nunca se reescribe."
   ],
+  "Changer cet emoji": [
+    "Change this emoji",
+    "Cambiar este emoji"
+  ],
+  "Changer cette icône": [
+    "Change this icon",
+    "Cambiar este icono"
+  ],
   "Changer cette image": [
     "Change this image",
     "Cambiar esta imagen"
@@ -1279,6 +1287,10 @@
     "Emojis only",
     "Solo emojis"
   ],
+  "Emojis seuls...": [
+    "Emojis only...",
+    "Solo emojis..."
+  ],
   "Emplacement dans la page": [
     "Position in the page",
     "Ubicación en la página"
@@ -1578,6 +1590,10 @@
   "Icônes seules": [
     "Icons only",
     "Solo iconos"
+  ],
+  "Icônes seules...": [
+    "Icons only...",
+    "Solo iconos..."
   ],
   "Identifiant (ancre)": [
     "Identifier (anchor)",
@@ -2466,6 +2482,10 @@
   "Outil de test des moteurs…": [
     "Search engine test tool…",
     "Herramienta de prueba de los buscadores…"
+  ],
+  "Outils de blocs": [
+    "Block tools",
+    "Herramientas de bloques"
   ],
   "Outils nécessaires": [
     "Tools needed",

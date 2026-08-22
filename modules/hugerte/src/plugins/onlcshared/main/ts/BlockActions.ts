@@ -1,4 +1,4 @@
-import { Arr, Optional, Type } from '@ephox/katamari';
+import { Arr, Fun, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 
@@ -165,6 +165,62 @@ const hasToolbar = (editor: Editor): boolean =>
  * de tout bloc — dans une cellule de tableau, dans un élément de liste — n'en a pas, et garde
  * donc sa bulle.
  */
+/**
+ * Ouvre la configuration de l'objet qu'on vient de désigner — c'est ce que fait un double clic.
+ *
+ * Le bloc est résolu par `onlcblocks`, puis ses boutons de propriétés sont passés en revue. Celui
+ * dont la **cible est la plus profonde** l'emporte : un double clic sur une image dans un
+ * paragraphe doit ouvrir l'image, pas les propriétés du paragraphe. À profondeur égale, le plus
+ * petit `order` gagne.
+ *
+ * Rien ne s'ouvre sur un contenu **non modifiable** : un diaporama se manipule d'une pièce, et
+ * l'image d'une de ses vues n'a pas à ouvrir le formulaire des images. C'est le bloc entier qui
+ * répond, par son propre bouton.
+ */
+const openFor = (editor: Editor, node: Node | null): boolean => {
+  if (!Type.isNonNullable(node) || !hasToolbar(editor)) {
+    return false;
+  }
+
+  const plugin = (editor.plugins as Record<string, unknown>).onlcblocks as
+    { readonly blockAt?: (node: Node) => HTMLElement | null } | undefined;
+  if (!Type.isObject(plugin) || !Type.isFunction(plugin.blockAt)) {
+    return false;
+  }
+
+  const block = plugin.blockAt(node);
+  if (!Type.isNonNullable(block)) {
+    return false;
+  }
+
+  const depth = (element: HTMLElement): number => {
+    let steps = 0;
+    let current: Node | null = element;
+    while (Type.isNonNullable(current) && current !== block) {
+      steps += 1;
+      current = current.parentNode;
+    }
+    return steps;
+  };
+
+  // On ne retient que les boutons dont la cible **contient** le nœud désigné, ou le bloc entier :
+  // sans cela, viser le titre d'une colonne ouvrirait l'image posée à côté.
+  const candidates = Arr.filter(forBlock(editor, block), (resolved) =>
+    resolved.target === block || resolved.target.contains(node));
+
+  const best = Arr.foldl(candidates, (retenu: Optional<ResolvedAction>, resolved) =>
+    retenu.forall((autre) => {
+      const ecart = depth(resolved.target) - depth(autre.target);
+      return ecart > 0 || (ecart === 0 && (resolved.action.order ?? 100) < (autre.action.order ?? 100));
+    }) ? Optional.some(resolved) : retenu,
+  Optional.none<ResolvedAction>());
+
+  return best.fold(Fun.never, (chosen) => {
+    chosen.action.run(editor, chosen.target);
+    return true;
+  });
+};
+
 const isHandledByToolbar = (editor: Editor, node: Node | null): boolean => {
   if (!hasToolbar(editor) || !Type.isNonNullable(node)) {
     return false;
@@ -183,5 +239,6 @@ export {
   matchIn,
   declareToolbar,
   hasToolbar,
-  isHandledByToolbar
+  isHandledByToolbar,
+  openFor
 };

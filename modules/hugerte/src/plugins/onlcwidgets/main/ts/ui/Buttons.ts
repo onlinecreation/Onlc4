@@ -173,6 +173,11 @@ const register = (editor: Editor): void => {
 
   // Double clicking a block opens its form, like every other object of the editor
   editor.on('dblclick', (e) => {
+    // La barre des blocs ouvre déjà la configuration au double clic, pour tout objet et par le
+    // registre des propriétés. Ce gestionnaire ne sert que sans elle.
+    if (BlockActions.hasToolbar(editor)) {
+      return;
+    }
     const node = e.target as Node;
     if (Script.isPlaceholder(editor, node)) {
       editor.execCommand('OnlcScript');

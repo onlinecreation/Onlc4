@@ -75,13 +75,15 @@ const register = (editor: Editor): void => {
     scope: 'node'
   });
 
-  // Un double clic ouvre le formulaire, comme pour les autres objets de l'éditeur. Sur une image
-  // de vue, le plugin des médias ouvre le sien : les deux se répondent, et c'est voulu — on
-  // modifie l'image quand on vise l'image, le diaporama quand on vise autour.
+  // Un double clic ouvre le formulaire, où qu'on vise **dans** le diaporama : celui-ci se
+  // manipule d'une pièce, et le plugin des médias ne répond plus sur l'image d'une vue.
   editor.on('dblclick', (e) => {
-    const target = e.target as Node;
-    const isImage = Type.isNonNullable(target) && target.nodeName === 'IMG';
-    if (!isImage && Detect.at(editor, target).isSome()) {
+    // La barre des blocs ouvre déjà la configuration au double clic, pour tout objet et par le
+    // registre des propriétés. Ce gestionnaire ne sert que sans elle.
+    if (BlockActions.hasToolbar(editor)) {
+      return;
+    }
+    if (Detect.at(editor, e.target as Node).isSome()) {
       editor.execCommand('OnlcSwiper');
     }
   });

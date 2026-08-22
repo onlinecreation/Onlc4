@@ -1,0 +1,29 @@
+/**
+ * Icônes propres au plugin, enregistrées auprès du thème.
+ *
+ * Le jeu d'icônes livré n'en compte qu'une pour les langues, et les deux boutons du plugin la
+ * portaient : celui qui **marque** un passage et celui qui **ouvre le mode de rédaction**, côte à
+ * côte dans la barre d'outils, ne se distinguaient que par leur infobulle.
+ *
+ * Celle-ci — la lettre latine et l'idéogramme, geste universel de la traduction — est fournie par
+ * le projet, qui en détient la licence.
+ */
+
+const translate =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="24" height="24" ' +
+  'focusable="false" aria-hidden="true"><path fill="currentColor" d="M224.2 64L224.2 128L384.2 128L384.2 192L342.6 192' +
+  'L334.2 215.1C317.8 260.3 293.1 301.6 262 337.1C276.2 345.9 291 353.7 306.4 360.6L356.8 383L419 243' +
+  'L427.4 224L469 224L477.4 243L621.4 567L625.4 576L555.4 576L527 512L369.5 512L341.1 576L271.1 576' +
+  'L275.1 567L330.9 441.5L280.5 419.1C257.5 408.9 235.5 396.7 214.7 382.7C193.4 399.9 170.1 414.9 145.2 427.4' +
+  'C121.2 439.4 100.1 449.9 82 459L53.3 401.7C71.4 392.7 92.5 382.1 116.5 370.1C132.8 361.9 148.3 352.4 162.9 341.8' +
+  'C149.1 329.1 136.1 315.4 124 300.9C118.9 294.8 108.7 282.6 93.3 264.1L142.5 223.1C157.9 241.6 168.1 253.8 173.2 259.9' +
+  'C184.7 273.8 197.3 286.7 210.6 298.6C238.1 268.2 259.8 232.5 274.1 193.2L274.6 192L32.3 192L32.3 128L160.3 128' +
+  'L160.3 64L224.3 64zM498.6 448L448.3 334.8L398 448L498.6 448z"/></svg>';
+
+/** Nom sous lequel l'icône est déposée : les spécifications de boutons y font référence. */
+const translateName = 'onlc-translate';
+
+export {
+  translate,
+  translateName
+};

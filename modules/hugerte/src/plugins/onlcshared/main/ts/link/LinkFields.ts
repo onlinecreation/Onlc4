@@ -1,4 +1,4 @@
-import { Arr, Obj, Type } from '@ephox/katamari';
+import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
@@ -21,7 +21,38 @@ export const fields = {
   title: 'onlc_link_title_attr',
   target: 'onlc_link_target',
   rel: 'onlc_link_rel',
-  cls: 'onlc_link_class'
+  cls: 'onlc_link_class',
+  classes: 'onlc_link_classes',
+  style: 'onlc_link_style',
+  click: 'onlc_link_click'
+};
+
+/**
+ * Les trois sortes de lien, et comment on passe de l'une à l'autre.
+ *
+ * Un lien mène **soit** à une page du site, **soit** à une ancre de la page courante, **soit** à
+ * une adresse écrite à la main. Ces trois cas ne se mélangent jamais, et montrer les trois champs
+ * ensemble revenait à demander au rédacteur de deviner lequel comptait : il en remplissait deux,
+ * et l'un écrasait l'autre en silence.
+ *
+ * Une seule liste les propose donc, et le champ correspondant n'apparaît qu'ensuite. Les valeurs
+ * sentinelles portent des soulignés doubles pour ne pouvoir se confondre avec l'adresse d'une
+ * page.
+ */
+export const kinds = {
+  custom: '__personnalise__',
+  anchor: '__ancres__'
+};
+
+/** Ce que la liste de gauche vaut, pour un lien donné. */
+const kindOf = (context: LinkContext, href: string): string => {
+  if (href !== '' && hasOptionIn(context.links, href)) {
+    return href;
+  }
+  if (href.indexOf('#') === 0 || Arr.exists(context.anchors, (anchor) => anchor.value === href)) {
+    return kinds.anchor;
+  }
+  return kinds.custom;
 };
 
 export interface LinkFieldValues {
@@ -29,6 +60,15 @@ export interface LinkFieldValues {
 }
 
 const emptyItem = (text: string): LinkListItem => ({ text, value: '' });
+
+const isGroupOption = (option: LinkListOption): option is LinkListGroup =>
+  Type.isArray((option as LinkListGroup).items);
+
+const hasOptionIn = (options: LinkListOption[], value: string): boolean =>
+  Arr.exists(options, (option) =>
+    isGroupOption(option)
+      ? Arr.exists(option.items, (item) => item.value === value)
+      : option.value === value);
 
 const readString = (data: LinkFieldValues, name: string): string => {
   const value = data[name];
@@ -47,50 +87,49 @@ const collectContext = (editor: Editor): Promise<LinkContext> =>
     anchors: LinkOptions.useAnchors(editor) ? Anchors.getAnchors(editor) : []
   }));
 
-const isGroup = (option: LinkListOption): option is LinkListGroup => Type.isArray((option as LinkListGroup).items);
-
-const hasOption = (options: LinkListOption[], value: string): boolean =>
-  Arr.exists(options, (option) =>
-    isGroup(option)
-      ? Arr.exists(option.items, (item) => item.value === value)
-      : option.value === value);
-
 /**
  * Builds the dialog items of the link section.
  */
-const getItems = (editor: Editor, context: LinkContext): Dialog.BodyComponentSpec[] => {
+/**
+ * Les champs de la section « lien », pour la sorte de lien choisie.
+ *
+ * `kind` décide de ce qui s'affiche : rien de plus qu'une liste de pages pour un lien interne, le
+ * champ d'adresse pour un lien personnalisé, la liste des ancres pour une ancre de la page. Le
+ * dialogue rappelle `getItems` et se redessine à chaque changement de sorte.
+ */
+const getItems = (editor: Editor, context: LinkContext, kind: string): Dialog.BodyComponentSpec[] => {
   const items: Dialog.BodyComponentSpec[] = [];
 
-  if (context.links.length > 0) {
+  const choix: Dialog.ListBoxItemSpec[] = ([
+    { text: 'Personnalisé (adresse)', value: kinds.custom }
+  ] as Dialog.ListBoxItemSpec[])
+    .concat(context.anchors.length > 0 ? [{ text: 'Page actuelle (ancres)', value: kinds.anchor }] : [])
+    .concat(context.links as Dialog.ListBoxItemSpec[]);
+
+  items.push({
+    type: 'listbox',
+    name: fields.predefined,
+    label: context.links.length > 0 ? 'Pages du site' : 'Sorte de lien',
+    items: choix
+  });
+
+  if (kind === kinds.custom) {
     items.push({
-      type: 'listbox',
-      name: fields.predefined,
-      label: 'Lien du site',
-      items: ([ emptyItem('— Personnalisé —') ] as Dialog.ListBoxItemSpec[]).concat(context.links as Dialog.ListBoxItemSpec[])
+      type: 'urlinput',
+      name: fields.url,
+      filetype: 'file',
+      label: 'Adresse du lien'
     });
   }
 
-  items.push({
-    type: 'urlinput',
-    name: fields.url,
-    filetype: 'file',
-    label: 'Adresse du lien'
-  });
-
-  if (context.anchors.length > 0) {
+  if (kind === kinds.anchor && context.anchors.length > 0) {
     items.push({
       type: 'listbox',
       name: fields.anchor,
       label: 'Ancre dans la page',
-      items: [ emptyItem('— Aucune —') ].concat(context.anchors)
+      items: [ emptyItem('— Choisir une ancre —') ].concat(context.anchors)
     });
   }
-
-  items.push({
-    type: 'input',
-    name: fields.title,
-    label: 'Titre du lien'
-  });
 
   items.push({
     type: 'grid',
@@ -124,72 +163,116 @@ const getItems = (editor: Editor, context: LinkContext): Dialog.BodyComponentSpe
   return items;
 };
 
-const hasPredefinedField = (context: LinkContext): boolean => context.links.length > 0;
-const hasAnchorField = (context: LinkContext): boolean => context.anchors.length > 0;
+/**
+ * L'onglet « Avancé » : ce qu'un intégrateur règle, et qu'un rédacteur ne voit jamais.
+ *
+ * Le titre est la bulle d'aide au survol, lue à voix haute par les lecteurs d'écran. Les classes
+ * et le style habillent le lien sans passer par la feuille du site. L'action au clic est du
+ * javascript, et **ne s'exécute pas** dans la zone d'écriture : elle voyage dans un attribut de
+ * données jusqu'à l'enregistrement.
+ */
+const getAdvancedItems = (): Dialog.BodyComponentSpec[] => [
+  {
+    type: 'input',
+    name: fields.title,
+    label: 'Titre du lien (bulle d’aide au survol)'
+  },
+  {
+    type: 'input',
+    name: fields.classes,
+    label: 'Classes css'
+  },
+  {
+    type: 'textarea',
+    name: fields.style,
+    label: 'Style css écrit à même le lien',
+    placeholder: 'color: #c0392b; font-weight: 600'
+  },
+  {
+    type: 'textarea',
+    name: fields.click,
+    label: 'Action javascript au clic',
+    placeholder: 'return confirm(\'Quitter la page ?\')'
+  },
+  {
+    type: 'htmlpanel',
+    presets: 'document',
+    html: '<p>L’action au clic devient l’attribut <code>onclick</code> du lien à l’enregistrement. ' +
+      'Elle ne s’exécute jamais pendant que vous écrivez.</p>'
+  }
+];
+
 const hasClassField = (editor: Editor): boolean => LinkOptions.getClassList(editor).length > 0;
 
 const getInitialData = (editor: Editor, context: LinkContext, attributes: Partial<LinkAttributes>): Record<string, unknown> => {
   const href = attributes.href ?? '';
+  const kind = kindOf(context, href);
   return {
-    [fields.url]: { value: href, meta: {}},
-    ...(hasPredefinedField(context) ? { [fields.predefined]: hasOption(context.links, href) ? href : '' } : {}),
-    ...(hasAnchorField(context) ? { [fields.anchor]: Arr.exists(context.anchors, (anchor) => anchor.value === href) ? href : '' } : {}),
+    [fields.predefined]: kind,
+    [fields.url]: { value: kind === kinds.custom ? href : '', meta: {}},
+    [fields.anchor]: kind === kinds.anchor ? href : '',
     [fields.title]: attributes.title ?? '',
     [fields.target]: attributes.target ?? LinkOptions.getDefaultTarget(editor),
     [fields.rel]: attributes.rel ?? LinkOptions.getDefaultRel(editor),
+    [fields.classes]: attributes.classes ?? '',
+    [fields.style]: attributes.style ?? '',
+    [fields.click]: attributes.click ?? '',
     ...(hasClassField(editor) ? { [fields.cls]: attributes.classes ?? '' } : {})
   };
 };
 
 /**
- * Keeps the url field in sync when a predefined link or an anchor is picked. Call it from the
- * `onChange` handler of the dialog.
+ * La sorte de lien vient-elle de changer ?
+ *
+ * Le dialogue s'en sert pour se redessiner : les champs d'une sorte de lien ne sont pas ceux
+ * d'une autre. Il n'y a plus rien à synchroniser entre eux — un seul champ porte l'adresse à la
+ * fois, et c'est la liste de gauche qui dit lequel.
  */
-const onChange = (context: LinkContext) => (api: Dialog.DialogInstanceApi<any>, details: { name: string | number | symbol }): void => {
-  const data = api.getData() as LinkFieldValues;
-  const name = String(details.name);
+const isKindChange = (name: string | number | symbol): boolean => String(name) === fields.predefined;
 
-  if (name === fields.predefined || name === fields.anchor) {
-    const value = readString(data, name);
-    if (value !== '') {
-      const isPredefined = name === fields.predefined;
-      const clearedName = isPredefined ? fields.anchor : fields.predefined;
-      const hasCleared = isPredefined ? hasAnchorField(context) : hasPredefinedField(context);
-      const other = hasCleared ? { [clearedName]: '' } : {};
-      api.setData({ [fields.url]: { value, meta: {}}, ...other });
-    }
-  } else if (name === fields.url) {
-    // Typing an address by hand keeps the two lists in sync instead of showing a stale selection
-    const url = readString(data, fields.url);
-    const patch: Record<string, unknown> = {};
-    const predefined = hasOption(context.links, url) ? url : '';
-    const anchor = Arr.exists(context.anchors, (item) => item.value === url) ? url : '';
-
-    if (hasPredefinedField(context) && readString(data, fields.predefined) !== predefined) {
-      patch[fields.predefined] = predefined;
-    }
-    if (hasAnchorField(context) && readString(data, fields.anchor) !== anchor) {
-      patch[fields.anchor] = anchor;
-    }
-    if (Obj.keys(patch).length > 0) {
-      api.setData(patch);
-    }
+/**
+ * L'adresse retenue, selon la sorte de lien choisie.
+ *
+ * C'est la liste de gauche qui fait foi : elle porte soit une page du site, soit l'une des deux
+ * sentinelles, et le champ correspondant donne alors la valeur. Sans cette règle, une adresse
+ * restée dans un champ masqué écrasait la page qu'on venait de choisir.
+ */
+const hrefOf = (data: LinkFieldValues): string => {
+  const kind = readString(data, fields.predefined);
+  if (kind === kinds.custom) {
+    return readString(data, fields.url).trim();
   }
+  if (kind === kinds.anchor) {
+    return readString(data, fields.anchor).trim();
+  }
+  return kind.trim();
 };
 
-const toAttributes = (data: LinkFieldValues): LinkAttributes => ({
-  href: readString(data, fields.url).trim(),
-  title: readString(data, fields.title).trim(),
-  target: readString(data, fields.target),
-  rel: readString(data, fields.rel),
-  classes: readString(data, fields.cls)
-});
+const toAttributes = (data: LinkFieldValues): LinkAttributes => {
+  // Les classes viennent de l'onglet avancé ; la liste « Style du lien », quand le projet en
+  // propose une, ajoute la sienne à celles qui étaient déjà là.
+  const libres = readString(data, fields.classes).trim();
+  const choisie = readString(data, fields.cls).trim();
+  const toutes = Arr.unique(Arr.filter(`${libres} ${choisie}`.split(/\s+/), (name) => name !== ''));
+
+  return {
+    href: hrefOf(data),
+    title: readString(data, fields.title).trim(),
+    target: readString(data, fields.target),
+    rel: readString(data, fields.rel),
+    classes: toutes.join(' '),
+    style: readString(data, fields.style).trim(),
+    click: readString(data, fields.click).trim()
+  };
+};
 
 export {
   collectContext,
   getItems,
+  getAdvancedItems,
   getInitialData,
-  onChange,
+  isKindChange,
+  kindOf,
   toAttributes,
   readString
 };

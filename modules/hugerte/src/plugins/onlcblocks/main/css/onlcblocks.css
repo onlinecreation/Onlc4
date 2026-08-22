@@ -77,10 +77,17 @@ body.onlc-blocks-enabled {
   display: block;
 }
 
+/**
+ * L'identifiant, dans l'angle **haut droit** du contour.
+ *
+ * Il était en bas à droite, à l'opposé du type : deux repères de même nature aux deux extrémités
+ * d'un bloc haut de six cents pixels ne se lisent pas ensemble. Ils se répondent maintenant sur
+ * la même ligne, le type à gauche et l'identifiant à droite.
+ */
 .onlc-blocks-outline__id {
   position: absolute;
+  top: 0;
   right: 0;
-  bottom: 0;
   max-width: 100%;
   padding: 1px 6px;
   overflow: hidden;
@@ -91,7 +98,7 @@ body.onlc-blocks-enabled {
   white-space: nowrap;
   text-overflow: ellipsis;
   background: rgba(0, 108, 231, 0.85);
-  border-radius: 3px 0 3px 0;
+  border-radius: 0 0 0 3px;
 }
 
 .onlc-blocks-toolbar {

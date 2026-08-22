@@ -88,9 +88,23 @@ const register = (editor: Editor): void => {
     onAction: () => editor.execCommand('OnlcEditImageInPixie')
   });
 
-  // Double clicking an image opens its properties, as expected from a wysiwyg editor
+  /**
+   * Double clicking an image opens its properties, as expected from a wysiwyg editor.
+   *
+   * Rien ne s'ouvre sur un contenu **non modifiable** : l'image d'une vue de diaporama appartient
+   * au diaporama, qui se manipule d'une pièce, et le formulaire des images y laissait modifier ce
+   * qui devait rester verrouillé.
+   */
   editor.on('dblclick', (e) => {
-    if (Type.isNonNullable(e.target) && (editor.dom.is(e.target as Node, 'img') || ImageHtml.isFigure(editor, e.target as Node))) {
+    // La barre des blocs ouvre déjà la configuration au double clic, pour tout objet et par le
+    // registre des propriétés. Ce gestionnaire ne sert que sans elle.
+    if (BlockActions.hasToolbar(editor)) {
+      return;
+    }
+    const cible = e.target as Node;
+    const estImage = Type.isNonNullable(cible)
+      && (editor.dom.is(cible, 'img') || ImageHtml.isFigure(editor, cible));
+    if (estImage && editor.dom.isEditable(cible)) {
       openImage();
     }
   });

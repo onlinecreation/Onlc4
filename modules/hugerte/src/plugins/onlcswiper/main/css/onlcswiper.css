@@ -79,10 +79,26 @@
   box-sizing: border-box;
   max-width: 100%;
   padding: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  /* Sans cela, une piste posée dans une colonne étroite pousse la colonne au lieu de défiler. */
+  /**
+   * La piste **ne défile pas**.
+   *
+   * Elle l'a fait, avec `overflow-x: auto`, pour qu'on puisse compter les vues. Mais un
+   * conteneur à défilement porte une barre : sur les systèmes qui les superposent, elle
+   * apparaissait au passage du pointeur et s'attardait deux bonnes secondes après son départ,
+   * clignotant au milieu de la page pour rien.
+   *
+   * Elle n'a plus lieu d'être : le diaporama se manipule d'une pièce, ses vues se comptent dans
+   * le bandeau — « 8 vues » — et se réordonnent dans le formulaire, où elles sont toutes
+   * visibles. Ce qui dépasse est simplement estompé.
+   */
+  overflow: hidden;
+  /* Sans cela, une piste posée dans une colonne étroite pousse la colonne au lieu d'être coupée. */
   min-width: 0;
+  /* Rien ne se sélectionne : le contenu du diaporama ne se modifie que par son formulaire. */
+  user-select: none;
+  -webkit-user-select: none;
+  mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
 }
 
 /**

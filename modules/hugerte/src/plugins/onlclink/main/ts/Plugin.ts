@@ -7,6 +7,7 @@ import * as LinkOptions from 'hugerte/plugins/onlcshared/link/Options';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
+import * as FilterContent from './core/FilterContent';
 import * as Buttons from './ui/Buttons';
 import * as Dialog from './ui/Dialog';
 
@@ -34,6 +35,7 @@ export default (): void => {
     DialogStyles.setup(editor);
 
     Commands.register(editor);
+    FilterContent.setup(editor);
     Buttons.register(editor);
 
     return {

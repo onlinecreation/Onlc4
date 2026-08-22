@@ -36,6 +36,10 @@ const columns = draw('<rect x="3" y="5" width="4.5" height="14" rx="1"></rect>' 
 /** Cadre encadré de deux traits : un diaporama. */
 const slideshow = draw('<rect x="6" y="6" width="12" height="12" rx="2"></rect><path d="M3 9v6M21 9v6"></path>');
 
+/** Deux maillons : un lien. */
+const link = draw('<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.2 1.2"></path>' +
+  '<path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.2-1.2"></path>');
+
 /** Étiquette : les données de référencement d'une page. */
 const tag = draw('<path d="M4 4h8l8 8-8 8-8-8z"></path><circle cx="8.5" cy="8.5" r="1.2"></circle>');
 
@@ -48,5 +52,6 @@ export {
   spacing,
   columns,
   slideshow,
+  link,
   tag
 };

@@ -4,12 +4,17 @@ import Editor from 'hugerte/core/api/Editor';
 
 import { LinkAttributes } from './LinkTypes';
 
+/** L'attribut qui porte l'action au clic tant qu'on écrit. Voir `LinkAttributes.click`. */
+const clickAttribute = 'data-onlc-click';
+
 const emptyAttributes: LinkAttributes = {
   href: '',
   title: '',
   target: '',
   rel: '',
-  classes: ''
+  classes: '',
+  style: '',
+  click: ''
 };
 
 const toAttributeMap = (attributes: LinkAttributes): Record<string, string | null> => ({
@@ -17,7 +22,9 @@ const toAttributeMap = (attributes: LinkAttributes): Record<string, string | nul
   title: attributes.title === '' ? null : attributes.title,
   target: attributes.target === '' ? null : attributes.target,
   rel: attributes.rel === '' ? null : attributes.rel,
-  class: attributes.classes === '' ? null : attributes.classes
+  class: attributes.classes === '' ? null : attributes.classes,
+  style: attributes.style === '' ? null : attributes.style,
+  [clickAttribute]: attributes.click === '' ? null : attributes.click
 });
 
 const readAttributes = (editor: Editor, anchor: HTMLAnchorElement): LinkAttributes => ({
@@ -25,7 +32,9 @@ const readAttributes = (editor: Editor, anchor: HTMLAnchorElement): LinkAttribut
   title: editor.dom.getAttrib(anchor, 'title'),
   target: editor.dom.getAttrib(anchor, 'target'),
   rel: editor.dom.getAttrib(anchor, 'rel'),
-  classes: editor.dom.getAttrib(anchor, 'class')
+  classes: editor.dom.getAttrib(anchor, 'class'),
+  style: editor.dom.getAttrib(anchor, 'style'),
+  click: editor.dom.getAttrib(anchor, clickAttribute)
 });
 
 const getSelectedAnchor = (editor: Editor): Optional<HTMLAnchorElement> => {
@@ -105,6 +114,7 @@ const unlink = (editor: Editor): void => {
 };
 
 export {
+  clickAttribute,
   emptyAttributes,
   toAttributeMap,
   readAttributes,

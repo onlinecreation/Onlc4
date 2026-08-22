@@ -136,27 +136,43 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
     items: TextStyle.getItems('overlay')
   };
 
-  const linkTab: Dialog.TabSpec = {
+  /**
+   * L'onglet du lien ne montre que les champs de la sorte de lien choisie — page du site, ancre,
+   * adresse écrite à la main. Changer de sorte redessine la fenêtre : rien ne permet de cacher un
+   * champ d'un dialogue déjà ouvert, et montrer les trois ensemble revenait à demander au
+   * rédacteur de deviner lequel comptait.
+   */
+  const linkTab = (kind: string): Dialog.TabSpec => ({
     title: 'Lien',
     name: 'link',
-    items: LinkFields.getItems(editor, context)
-  };
+    items: LinkFields.getItems(editor, context, kind).concat(LinkFields.getAdvancedItems())
+  });
 
-  const body: Dialog.TabPanelSpec = {
+  const bodyFor = (kind: string): Dialog.TabPanelSpec => ({
     type: 'tabpanel',
-    tabs: [ imageTab, appearanceTab, overlayTab, overlayStyleTab, linkTab ]
-  };
+    tabs: [ imageTab, appearanceTab, overlayTab, overlayStyleTab, linkTab(kind) ]
+  });
 
-  editor.windowManager.open({
+  const kindOf = (data: Record<string, unknown>): string =>
+    readString(data, LinkFields.fields.predefined);
+
+  const initiale = toDialogData(editor, context, image);
+
+  const spec = (data: Record<string, unknown>): Dialog.DialogSpec<any> => ({
     title: image.src === '' ? 'Insérer une image' : 'Propriétés de l\'image',
     size: 'large',
-    body,
-    initialData: toDialogData(editor, context, image),
+    body: bodyFor(kindOf(data)),
+    initialData: data,
     onChange: (dialog, details) => {
       if (details.name === 'src') {
         dialog.setData({ preview: { url: readString(dialog.getData() as Record<string, unknown>, 'src') }});
       }
-      LinkFields.onChange(context)(dialog, details);
+      if (LinkFields.isKindChange(details.name)) {
+        // La fenêtre se rouvre sur les champs de la nouvelle sorte, avec ce qui était saisi, et
+        // revient à l'onglet du lien : c'est là qu'on était.
+        dialog.redial(spec(dialog.getData() as Record<string, unknown>));
+        dialog.showTab('link');
+      }
     },
     onAction: (dialog, details) => {
       if (details.name === 'browse') {
@@ -201,6 +217,8 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
       dialog.close();
     }
   });
+
+  editor.windowManager.open(spec(initiale));
 };
 
 export {

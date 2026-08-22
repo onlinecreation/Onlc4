@@ -20,6 +20,21 @@ const selectedRow = (editor: Editor, controller: Controller): Optional<HTMLEleme
     .orThunk(() => Grid.getParentRow(editor, editor.selection.getNode() as HTMLElement));
 
 const register = (editor: Editor, controller: Controller): void => {
+  /**
+   * Un double clic ouvre la configuration de ce qu'on vient de désigner.
+   *
+   * C'est le geste attendu d'un traitement de texte, et il vaut pour **tout** : un paragraphe, une
+   * image, une ligne de grille, un code court, un lien, un diaporama. Le registre des propriétés
+   * sait déjà, pour chaque bloc, quel plugin répond et sur quel élément — il n'y a donc rien à
+   * répéter ici, et un plugin ajouté demain en profite sans rien écrire.
+   *
+   * Chaque plugin garde son propre double clic pour le cas où l'espace de travail en blocs n'est
+   * pas chargé ; il s'efface quand celui-ci répond.
+   */
+  editor.on('dblclick', (e) => {
+    BlockActions.openFor(editor, e.target as Node);
+  });
+
   editor.ui.registry.addToggleButton('onlcblocks', {
     icon: 'edit-block',
     tooltip: 'Afficher les outils de blocs',

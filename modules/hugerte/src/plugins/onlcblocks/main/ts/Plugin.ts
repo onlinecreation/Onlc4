@@ -109,6 +109,25 @@ export default (): void => {
     );
 
     /**
+     * Rien ne se sélectionne dans un contenu **non modifiable**.
+     *
+     * Un diaporama, une fiche de microdonnées, un jeton de script, la carte d'un code court, les
+     * parties dessinées d'un bloc prédéfini : tous portent `contenteditable="false"`, et tous se
+     * règlent par leur formulaire. Le curseur posé au milieu ferait croire qu'on peut les
+     * corriger sur place, et le texte qu'on y copierait n'aurait pas de rapport avec ce qui sera
+     * publié — un résumé de fiche, un aperçu de script.
+     *
+     * La règle est posée une fois pour toutes, plutôt que par chaque plugin : ce qui la déclenche
+     * est l'attribut du cœur, pas une classe de l'un ou de l'autre. Les parties **modifiables**
+     * d'un bloc prédéfini — le titre d'un bandeau, la légende d'une visionneuse — la lèvent
+     * aussitôt : elles sont faites pour qu'on y écrive.
+     */
+    editor.contentStyles.push(
+      'body [contenteditable="false"] { user-select: none; -webkit-user-select: none; }' +
+      'body [contenteditable="false"] [contenteditable="true"] { user-select: text; -webkit-user-select: text; }'
+    );
+
+    /**
      * Le modèle de boîte que la grille suppose.
      *
      * Les distributions « grille seule » de Bootstrap — celles qu'on charge pour ne pas emporter

@@ -25,15 +25,44 @@ import * as Slides from '../core/Slides';
 const styleId = 'onlc-swiper-slides-styles';
 
 const styles = `
-.tox .onlc-slides { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+/**
+ * La liste des vues **défile**.
+ *
+ * Le dialogue place un composant libre dans un cadre en overflow:hidden, dont la hauteur vient du
+ * flex : un diaporama de huit vues n'en montrait que trois, et les cinq autres étaient hors
+ * d'atteinte, sans barre de défilement pour le dire.
+ *
+ * Le composant prend donc la hauteur de son cadre, et c'est la liste — et elle seule — qui
+ * défile : les deux boutons d'ajout restent visibles en haut et en bas.
+ */
+.tox .onlc-slides {
+  display: flex; flex-direction: column; gap: 10px;
+  box-sizing: border-box; width: 100%; height: 100%; max-height: 100%; min-height: 240px;
+  padding: 2px;
+}
+.tox .onlc-slides__scroll {
+  display: flex; flex: 1 1 auto; flex-direction: column; gap: 10px;
+  min-height: 80px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;
+}
 .tox .onlc-slides__empty {
   padding: 14px; border: 1px dashed rgba(34, 47, 62, 0.3); border-radius: 8px;
   color: #5a6570; font-size: 13px; text-align: center;
 }
 .tox .onlc-slides__item {
-  display: flex; gap: 12px; padding: 10px;
+  display: flex; gap: 12px; padding: 10px; align-items: center;
   border: 1px solid rgba(34, 47, 62, 0.16); border-radius: 8px; background: #fff;
 }
+.tox .onlc-slides__item--dragged { opacity: 0.4; }
+.tox .onlc-slides__item--over { border-color: #006ce7; box-shadow: inset 0 3px 0 #006ce7; }
+
+/** La poignée : c'est elle qu'on saisit, et elle seule — un champ de texte doit rester saisissable. */
+.tox .onlc-slides__grip {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+  width: 28px; align-self: stretch; border: 0; border-radius: 6px; padding: 0;
+  background: transparent; color: #8a949e; font-size: 16px; line-height: 1; cursor: grab;
+}
+.tox .onlc-slides__grip:hover { background: #eef2f6; color: #22303c; }
+.tox .onlc-slides__grip:active { cursor: grabbing; }
 .tox .onlc-slides__thumb {
   flex: 0 0 auto; width: 72px; height: 72px; border-radius: 6px;
   background: #eef1f4 center/cover no-repeat; display: flex; align-items: center; justify-content: center;
@@ -50,7 +79,10 @@ const styles = `
 .tox .onlc-slides__thumb--action:hover { outline: 2px solid #006ce7; outline-offset: 1px; }
 .tox .onlc-slides__imageactions { display: flex; flex-wrap: wrap; gap: 6px; }
 .tox .onlc-slides__free { margin: 0; color: #22303c; font-size: 13px; line-height: 1.5; }
-.tox .onlc-slides__actions { display: flex; flex: 0 0 auto; flex-direction: column; gap: 4px; }
+.tox .onlc-slides__actions {
+  display: flex; flex: 0 0 auto; flex-direction: column; gap: 4px;
+  align-items: center; justify-content: center; align-self: center;
+}
 .tox .onlc-slides__btn {
   min-width: 40px; min-height: 40px; padding: 0 8px; border: 1px solid rgba(34, 47, 62, 0.18);
   border-radius: 6px; background: #fff; font: inherit; color: #22303c; cursor: pointer;
@@ -59,7 +91,7 @@ const styles = `
 .tox .onlc-slides__btn:disabled { opacity: 0.4; cursor: default; }
 .tox .onlc-slides__btn--danger:hover { background: #fdecec; color: #b4241f; }
 .tox .onlc-slides__btn--wide { min-width: 0; padding: 0 12px; font-size: 13px; min-height: 36px; }
-.tox .onlc-slides__bar { display: flex; flex-wrap: wrap; gap: 8px; }
+.tox .onlc-slides__bar { display: flex; flex: 0 0 auto; flex-wrap: wrap; gap: 8px; }
 .tox .onlc-slides__add {
   min-height: 44px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px;
   background: #006ce7; color: #fff; font: inherit; font-weight: 600; cursor: pointer;
@@ -100,12 +132,18 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
 
     element.className = 'onlc-slides';
 
+    // Une barre d'ajout en haut, la liste défilante au milieu, une seconde barre en bas : on
+    // ajoute une vue là où on la veut sans avoir à parcourir toute la liste.
+    const barreHaut = doc.createElement('div');
+    barreHaut.className = 'onlc-slides__bar';
+
     const list = doc.createElement('div');
-    list.className = 'onlc-slides';
+    list.className = 'onlc-slides__scroll';
 
     const bar = doc.createElement('div');
     bar.className = 'onlc-slides__bar';
 
+    element.appendChild(barreHaut);
     element.appendChild(list);
     element.appendChild(bar);
 
@@ -114,6 +152,22 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
     const replace = (index: number, slide: Slides.Slide) => {
       slides = Arr.map(slides, (candidate, at) => at === index ? slide : candidate);
       publish();
+    };
+
+    /** Vue saisie à la poignée, le temps du geste. */
+    let saisie: number | null = null;
+
+    /** Déplace une vue à une position donnée, en gardant l'ordre des autres. */
+    const moveTo = (from: number, to: number) => {
+      if (from === to || to < 0 || to >= slides.length) {
+        return;
+      }
+      const updated = slides.slice();
+      const [ deplacee ] = updated.splice(from, 1);
+      updated.splice(to, 0, deplacee);
+      slides = updated;
+      publish();
+      render();
     };
 
     const move = (index: number, delta: number) => {
@@ -229,9 +283,59 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
       fields.appendChild(hint);
     };
 
+    /**
+     * La poignée de déplacement.
+     *
+     * Elle est **seule** à porter `draggable` : rendre la vue entière saisissable empêcherait de
+     * sélectionner le texte de remplacement à la souris, qui est pourtant un champ ordinaire.
+     */
+    const grip = (index: number, item: HTMLElement): HTMLElement => {
+      const node = doc.createElement('button');
+      node.type = 'button';
+      node.className = 'onlc-slides__grip';
+      node.draggable = true;
+      node.textContent = '⠿';
+      node.title = t('Déplacer cette vue');
+      node.setAttribute('aria-label', node.title);
+
+      node.addEventListener('dragstart', (e) => {
+        saisie = index;
+        item.classList.add('onlc-slides__item--dragged');
+        // Sans donnée transportée, Firefox refuse d'engager le geste.
+        e.dataTransfer?.setData('text/plain', String(index));
+        if (e.dataTransfer) {
+          e.dataTransfer.effectAllowed = 'move';
+        }
+      });
+      node.addEventListener('dragend', () => {
+        saisie = null;
+        item.classList.remove('onlc-slides__item--dragged');
+      });
+      return node;
+    };
+
     const renderSlide = (slide: Slides.Slide, index: number): HTMLElement => {
       const item = doc.createElement('div');
       item.className = 'onlc-slides__item';
+
+      item.addEventListener('dragover', (e) => {
+        if (saisie !== null && saisie !== index) {
+          e.preventDefault();
+          item.classList.add('onlc-slides__item--over');
+        }
+      });
+      item.addEventListener('dragleave', () => item.classList.remove('onlc-slides__item--over'));
+      item.addEventListener('drop', (e) => {
+        e.preventDefault();
+        item.classList.remove('onlc-slides__item--over');
+        if (saisie !== null) {
+          const depuis = saisie;
+          saisie = null;
+          moveTo(depuis, index);
+        }
+      });
+
+      item.appendChild(grip(index, item));
 
       // Une vue d'image : la vignette **est** le bouton qui ouvre la médiathèque. Une vue libre :
       // elle ne fait que montrer ce qu'il y a dedans, son contenu n'étant jamais réécrit.
@@ -294,32 +398,40 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
       return item;
     };
 
-    /** Ajoute des vues d'un coup depuis la médiathèque : c'est le geste attendu. */
-    const addFromLibrary = () => {
-      const handled = editor.execCommand('OnlcPickMedia', false, {
+    /**
+     * Ajoute des vues d'un coup depuis la médiathèque : c'est le geste attendu.
+     *
+     * Il n'y a plus de « vue vide » : une vue sans image n'affiche rien sur le site, et l'ajouter
+     * revenait à créer un trou dans le diaporama qu'il fallait ensuite penser à combler. On part
+     * donc des images, qui sont la matière du bloc.
+     */
+    const addFromLibrary = (ou: 'debut' | 'fin') => {
+      editor.execCommand('OnlcPickMedia', false, {
         multiple: true,
         accept: 'image/',
         onSelect: (files: Array<{ url: string }>) => {
-          slides = slides.concat(Arr.map(files, (file) => ({
+          const neuves = Arr.map(files, (file): Slides.Slide => ({
             element: null,
             images: [{ src: file.url, alt: '' }],
             classes: '',
             custom: false
-          })));
+          }));
+          slides = ou === 'debut' ? neuves.concat(slides) : slides.concat(neuves);
           publish();
           render();
+          if (ou === 'debut') {
+            list.scrollTop = 0;
+          } else {
+            list.scrollTop = list.scrollHeight;
+          }
         }
       });
-      if (handled === false) {
-        slides = slides.concat([ Slides.empty() ]);
-        publish();
-        render();
-      }
     };
 
     const render = () => {
       list.innerHTML = '';
       bar.innerHTML = '';
+      barreHaut.innerHTML = '';
 
       if (slides.length === 0) {
         const empty = doc.createElement('p');
@@ -330,24 +442,19 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
         Arr.each(slides, (slide, index) => list.appendChild(renderSlide(slide, index)));
       }
 
-      const add = doc.createElement('button');
-      add.type = 'button';
-      add.className = 'onlc-slides__add';
-      add.textContent = t('Ajouter des images…');
-      add.addEventListener('click', addFromLibrary);
+      const ajout = (ou: 'debut' | 'fin', libelle: string): HTMLButtonElement => {
+        const node = doc.createElement('button');
+        node.type = 'button';
+        node.className = 'onlc-slides__add';
+        node.textContent = t(libelle);
+        node.addEventListener('click', () => addFromLibrary(ou));
+        return node;
+      };
 
-      const manual = doc.createElement('button');
-      manual.type = 'button';
-      manual.className = 'onlc-slides__secondary';
-      manual.textContent = t('Ajouter une vue vide');
-      manual.addEventListener('click', () => {
-        slides = slides.concat([ Slides.empty() ]);
-        publish();
-        render();
-      });
-
-      bar.appendChild(add);
-      bar.appendChild(manual);
+      // Un diaporama d'accueil compte huit vues : sans bouton en tête, ajouter une image au début
+      // demandait de dérouler toute la liste, puis de la remonter cran par cran.
+      barreHaut.appendChild(ajout('debut', 'Ajouter des images au début…'));
+      bar.appendChild(ajout('fin', 'Ajouter des images à la fin…'));
     };
 
     render();

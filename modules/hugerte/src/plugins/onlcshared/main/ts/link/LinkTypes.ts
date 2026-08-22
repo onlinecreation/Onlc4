@@ -28,6 +28,16 @@ export interface LinkAttributes {
   readonly target: string;
   readonly rel: string;
   readonly classes: string;
+  /** Styles écrits à même l'élément, pour un lien qui doit sortir du lot sans classe dédiée. */
+  readonly style: string;
+  /**
+   * Action javascript au clic.
+   *
+   * Elle n'est **jamais** posée en `onclick` dans la zone d'écriture : le navigateur l'exécuterait
+   * au premier clic du rédacteur. Elle voyage dans un attribut de données, et redevient un
+   * `onclick` à l'enregistrement. Voir `onlclink/core/FilterContent`.
+   */
+  readonly click: string;
 }
 
 export interface LinkContext {

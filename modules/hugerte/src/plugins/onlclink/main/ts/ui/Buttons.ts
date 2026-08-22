@@ -2,7 +2,11 @@ import { Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Toolbar } from 'hugerte/core/api/ui/Ui';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as LinkActions from 'hugerte/plugins/onlcshared/link/LinkActions';
+import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
+import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
 
 const isInAnchor = (editor: Editor): boolean => LinkActions.getSelectedAnchor(editor).isSome();
 
@@ -17,6 +21,33 @@ const toggleAnchorState = (editor: Editor) => (api: Toolbar.ToolbarButtonInstanc
 };
 
 const register = (editor: Editor): void => {
+  BlockKinds.declare(editor, {
+    id: 'onlclink',
+    label: 'Lien',
+    icon: KindIcons.link,
+    order: 30,
+    match: (target, element) => target.dom.is(element, 'a[href]') as boolean
+  });
+
+  /**
+   * Les réglages d'un lien, dans la barre du bloc qui le contient.
+   *
+   * Un lien vit **dans** un paragraphe : c'est le paragraphe qui est le bloc, et le bouton doit
+   * donc désigner le lien qu'on vise — celui de la sélection, ou l'unique du bloc. `matchIn` dit
+   * déjà tout cela, et c'est lui qui rend le double clic sur un lien fonctionnel.
+   */
+  BlockActions.declare(editor, {
+    id: 'onlclink-edit',
+    label: 'Modifier le lien',
+    icon: ActionIcons.link,
+    order: 116,
+    match: (target, block) => BlockActions.matchIn(target, block, 'a[href]'),
+    run: (target, element) => {
+      target.selection.select(element);
+      target.execCommand('OnlcLink');
+    }
+  });
+
   const onAction = () => editor.execCommand('OnlcLink');
 
   editor.ui.registry.addToggleButton('onlclink', {

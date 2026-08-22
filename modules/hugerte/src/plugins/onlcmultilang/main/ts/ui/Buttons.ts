@@ -11,6 +11,7 @@ import * as Scope from '../core/Scope';
 import * as Sections from '../core/Sections';
 import * as View from '../core/View';
 import * as Work from '../core/Work';
+import * as Icons from './Icons';
 
 /**
  * Les commandes polyglottes, dans un seul menu.
@@ -173,8 +174,10 @@ const register = (editor: Editor): void => {
    * dans toutes les langues, ce qui est l'essentiel : sans cela, on cherche un paragraphe qu'on
    * croit perdu.
    */
+  editor.ui.registry.addIcon(Icons.translateName, Icons.translate);
+
   editor.ui.registry.addMenuButton('onlcmultilangwork', {
-    icon: 'language',
+    icon: Icons.translateName,
     tooltip: 'Travailler dans une seule langue',
     text: '',
     fetch: (callback) => callback(workItems(editor)),

@@ -54,6 +54,11 @@ Elles sont ajoutées **à la fin du `<head>`**, après celles du gabarit, en deu
 2. **celles du site** : `onlc_preview_css` si le projet l'a réglée, sinon son `content_css`. Elles
    viennent en dernier et ont donc le dernier mot, comme dans la zone d'écriture.
 
+Les feuilles déclarées par `onlc_site_css` — la feuille du design du client — appartiennent à la
+première famille : le plugin qui les charge les inscrit au registre de publication, et l'aperçu
+les reprend sans que le projet ait à les nommer une seconde fois. Voir
+[onlcblocks](../plugins/onlcblocks.md#la-feuille-de-style-du-site).
+
 Les adresses sont rendues absolues, dédoublonnées, échappées, et les schémas exécutables refusés.
 Un nom d'habillage (`default`, `dark`) est écarté : ce n'est pas une adresse, mais une ressource
 interne de l'éditeur, qui ne décrit rien de la page publiée.

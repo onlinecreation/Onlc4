@@ -4,8 +4,8 @@ Deux suites, qui ne tournent pas au même endroit et ne coûtent pas le même te
 
 | Suite | Ce qu'elle couvre | Commande | Durée |
 |---|---|---|---|
-| **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs | `yarn test-node` | ~1 s |
-| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | ~45 s |
+| **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs | `yarn test-node` | 74 épreuves, ~1 s |
+| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | 281 épreuves, ~60 s |
 
 `yarn test` enchaîne les deux, plus les tests d'origine de HugeRTE.
 
@@ -83,7 +83,8 @@ node example/test/run.js     # la même chose
 | Fichier | Ce qu'il vérifie |
 |---|---|
 | `example/test/media-api.test.js` | versions et restauration, quotas, types acceptés, sécurité des chemins |
-| `example/test/template-api.test.js` | le gabarit d'aperçu et ses codes |
+| `example/test/template-api.test.js` | les deux gabarits d'aperçu et leurs codes |
+| `example/test/site-css-api.test.js` | le relais de feuilles de style : protocoles, domaines, réseau interne |
 | `example/test/branding.test.js` | l'habillage Pixel•OnlineCreation de Pixie : marque, thème, traductions |
 | `example/test/build-langs.test.js` | conversion des paquets TinyMCE, alias de code court, génération bout à bout |
 
@@ -103,6 +104,21 @@ de les écrire.
    `example/test/run.js`.
 
 Rien d'autre à déclarer : les deux lanceurs trouvent les fichiers par leur emplacement.
+
+### Ce que certaines épreuves ont trouvé
+
+Un test n'a de valeur que s'il peut échouer. Trois de ceux-ci ont trouvé de vrais défauts en
+étant écrits, et il vaut la peine de dire lesquels :
+
+* `onlcswiper/JsObjectTest` — le lecteur de littéraux refusait les **clés numériques**, alors que
+  `768: { slidesPerView: 2 }` est la façon la plus répandue d'écrire un palier d'écran. La moitié
+  des configurations réelles étaient illisibles ;
+* `onlcwidgets/CodeEditorTest` — il **pose délibérément** la règle hostile
+  `pre { max-height: 40px }` dans le document du back-office, puis vérifie que l'éditeur de code
+  survit. C'est le bug qui coupait le code source à la dix-septième ligne ;
+* `onlcblocks/BlockPropertiesTest` — il déclare un bouton de propriétés dont le `match` lève une
+  exception, et vérifie que **les autres restent** : un plugin qui se trompe ne doit pas emporter
+  la barre entière.
 
 Une remarque sur les simulations : l'api média se branche par `onlc_media_handlers`, ce qui
 permet à un test de décrire exactement l'arborescence dont il a besoin — et de compter les

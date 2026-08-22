@@ -19,6 +19,24 @@ yarn example
 
 Puis ouvrez <http://localhost:3000/>.
 
+## Deux pages, deux démonstrations
+
+| Page | Ce qu'elle montre |
+| --- | --- |
+| <http://localhost:3000/> | Ce que l'éditeur sait **poser** dans une page : blocs déplaçables, colonnes, médias, codes courts, calendrier, visionneuse pdf, carte |
+| <http://localhost:3000/lmparts.html> | Ce qu'il sait **reprendre** : la page d'accueil d'un site marchand réel, avec ses trois diaporamas Swiper, sa parallaxe, ses ancres et ses trois langues |
+
+La seconde est la plus instructive pour qui intègre l'éditeur dans un back-office existant : rien
+de cette page n'a été écrit pour l'éditeur, et tout y reste modifiable. Elle démontre la feuille
+de style du site (`onlc_site_css`), la détection des diaporamas (`onlcswiper`) et les
+microdonnées (`onlcseo`).
+
+> La feuille du design est déclarée à son adresse réelle **et** dans une version locale
+> (`assets/lmparts-site.css`). La version locale reprend les classes de structure : elle garde la
+> démonstration lisible sur un poste hors ligne ou derrière un pare-feu, et sert d'exemple de ce
+> à quoi ressemble une feuille de site. Quand le réseau répond, celle du site passe après et a le
+> dernier mot.
+
 `yarn example-build` enchaîne les quatre étapes nécessaires :
 
 | Étape | Commande | Rôle |
@@ -40,6 +58,10 @@ Pour relancer uniquement le serveur ensuite : `yarn example` (ou `node example/s
 | `--latency 400` | Latence artificielle des API, en ms, pour voir les états de chargement |
 | `--reset` | Réinitialise la médiathèque à partir de `example/seed` |
 
+La variable `ONLC_DEMO_CSS_HOSTS` fixe les domaines que le relais de feuilles de style accepte
+d'aller chercher (`lmparts.fr,static.onlc.eu` par défaut). C'est une **liste fermée** : voir
+[l'API du relais](../docs/api/onlc-site-css-api.md) pour la raison.
+
 ## Contenu du dossier
 
 ```
@@ -49,21 +71,26 @@ example/
 │   ├── media-api.js     simulation de l'API média (fichiers, dossiers, upload, versions, quotas)
 │   ├── links-api.js     simulation de l'API des liens prédéfinis
 │   ├── icons-api.js     simulation du catalogue d'icônes Material Design
-│   ├── template-api.js  gabarit du site, pour l'aperçu visiteur
+│   ├── template-api.js  les deux gabarits de site, pour l'aperçu visiteur
+│   ├── site-css-api.js  relais de lecture des feuilles de style du site
 │   └── multipart.js     analyseur multipart/form-data minimal
 ├── public/
-│   ├── index.html       page de démonstration
+│   ├── index.html       première démonstration : ce que l'éditeur pose
+│   ├── lmparts.html     seconde démonstration : ce qu'il reprend
 │   ├── assets/demo.js   configuration complète de l'éditeur, commentée
-│   ├── assets/demo.css  habillage de la page
+│   ├── assets/lmparts.js  configuration de la seconde démonstration
+│   ├── assets/demo.css  habillage des deux pages
 │   ├── assets/content.css  styles du contenu de l'éditeur
 │   ├── assets/contenu.html  contenu de départ, **généré** (voir plus bas)
+│   ├── assets/lmparts-contenu.html  page d'accueil du site marchand
+│   ├── assets/lmparts-site.css  feuille du design, version locale
 │   ├── assets/vendor/   grille Bootstrap, servie localement
 │   └── pixie/           adaptateur vers Pixie, habillé Pixel•OnlineCreation
 ├── tools/
 │   ├── build-content.js générateur du contenu de démonstration
 │   └── install-pixie.js installe l'éditeur d'images Pixie (voir plus bas)
 ├── test/                tests des simulations d'API (yarn test-node)
-├── seed/                médiathèque de départ (images SVG, un PDF)
+├── seed/                médiathèque de départ (images SVG, un PDF, les visuels du site marchand)
 └── storage/             espace de travail (créé au démarrage, non versionné)
 ```
 

@@ -16,10 +16,12 @@ HugeRTE n'est pas modifié, chaque fonctionnalité s'active dans l'option `plugi
 | `onlcicons` | Emojis dessinés par OpenMoji et deux polices d'icônes embarquées, avec moteur de recherche | [doc](plugins/onlcicons.md) |
 | `onlcwidgets` | Blocs prédéfinis et éléments du site (codes courts), script JavaScript, source HTML, aperçu visiteur | [doc](plugins/onlcwidgets.md) |
 | `onlcmultilang` | Pages polyglottes : les passages `[LG]` et `<multilang>` deviennent des sections encadrées et nommées | [doc](plugins/onlcmultilang.md) |
+| `onlcseo` | Description pour les moteurs et microdonnées schema.org, uniques par page et placées en tête | [doc](plugins/onlcseo.md) |
+| `onlcswiper` | Diaporamas Swiper écrits à la main : détection du html et de sa configuration javascript, formulaire | [doc](plugins/onlcswiper.md) |
 
 `onlcshared` n'est pas un plugin : c'est la bibliothèque interne (client HTTP, section « lien »,
-styles de dialogue, registre des feuilles de style de publication) incluse dans les plugins qui
-en ont besoin.
+styles de dialogue, registre des feuilles de style de publication, registre des boutons de
+propriétés des blocs, feuille de style du site) incluse dans les plugins qui en ont besoin.
 
 ## Repères
 
@@ -42,16 +44,23 @@ en ont besoin.
 | Éditeur d'images (Pixie, alias Pixel•OnlineCreation) | `onlcmedia` | [onlc-pixie-editor.md](api/onlc-pixie-editor.md) |
 | Dictionnaires emojis/icônes | `onlcicons` | [onlc-icons-api.md](api/onlc-icons-api.md) |
 | Gabarit de l'aperçu visiteur | `onlcwidgets` | [onlc-preview-api.md](api/onlc-preview-api.md) |
+| Relais de lecture des feuilles de style du site (facultatif) | `onlcblocks` | [onlc-site-css-api.md](api/onlc-site-css-api.md) |
 
 ## Exemple complet
 
-Le dossier [`example/`](../example/README.md) contient une page de démonstration branchée sur
-des API simulées (médias, liens, icônes, gabarit d'aperçu et éditeur d'images) :
+Le dossier [`example/`](../example/README.md) contient **deux** pages de démonstration, branchées
+sur les mêmes API simulées (médias, liens, icônes, gabarit d'aperçu, éditeur d'images et relais de
+feuilles de style) :
 
 ```bash
 yarn example-build   # icônes, habillages, tsc puis rollup (~3 à 5 min)
 yarn example         # http://localhost:3000
 ```
+
+| Page | Ce qu'elle montre |
+| --- | --- |
+| `/` | Ce que l'éditeur sait **poser** dans une page : blocs, médias, codes courts, calendrier, pdf, carte |
+| `/lmparts.html` | Ce qu'il sait **reprendre** : la page d'accueil d'un site marchand, avec ses diaporamas Swiper, sa parallaxe, ses ancres et ses trois langues |
 
 ## Démarrage rapide
 
@@ -147,6 +156,11 @@ pour faciliter une remontée éventuelle en amont.
   l'écriture. On peut cliquer, sélectionner et déplacer le bloc sans jamais déclencher le média.
 - **Langue** : les libellés sont en français par défaut ; l'anglais et l'espagnol se chargent en
   ajoutant un fichier (voir [i18n.md](i18n.md)).
+- **Une seule barre par bloc** : les réglages d'un bloc — modifier, identifiant et classes,
+  hauteur, disposition des colonnes — sont dans **sa** barre de manipulation, à droite d'un filet,
+  et non dans une seconde bulle ouverte par-dessus. Chaque plugin y déclare ses boutons par
+  `onlcshared/BlockActions`, sans connaître `onlcblocks` ni savoir s'il est chargé ; quand la
+  barre des blocs n'existe pas, chacun garde sa bulle contextuelle.
 - **Rien qui dépende de la page d'accueil** : les dialogues vivent dans le document du
   back-office, pas dans un cadre à part. Une règle css que cette page écrit sur un **nom
   d'élément** — `pre`, `textarea`, `summary`, `iframe` — atteint donc l'interface de l'éditeur.

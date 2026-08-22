@@ -37,10 +37,17 @@ plugin même si `content_css` change.
 | ⤒ | Sélectionner le bloc parent (colonne, ligne, section) |
 | 🌐 | Langue du bloc — n'apparaît que si [`onlcmultilang`](onlcmultilang.md) est chargé, et jamais sur une partie intérieure d'un bloc prédéfini |
 | ＋ | Ajouter un bloc avant ou après. Le bouton du haut n'apparaît que sur le premier bloc d'un conteneur : ailleurs, celui du bas du bloc précédent occupe déjà cet espace |
+| *(à droite du filet)* | Les **propriétés** du bloc, déclarées par les plugins chargés — voir « Une seule barre » ci-dessous |
 
 Chaque bouton fait **50 × 50 pixels**, comme les commandes des dialogues. Ils étaient dessinés
 pour la souris — vingt-quatre pixels, deux d'écart : au doigt on les manquait, et on attrapait
 celui d'à côté, dont « Supprimer ».
+
+Quand le bloc survolé porte un **identifiant**, celui-ci s'affiche dans l'angle bas droit de son
+contour : `#tarifs`. Un `id` ne se voit nulle part dans une page, et c'est pourtant lui que visent
+les ancres du menu et les scripts du site ; le supprimer par inadvertance casse des liens sans
+rien afficher. L'étiquette est écrite dans le contour, jamais dans le contenu : aucune mise en
+page n'est décalée par son affichage.
 
 Les zones « Ajouter un bloc au début » et « Ajouter un bloc à la fin » sont placées **dans le
 flux du document**, avant le premier bloc et après le dernier : elles ne recouvrent jamais le
@@ -84,6 +91,98 @@ partout ailleurs, et c'est bien le bloc visé qui reçoit la barre, pas la secti
 
 `onlcblocks` ne dépend pas de `onlcmultilang` — le bouton n'apparaît que si le plugin est chargé
 et déclare au moins une langue, et la barre reste identique sans lui.
+
+## Une seule barre par bloc
+
+Deux barres flottantes se disputaient l'espace au-dessus d'un bloc : celle qui le manipule et
+celle qui ouvre ses réglages. La seconde s'ouvrant par-dessus la première, il fallait éloigner la
+souris pour retrouver la poignée de déplacement, puis y revenir sans repasser sur le bloc.
+Personne ne devine ce genre de chose.
+
+Les plugins déclarent donc leurs boutons de propriétés dans un registre partagé,
+`onlcshared/BlockActions`, que cette barre affiche à la suite de ses commandes :
+
+| Bouton | Déclaré par | Sur quoi |
+| --- | --- | --- |
+| Identifiant et classes | `onlcblocks` | Tout bloc ordinaire |
+| Disposition des colonnes | `onlcblocks` | Une ligne de grille |
+| Modifier le bloc / l'élément | `onlcwidgets` | Un bloc prédéfini, un code court |
+| Modifier le script | `onlcwidgets` | Un jeton de script |
+| Modifier les microdonnées | `onlcseo` | La fiche de référencement |
+| Hauteur du séparateur | `onlcspacer` | Un espace vertical |
+| Modifier le diaporama | `onlcswiper` | Un diaporama Swiper |
+| Propriétés de l'image | `onlcmedia` | L'image du bloc |
+
+Aucun de ces plugins ne connaît `onlcblocks`, et `onlcblocks` ne sait pas ce que font leurs
+boutons. Quand la barre des blocs **n'existe pas** — plugin absent ou désactivé — chacun rouvre sa
+propre bulle contextuelle : c'est ce que `BlockActions.isHandledByToolbar` permet de savoir.
+
+Un bouton ne s'affiche que s'il sait sur **quoi** il agira. Pour les éléments qui ne sont pas le
+bloc lui-même — une image dans un paragraphe — `BlockActions.matchIn` cherche dans cet ordre :
+l'élément sélectionné s'il est dans le bloc, puis le seul de son genre que le bloc contienne. Un
+bloc qui en contient plusieurs sans qu'aucun ne soit sélectionné ne propose pas le bouton : mieux
+vaut pas de bouton qu'un bouton dont on ne sait pas ce qu'il va ouvrir.
+
+### Déclarer un bouton
+
+```js
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+
+BlockActions.declare(editor, {
+  id: 'monprojet-encadre',
+  label: 'Couleur de l’encadré',
+  icon: '<svg …></svg>',   // svg en ligne : la barre vit dans la zone d'écriture
+  order: 130,              // les propriétés commencent à 100
+  match: (editor, bloc) => BlockActions.matchIn(editor, bloc, '.alert'),
+  run: (editor, element) => ouvrirMonFormulaire(editor, element)
+});
+```
+
+Une exception levée par un `match` fait disparaître **ce bouton-là**, et lui seul : un plugin qui
+se trompe n'emporte pas la barre entière.
+
+## Propriétés d'un bloc
+
+Le premier bouton de la rangée ouvre l'identifiant et les classes du bloc — les deux poignées par
+lesquelles une page réelle est tenue. Sans ce formulaire, il fallait passer par « Code source
+html » et retrouver la bonne balise à la main, pour changer un mot.
+
+* **Identifiant** : un mot sans espace, unique dans la page. Il sert d'ancre (`<a href="#tarifs">`)
+  et de point d'accroche aux scripts du site. Un identifiant qui commence par un chiffre ou porte
+  un accent est refusé, avec l'explication.
+* **Classes CSS** : chaque classe posée devient une étiquette qu'on retire d'un clic. La saisie
+  propose les classes de la **feuille de style du site** et celles des autres blocs de la page.
+
+Deux familles de blocs en sont exclues, pour des raisons différentes :
+
+* les **colonnes** d'une grille : leurs classes *sont* leur largeur, et les réécrire à la main
+  disloquerait la ligne. On change une colonne en changeant la disposition de sa ligne ;
+* les **blocs prédéfinis**, **codes courts**, **scripts** et **fiches de microdonnées** : ils ont
+  leur propre formulaire, où leur identité est décrite en termes compréhensibles, et leur balise
+  extérieure appartient au plugin qui les dessine.
+
+## La feuille de style du site
+
+```js
+onlc_site_css: [ 'https://exemple.tld/design.a1b2c3.css' ],
+onlc_site_css_proxy: '/api/site-css?url={url}'   // facultatif
+```
+
+Une page d'accueil réelle n'est pas modifiable si l'éditeur ne connaît pas la feuille qui
+l'habille : le rédacteur voit une suite de paragraphes empilés, sans rapport avec ce que le
+visiteur recevra. L'adresse déclarée sert trois fois — la zone d'écriture, l'aperçu visiteur, et
+les suggestions de classes du formulaire ci-dessus.
+
+Les feuilles sont posées sur `PreInit`, donc **après** `content_css` : c'est le design qui a le
+dernier mot, ici comme sur le site.
+
+Lire les **classes** d'une feuille servie par un autre domaine demande un relais côté serveur : le
+navigateur affiche une telle feuille sans difficulté mais refuse d'en lire le texte. Voir
+[l'API du relais](../api/onlc-site-css-api.md). Sans relais, la feuille habille quand même la
+page ; seules les suggestions manquent, et le formulaire le dit.
+
+Ces options sont déclarées par `onlcshared/Options` : n'importe quel plugin ONLC chargé les
+enregistre, et la déclaration ne se fait qu'une fois.
 
 ## Lignes et colonnes
 
@@ -133,6 +232,8 @@ Le point de rupture est `sm` par défaut : une ligne produit `col-sm-4`, `col-sm
 | `onlc_blocks_layouts` | 7 dispositions | Dispositions proposées (`{ text, columns: number[] }`) ; `text` sert de description accessible, la vignette est dessinée à partir de `columns` |
 | `onlc_blocks_insert_items` | 11 blocs | Contenus proposés dans le panneau d'ajout |
 | `onlc_blocks_inject_styles` | `true` | Charge `onlcblocks.css` dans la zone d'édition |
+| `onlc_site_css` | `[]` | Feuilles de style du site — écriture, aperçu et suggestions de classes |
+| `onlc_site_css_proxy` | `''` | Relais de lecture d'une feuille servie par un autre domaine |
 
 ### Ajouter un contenu au panneau d'insertion
 
@@ -177,6 +278,7 @@ Une ligne insérée produit :
 | `OnlcInsertRow` | Insère une ligne de grille (`value` : largeurs, ex. `'8-4'`) |
 | `OnlcColumnAdd` / `OnlcColumnRemove` | Ajoute ou retire une colonne (commandes disponibles, absentes de l'interface par défaut) |
 | `OnlcColumnResize` | Élargit (`1`) ou rétrécit (`-1`) la colonne courante (idem) |
+| `OnlcBlockProperties` | Ouvre l'identifiant et les classes du bloc courant |
 | `OnlcBlocksToggle` | Active ou désactive l'interface en blocs |
 
 ## API du plugin
@@ -187,4 +289,8 @@ blocks.isEnabled();      // interface active ?
 blocks.toggle();
 blocks.listBlocks();     // blocs de premier niveau
 blocks.insertRow([ 6, 6 ]);
+blocks.blockAt(nœud);    // le bloc manipulable qui entoure ce nœud, ou null
 ```
+
+`blockAt` sert aux autres plugins : c'est par elle qu'ils savent si la barre des blocs prend déjà
+un élément en charge, et donc s'ils doivent ouvrir leur propre bulle.

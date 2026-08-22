@@ -71,6 +71,16 @@ describe('atomic.hugerte.plugins.onlcswiper.JsObjectTest', () => {
     assert.equal((config.delay as JsObject.RawExpression).raw, '2 * 60 * 1000');
   });
 
+  it('refuse une imbrication sans fin', () => {
+    // La lecture est récursive : un littéral de plusieurs milliers de niveaux épuiserait la pile.
+    // Aucune configuration réelle n’atteint cinq niveaux.
+    const profond = '{ a: '.repeat(200) + '1' + ' }'.repeat(200);
+    assert.isTrue(JsObject.parse(profond).isNone(), 'au-delà de trente niveaux, la lecture renonce');
+
+    const raisonnable = '{ a: { b: { c: { d: 1 } } } }';
+    assert.isTrue(JsObject.parse(raisonnable).isSome(), 'quatre niveaux passent sans difficulté');
+  });
+
   it('refuse un texte qui n’est pas un littéral objet', () => {
     assert.isTrue(JsObject.parse('nouvelleConfiguration').isNone());
     assert.isTrue(JsObject.parse('{ sansValeur }').isNone());

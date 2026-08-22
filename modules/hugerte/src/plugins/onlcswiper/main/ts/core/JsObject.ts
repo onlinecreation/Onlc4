@@ -70,7 +70,18 @@ const isRaw = (value: JsValue): value is RawExpression =>
 interface Cursor {
   readonly text: string;
   index: number;
+  /** Profondeur d'imbrication en cours, pour ne pas descendre indéfiniment. */
+  depth: number;
 }
+
+/**
+ * Profondeur d'imbrication acceptée.
+ *
+ * La lecture est récursive : un littéral `{{{{…` de plusieurs milliers de niveaux épuiserait la
+ * pile d'appels. Aucune configuration de diaporama n'atteint cinq niveaux ; en refuser au-delà de
+ * trente coûte un test par accolade et ferme la question.
+ */
+const maxDepth = 30;
 
 const isSpace = (character: string): boolean => /\s/.test(character);
 
@@ -158,13 +169,18 @@ const readRaw = (cursor: Cursor): Optional<string> => {
 };
 
 const readArray = (cursor: Cursor): Optional<JsValue[]> => {
+  if (cursor.depth >= maxDepth) {
+    return Optional.none();
+  }
   cursor.index += 1;
+  cursor.depth += 1;
   const out: JsValue[] = [];
 
   for (;;) {
     skipTrivia(cursor);
     if (cursor.text[cursor.index] === ']') {
       cursor.index += 1;
+      cursor.depth -= 1;
       return Optional.some(out);
     }
     if (cursor.index >= cursor.text.length) {
@@ -208,13 +224,18 @@ const readKey = (cursor: Cursor): Optional<string> => {
 };
 
 const readObject = (cursor: Cursor): Optional<JsObjectValue> => {
+  if (cursor.depth >= maxDepth) {
+    return Optional.none();
+  }
   cursor.index += 1;
+  cursor.depth += 1;
   const out: Record<string, JsValue> = {};
 
   for (;;) {
     skipTrivia(cursor);
     if (cursor.text[cursor.index] === '}') {
       cursor.index += 1;
+      cursor.depth -= 1;
       return Optional.some(out);
     }
     if (cursor.index >= cursor.text.length) {
@@ -292,7 +313,7 @@ const readValue = (cursor: Cursor): Optional<JsValue> => {
 
 /** Lit un littéral objet complet. Rend `none` si le texte n'en est pas un. */
 const parse = (text: string): Optional<JsObjectValue> => {
-  const cursor: Cursor = { text, index: 0 };
+  const cursor: Cursor = { text, index: 0, depth: 0 };
   skipTrivia(cursor);
   if (cursor.text[cursor.index] !== '{') {
     return Optional.none();
@@ -307,7 +328,7 @@ const parse = (text: string): Optional<JsObjectValue> => {
  * l'intervalle exact à réécrire.
  */
 const endOfObject = (text: string, start: number): number => {
-  const cursor: Cursor = { text, index: start };
+  const cursor: Cursor = { text, index: start, depth: 0 };
   skipTrivia(cursor);
   if (cursor.text[cursor.index] !== '{') {
     return -1;

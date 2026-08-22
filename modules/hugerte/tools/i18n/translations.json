@@ -11,9 +11,33 @@
     "1:1 (square)",
     "1:1 (cuadrado)"
   ],
+  "2 à 3 jours ouvrés": [
+    "2 to 3 working days",
+    "2 a 3 días laborables"
+  ],
+  "200 g de farine": [
+    "200 g of flour",
+    "200 g de harina"
+  ],
   "21:9 (cinéma)": [
     "21:9 (cinema)",
     "21:9 (cine)"
+  ],
+  "240 calories": [
+    "240 calories",
+    "240 calorías"
+  ],
+  "26 rue de la Roquille": [
+    "26 Roquille Street",
+    "Calle de la Roquille, 26"
+  ],
+  "3000 millisecondes valent trois secondes. En dessous de 2000, la plupart des visiteurs n’ont pas le temps de lire.": [
+    "3000 milliseconds is three seconds. Below 2000, most visitors do not have time to read.",
+    "3000 milisegundos son tres segundos. Por debajo de 2000, la mayoría de los visitantes no tiene tiempo de leer."
+  ],
+  "4 parts": [
+    "4 servings",
+    "4 raciones"
   ],
   "61 rue du Château d’Eau, 33000 Bordeaux": [
     "1 Market Street, Manchester M1 1AA",
@@ -27,6 +51,10 @@
     "Annual subscription",
     "Suscripción anual"
   ],
+  "Accessible sans payer": [
+    "Free to access",
+    "Acceso gratuito"
+  ],
   "Acheter": [
     "Buy",
     "Comprar"
@@ -38,6 +66,10 @@
   "Actuelle": [
     "Current",
     "Actual"
+  ],
+  "Adresse": [
+    "Address",
+    "Dirección"
   ],
   "Adresse de la page": [
     "Page address",
@@ -63,6 +95,14 @@
     "File address",
     "Dirección del archivo"
   ],
+  "Adresse du fichier vidéo": [
+    "Video file address",
+    "Dirección del archivo de vídeo"
+  ],
+  "Adresse du lecteur intégré": [
+    "Embedded player address",
+    "Dirección del reproductor integrado"
+  ],
   "Adresse du lien": [
     "Link address",
     "Dirección del enlace"
@@ -71,9 +111,17 @@
     "Address of the place",
     "Dirección del lugar"
   ],
+  "Adresse e-mail": [
+    "E-mail address",
+    "Correo electrónico"
+  ],
   "Adresse personnalisée…": [
     "Custom address…",
     "Dirección personalizada…"
+  ],
+  "Adresse postale": [
+    "Postal address",
+    "Dirección postal"
   ],
   "Adresse à laquelle les messages du formulaire seront envoyés.": [
     "Address the form messages will be sent to.",
@@ -99,6 +147,10 @@
     "Show as a visitor",
     "Ver como un visitante"
   ],
+  "Afficher les flèches précédent / suivant": [
+    "Show previous / next arrows",
+    "Mostrar las flechas anterior / siguiente"
+  ],
   "Afficher les intitulés sur les vignettes": [
     "Show captions on thumbnails",
     "Mostrar los títulos en las miniaturas"
@@ -106,6 +158,14 @@
   "Afficher les outils de blocs": [
     "Show block tools",
     "Mostrar las herramientas de bloques"
+  ],
+  "Afficher les points de position": [
+    "Show position dots",
+    "Mostrar los puntos de posición"
+  ],
+  "Afficher une barre de défilement": [
+    "Show a scrollbar",
+    "Mostrar una barra de desplazamiento"
   ],
   "Agenda": [
     "Calendar",
@@ -122,6 +182,10 @@
   "Ajoute du vide entre deux blocs, hauteur réglable": [
     "Adds adjustable empty space between two blocks",
     "Añade un espacio vacío ajustable entre dos bloques"
+  ],
+  "Ajouter": [
+    "Add",
+    "Añadir"
   ],
   "Ajouter des colonnes": [
     "Add columns",
@@ -147,13 +211,45 @@
     "Add vertical space of the height you choose",
     "Añadir un espacio vertical de la altura que elija"
   ],
+  "Ajouter un palier": [
+    "Add a breakpoint",
+    "Añadir un umbral"
+  ],
   "Ajouter un rendez-vous": [
     "Add an appointment",
     "Añadir una cita"
   ],
+  "Ajouter une classe": [
+    "Add a class",
+    "Añadir una clase"
+  ],
   "Ajouter une colonne": [
     "Add a column",
     "Añadir una columna"
+  ],
+  "Ajouter une configuration": [
+    "Add a configuration",
+    "Añadir una configuración"
+  ],
+  "Ajouter une description pour les moteurs…": [
+    "Add a description for search engines…",
+    "Añadir una descripción para los buscadores…"
+  ],
+  "Ajouter une propriété…": [
+    "Add a property…",
+    "Añadir una propiedad…"
+  ],
+  "Ajouter une valeur": [
+    "Add a value",
+    "Añadir un valor"
+  ],
+  "Ajouter une vue vide": [
+    "Add an empty slide",
+    "Añadir una vista vacía"
+  ],
+  "Ajouter à la page": [
+    "Add to the page",
+    "Añadir a la página"
   ],
   "Ajouter à mon calendrier": [
     "Add to my calendar",
@@ -162,6 +258,10 @@
   "Ajoutez au moins une image à la galerie": [
     "Add at least one image to the gallery",
     "Añada al menos una imagen a la galería"
+  ],
+  "Ajoutées": [
+    "Added",
+    "Añadidas"
   ],
   "Ajustée à la taille de l'écran": [
     "Fitted to the screen",
@@ -182,6 +282,10 @@
   "Annuler": [
     "Cancel",
     "Cancelar"
+  ],
+  "Annulé": [
+    "Cancelled",
+    "Cancelado"
   ],
   "Année précédente": [
     "Previous year",
@@ -207,13 +311,45 @@
     "Appearance",
     "Apariencia"
   ],
+  "Application": [
+    "Application",
+    "Aplicación"
+  ],
   "Arrondi": [
     "Rounded",
     "Redondeado"
   ],
+  "Article": [
+    "Article",
+    "Artículo"
+  ],
+  "Article de presse": [
+    "News article",
+    "Artículo de prensa"
+  ],
   "Article non renseigné": [
     "Item not filled in",
     "Artículo sin indicar"
+  ],
+  "Assistance technique": [
+    "Technical support",
+    "Asistencia técnica"
+  ],
+  "Au format ISO 8601 : PT20M vaut 20 minutes, PT1H30M une heure et demie.": [
+    "In ISO 8601 format: PT20M means 20 minutes, PT1H30M an hour and a half.",
+    "En formato ISO 8601: PT20M son 20 minutos, PT1H30M una hora y media."
+  ],
+  "Au format ISO 8601 : PT2M30S vaut 2 minutes 30.": [
+    "In ISO 8601 format: PT2M30S means 2 minutes 30 seconds.",
+    "En formato ISO 8601: PT2M30S son 2 minutos y 30 segundos."
+  ],
+  "Au format international, indicatif compris.": [
+    "In international format, country code included.",
+    "En formato internacional, con prefijo del país."
+  ],
+  "Au-delà de cette date, les moteurs cessent d’afficher le prix.": [
+    "Past this date, search engines stop showing the price.",
+    "Pasada esta fecha, los buscadores dejan de mostrar el precio."
   ],
   "Aucun code pour le moment.": [
     "No code yet.",
@@ -231,6 +367,10 @@
     "No place matches. Try a simpler address, or enter the coordinates by hand.",
     "Ningún lugar coincide. Pruebe una dirección más sencilla o introduzca las coordenadas a mano."
   ],
+  "Aucun palier : le diaporama montre le même nombre de vues sur tous les écrans.": [
+    "No breakpoints: the slideshow shows the same number of slides on every screen.",
+    "Sin umbrales: el carrusel muestra el mismo número de vistas en todas las pantallas."
+  ],
   "Aucun rendez-vous pour ce mois. Ajoutez-en un pour le voir apparaître dans la grille.": [
     "No appointments this month. Add one to see it appear in the grid.",
     "No hay citas este mes. Añada una para verla aparecer en la cuadrícula."
@@ -239,17 +379,25 @@
     "None",
     "Ninguna"
   ],
-  "Aucune — visible par tous": [
-    "None — visible to everyone",
-    "Ninguno — visible para todos"
-  ],
   "Aucune adresse renseignée": [
     "No address given",
     "Sin dirección indicada"
   ],
+  "Aucune classe du site ne commence ainsi. Vous pouvez tout de même l’ajouter.": [
+    "No class of the site starts like this. You can add it anyway.",
+    "Ninguna clase del sitio empieza así. Puede añadirla igualmente."
+  ],
+  "Aucune classe pour l’instant.": [
+    "No class yet.",
+    "Ninguna clase por ahora."
+  ],
   "Aucune description": [
     "No description",
     "Sin descripción"
+  ],
+  "Aucune feuille de style de site n’est déclarée : écrivez le nom de la classe à la main.": [
+    "No site stylesheet is declared: write the class name by hand.",
+    "No hay ninguna hoja de estilo del sitio declarada: escriba el nombre de la clase a mano."
   ],
   "Aucune image choisie.": [
     "No image chosen.",
@@ -259,9 +407,37 @@
     "No images yet. Click “Add images…” to choose some.",
     "Todavía no hay imágenes. Pulse «Añadir imágenes…» para elegirlas."
   ],
+  "Aucune propriété renseignée pour l’instant.": [
+    "No property filled in yet.",
+    "Ninguna propiedad rellenada por ahora."
+  ],
+  "Aucune — visible par tous": [
+    "None — visible to everyone",
+    "Ninguno — visible para todos"
+  ],
   "Auteur": [
     "Author",
     "Autor"
+  ],
+  "Autre nom": [
+    "Other name",
+    "Otro nombre"
+  ],
+  "Autres pages qui parlent de cette chose": [
+    "Other pages about this thing",
+    "Otras páginas que hablan de esta cosa"
+  ],
+  "Avancer avec les flèches du clavier": [
+    "Move with the keyboard arrows",
+    "Avanzar con las flechas del teclado"
+  ],
+  "Avancer tout seul": [
+    "Advance on its own",
+    "Avanzar solo"
+  ],
+  "Avancer à la molette de la souris": [
+    "Advance with the mouse wheel",
+    "Avanzar con la rueda del ratón"
   ],
   "Avancé": [
     "Advanced",
@@ -275,9 +451,21 @@
     "Serif",
     "Con serifa"
   ],
+  "Avis": [
+    "Review",
+    "Reseña"
+  ],
+  "Balise « div ». L’identifiant et les classes voyagent avec le bloc : ils sont écrits tels quels dans la page publiée.": [
+    "“div” tag. The identifier and the classes travel with the block: they are written as they are in the published page.",
+    "Etiqueta «div». El identificador y las clases viajan con el bloque: se escriben tal cual en la página publicada."
+  ],
   "Bandeau d’introduction avec titre, texte et bouton": [
     "Opening banner with a heading, text and a button",
     "Banner de presentación con título, texto y botón"
+  ],
+  "Barre de progression": [
+    "Progress bar",
+    "Barra de progreso"
   ],
   "Bas centre": [
     "Bottom centre",
@@ -290,6 +478,14 @@
   "Bas gauche": [
     "Bottom left",
     "Abajo izquierda"
+  ],
+  "Billet de blog": [
+    "Blog post",
+    "Entrada de blog"
+  ],
+  "Billetterie": [
+    "Tickets",
+    "Entradas"
   ],
   "Bloc de texte": [
     "Text block",
@@ -314,10 +510,6 @@
   "Blocs prédéfinis...": [
     "Ready-made blocks...",
     "Bloques predefinidos..."
-  ],
-  "boulangerie, pain bio, Bordeaux": [
-    "bakery, organic bread, Manchester",
-    "panadería, pan ecológico, Madrid"
   ],
   "Bouton": [
     "Button",
@@ -355,9 +547,21 @@
     "Sharing buttons (small)",
     "Botones para compartir (pequeños)"
   ],
+  "CSS personnalisé (appliqué au bloc image)": [
+    "Custom CSS (applied to the image block)",
+    "CSS personalizado (aplicado al bloque de imagen)"
+  ],
   "Calendrier du mois": [
     "Month calendar",
     "Calendario del mes"
+  ],
+  "Calories": [
+    "Calories",
+    "Calorías"
+  ],
+  "Candidatures jusqu’au": [
+    "Applications until",
+    "Candidaturas hasta el"
   ],
   "Carte": [
     "Map",
@@ -371,6 +575,10 @@
     "Visitors can pan and zoom the map",
     "El visitante puede mover y ampliar el mapa"
   ],
+  "Cartes empilées": [
+    "Stacked cards",
+    "Tarjetas apiladas"
+  ],
   "Cascade (rangées justifiées)": [
     "Cascade (justified rows)",
     "Cascada (filas justificadas)"
@@ -379,9 +587,37 @@
     "Category",
     "Categoría"
   ],
+  "Ce diaporama n’a aucune vue. Ajoutez-en une pour qu’il montre quelque chose.": [
+    "This slideshow has no slides. Add one so that it shows something.",
+    "Este carrusel no tiene vistas. Añada una para que muestre algo."
+  ],
+  "Ce diaporama n’a pas de réglages dans la page : aucun appel « new Swiper(…) » ne le désigne. Ses images restent modifiables.": [
+    "This slideshow has no settings in the page: no “new Swiper(…)” call points at it. Its images remain editable.",
+    "Este carrusel no tiene ajustes en la página: ninguna llamada «new Swiper(…)» lo designa. Sus imágenes siguen siendo editables."
+  ],
   "Ce dossier est vide. Déposez des fichiers ici, ou utilisez « Téléverser… ».": [
     "This folder is empty. Drop files here, or use “Upload…”.",
     "Esta carpeta está vacía. Suelte archivos aquí o use «Subir…»."
+  ],
+  "Ce que contient une portion.": [
+    "What one serving contains.",
+    "Lo que contiene una porción."
+  ],
+  "Ce que le produit coûte et s’il est en stock. C’est ce bloc qui fait apparaître le prix dans Google.": [
+    "What the product costs and whether it is in stock. This block is what makes the price appear in Google.",
+    "Lo que cuesta el producto y si hay existencias. Este bloque es el que hace aparecer el precio en Google."
+  ],
+  "Ce que montre l’image, en une phrase": [
+    "What the image shows, in one sentence",
+    "Lo que muestra la imagen, en una frase"
+  ],
+  "Ce qui est évalué": [
+    "What is reviewed",
+    "Lo que se evalúa"
+  ],
+  "Ce qu’il faut faire": [
+    "What to do",
+    "Lo que hay que hacer"
   ],
   "Ce type de fichier n’est pas accepté": [
     "This file type is not accepted",
@@ -391,9 +627,17 @@
     "Centre",
     "Centro"
   ],
+  "Centrer la vue courante": [
+    "Centre the current slide",
+    "Centrar la vista actual"
+  ],
   "Centré": [
     "Centred",
     "Centrado"
+  ],
+  "Ces propriétés sont exigées et restent vides :": [
+    "These properties are required and remain empty:",
+    "Estas propiedades son obligatorias y están vacías:"
   ],
   "Cet élément n’est pas reconnu par l’éditeur : il sera réécrit tel quel dans la page.": [
     "The editor does not recognise this item: it will be written back to the page unchanged.",
@@ -407,9 +651,29 @@
     "This cannot be undone.",
     "Esta acción no se puede deshacer."
   ],
+  "Cette page contenait plusieurs fiches de référencement. Une seule a été conservée : les moteurs de recherche n’en lisent qu’une, et choisissent au hasard quand il y en a plusieurs.": [
+    "This page contained several search-engine records. Only one was kept: search engines read a single one, and pick at random when there are several.",
+    "Esta página contenía varias fichas de posicionamiento. Solo se ha conservado una: los buscadores leen una sola y eligen al azar cuando hay varias."
+  ],
+  "Cette vue contient autre chose que des images. Elle se modifie directement dans la page.": [
+    "This slide contains something other than images. It is edited directly in the page.",
+    "Esta vista contiene algo distinto de imágenes. Se modifica directamente en la página."
+  ],
+  "Changer de type de contenu…": [
+    "Change the content type…",
+    "Cambiar el tipo de contenido…"
+  ],
+  "Chaque palier s’applique à partir de la largeur indiquée, et jusqu’au palier suivant. En dessous du premier palier, ce sont les réglages de l’onglet « Affichage » qui s’appliquent.": [
+    "Each breakpoint applies from the given width up to the next one. Below the first breakpoint, the settings of the “Display” tab apply.",
+    "Cada umbral se aplica desde el ancho indicado hasta el siguiente. Por debajo del primer umbral se aplican los ajustes de la pestaña «Visualización»."
+  ],
   "Chaque version d’un fichier compte pour un fichier.": [
     "Every version of a file counts as one file.",
     "Cada versión de un archivo cuenta como un archivo."
+  ],
+  "Chaque vue est une image du diaporama. L’ordre de la liste est celui du défilement.": [
+    "Each slide is an image of the slideshow. The order of the list is the order of the scrolling.",
+    "Cada vista es una imagen del carrusel. El orden de la lista es el del desplazamiento."
   ],
   "Chargement asynchrone (async)": [
     "Asynchronous loading (async)",
@@ -447,6 +711,14 @@
     "Choose an image…",
     "Elegir una imagen…"
   ],
+  "Choisir…": [
+    "Choose…",
+    "Elegir…"
+  ],
+  "Choisissez d’abord ce que décrit cette page : sans type de contenu, les moteurs ne savent pas quoi faire de la fiche.": [
+    "First choose what this page describes: without a content type, search engines do not know what to do with the record.",
+    "Elija primero qué describe esta página: sin tipo de contenido, los buscadores no saben qué hacer con la ficha."
+  ],
   "Choisissez le bloc à ajouter": [
     "Choose the block to add",
     "Elija el bloque que desea añadir"
@@ -471,13 +743,17 @@
     "Choose an image",
     "Elija una imagen"
   ],
+  "Chose": [
+    "Thing",
+    "Cosa"
+  ],
+  "Cinq par défaut. À préciser si votre échelle est différente.": [
+    "Five by default. Set it if your scale is different.",
+    "Cinco por defecto. Indíquelo si su escala es distinta."
+  ],
   "Citation": [
     "Quotation",
     "Cita"
-  ],
-  "Classe ajoutée à la page en cours de consultation.": [
-    "Class added to the page being viewed.",
-    "Clase añadida a la página que se está viendo."
   ],
   "Classe CSS contenant": [
     "Wrapper CSS class",
@@ -495,6 +771,10 @@
     "Current item CSS class",
     "Clase CSS del elemento activo"
   ],
+  "Classe ajoutée à la page en cours de consultation.": [
+    "Class added to the page being viewed.",
+    "Clase añadida a la página que se está viendo."
+  ],
   "Classe posée sur chaque page du menu.": [
     "Class set on every page of the menu.",
     "Clase aplicada a cada página del menú."
@@ -502,6 +782,18 @@
   "Classe posée sur la liste qui entoure les pages.": [
     "Class set on the list wrapping the pages.",
     "Clase aplicada a la lista que envuelve las páginas."
+  ],
+  "Classes CSS": [
+    "CSS classes",
+    "Clases CSS"
+  ],
+  "Classes de la feuille de style du site et des autres blocs de la page.": [
+    "Classes from the site stylesheet and from the other blocks of the page.",
+    "Clases de la hoja de estilo del sitio y de los demás bloques de la página."
+  ],
+  "Classes du site.": [
+    "Site classes.",
+    "Clases del sitio."
   ],
   "Cliquez pour sélectionner ce bloc, puis « Modifier le bloc » pour le régler.": [
     "Click to select this block, then “Edit the block” to set it up.",
@@ -531,9 +823,17 @@
     "JavaScript code",
     "Código JavaScript"
   ],
+  "Code de la formation": [
+    "Course code",
+    "Código del curso"
+  ],
   "Code non reconnu : il sera réécrit tel quel dans la page.": [
     "Unrecognised code: it will be written back to the page unchanged.",
     "Código no reconocido: se escribirá tal cual en la página."
+  ],
+  "Code postal": [
+    "Postcode",
+    "Código postal"
   ],
   "Code source": [
     "Source code",
@@ -547,6 +847,10 @@
     "HTML source code...",
     "Código fuente HTML..."
   ],
+  "Code-barres (EAN 13)": [
+    "Barcode (EAN 13)",
+    "Código de barras (EAN 13)"
+  ],
   "Colle un code d’intégration fourni par un service tiers": [
     "Paste an embed code given by another service",
     "Pegue un código de inserción de otro servicio"
@@ -559,6 +863,14 @@
     "Commerce",
     "Comercio"
   ],
+  "Commerce de proximité": [
+    "Local business",
+    "Comercio local"
+  ],
+  "Commercial": [
+    "Sales",
+    "Comercial"
+  ],
   "Compléter les langues manquantes": [
     "Add the missing languages",
     "Añadir los idiomas que faltan"
@@ -566,6 +878,14 @@
   "Compte PayPal du vendeur": [
     "Seller’s PayPal account",
     "Cuenta PayPal del vendedor"
+  ],
+  "Conditions de livraison": [
+    "Delivery terms",
+    "Condiciones de entrega"
+  ],
+  "Conseillées": [
+    "Recommended",
+    "Recomendadas"
   ],
   "Construction de l’aperçu…": [
     "Building the preview…",
@@ -575,9 +895,21 @@
     "Content",
     "Contenido"
   ],
+  "Contenu libre :": [
+    "Free content:",
+    "Contenido libre:"
+  ],
+  "Contenus": [
+    "Content",
+    "Contenidos"
+  ],
   "Contour": [
     "Outline",
     "Contorno"
+  ],
+  "Coordonnées géographiques": [
+    "Geographic coordinates",
+    "Coordenadas geográficas"
   ],
   "Copier": [
     "Copy",
@@ -594,6 +926,14 @@
   "Copie…": [
     "Copying…",
     "Copiando…"
+  ],
+  "Coque de carte Renault": [
+    "Renault key card cover",
+    "Funda de tarjeta Renault"
+  ],
+  "Couleur": [
+    "Colour",
+    "Color"
   ],
   "Couleur de fond": [
     "Background colour",
@@ -627,13 +967,25 @@
     "Create an image",
     "Crear una imagen"
   ],
-  "CSS personnalisé (appliqué au bloc image)": [
-    "Custom CSS (applied to the image block)",
-    "CSS personalizado (aplicado al bloque de imagen)"
+  "Cube": [
+    "Cube",
+    "Cubo"
+  ],
+  "Cuisine": [
+    "Cuisine",
+    "Cocina"
   ],
   "Date": [
     "Date",
     "Fecha"
+  ],
+  "Date de création": [
+    "Founding date",
+    "Fecha de creación"
+  ],
+  "Date de dernière mise à jour": [
+    "Last updated on",
+    "Fecha de última actualización"
   ],
   "Date de début": [
     "Start date",
@@ -643,21 +995,29 @@
     "End date",
     "Fecha de fin"
   ],
-  "Définir la langue": [
-    "Set the language",
-    "Definir el idioma"
+  "Date de mise en ligne": [
+    "Upload date",
+    "Fecha de publicación"
   ],
-  "Définir la langue de ce bloc": [
-    "Set this block’s language",
-    "Definir el idioma de este bloque"
+  "Date de publication": [
+    "Publication date",
+    "Fecha de publicación"
   ],
-  "Définir la langue de la sélection": [
-    "Set the selection’s language",
-    "Definir el idioma de la selección"
+  "De « € » à « €€€€ », ou une fourchette : « 15 € – 40 € ».": [
+    "From “€” to “€€€€”, or a range: “€15 – €40”.",
+    "De «€» a «€€€€», o un intervalo: «15 € – 40 €»."
+  ],
+  "Dernière vérification": [
+    "Last reviewed",
+    "Última verificación"
   ],
   "Descendre": [
     "Move down",
     "Bajar"
+  ],
+  "Descendre cette vue": [
+    "Move this slide down",
+    "Bajar esta vista"
   ],
   "Descendre le bloc": [
     "Move block down",
@@ -675,6 +1035,10 @@
     "Description for search engines",
     "Descripción para los buscadores"
   ],
+  "Dessert": [
+    "Dessert",
+    "Postre"
+  ],
   "Dessiner une image…": [
     "Draw an image…",
     "Dibujar una imagen…"
@@ -682,6 +1046,14 @@
   "Devise": [
     "Currency",
     "Moneda"
+  ],
+  "Diaporama": [
+    "Slideshow",
+    "Carrusel"
+  ],
+  "Diaporama...": [
+    "Slideshow...",
+    "Carrusel..."
   ],
   "Dimanche": [
     "Sunday",
@@ -691,9 +1063,17 @@
     "Sizing",
     "Dimensión"
   ],
+  "Disponibilité": [
+    "Availability",
+    "Disponibilidad"
+  ],
   "Disposition": [
     "Layout",
     "Disposición"
+  ],
+  "Disposition des colonnes": [
+    "Column layout",
+    "Disposición de las columnas"
   ],
   "Document PDF": [
     "PDF document",
@@ -731,6 +1111,30 @@
     "Duplicate the block",
     "Duplicar el bloque"
   ],
+  "Durée": [
+    "Duration",
+    "Duración"
+  ],
+  "Durée totale": [
+    "Total duration",
+    "Duración total"
+  ],
+  "Début": [
+    "Start",
+    "Inicio"
+  ],
+  "Débutant": [
+    "Beginner",
+    "Principiante"
+  ],
+  "Décrire la page pour les moteurs (microdonnées)…": [
+    "Describe the page for search engines (microdata)…",
+    "Describir la página para los buscadores (microdatos)…"
+  ],
+  "Décrivent le contenu de cette page pour les moteurs de recherche. Rien n’en paraît sur le site.": [
+    "Describe the content of this page for search engines. None of it appears on the site.",
+    "Describen el contenido de esta página para los buscadores. Nada de ello aparece en el sitio."
+  ],
   "Décrivez votre offre en une phrase.": [
     "Describe what you offer in one sentence.",
     "Describa su oferta en una frase."
@@ -738,6 +1142,22 @@
   "Défilement": [
     "Scrolling",
     "Desplazamiento"
+  ],
+  "Défilement libre, sans s’aligner sur une vue": [
+    "Free scrolling, without snapping to a slide",
+    "Desplazamiento libre, sin alinearse con una vista"
+  ],
+  "Définir la langue": [
+    "Set the language",
+    "Definir el idioma"
+  ],
+  "Définir la langue de ce bloc": [
+    "Set this block’s language",
+    "Definir el idioma de este bloque"
+  ],
+  "Définir la langue de la sélection": [
+    "Set the selection’s language",
+    "Definir el idioma de la selección"
   ],
   "Dégradé : angle (°)": [
     "Gradient: angle (°)",
@@ -759,6 +1179,10 @@
     "Gradient: start",
     "Degradado: inicio"
   ],
+  "Délai annoncé": [
+    "Announced delay",
+    "Plazo anunciado"
+  ],
   "Déplacement…": [
     "Moving…",
     "Moviendo…"
@@ -779,6 +1203,10 @@
     "Move to…",
     "Mover a…"
   ],
+  "Déplacé en ligne": [
+    "Moved online",
+    "Trasladado a internet"
+  ],
   "Déplier": [
     "Expand",
     "Desplegar"
@@ -794,6 +1222,10 @@
   "E-mail destinataire": [
     "Recipient e-mail",
     "Correo del destinatario"
+  ],
+  "Effet de transition": [
+    "Transition effect",
+    "Efecto de transición"
   ],
   "Emoji ou icône": [
     "Emoji or icon",
@@ -823,9 +1255,25 @@
     "Places",
     "Ubicaciones"
   ],
+  "Employeur": [
+    "Employer",
+    "Empleador"
+  ],
+  "En ligne": [
+    "Online",
+    "En línea"
+  ],
+  "En rupture": [
+    "Out of stock",
+    "Sin existencias"
+  ],
   "En savoir plus": [
     "Find out more",
     "Saber más"
+  ],
+  "En stock": [
+    "In stock",
+    "En existencias"
   ],
   "En-tête de la page (<head>)": [
     "Page head (<head>)",
@@ -834,6 +1282,10 @@
   "Encadré": [
     "Boxed",
     "Enmarcado"
+  ],
+  "Endommagé": [
+    "Damaged",
+    "Dañado"
   ],
   "Enregistrer": [
     "Save",
@@ -847,6 +1299,10 @@
     "Gap between thumbnails (px)",
     "Espacio entre miniaturas (px)"
   ],
+  "Espace entre les vues (pixels)": [
+    "Space between slides (pixels)",
+    "Espacio entre vistas (píxeles)"
+  ],
   "Espace vertical": [
     "Vertical space",
     "Espacio vertical"
@@ -854,6 +1310,10 @@
   "Euro (EUR)": [
     "Euro (EUR)",
     "Euro (EUR)"
+  ],
+  "Exigé": [
+    "Required",
+    "Obligatorio"
   ],
   "Explorateur de fichiers": [
     "File browser",
@@ -867,13 +1327,29 @@
     "Deferred execution (defer)",
     "Ejecución diferida (defer)"
   ],
+  "Facturation": [
+    "Billing",
+    "Facturación"
+  ],
+  "Faire glisser au doigt ou à la souris": [
+    "Drag with a finger or the mouse",
+    "Arrastrar con el dedo o el ratón"
+  ],
   "Fermer": [
     "Close",
     "Cerrar"
   ],
+  "Fermeture": [
+    "Closing",
+    "Cierre"
+  ],
   "Fichier": [
     "File",
     "Archivo"
+  ],
+  "Fichier PDF": [
+    "PDF file",
+    "Archivo PDF"
   ],
   "Fichier de l’image": [
     "Image file",
@@ -883,21 +1359,9 @@
     "External file (src)",
     "Archivo externo (src)"
   ],
-  "Fichier PDF": [
-    "PDF file",
-    "Archivo PDF"
-  ],
-  "fichier(s)": [
-    "file(s)",
-    "archivo(s)"
-  ],
-  "fichiers": [
-    "files",
-    "archivos"
-  ],
-  "fichiers sélectionnés": [
-    "files selected",
-    "archivos seleccionados"
+  "Fil d’Ariane": [
+    "Breadcrumb",
+    "Ruta de navegación"
   ],
   "Filet": [
     "Rule",
@@ -907,9 +1371,21 @@
     "Plain rule",
     "Línea simple"
   ],
+  "Fin": [
+    "End",
+    "Fin"
+  ],
   "Fin de la page (avant </body>)": [
     "End of the page (before </body>)",
     "Final de la página (antes de </body>)"
+  ],
+  "Fonction": [
+    "Job title",
+    "Cargo"
+  ],
+  "Fondu": [
+    "Fade",
+    "Fundido"
   ],
   "Format": [
     "Aspect ratio",
@@ -918,6 +1394,14 @@
   "Format proportionnel": [
     "Proportional ratio",
     "Formato proporcional"
+  ],
+  "Formation": [
+    "Course",
+    "Formación"
+  ],
+  "Forme des points": [
+    "Shape of the dots",
+    "Forma de los puntos"
   ],
   "Formulaire de contact": [
     "Contact form",
@@ -931,9 +1415,33 @@
     "Forms",
     "Formularios"
   ],
+  "Fourchette de prix": [
+    "Price range",
+    "Rango de precios"
+  ],
+  "Fournitures": [
+    "Supplies",
+    "Materiales"
+  ],
+  "Frais de port": [
+    "Shipping cost",
+    "Gastos de envío"
+  ],
+  "Frais, délais et zone de livraison.": [
+    "Cost, delay and delivery area.",
+    "Coste, plazo y zona de entrega."
+  ],
   "Franc suisse (CHF)": [
     "Swiss franc (CHF)",
     "Franco suizo (CHF)"
+  ],
+  "Français": [
+    "French",
+    "Francés"
+  ],
+  "Française": [
+    "French",
+    "Francesa"
   ],
   "Fuseau horaire": [
     "Time zone",
@@ -947,6 +1455,10 @@
     "Left",
     "Izquierda"
   ],
+  "Glissement (par défaut)": [
+    "Slide (default)",
+    "Deslizamiento (por defecto)"
+  ],
   "Grande": [
     "Large",
     "Grande"
@@ -958,6 +1470,10 @@
   "Général": [
     "General",
     "General"
+  ],
+  "Gérant": [
+    "Manager",
+    "Gerente"
   ],
   "Haut centre": [
     "Top centre",
@@ -974,6 +1490,10 @@
   "Hauteur": [
     "Height",
     "Altura"
+  ],
+  "Hauteur (pixels)": [
+    "Height (pixels)",
+    "Alto (píxeles)"
   ],
   "Hauteur de la carte": [
     "Map height",
@@ -1011,6 +1531,14 @@
     "End time",
     "Hora de fin"
   ],
+  "Horaires d’ouverture": [
+    "Opening hours",
+    "Horario de apertura"
+  ],
+  "Horizontal": [
+    "Horizontal",
+    "Horizontal"
+  ],
   "Icônes": [
     "Icons",
     "Iconos"
@@ -1018,6 +1546,18 @@
   "Icônes seules": [
     "Icons only",
     "Solo iconos"
+  ],
+  "Identifiant (ancre)": [
+    "Identifier (anchor)",
+    "Identificador (ancla)"
+  ],
+  "Identifiant du bloc, utilisable comme ancre": [
+    "Identifier of the block, usable as an anchor",
+    "Identificador del bloque, utilizable como ancla"
+  ],
+  "Identifiant et classes du bloc": [
+    "Identifier and classes of the block",
+    "Identificador y clases del bloque"
   ],
   "Identité": [
     "Identity",
@@ -1039,9 +1579,21 @@
     "Image from the library",
     "Imagen de la biblioteca"
   ],
+  "Image d’aperçu": [
+    "Preview image",
+    "Imagen de vista previa"
+  ],
+  "Image principale": [
+    "Main image",
+    "Imagen principal"
+  ],
   "Image...": [
     "Image...",
     "Imagen..."
+  ],
+  "Images": [
+    "Images",
+    "Imágenes"
   ],
   "Images de la galerie": [
     "Gallery images",
@@ -1059,6 +1611,14 @@
     "Enter the calendar address",
     "Indique la dirección de la agenda"
   ],
+  "Indre-et-Loire": [
+    "Indre-et-Loire",
+    "Indre y Loira"
+  ],
+  "Ingrédients": [
+    "Ingredients",
+    "Ingredientes"
+  ],
   "Insérer des colonnes": [
     "Insert columns",
     "Insertar columnas"
@@ -1075,6 +1635,10 @@
     "Insert a Unicode emoji or an icon",
     "Insertar un emoji Unicode o un icono"
   ],
+  "Intervenant": [
+    "Performer",
+    "Participante"
+  ],
   "Intitulé": [
     "Caption",
     "Título"
@@ -1083,21 +1647,69 @@
     "Caption shown",
     "Título mostrado"
   ],
+  "Intitulé du poste": [
+    "Job title",
+    "Título del puesto"
+  ],
   "Intègre un agenda public existant (Google Agenda, ICS…)": [
     "Embeds an existing public calendar (Google Calendar, ICS…)",
     "Integra una agenda pública existente (Google Calendar, ICS…)"
+  ],
+  "Intérim": [
+    "Temporary",
+    "Temporal"
+  ],
+  "Jeudi": [
+    "Thursday",
+    "Jueves"
+  ],
+  "Jour": [
+    "Day",
+    "Día"
   ],
   "Jour du mois": [
     "Day of the month",
     "Día del mes"
   ],
+  "La chose dont ce contenu parle.": [
+    "The thing this content is about.",
+    "Aquello de lo que trata este contenido."
+  ],
   "La grille d’un mois, avec vos rendez-vous inscrits jour par jour": [
     "A month grid, with your appointments written in day by day",
     "La cuadrícula de un mes, con sus citas anotadas día a día"
   ],
+  "La latitude et la longitude du lieu.": [
+    "The latitude and longitude of the place.",
+    "La latitud y la longitud del lugar."
+  ],
+  "La marque sous laquelle le produit est vendu.": [
+    "The brand the product is sold under.",
+    "La marca bajo la que se vende el producto."
+  ],
+  "La mise en forme simple est acceptée : gras, liens, listes.": [
+    "Simple formatting is accepted: bold, links, lists.",
+    "Se acepta formato sencillo: negrita, enlaces, listas."
+  ],
+  "La moyenne des avis et leur nombre.": [
+    "The average of the reviews and how many there are.",
+    "La media de las reseñas y su número."
+  ],
+  "La moyenne des avis. Ce sont les étoiles affichées sous le résultat.": [
+    "The average of the reviews. These are the stars shown under the result.",
+    "La media de las reseñas. Son las estrellas que se muestran bajo el resultado."
+  ],
   "La recherche d’adresse n’a pas abouti. Entrez les coordonnées à la main.": [
     "The address search failed. Enter the coordinates by hand.",
     "La búsqueda de dirección no funcionó. Introduzca las coordenadas a mano."
+  ],
+  "La seconde ligne décrit l’image : elle est lue à voix haute par les lecteurs d’écran et reprise par les moteurs de recherche.": [
+    "The second line describes the image: it is read aloud by screen readers and picked up by search engines.",
+    "La segunda línea describe la imagen: los lectores de pantalla la leen en voz alta y los buscadores la recogen."
+  ],
+  "La section du site où l’article paraît : Actualités, Recettes, Juridique.": [
+    "The section of the site the article appears in: News, Recipes, Legal.",
+    "La sección del sitio donde aparece el artículo: Noticias, Recetas, Jurídico."
   ],
   "La semaine commence le": [
     "The week starts on",
@@ -1106,6 +1718,10 @@
   "Laissez vide pour afficher le bouton officiel de PayPal.": [
     "Leave empty to show PayPal’s own button.",
     "Déjelo vacío para mostrar el botón oficial de PayPal."
+  ],
+  "Langue": [
+    "Language",
+    "Idioma"
   ],
   "Langue du bloc": [
     "Block language",
@@ -1123,6 +1739,10 @@
     "Page languages",
     "Idiomas de la página"
   ],
+  "Langues parlées": [
+    "Languages spoken",
+    "Idiomas hablados"
+  ],
   "Largeur": [
     "Width",
     "Anchura"
@@ -1131,9 +1751,17 @@
     "Width (%, rem, vw...)",
     "Anchura (%, rem, vw...)"
   ],
+  "Largeur (pixels)": [
+    "Width (pixels)",
+    "Ancho (píxeles)"
+  ],
   "Largeur du filet": [
     "Rule width",
     "Anchura de la línea"
+  ],
+  "Largeur en pixels": [
+    "Width in pixels",
+    "Ancho en píxeles"
   ],
   "Largeur maximale": [
     "Maximum width",
@@ -1147,21 +1775,45 @@
     "Latitude",
     "Latitud"
   ],
-  "le bloc": [
-    "the block",
-    "el bloque"
+  "Le bouton « Ajouter une configuration » en pose une, à la fin de la page, avec les commandes que son html contient déjà.": [
+    "The “Add a configuration” button places one at the end of the page, with the controls its html already contains.",
+    "El botón «Añadir una configuración» coloca una al final de la página, con los controles que ya contiene su html."
+  ],
+  "Le chemin qui mène à cette page depuis l’accueil.": [
+    "The path leading to this page from the home page.",
+    "La ruta que lleva a esta página desde la portada."
+  ],
+  "Le chemin qui mène à la page depuis l’accueil.": [
+    "The path leading to the page from the home page.",
+    "La ruta que lleva a la página desde la portada."
   ],
   "Le code ci-dessus est affiché tel quel dans l’éditeur ; il est publié sous sa forme active sur la page.": [
     "The code above is shown as-is in the editor; it is published in working form on the page.",
     "El código anterior se muestra tal cual en el editor; se publica en su forma activa en la página."
   ],
-  "le dossier": [
-    "the folder",
-    "la carpeta"
+  "Le code de la langue du contenu : fr, en, nl.": [
+    "The language code of the content: fr, en, nl.",
+    "El código del idioma del contenido: fr, en, nl."
   ],
-  "le fichier": [
-    "the file",
-    "el archivo"
+  "Le code de l’unité : GRM pour un gramme, KGM pour un kilogramme, CMT pour un centimètre.": [
+    "The unit code: GRM for a gram, KGM for a kilogram, CMT for a centimetre.",
+    "El código de la unidad: GRM para un gramo, KGM para un kilogramo, CMT para un centímetro."
+  ],
+  "Le code du pays livré : FR, BE, NL.": [
+    "The code of the delivered country: FR, BE, NL.",
+    "El código del país de entrega: FR, BE, NL."
+  ],
+  "Le code du pays sur deux lettres : FR, BE, NL.": [
+    "The two-letter country code: FR, BE, NL.",
+    "El código del país de dos letras: FR, BE, NL."
+  ],
+  "Le contenu des colonnes est conservé. Une disposition qui en compte moins ramène le contenu des colonnes en trop dans la dernière.": [
+    "The content of the columns is kept. A layout with fewer of them moves the content of the extra columns into the last one.",
+    "Se conserva el contenido de las columnas. Una disposición con menos columnas lleva el contenido de las sobrantes a la última."
+  ],
+  "Le corps de l’article. Facultatif : les moteurs le lisent déjà dans la page.": [
+    "The body of the article. Optional: search engines already read it in the page.",
+    "El cuerpo del artículo. Opcional: los buscadores ya lo leen en la página."
   ],
   "Le fichier dépasse la taille maximale autorisée": [
     "The file exceeds the maximum allowed size",
@@ -1175,6 +1827,22 @@
     "The time zone the times above are given in.",
     "La zona horaria en la que se expresan las horas anteriores."
   ],
+  "Le jour de la dernière modification. Les moteurs s’en servent pour juger de la fraîcheur.": [
+    "The day of the last change. Search engines use it to judge freshness.",
+    "El día de la última modificación. Los buscadores lo usan para juzgar la actualidad."
+  ],
+  "Le jour où le contenu a été mis en ligne.": [
+    "The day the content was published.",
+    "El día en que se publicó el contenido."
+  ],
+  "Le jour où le contenu a été relu et confirmé exact.": [
+    "The day the content was reviewed and confirmed accurate.",
+    "El día en que se revisó el contenido y se confirmó su exactitud."
+  ],
+  "Le logo affiché dans les résultats de recherche. Au moins 112 pixels de côté.": [
+    "The logo shown in search results. At least 112 pixels on each side.",
+    "El logotipo que se muestra en los resultados de búsqueda. Al menos 112 píxeles de lado."
+  ],
   "Le logo enregistré dans les réglages de votre site": [
     "The logo saved in your site settings",
     "El logotipo guardado en los ajustes de su sitio"
@@ -1187,13 +1855,37 @@
     "The site name, shown over the logo",
     "El nombre del sitio, mostrado sobre el logotipo"
   ],
+  "Le nom déposé, tel qu’il figure au registre du commerce.": [
+    "The registered name, as it appears in the trade register.",
+    "El nombre registrado, tal como figura en el registro mercantil."
+  ],
+  "Le nom sous lequel cette chose est connue. C’est ce que les moteurs affichent en titre.": [
+    "The name this thing is known by. This is what search engines show as the title.",
+    "El nombre por el que se conoce esta cosa. Es lo que los buscadores muestran como título."
+  ],
+  "Le plugin des scripts n’est pas chargé : la configuration ne peut pas être ajoutée depuis ici. Écrivez-la dans le gabarit du site.": [
+    "The scripts plugin is not loaded: the configuration cannot be added from here. Write it in the site template.",
+    "El complemento de scripts no está cargado: la configuración no puede añadirse desde aquí. Escríbala en la plantilla del sitio."
+  ],
   "Le résumé et les mots-clés affichés par Google — invisible sur la page": [
     "The summary and keywords shown by Google — invisible on the page",
     "El resumen y las palabras clave que muestra Google — invisible en la página"
   ],
-  "le script": [
-    "the script",
-    "el script"
+  "Le site dans son ensemble. À poser sur la page d’accueil.": [
+    "The site as a whole. To be placed on the home page.",
+    "El sitio en su conjunto. Se coloca en la portada."
+  ],
+  "Le texte d’une réponse.": [
+    "The text of an answer.",
+    "El texto de una respuesta."
+  ],
+  "Le titre du contenu. Restez sous 110 caractères : au-delà, les moteurs le coupent.": [
+    "The title of the content. Stay under 110 characters: past that, search engines cut it.",
+    "El título del contenido. No pase de 110 caracteres: más allá, los buscadores lo cortan."
+  ],
+  "Le type le plus général : à n’employer que si aucun autre ne convient.": [
+    "The most general type: to be used only if no other fits.",
+    "El tipo más general: solo si ningún otro sirve."
   ],
   "Lecture automatique": [
     "Play automatically",
@@ -1203,9 +1895,45 @@
     "Loop",
     "Reproducción en bucle"
   ],
+  "Les classes de la feuille de style du site n’ont pas pu être lues : elle est servie par un autre domaine, qui n’en autorise pas la lecture. Écrivez le nom de la classe à la main.": [
+    "The classes of the site stylesheet could not be read: it is served by another domain, which does not allow reading it. Write the class name by hand.",
+    "No se han podido leer las clases de la hoja de estilo del sitio: la sirve otro dominio que no autoriza su lectura. Escriba el nombre de la clase a mano."
+  ],
+  "Les classes décident de l’allure du bloc. Celles qui sont proposées viennent de la feuille de style de votre site et des autres blocs de la page.": [
+    "The classes decide the look of the block. Those offered come from the stylesheet of your site and from the other blocks of the page.",
+    "Las clases deciden el aspecto del bloque. Las que se proponen provienen de la hoja de estilo de su sitio y de los demás bloques de la página."
+  ],
+  "Les deux": [
+    "Both",
+    "Ambos"
+  ],
+  "Les effets autres que le glissement demandent leur module dans la page. Si le diaporama se fige après un changement d’effet, revenez au glissement.": [
+    "Effects other than slide need their module in the page. If the slideshow freezes after an effect change, go back to slide.",
+    "Los efectos distintos del deslizamiento necesitan su módulo en la página. Si el carrusel se congela tras cambiar de efecto, vuelva al deslizamiento."
+  ],
+  "Les moteurs de recherche affichent un prix, des étoiles ou une date de concert quand la page le leur dit dans un langage qu’ils connaissent. Choisissez ce qui correspond le mieux — vous pourrez en changer.": [
+    "Search engines show a price, stars or a concert date when the page tells them so in a language they know. Choose what fits best — you can change it later.",
+    "Los buscadores muestran un precio, estrellas o la fecha de un concierto cuando la página se lo dice en un lenguaje que conocen. Elija lo que mejor encaje: podrá cambiarlo."
+  ],
+  "Les moteurs de recherche mettent à disposition un outil qui lit une page publiée et dit ce qu’ils y comprennent. Publiez d’abord la page, puis donnez-lui son adresse.": [
+    "Search engines provide a tool that reads a published page and says what they understand from it. Publish the page first, then give it its address.",
+    "Los buscadores ofrecen una herramienta que lee una página publicada y dice lo que entienden de ella. Publique primero la página y después indíquele su dirección."
+  ],
+  "Les moteurs ignoreront la fiche tant qu’elles manqueront. L’enregistrer quand même ?": [
+    "Search engines will ignore the record while they are missing. Save it anyway?",
+    "Los buscadores ignorarán la ficha mientras falten. ¿Guardarla de todos modos?"
+  ],
+  "Les propriétés marquées « Exigé » doivent être remplies pour que les moteurs acceptent la fiche. Les autres l’enrichissent.": [
+    "The properties marked “Required” must be filled in for search engines to accept the record. The others enrich it.",
+    "Las propiedades marcadas «Obligatorio» deben rellenarse para que los buscadores acepten la ficha. Las demás la enriquecen."
+  ],
   "Les rendez-vous d’avril": [
     "April’s appointments",
     "Las citas de abril"
+  ],
+  "Licence": [
+    "Licence",
+    "Licencia"
   ],
   "Lien": [
     "Link",
@@ -1223,6 +1951,10 @@
     "Link...",
     "Enlace..."
   ],
+  "Lieu": [
+    "Place",
+    "Lugar"
+  ],
   "Lieu affiché": [
     "Place shown",
     "Lugar mostrado"
@@ -1230,6 +1962,18 @@
   "Lieu choisi. Ajustez le zoom si nécessaire.": [
     "Place chosen. Adjust the zoom if needed.",
     "Lugar elegido. Ajuste el zoom si es necesario."
+  ],
+  "Lieu de travail": [
+    "Place of work",
+    "Lugar de trabajo"
+  ],
+  "Lieu en ligne": [
+    "Online location",
+    "Ubicación en línea"
+  ],
+  "Lieu et date de rédaction": [
+    "Place and date of writing",
+    "Lugar y fecha de redacción"
   ],
   "Liste des pages de votre site": [
     "The list of your site’s pages",
@@ -1243,9 +1987,17 @@
     "Bulleted list",
     "Lista con viñetas"
   ],
+  "Livraison": [
+    "Delivery",
+    "Entrega"
+  ],
   "Livre sterling (GBP)": [
     "Pound sterling (GBP)",
     "Libra esterlina (GBP)"
+  ],
+  "Logo": [
+    "Logo",
+    "Logotipo"
   ],
   "Logo du site": [
     "Site logo",
@@ -1267,17 +2019,37 @@
     "Caption",
     "Leyenda"
   ],
+  "L’adresse des conditions de réutilisation du contenu.": [
+    "The address of the reuse terms of the content.",
+    "La dirección de las condiciones de reutilización del contenido."
+  ],
   "L’adresse du compte PayPal qui recevra le paiement.": [
     "The PayPal account the payment will go to.",
     "La cuenta PayPal que recibirá el pago."
+  ],
+  "L’adresse que l’on met dans un cadre intégré, par exemple celle d’un lecteur YouTube.": [
+    "The address put in an embedded frame, for example that of a YouTube player.",
+    "La dirección que se pone en un marco integrado, por ejemplo la de un reproductor de YouTube."
+  ],
+  "L’adresse à laquelle cette chose est présentée. Le plus souvent, la page courante.": [
+    "The address where this thing is presented. Most often, the current page.",
+    "La dirección donde se presenta esta cosa. Casi siempre, la página actual."
+  ],
+  "L’adresse à laquelle l’événement se tient à distance.": [
+    "The address where the event takes place remotely.",
+    "La dirección donde se celebra el evento a distancia."
   ],
   "L’aperçu n’a pas pu être construit": [
     "The preview could not be built",
     "No se pudo construir la vista previa"
   ],
-  "l’élément": [
-    "the element",
-    "el elemento"
+  "L’avis d’un client, avec sa note et son texte.": [
+    "A customer review, with its rating and its text.",
+    "La reseña de un cliente, con su valoración y su texto."
+  ],
+  "L’image montrée avant la lecture.": [
+    "The image shown before playback.",
+    "La imagen que se muestra antes de la reproducción."
   ],
   "Maintenez enfoncé pendant {0} secondes.": [
     "Press and hold for {0} seconds.",
@@ -1287,6 +2059,14 @@
     "Press and hold the button to delete",
     "Mantenga pulsado el botón para eliminar"
   ],
+  "Maintenu": [
+    "Scheduled",
+    "Mantenido"
+  ],
+  "Mardi": [
+    "Tuesday",
+    "Martes"
+  ],
   "Marge extérieure (ex : 0 0 1rem)": [
     "Outer margin (e.g. 0 0 1rem)",
     "Margen exterior (p. ej. 0 0 1rem)"
@@ -1295,9 +2075,17 @@
     "Inner padding (e.g. .5rem 1rem)",
     "Relleno interior (p. ej. .5rem 1rem)"
   ],
-  "maximum": [
-    "maximum",
-    "máximo"
+  "Marque": [
+    "Brand",
+    "Marca"
+  ],
+  "Matière": [
+    "Material",
+    "Material"
+  ],
+  "Matières grasses": [
+    "Fat content",
+    "Grasas"
   ],
   "Maçonnerie (colonnes)": [
     "Masonry (columns)",
@@ -1307,13 +2095,33 @@
     "Menu",
     "Menú"
   ],
-  "menu, contact, partage…": [
-    "menu, contact, sharing…",
-    "menú, contacto, compartir…"
+  "Mercredi": [
+    "Wednesday",
+    "Miércoles"
+  ],
+  "Mesure": [
+    "Measurement",
+    "Medida"
   ],
   "Met en avant une phrase, avec un filet sur le côté": [
     "Highlights a sentence, with a rule down the side",
     "Destaca una frase, con una línea al lado"
+  ],
+  "Mettre à jour": [
+    "Update",
+    "Actualizar"
+  ],
+  "Microdonnées": [
+    "Microdata",
+    "Microdatos"
+  ],
+  "Microdonnées de la page": [
+    "Microdata of the page",
+    "Microdatos de la página"
+  ],
+  "Microdonnées incomplètes": [
+    "Incomplete microdata",
+    "Microdatos incompletos"
   ],
   "Milieu droite": [
     "Middle right",
@@ -1327,6 +2135,14 @@
     "Highlights",
     "Destacados"
   ],
+  "Mode de participation": [
+    "Attendance mode",
+    "Modo de participación"
+  ],
+  "Mode d’emploi": [
+    "How-to",
+    "Instrucciones"
+  ],
   "Modifier cet élément": [
     "Edit this item",
     "Editar este elemento"
@@ -1335,13 +2151,33 @@
     "Edit in Pixel•OnlineCreation",
     "Editar en Pixel•OnlineCreation"
   ],
+  "Modifier la description pour les moteurs…": [
+    "Edit the description for search engines…",
+    "Modificar la descripción para los buscadores…"
+  ],
   "Modifier le bloc": [
     "Edit the block",
     "Editar el bloque"
   ],
+  "Modifier le diaporama": [
+    "Edit the slideshow",
+    "Modificar el carrusel"
+  ],
   "Modifier le script": [
     "Edit the script",
     "Editar el script"
+  ],
+  "Modifier les microdonnées": [
+    "Edit the microdata",
+    "Modificar los microdatos"
+  ],
+  "Modifier les microdonnées de la page…": [
+    "Edit the microdata of the page…",
+    "Modificar los microdatos de la página…"
+  ],
+  "Modifier…": [
+    "Edit…",
+    "Modificar…"
   ],
   "Mois": [
     "Month",
@@ -1355,9 +2191,17 @@
     "Current month",
     "Mes en curso"
   ],
+  "Montant": [
+    "Amount",
+    "Importe"
+  ],
   "Monter": [
     "Move up",
     "Subir"
+  ],
+  "Monter cette vue": [
+    "Move this slide up",
+    "Subir esta vista"
   ],
   "Monter le bloc": [
     "Move block up",
@@ -1383,6 +2227,10 @@
     "Same tab",
     "Misma pestaña"
   ],
+  "Nature de la prestation": [
+    "Kind of service",
+    "Naturaleza del servicio"
+  ],
   "Navigation": [
     "Navigation",
     "Navegación"
@@ -1390,6 +2238,26 @@
   "Ne pas supprimer": [
     "Do not delete",
     "No eliminar"
+  ],
+  "Neuf": [
+    "New",
+    "Nuevo"
+  ],
+  "Niveau": [
+    "Level",
+    "Nivel"
+  ],
+  "Niveau de prix": [
+    "Price level",
+    "Nivel de precios"
+  ],
+  "Nom": [
+    "Name",
+    "Nombre"
+  ],
+  "Nom de famille": [
+    "Family name",
+    "Apellidos"
   ],
   "Nom de l’article": [
     "Item name",
@@ -1407,9 +2275,37 @@
     "Widget name",
     "Nombre del widget"
   ],
+  "Nom d’une classe, par exemple text-center": [
+    "Name of a class, for example text-center",
+    "Nombre de una clase, por ejemplo text-center"
+  ],
+  "Nom exact de la propriété schema.org, par exemple award :": [
+    "Exact name of the schema.org property, for example award:",
+    "Nombre exacto de la propiedad schema.org, por ejemplo award:"
+  ],
+  "Nombre de mots": [
+    "Word count",
+    "Número de palabras"
+  ],
   "Nombre de pages affichées (0 = toutes)": [
     "Number of pages shown (0 = all)",
     "Número de páginas mostradas (0 = todas)"
+  ],
+  "Nombre d’avis": [
+    "Number of reviews",
+    "Número de reseñas"
+  ],
+  "Nombre d’offres": [
+    "Number of offers",
+    "Número de ofertas"
+  ],
+  "Non": [
+    "No",
+    "No"
+  ],
+  "Non pour un contenu réservé aux abonnés.": [
+    "No for content reserved for subscribers.",
+    "No para un contenido reservado a los suscriptores."
   ],
   "Normale": [
     "Normal",
@@ -1418,6 +2314,26 @@
   "Nos bureaux": [
     "Our offices",
     "Nuestras oficinas"
+  ],
+  "Note": [
+    "Rating",
+    "Valoración"
+  ],
+  "Note donnée": [
+    "Rating given",
+    "Valoración dada"
+  ],
+  "Note maximale": [
+    "Best rating",
+    "Valoración máxima"
+  ],
+  "Note minimale": [
+    "Worst rating",
+    "Valoración mínima"
+  ],
+  "Note moyenne": [
+    "Average rating",
+    "Valoración media"
   ],
   "Nouveau dossier": [
     "New folder",
@@ -1430,6 +2346,42 @@
   "Nouvel onglet": [
     "New tab",
     "Nueva pestaña"
+  ],
+  "Numéro de TVA": [
+    "VAT number",
+    "Número de IVA"
+  ],
+  "Numéro de vue": [
+    "Slide number",
+    "Número de vista"
+  ],
+  "Numéro d’identification": [
+    "Tax identification number",
+    "Número de identificación"
+  ],
+  "Numéro et rue": [
+    "Number and street",
+    "Número y calle"
+  ],
+  "Occasion": [
+    "Used",
+    "Usado"
+  ],
+  "Offre": [
+    "Offer",
+    "Oferta"
+  ],
+  "Offre d’emploi": [
+    "Job posting",
+    "Oferta de empleo"
+  ],
+  "Ombre : X": [
+    "Shadow: X",
+    "Sombra: X"
+  ],
+  "Ombre : Y": [
+    "Shadow: Y",
+    "Sombra: Y"
   ],
   "Ombre : couleur": [
     "Shadow: colour",
@@ -1447,21 +2399,41 @@
     "Shadow: blur",
     "Sombra: desenfoque"
   ],
-  "Ombre : X": [
-    "Shadow: X",
-    "Sombra: X"
-  ],
-  "Ombre : Y": [
-    "Shadow: Y",
-    "Sombra: Y"
-  ],
   "Ordinateur": [
     "Desktop",
     "Ordenador"
   ],
+  "Organisateur": [
+    "Organiser",
+    "Organizador"
+  ],
+  "Organisation": [
+    "Organisation",
+    "Organización"
+  ],
+  "Organisme": [
+    "Provider",
+    "Organismo"
+  ],
   "Ou adresse d’une image en ligne (https://…)": [
     "Or the address of an online image (https://…)",
     "O la dirección de una imagen en línea (https://…)"
+  ],
+  "Oui": [
+    "Yes",
+    "Sí"
+  ],
+  "Outil de test des moteurs…": [
+    "Search engine test tool…",
+    "Herramienta de prueba de los buscadores…"
+  ],
+  "Outils nécessaires": [
+    "Tools needed",
+    "Herramientas necesarias"
+  ],
+  "Ouverture": [
+    "Opening",
+    "Apertura"
   ],
   "Ouvrir dans": [
     "Open in",
@@ -1471,6 +2443,10 @@
     "Open the link",
     "Abrir el enlace"
   ],
+  "Page Wikipédia, profil Facebook, fiche Google : les adresses qui désignent la même chose ailleurs.": [
+    "Wikipedia page, Facebook profile, Google listing: the addresses that name the same thing elsewhere.",
+    "Página de Wikipedia, perfil de Facebook, ficha de Google: las direcciones que designan la misma cosa en otros sitios."
+  ],
   "Page intégrée": [
     "Embedded page",
     "Página integrada"
@@ -1479,9 +2455,9 @@
     "Embedded page (iframe)",
     "Página integrada (iframe)"
   ],
-  "panier, téléphone, flèche…": [
-    "basket, phone, arrow…",
-    "cesta, teléfono, flecha…"
+  "Page web": [
+    "Web page",
+    "Página web"
   ],
   "Paragraphe": [
     "Paragraph",
@@ -1495,17 +2471,45 @@
     "Parallax",
     "Paralaje"
   ],
+  "Pays": [
+    "Country",
+    "País"
+  ],
+  "Peintre carrossier": [
+    "Vehicle paint sprayer",
+    "Pintor de carrocería"
+  ],
+  "Peinture automobile": [
+    "Vehicle paint spraying",
+    "Pintura de automóviles"
+  ],
   "Personnalisées": [
     "Custom",
     "Personalizadas"
+  ],
+  "Personne": [
+    "Person",
+    "Persona"
+  ],
+  "Perspective": [
+    "Coverflow",
+    "Perspectiva"
   ],
   "Petite": [
     "Small",
     "Pequeña"
   ],
+  "Pixels": [
+    "Pixels",
+    "Píxeles"
+  ],
   "Pixel•OnlineCreation, l’éditeur d’images": [
     "Pixel•OnlineCreation, the image editor",
     "Pixel•OnlineCreation, el editor de imágenes"
+  ],
+  "Plage d’ouverture": [
+    "Opening period",
+    "Franja de apertura"
   ],
   "Plan OpenStreetMap": [
     "OpenStreetMap plan",
@@ -1519,9 +2523,25 @@
     "Full width",
     "Ancho completo"
   ],
+  "Plusieurs offres pour le même produit : du moins cher au plus cher.": [
+    "Several offers for the same product: from the cheapest to the dearest.",
+    "Varias ofertas para el mismo producto: de la más barata a la más cara."
+  ],
   "Plusieurs photos présentées en mosaïque, avec agrandissement au clic": [
     "Several photos shown as a mosaic, enlarged on click",
     "Varias fotos en mosaico, que se amplían al pulsarlas"
+  ],
+  "Poids": [
+    "Weight",
+    "Peso"
+  ],
+  "Point de contact": [
+    "Contact point",
+    "Punto de contacto"
+  ],
+  "Points": [
+    "Dots",
+    "Puntos"
   ],
   "Police du site": [
     "Site font",
@@ -1535,6 +2555,22 @@
     "Position on the image",
     "Posición sobre la imagen"
   ],
+  "Pour combien de personnes": [
+    "For how many people",
+    "Para cuántas personas"
+  ],
+  "Presse": [
+    "Press",
+    "Prensa"
+  ],
+  "Prestataire": [
+    "Provider",
+    "Proveedor"
+  ],
+  "Prestation": [
+    "Service",
+    "Servicio"
+  ],
   "Principal": [
     "Primary",
     "Principal"
@@ -1543,13 +2579,105 @@
     "Price",
     "Precio"
   ],
+  "Prix et disponibilité": [
+    "Price and availability",
+    "Precio y disponibilidad"
+  ],
+  "Prix le plus bas": [
+    "Lowest price",
+    "Precio más bajo"
+  ],
+  "Prix le plus haut": [
+    "Highest price",
+    "Precio más alto"
+  ],
+  "Prix valable jusqu’au": [
+    "Price valid until",
+    "Precio válido hasta el"
+  ],
+  "Produit": [
+    "Product",
+    "Producto"
+  ],
   "Proposer le téléchargement du fichier": [
     "Offer the file for download",
     "Ofrecer la descarga del archivo"
   ],
+  "Propriété écrite à la main : l’éditeur ne la connaît pas et ne peut donc pas la vérifier.": [
+    "Property written by hand: the editor does not know it and therefore cannot check it.",
+    "Propiedad escrita a mano: el editor no la conoce y por tanto no puede comprobarla."
+  ],
+  "Propriétés de l’image": [
+    "Image properties",
+    "Propiedades de la imagen"
+  ],
+  "Propriétés du bloc": [
+    "Block properties",
+    "Propiedades del bloque"
+  ],
+  "Protéines": [
+    "Protein content",
+    "Proteínas"
+  ],
+  "Précommande": [
+    "Pre-order",
+    "Reserva"
+  ],
+  "Prénom": [
+    "Given name",
+    "Nombre de pila"
+  ],
   "Présentation": [
     "Presentation",
     "Presentación"
+  ],
+  "Que décrit cette page ?": [
+    "What does this page describe?",
+    "¿Qué describe esta página?"
+  ],
+  "Quelques phrases qui décrivent la chose. Souvent reprise sous le titre dans les résultats.": [
+    "A few sentences describing the thing. Often shown under the title in results.",
+    "Unas frases que describen la cosa. A menudo se muestra bajo el título en los resultados."
+  ],
+  "Question": [
+    "Question",
+    "Pregunta"
+  ],
+  "Questions": [
+    "Questions",
+    "Preguntas"
+  ],
+  "Questions fréquentes": [
+    "Frequently asked questions",
+    "Preguntas frecuentes"
+  ],
+  "Qui a écrit ce contenu : une personne, ou l’entreprise elle-même.": [
+    "Who wrote this content: a person, or the company itself.",
+    "Quién escribió este contenido: una persona o la propia empresa."
+  ],
+  "Qui publie ce contenu — le plus souvent votre entreprise.": [
+    "Who publishes this content — most often your company.",
+    "Quién publica este contenido, normalmente su empresa."
+  ],
+  "Raison sociale": [
+    "Legal name",
+    "Razón social"
+  ],
+  "Rang": [
+    "Position",
+    "Posición"
+  ],
+  "Rapport": [
+    "Ratio",
+    "Relación"
+  ],
+  "Rapport largeur / hauteur": [
+    "Width / height ratio",
+    "Relación ancho / alto"
+  ],
+  "Recette": [
+    "Recipe",
+    "Receta"
   ],
   "Recherche en cours…": [
     "Searching…",
@@ -1570,6 +2698,14 @@
   "Rechercher un bloc": [
     "Search for a block",
     "Buscar un bloque"
+  ],
+  "Recommandé : un diaporama qui repart tout seul pendant qu’on le regarde est pénible, et empêche de revenir en arrière.": [
+    "Recommended: a slideshow that starts again on its own while you are looking at it is annoying, and prevents going back.",
+    "Recomendado: un carrusel que vuelve a arrancar solo mientras se mira resulta molesto e impide retroceder."
+  ],
+  "Reconditionné": [
+    "Refurbished",
+    "Reacondicionado"
   ],
   "Relation (rel)": [
     "Relationship (rel)",
@@ -1595,9 +2731,17 @@
     "Rename…",
     "Renombrar…"
   ],
+  "Repartir au début après la dernière vue": [
+    "Start again after the last slide",
+    "Volver al principio tras la última vista"
+  ],
   "Replier": [
     "Collapse",
     "Plegar"
+  ],
+  "Reporté": [
+    "Postponed",
+    "Aplazado"
   ],
   "Restauration…": [
     "Restoring…",
@@ -1611,6 +2755,18 @@
     "Remove",
     "Quitar"
   ],
+  "Retirer ce palier": [
+    "Remove this breakpoint",
+    "Quitar este umbral"
+  ],
+  "Retirer cette valeur": [
+    "Remove this value",
+    "Quitar este valor"
+  ],
+  "Retirer cette vue": [
+    "Remove this slide",
+    "Quitar esta vista"
+  ],
   "Retoucher cette image…": [
     "Retouch this image…",
     "Retocar esta imagen…"
@@ -1619,13 +2775,61 @@
     "Retouch the image…",
     "Retocar la imagen…"
   ],
+  "Retournement": [
+    "Flip",
+    "Volteo"
+  ],
+  "Rien de renseigné": [
+    "Nothing filled in",
+    "Nada rellenado"
+  ],
+  "Rubrique": [
+    "Section",
+    "Sección"
+  ],
+  "Rubrique de l’édition papier": [
+    "Print section",
+    "Sección de la edición impresa"
+  ],
   "Réduire": [
     "Shrink",
     "Reducir"
   ],
+  "Référence": [
+    "Identifier",
+    "Referencia"
+  ],
+  "Référence (SKU)": [
+    "Reference (SKU)",
+    "Referencia (SKU)"
+  ],
+  "Référence du fabricant": [
+    "Manufacturer reference",
+    "Referencia del fabricante"
+  ],
   "Référencement": [
     "Search engines",
     "Posicionamiento"
+  ],
+  "Référencement de la page": [
+    "Search-engine settings of the page",
+    "Posicionamiento de la página"
+  ],
+  "Région ou département": [
+    "Region or county",
+    "Región o provincia"
+  ],
+  "Réglages": [
+    "Settings",
+    "Ajustes"
+  ],
+  "Rémunération": [
+    "Salary",
+    "Remuneración"
+  ],
+  "Réponse": [
+    "Answer",
+    "Respuesta"
   ],
   "Réseaux sociaux": [
     "Social networks",
@@ -1643,6 +2847,10 @@
     "Type an address and click “Search”, or enter coordinates directly.",
     "Escriba una dirección y pulse «Buscar», o introduzca directamente las coordenadas."
   ],
+  "Samedi": [
+    "Saturday",
+    "Sábado"
+  ],
   "Sans bordure": [
     "Borderless",
     "Sin borde"
@@ -1655,6 +2863,10 @@
     "Muted",
     "Sin sonido"
   ],
+  "Sans symbole ni espace : 28 ou 28.50. La devise est indiquée à côté.": [
+    "Without a symbol or a space: 28 or 28.50. The currency is set alongside.",
+    "Sin símbolo ni espacio: 28 o 28.50. La moneda se indica al lado."
+  ],
   "Script JavaScript": [
     "JavaScript script",
     "Script JavaScript"
@@ -1663,10 +2875,6 @@
     "JavaScript script...",
     "Script JavaScript..."
   ],
-  "script vide": [
-    "empty script",
-    "script vacío"
-  ],
   "Secondaire": [
     "Secondary",
     "Secundario"
@@ -1674,6 +2882,26 @@
   "Semaine": [
     "Week",
     "Semana"
+  ],
+  "Sens du défilement": [
+    "Scrolling direction",
+    "Sentido del desplazamiento"
+  ],
+  "Service": [
+    "Service",
+    "Servicio"
+  ],
+  "Service client": [
+    "Customer service",
+    "Atención al cliente"
+  ],
+  "Service à contacter": [
+    "Service to contact",
+    "Servicio de contacto"
+  ],
+  "Site web": [
+    "Web site",
+    "Sitio web"
   ],
   "Situe une adresse sur un plan OpenStreetMap": [
     "Pinpoints an address on an OpenStreetMap map",
@@ -1687,10 +2915,6 @@
     "Source (link)",
     "Fuente (enlace)"
   ],
-  "sourire, cœur, drapeau…": [
-    "smile, heart, flag…",
-    "sonrisa, corazón, bandera…"
-  ],
   "Sous-titre": [
     "Subtitle",
     "Subtítulo"
@@ -1698,6 +2922,10 @@
   "Sous-titre à l’intérieur d’une section": [
     "A subheading inside a section",
     "Un subtítulo dentro de una sección"
+  ],
+  "Stage": [
+    "Internship",
+    "Prácticas"
   ],
   "Style": [
     "Style",
@@ -1714,6 +2942,10 @@
   "Style prédéfini": [
     "Ready-made style",
     "Estilo predefinido"
+  ],
+  "Sujet": [
+    "Subject",
+    "Tema"
   ],
   "Suppression dans {0} secondes": [
     "Deleting in {0} seconds",
@@ -1739,6 +2971,10 @@
     "Delete the column",
     "Eliminar la columna"
   ],
+  "Supprimer la fiche": [
+    "Delete the record",
+    "Eliminar la ficha"
+  ],
   "Supprimer la ligne et ses colonnes": [
     "Delete the row and its columns",
     "Eliminar la fila y sus columnas"
@@ -1758,6 +2994,22 @@
   "Supprimer le séparateur": [
     "Delete the spacer",
     "Eliminar el separador"
+  ],
+  "Supprimer les microdonnées": [
+    "Delete the microdata",
+    "Eliminar los microdatos"
+  ],
+  "Sur commande": [
+    "On back order",
+    "Bajo pedido"
+  ],
+  "Sur place": [
+    "On site",
+    "Presencial"
+  ],
+  "Système": [
+    "Operating system",
+    "Sistema"
   ],
   "Sélectionner le bloc parent": [
     "Select the parent block",
@@ -1791,6 +3043,14 @@
     "Separated by commas.",
     "Separadas por comas."
   ],
+  "Séparés par des virgules. Ils décrivent le sujet, pas la page.": [
+    "Separated by commas. They describe the subject, not the page.",
+    "Separadas por comas. Describen el tema, no la página."
+  ],
+  "S’arrêter dès que le visiteur y touche": [
+    "Stop as soon as the visitor touches it",
+    "Detenerse en cuanto el visitante lo toca"
+  ],
   "Tableau": [
     "Table",
     "Tabla"
@@ -1811,9 +3071,37 @@
     "Text size (e.g. 1.5rem)",
     "Tamaño del texto (p. ej. 1.5rem)"
   ],
+  "Taille d’une portion": [
+    "Serving size",
+    "Tamaño de una porción"
+  ],
   "Tailles rapides": [
     "Quick sizes",
     "Tamaños rápidos"
+  ],
+  "Tarif": [
+    "Price",
+    "Tarifa"
+  ],
+  "Temps de cuisson": [
+    "Cooking time",
+    "Tiempo de cocción"
+  ],
+  "Temps de préparation": [
+    "Preparation time",
+    "Tiempo de preparación"
+  ],
+  "Temps d’arrêt sur chaque vue (millisecondes)": [
+    "Pause on each slide (milliseconds)",
+    "Pausa en cada vista (milisegundos)"
+  ],
+  "Temps partiel": [
+    "Part time",
+    "Tiempo parcial"
+  ],
+  "Temps plein": [
+    "Full time",
+    "Tiempo completo"
   ],
   "Texte": [
     "Text",
@@ -1831,9 +3119,25 @@
     "Alternative text (read by screen readers)",
     "Texto alternativo (leído por los lectores de pantalla)"
   ],
+  "Texte de la réponse": [
+    "Text of the answer",
+    "Texto de la respuesta"
+  ],
+  "Texte de l’article": [
+    "Article body",
+    "Texto del artículo"
+  ],
+  "Texte de l’avis": [
+    "Review body",
+    "Texto de la reseña"
+  ],
   "Texte de l’épingle": [
     "Pin text",
     "Texto del marcador"
+  ],
+  "Texte de remplacement": [
+    "Alternative text",
+    "Texto alternativo"
   ],
   "Texte du bouton": [
     "Button text",
@@ -1895,6 +3199,10 @@
     "The main heading of a section",
     "El título principal de una sección"
   ],
+  "Tours, 14 mars 2026": [
+    "Tours, 14 March 2026",
+    "Tours, 14 de marzo de 2026"
+  ],
   "Tous": [
     "All",
     "Todos"
@@ -1931,13 +3239,17 @@
     "Type",
     "Tipo"
   ],
-  "type inconnu": [
-    "unknown type",
-    "tipo desconocido"
-  ],
   "Type MIME": [
     "MIME type",
     "Tipo MIME"
+  ],
+  "Type de contrat": [
+    "Employment type",
+    "Tipo de contrato"
+  ],
+  "Type de cuisine": [
+    "Cuisine served",
+    "Tipo de cocina"
   ],
   "Types acceptés": [
     "Accepted types",
@@ -1959,6 +3271,18 @@
     "Upload…",
     "Subir…"
   ],
+  "Un article d’actualité, daté et signé.": [
+    "A news article, dated and signed.",
+    "Un artículo de actualidad, fechado y firmado."
+  ],
+  "Un article publié au fil de l’eau sur un blog.": [
+    "An article published as it comes on a blog.",
+    "Un artículo publicado sobre la marcha en un blog."
+  ],
+  "Un article à vendre : son prix, sa disponibilité, ses avis.": [
+    "An item for sale: its price, its availability, its reviews.",
+    "Un artículo a la venta: su precio, su disponibilidad, sus reseñas."
+  ],
   "Un bloc de texte courant": [
     "A plain block of text",
     "Un bloque de texto normal"
@@ -1975,6 +3299,22 @@
     "A “Buy” button that opens PayPal checkout",
     "Un botón «Comprar» que abre el pago con PayPal"
   ],
+  "Un code qui désigne cette chose sans ambiguïté : référence interne, numéro de catalogue.": [
+    "A code that names this thing unambiguously: internal reference, catalogue number.",
+    "Un código que designa esta cosa sin ambigüedad: referencia interna, número de catálogo."
+  ],
+  "Un contenu créé : texte, image, vidéo, logiciel.": [
+    "Created content: text, image, video, software.",
+    "Un contenido creado: texto, imagen, vídeo, software."
+  ],
+  "Un cours ou une formation proposée.": [
+    "A course or a training offered.",
+    "Un curso o una formación ofrecida."
+  ],
+  "Un endroit : salle, monument, parking.": [
+    "A place: venue, monument, car park.",
+    "Un lugar: sala, monumento, aparcamiento."
+  ],
   "Un espace vertical ou un filet de séparation": [
     "Vertical space, or a separating rule",
     "Un espacio vertical o una línea de separación"
@@ -1982,6 +3322,54 @@
   "Un formulaire dont les messages arrivent dans votre boîte mail": [
     "A form whose messages land in your mailbox",
     "Un formulario cuyos mensajes llegan a su buzón"
+  ],
+  "Un identifiant commence par une lettre et ne contient ni espace ni accent. Par exemple : tarifs, nos-services, contact2.": [
+    "An identifier starts with a letter and contains neither space nor accent. For example: prices, our-services, contact2.",
+    "Un identificador empieza por una letra y no contiene espacios ni acentos. Por ejemplo: tarifas, nuestros-servicios, contacto2."
+  ],
+  "Un jour ou un groupe de jours, avec l’heure d’ouverture et de fermeture.": [
+    "A day or a group of days, with the opening and closing time.",
+    "Un día o un grupo de días, con la hora de apertura y de cierre."
+  ],
+  "Un logiciel ou une application mobile.": [
+    "A piece of software or a mobile application.",
+    "Un software o una aplicación móvil."
+  ],
+  "Un mot sans espace, unique dans la page. Un lien pourra y conduire avec « #tarifs », et les scripts du site s’en servent pour retrouver ce bloc.": [
+    "One word without a space, unique in the page. A link can lead to it with “#prices”, and the scripts of the site use it to find this block.",
+    "Una palabra sin espacios, única en la página. Un enlace podrá llevar hasta él con «#tarifas», y los scripts del sitio la usan para localizar este bloque."
+  ],
+  "Un nombre entier (3), un nombre décimal pour laisser deviner la suivante (1.15), ou « auto » pour suivre la largeur de chaque vue.": [
+    "A whole number (3), a decimal to hint at the next one (1.15), or “auto” to follow the width of each slide.",
+    "Un número entero (3), un decimal para dejar entrever la siguiente (1.15), o «auto» para seguir el ancho de cada vista."
+  ],
+  "Un poste à pourvoir.": [
+    "A position to fill.",
+    "Un puesto vacante."
+  ],
+  "Un pour l’accueil, deux pour la rubrique, et ainsi de suite.": [
+    "One for the home page, two for the section, and so on.",
+    "Uno para la portada, dos para la sección, y así sucesivamente."
+  ],
+  "Un prix, une devise et une disponibilité.": [
+    "A price, a currency and an availability.",
+    "Un precio, una moneda y una disponibilidad."
+  ],
+  "Un second nom sous lequel la chose est aussi connue.": [
+    "A second name the thing is also known by.",
+    "Un segundo nombre por el que también se conoce la cosa."
+  ],
+  "Un service et la façon de le joindre.": [
+    "A department and how to reach it.",
+    "Un servicio y la manera de contactarlo."
+  ],
+  "Un service proposé plutôt qu’un objet vendu.": [
+    "A service offered rather than an object sold.",
+    "Un servicio ofrecido en lugar de un objeto vendido."
+  ],
+  "Un texte de fond : billet, dossier, tribune.": [
+    "An in-depth text: post, feature, opinion piece.",
+    "Un texto de fondo: entrada, reportaje, tribuna."
   ],
   "Un titre accrocheur": [
     "A headline that catches the eye",
@@ -1995,25 +3383,101 @@
     "A heading and text edited straight in the page",
     "Un título y un texto que se editan directamente en la página"
   ],
+  "Un établissement où l’on se rend : boutique, cabinet, restaurant.": [
+    "A place people go to: shop, practice, restaurant.",
+    "Un establecimiento al que se acude: tienda, consulta, restaurante."
+  ],
+  "Une adresse complète, telle qu’on l’écrit sur une enveloppe.": [
+    "A full address, as written on an envelope.",
+    "Una dirección completa, tal como se escribe en un sobre."
+  ],
+  "Une autre propriété, écrite à la main…": [
+    "Another property, written by hand…",
+    "Otra propiedad, escrita a mano…"
+  ],
   "Une citation mise en avant avec son auteur": [
     "A highlighted quotation with its author",
     "Una cita destacada con su autor"
+  ],
+  "Une date à retenir : concert, portes ouvertes, formation.": [
+    "A date to remember: concert, open day, training.",
+    "Una fecha a recordar: concierto, jornada de puertas abiertas, formación."
+  ],
+  "Une entreprise, une association, une administration.": [
+    "A company, an association, a public body.",
+    "Una empresa, una asociación, una administración."
   ],
   "Une image avec sa légende et un lien optionnel": [
     "An image with its caption and an optional link",
     "Una imagen con su leyenda y un enlace opcional"
   ],
+  "Une image décrite pour elle-même : auteur, licence, dimensions.": [
+    "An image described for itself: author, licence, dimensions.",
+    "Una imagen descrita por sí misma: autor, licencia, dimensiones."
+  ],
   "Une ligne de colonnes côte à côte, qui s’empilent sur mobile": [
     "A row of side-by-side columns that stack on mobile",
     "Una fila de columnas contiguas que se apilan en el móvil"
+  ],
+  "Une marche à suivre, étape par étape.": [
+    "A procedure, step by step.",
+    "Un procedimiento, paso a paso."
+  ],
+  "Une note isolée, celle d’un avis.": [
+    "A single rating, that of one review.",
+    "Una valoración aislada, la de una reseña."
+  ],
+  "Une page de questions-réponses. Les moteurs les affichent dépliables.": [
+    "A question and answer page. Search engines show them as expandable.",
+    "Una página de preguntas y respuestas. Los buscadores las muestran desplegables."
+  ],
+  "Une page ordinaire du site : présentation, mentions légales, contact.": [
+    "An ordinary page of the site: about, legal notice, contact.",
+    "Una página corriente del sitio: presentación, aviso legal, contacto."
+  ],
+  "Une personne : auteur, dirigeant, artisan.": [
+    "A person: author, director, craftsperson.",
+    "Una persona: autor, directivo, artesano."
+  ],
+  "Une photo qui représente la chose. Les moteurs préfèrent une image large, d’au moins 1200 pixels.": [
+    "A photo that represents the thing. Search engines prefer a wide image, at least 1200 pixels.",
+    "Una foto que representa la cosa. Los buscadores prefieren una imagen ancha, de al menos 1200 píxeles."
   ],
   "Une phrase qui marque les esprits.": [
     "A sentence people remember.",
     "Una frase que se recuerda."
   ],
+  "Une question et sa réponse.": [
+    "A question and its answer.",
+    "Una pregunta y su respuesta."
+  ],
+  "Une recette de cuisine, avec ses ingrédients et ses étapes.": [
+    "A cooking recipe, with its ingredients and its steps.",
+    "Una receta de cocina, con sus ingredientes y sus pasos."
+  ],
+  "Une somme et sa devise.": [
+    "An amount and its currency.",
+    "Un importe y su moneda."
+  ],
+  "Une valeur avec son unité : un poids, une longueur.": [
+    "A value with its unit: a weight, a length.",
+    "Un valor con su unidad: un peso, una longitud."
+  ],
+  "Une vidéo hébergée ou intégrée dans la page.": [
+    "A video hosted or embedded in the page.",
+    "Un vídeo alojado o integrado en la página."
+  ],
   "Une à deux phrases, environ 160 caractères : c’est le texte affiché sous le titre dans les résultats de recherche.": [
     "One or two sentences, about 160 characters: this is the text shown under the title in search results.",
     "Una o dos frases, unos 160 caracteres: es el texto que aparece bajo el título en los resultados de búsqueda."
+  ],
+  "Une étape du fil d’Ariane : sa position, son nom et son adresse.": [
+    "A step of the breadcrumb: its position, its name and its address.",
+    "Un paso de la ruta de navegación: su posición, su nombre y su dirección."
+  ],
+  "Une étape du mode d’emploi.": [
+    "A step of the how-to.",
+    "Un paso de las instrucciones."
   ],
   "Unité": [
     "Unit",
@@ -2027,6 +3491,30 @@
     "Use these files",
     "Usar estos archivos"
   ],
+  "Valeur": [
+    "Value",
+    "Valor"
+  ],
+  "Valeurs nutritionnelles": [
+    "Nutrition information",
+    "Información nutricional"
+  ],
+  "Veigné": [
+    "Veigné",
+    "Veigné"
+  ],
+  "Vendeur": [
+    "Seller",
+    "Vendedor"
+  ],
+  "Vendredi": [
+    "Friday",
+    "Viernes"
+  ],
+  "Version": [
+    "Version",
+    "Versión"
+  ],
   "Version enregistrée": [
     "Saved version",
     "Versión guardada"
@@ -2035,9 +3523,21 @@
     "Versions",
     "Versiones"
   ],
+  "Vertical": [
+    "Vertical",
+    "Vertical"
+  ],
+  "Vider": [
+    "Clear",
+    "Vaciar"
+  ],
   "Vidéo": [
     "Video",
     "Vídeo"
+  ],
+  "Ville": [
+    "Town",
+    "Ciudad"
   ],
   "Vintage": [
     "Vintage",
@@ -2051,9 +3551,25 @@
     "Your library is full. Delete files or old versions to add more.",
     "Su biblioteca está llena. Elimine archivos o versiones antiguas para añadir más."
   ],
+  "Votre référence interne, celle du bon de commande.": [
+    "Your internal reference, the one on the order form.",
+    "Su referencia interna, la del pedido."
+  ],
+  "Vue": [
+    "Slide",
+    "Vista"
+  ],
+  "Vues affichées en même temps": [
+    "Slides shown at the same time",
+    "Vistas mostradas a la vez"
+  ],
   "Vérification des quotas…": [
     "Checking quotas…",
     "Comprobando las cuotas…"
+  ],
+  "Vérifier la fiche": [
+    "Check the record",
+    "Comprobar la ficha"
   ],
   "Widget HTML": [
     "HTML widget",
@@ -2063,6 +3579,14 @@
     "YouTube, Vimeo, Dailymotion or any other embeddable address",
     "YouTube, Vimeo, Dailymotion o cualquier otra dirección integrable"
   ],
+  "Zone desservie": [
+    "Area served",
+    "Zona atendida"
+  ],
+  "Zone livrée": [
+    "Delivery area",
+    "Zona de entrega"
+  ],
   "Zoom (1 = monde, 19 = rue)": [
     "Zoom (1 = world, 19 = street)",
     "Zoom (1 = mundo, 19 = calle)"
@@ -2071,21 +3595,125 @@
     "Zoom with the mouse wheel",
     "Zoom con la rueda del ratón"
   ],
+  "autres : continuez à écrire pour les filtrer.": [
+    "more: keep typing to filter them.",
+    "más: siga escribiendo para filtrarlas."
+  ],
+  "boulangerie, pain bio, Bordeaux": [
+    "bakery, organic bread, Manchester",
+    "panadería, pan ecológico, Madrid"
+  ],
+  "fichier(s)": [
+    "file(s)",
+    "archivo(s)"
+  ],
+  "fichiers": [
+    "files",
+    "archivos"
+  ],
+  "fichiers sélectionnés": [
+    "files selected",
+    "archivos seleccionados"
+  ],
+  "le bloc": [
+    "the block",
+    "el bloque"
+  ],
+  "le dossier": [
+    "the folder",
+    "la carpeta"
+  ],
+  "le fichier": [
+    "the file",
+    "el archivo"
+  ],
+  "le script": [
+    "the script",
+    "el script"
+  ],
+  "les microdonnées de cette page": [
+    "the microdata of this page",
+    "los microdatos de esta página"
+  ],
+  "l’élément": [
+    "the element",
+    "el elemento"
+  ],
+  "maximum": [
+    "maximum",
+    "máximo"
+  ],
+  "menu, contact, partage…": [
+    "menu, contact, sharing…",
+    "menú, contacto, compartir…"
+  ],
+  "panier, téléphone, flèche…": [
+    "basket, phone, arrow…",
+    "cesta, teléfono, flecha…"
+  ],
+  "propriété": [
+    "property",
+    "propiedad"
+  ],
+  "propriétés": [
+    "properties",
+    "propiedades"
+  ],
+  "script vide": [
+    "empty script",
+    "script vacío"
+  ],
+  "sourire, cœur, drapeau…": [
+    "smile, heart, flag…",
+    "sonrisa, corazón, bandera…"
+  ],
+  "tarifs": [
+    "prices",
+    "tarifas"
+  ],
+  "type inconnu": [
+    "unknown type",
+    "tipo desconocido"
+  ],
+  "vue n’a pas d’image et ne montrerait rien sur le site. La retirer ?": [
+    "slide has no image and would show nothing on the site. Remove it?",
+    "vista no tiene imagen y no mostraría nada en el sitio. ¿Quitarla?"
+  ],
+  "vues n’ont pas d’image et ne montreraient rien sur le site. Les retirer ?": [
+    "slides have no image and would show nothing on the site. Remove them?",
+    "vistas no tienen imagen y no mostrarían nada en el sitio. ¿Quitarlas?"
+  ],
   "À l’emplacement du curseur": [
     "Where the cursor is",
     "En la posición del cursor"
+  ],
+  "À n’activer que sur un diaporama qui occupe l’écran : sinon la molette cesse de faire défiler la page dès qu’on passe dessus.": [
+    "Only enable on a slideshow that fills the screen: otherwise the wheel stops scrolling the page as soon as you move over it.",
+    "Actívelo solo en un carrusel que ocupe la pantalla: si no, la rueda deja de desplazar la página en cuanto se pasa por encima."
+  ],
+  "À partir de": [
+    "From",
+    "A partir de"
+  ],
+  "À renseigner": [
+    "To fill in",
+    "Por rellenar"
+  ],
+  "Écrans": [
+    "Screens",
+    "Pantallas"
+  ],
+  "Éditeur": [
+    "Publisher",
+    "Editor"
   ],
   "Élargir la colonne": [
     "Widen the column",
     "Ensanchar la columna"
   ],
-  "élément": [
-    "item",
-    "elemento"
-  ],
-  "éléments": [
-    "items",
-    "elementos"
+  "Élément de liste": [
+    "List item",
+    "Elemento de lista"
   ],
   "Éléments du site": [
     "Site elements",
@@ -2103,6 +3731,30 @@
     "A list in no particular order",
     "Una lista sin orden particular"
   ],
+  "Épuisé": [
+    "Discontinued",
+    "Agotado"
+  ],
+  "Étape": [
+    "Step",
+    "Paso"
+  ],
+  "Étapes": [
+    "Steps",
+    "Pasos"
+  ],
+  "Étapes du chemin": [
+    "Steps of the path",
+    "Pasos de la ruta"
+  ],
+  "État": [
+    "Condition",
+    "Estado"
+  ],
+  "Événement": [
+    "Event",
+    "Evento"
+  ],
   "Événement non renseigné": [
     "Event not filled in",
     "Evento sin indicar"
@@ -2110,6 +3762,22 @@
   "Événements": [
     "Events",
     "Eventos"
+  ],
+  "élément": [
+    "item",
+    "elemento"
+  ],
+  "éléments": [
+    "items",
+    "elementos"
+  ],
+  "Œuvre": [
+    "Creative work",
+    "Obra"
+  ],
+  "— choisir —": [
+    "— choose —",
+    "— elegir —"
   ],
   "⚠️ DESTRUCTION": [
     "⚠️ DESTRUCTION",

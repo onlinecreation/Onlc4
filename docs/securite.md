@@ -26,6 +26,8 @@ Ce document décrit comment ces deux garanties sont obtenues.
 | Vidéo, page intégrée | une vignette inerte (image, titre, adresse) | l'`<iframe>` prévue |
 | Carte | un damier de tuiles OpenStreetMap, en fond de `span` | Leaflet, ou le cadre OpenStreetMap |
 | Galerie, document PDF | une vignette inerte | nanogallery2 / pdf.js et leurs imports |
+| Diaporama Swiper | une bande d'images qui défile horizontalement, sans javascript | le html d'origine, inchangé |
+| Fiche de microdonnées | une carte grise annonçant le type décrit | `<script type="application/ld+json">` |
 
 Aucune de ces représentations ne contient d'`<iframe>`, de `<script>` ni d'écouteur : ce sont des
 `div` et des `span`.
@@ -50,6 +52,34 @@ Les blocs concernés sont donc marqués `canonical` : au moment de l'enregistrem
 est **reconstruit à partir de leur configuration**, sans repasser par le dom de l'éditeur. La
 page reçoit exactement le code prévu. Et comme ces blocs ne sont de toute façon pas affichés sous
 leur forme définitive dans l'éditeur, la question du bac à sable ne se pose plus.
+
+### Les configurations de diaporama
+
+`onlcswiper` doit **lire** l'objet de configuration d'un `new Swiper(…)` pour en proposer un
+formulaire. Cet objet vient du contenu, donc d'une source qui n'est pas fiable.
+
+Ni `eval` ni `new Function` ne sont employés : ce serait exécuter le contenu dans le back-office,
+c'est-à-dire exactement ce que tout le reste de ce document s'attache à empêcher. `JSON.parse` ne
+convient pas non plus — les clés sont nues, les guillemets simples, il y a des virgules finales
+et des fonctions.
+
+Le littéral est donc **lu caractère par caractère** (`onlcswiper/core/JsObject.ts`). Le lecteur
+ne connaît que des valeurs : objets, tableaux, chaînes, nombres, `true`, `false`, `null`. Tout le
+reste — une fonction, un appel, un calcul — est conservé comme **texte opaque** et réécrit à
+l'identique, sans jamais être interprété.
+
+La réécriture est tout aussi bornée : seul l'intervalle exact du littéral est remplacé dans le
+script, et la fonction refuse d'écrire si cet intervalle n'est plus celui qu'elle croit.
+
+### Les fiches de microdonnées
+
+Le json est écrit dans un élément à contenu brut, où l'échappement html ne s'applique pas. La
+seule séquence qui pourrait en sortir prématurément est `</script`, et elle est neutralisée avant
+l'écriture plutôt que laissée à la bonne fortune de `JSON.stringify`.
+
+À l'entrée, une fiche illisible — json malformé, texte tronqué — n'est pas jetée : elle devient un
+bloc vide dont le formulaire repart de zéro. Perdre les données de quelqu'un parce qu'une virgule
+manque serait la pire des réponses.
 
 ## Ce qui est vérifié à l'écriture
 
@@ -146,8 +176,9 @@ l'adresse tapée à Nominatim.
 
 ## Les api du site
 
-Les plugins parlent à quatre api (médias, liens, icônes, éditeur d'images). Leur contrat est
-décrit dans `docs/api/`. Deux points relèvent du serveur, et de lui seul :
+Les plugins parlent à cinq api (médias, liens, icônes, éditeur d'images, relais de feuilles de
+style). Leur contrat est décrit dans `docs/api/`. Plusieurs points relèvent du serveur, et de lui
+seul :
 
 * **Traversée de chemin** — l'api médias reçoit des chemins depuis le navigateur. C'est au
   serveur de vérifier que le chemin résolu reste sous la racine autorisée.
@@ -160,6 +191,16 @@ décrit dans `docs/api/`. Deux points relèvent du serveur, et de lui seul :
   binaire devient la nouvelle version. C'est au serveur de le résoudre et de refuser toute
   adresse qu'il ne sert pas lui-même : sans cela, une adresse arbitraire désignerait n'importe
   quel fichier à écraser.
+
+* **Relais de feuilles de style** — c'est le plus délicat des cinq, parce qu'il va chercher une
+  adresse **fournie par le client**. Un relais ouvert est une porte sur le réseau interne : une
+  simple demande suffirait à lire `http://169.254.169.254/latest/meta-data/`, c'est-à-dire les
+  identifiants de la machine. L'implémentation de référence n'accepte que `http` et `https`, et
+  seulement vers une **liste fermée de domaines** — pas une liste d'adresses interdites, qui ne
+  s'écrit jamais complètement. Chaque redirection repasse par le même contrôle, et les messages
+  d'erreur ne disent pas ce qui a échoué : « hôte inconnu » et « connexion refusée » renseignent
+  l'un et l'autre sur ce qui existe derrière le pare-feu. Voir
+  [onlc-site-css-api.md](api/onlc-site-css-api.md).
 
 Les réponses de ces api sont traitées comme des données non fiables : noms de fichiers, adresses
 et intitulés sont échappés avant d'entrer dans l'interface, et les adresses posées en fond

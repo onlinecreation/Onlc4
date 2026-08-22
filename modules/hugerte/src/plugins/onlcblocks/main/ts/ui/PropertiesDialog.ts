@@ -123,9 +123,12 @@ const open = (editor: Editor, block: HTMLElement): void => {
         return;
       }
 
+      // Les noms sont revalidés ici, et pas seulement à la saisie : ce qui atteint le document
+      // ne doit dépendre d'aucun composant d'interface, si soigneux soit-il.
+      const classes = Arr.filter(ClassField.split(data.classes), ClassField.isValidName).join(' ');
+
       editor.undoManager.transact(() => {
         editor.dom.setAttrib(block, 'id', id === '' ? null : id);
-        const classes = ClassField.split(data.classes).join(' ');
         editor.dom.setAttrib(block, 'class', classes === '' ? null : classes);
       });
       editor.nodeChanged();

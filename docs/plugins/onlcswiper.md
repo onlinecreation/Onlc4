@@ -125,6 +125,18 @@ Les trois derniers onglets ne servent que si les réglages ont été retrouvés.
 `new Swiper(...)`, le formulaire le dit — et propose d'en poser un, à la fin de la page, avec les
 commandes que le html contient déjà.
 
+### Les images se choisissent, elles ne s'écrivent pas
+
+Il n'y a **pas de champ d'adresse** dans l'onglet Images : une vignette cliquable et un bouton
+ouvrent la médiathèque. Personne n'écrit de mémoire `…/178069794252.webp`, et une adresse
+recopiée de travers donne une vue vide sans que rien ne le dise.
+
+Le champ d'adresse ne reparaît que si l'explorateur de médias — [`onlcmedia`](onlcmedia.md) —
+n'est pas chargé : mieux vaut un champ austère que pas de moyen du tout d'indiquer une image.
+
+Le **texte de remplacement**, lui, se saisit toujours : ce n'est pas une adresse, c'est ce que
+lit un lecteur d'écran et ce qu'indexent les moteurs.
+
 ### Deux sortes de vues
 
 Une vue est dite **d'images** quand elle ne contient que des images, et **libre** dans tous les
@@ -149,16 +161,36 @@ paliers du plus étroit au plus large — l'ordre dans lequel ils se déclenchen
 
 ## Ce que montre la zone d'écriture
 
-Swiper ne s'y exécute pas. Sans habillage, les vues s'empileraient verticalement : un diaporama
-de huit photos occuperait huit écrans, et le reste de la page deviendrait inatteignable.
+Swiper ne s'y exécute pas — c'est la règle qui protège le back-office. Sans habillage, les vues
+s'empileraient verticalement : un diaporama de huit photos occuperait huit écrans, et le reste de
+la page deviendrait inatteignable.
 
-Le rendu d'écriture est donc une **bande qui défile horizontalement** : on voit les vues dans
-leur ordre, on peut faire défiler pour les compter. Ce n'est pas un aperçu fidèle et cela ne
-prétend pas l'être — l'aperçu visiteur, lui, exécute la vraie bibliothèque, à condition que le
-gabarit la charge.
+Le diaporama se présente donc comme les blocs galerie et carte : un **bandeau** qui le nomme et
+dit ce qu'il contient — « Diaporama · 4 vues · réglages retrouvés » —, un cadre où les vues
+défilent horizontalement, et la phrase qui dit comment le régler. On voit les vues dans leur
+ordre, on peut faire défiler pour les compter.
+
+Ce n'est pas un aperçu fidèle et cela ne prétend pas l'être — l'aperçu visiteur, lui, exécute la
+vraie bibliothèque, à condition que le gabarit la charge.
 
 Les commandes de Swiper — flèches, points, barre — sont montrées estompées : les cacher ferait
 croire qu'elles n'existent pas, alors que le formulaire propose justement de les activer.
+
+### Comment le décor est posé
+
+Le bandeau et la mention sont des nœuds **fantômes** — `data-mce-bogus="all"` — posés par
+`core/Card`. Le html d'un diaporama appartient au rédacteur, pas à l'éditeur : ses classes, ses
+vues libres, ses commandes de navigation ont été écrites à la main, et rien ici ne saurait les
+reconstruire. Le cœur retire les nœuds fantômes à l'enregistrement, et la page ressort au
+caractère près.
+
+Le cadre est dessiné sur le bandeau et sur la piste, jamais sur le conteneur, qui appartient lui
+aussi au rédacteur et ne doit recevoir ni classe ni style de notre fait.
+
+> **Une différence assumée avec une galerie.** Le diaporama n'est **pas figé** : ses vues gardent
+> leur texte modifiable au clavier. Une page réelle y met des avis clients, et le formulaire ne
+> sait que déplacer une vue libre, pas en réécrire le contenu. Les enfermer derrière lui rendrait
+> ce texte inaccessible. L'aperçu est une présentation, pas une serrure.
 
 ## Options
 

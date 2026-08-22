@@ -217,6 +217,25 @@ quatre langues à trois garde ses anciennes sections — n'est **jamais supprim�
 signalée par une pastille orange, et reste modifiable : sans quoi la seule façon de la corriger
 serait de l'effacer.
 
+## Ce que le plugin ne transforme pas
+
+Un marqueur n'est une section que s'il est du **texte de contenu**. Deux endroits où il reste ce
+qu'il est, et traverse l'éditeur intact :
+
+* **le corps d'un `script` ou d'un `style`.** Un `[LG=fr]…[/LG]` écrit dans du javascript, ou
+  dans la valeur d'une fiche de microdonnées, est une donnée que le moteur du site résoudra à la
+  publication. L'y transformer poserait des guillemets au milieu du code ou du json — c'est ce
+  qui rendait illisible la fiche de microdonnées d'une page réelle, et faisait perdre son
+  contenu à l'enregistrement ;
+* **l'intérieur d'une balise.** Une page réelle porte
+  `class="screen6 [LG=fr]label-fr[/LG][LG=en]label-en[/LG]"` : le moteur y choisit la classe
+  selon la langue, comme il choisirait un morceau de texte. Y poser un élément revenait à écrire
+  un `span` au milieu d'une balise ouvrante, qui n'en était plus une.
+
+La nuance qui compte : l'exclusion porte sur ce qui est **strictement à l'intérieur** d'une
+balise. Une balise `<multilang lang="fr">` *est* un marqueur, et sa position de départ est celle
+du chevron ; l'exclure ferait disparaître cette écriture-là.
+
 ## Ce qui traverse l'éditeur
 
 À l'ouverture :
@@ -241,9 +260,11 @@ précède ne se retrouve dans la page publiée.
 | `OnlcUnmarkLanguage` | Retire le marquage, sans toucher au contenu |
 | `OnlcCompleteLanguages` | Ajoute les traductions manquantes à côté de la section |
 | `OnlcViewLanguage` | N'affiche qu'une langue (`value` vide : toutes) |
+| `OnlcWorkInLanguage` | Ouvre le mode d'écriture dans une langue (`value` vide : referme) |
 
-Deux valeurs interrogeables : `OnlcCurrentLanguage` (langue de la section où se trouve le
-curseur) et `OnlcViewedLanguage` (langue actuellement affichée seule).
+Trois valeurs interrogeables : `OnlcCurrentLanguage` (langue de la section où se trouve le
+curseur), `OnlcViewedLanguage` (langue actuellement affichée seule) et `OnlcWorkLanguage` (langue
+dans laquelle on écrit).
 
 ## API du plugin
 
@@ -260,9 +281,58 @@ langues.codeOfElement(bloc);      // 'nl', ou '' si le bloc n'est marqué dans a
 langues.allowsBlockAt(bloc);      // false à l'intérieur d'un bloc prédéfini : là, seul l'en ligne
 langues.view('en');               // n'affiche que l'anglais ; '' les rend toutes
 langues.viewed();                 // 'en'
+langues.work('fr');               // écrit en français : les autres masquées, les ajouts marqués
+langues.working();                // 'fr', ou '' quand le mode est fermé
 langues.resolve('en');            // le contenu réduit à une langue
 langues.resolveHtml(page, 'en');  // la même réduction, sur une page entière
 ```
+
+## Travailler dans une seule langue
+
+Une page polyglotte montre tout à la fois — le français, l'anglais et le néerlandais empilés — et
+c'est la bonne façon de la **relire**. Ce n'est pas la bonne façon de l'**écrire** : on rédige
+dans une langue, et les deux autres versions doublent la hauteur de la page et brouillent la mise
+en forme.
+
+Le mode s'ouvre par « Langues › Travailler dans une seule langue ». Il n'est **jamais** actif au
+départ, et se referme par « Écrire dans toutes les langues ».
+
+Deux choses s'y produisent :
+
+1. **ce qui appartient à une autre langue est masqué.** Le masquage est entièrement en css : une
+   classe sur le corps du document, des règles qui cachent les autres sections. Rien n'est
+   déplacé ni retiré — refermer le mode n'a donc rien à reconstruire, et une fausse manœuvre ne
+   peut pas faire disparaître un paragraphe ;
+2. **tout bloc ajouté prend cette langue.** Sans cela, écrire un paragraphe en mode « français »
+   donnerait un paragraphe sans langue, publié dans les trois — l'inverse de ce qu'on venait de
+   demander.
+
+Un bandeau collant nomme la langue en haut de la zone d'écriture. Sans lui, on cherche un
+paragraphe qu'on croit perdu alors qu'il est simplement dans une autre langue. Son intitulé vient
+d'un attribut du corps du document, qui ne fait pas partie du contenu et ne peut donc pas se
+retrouver dans la page publiée.
+
+### Ce qui est marqué, et ce qui ne l'est pas
+
+Seuls les **blocs entiers ajoutés au document** le sont : le texte tapé dans un paragraphe
+anglais reste anglais, et c'est bien ainsi. Rien n'est marqué non plus à l'intérieur d'une
+section, qui a déjà la sienne.
+
+« Nouveau » se reconnaît par comparaison : les éléments présents à l'ouverture du mode sont
+retenus, et ce qui apparaît ensuite, dont le parent était déjà connu, est un ajout. C'est le seul
+moyen fiable — l'éditeur ne dit pas quels nœuds une insertion a produits, et les chemins d'ajout
+sont multiples : la barre des blocs, un collage, une touche Entrée, un bloc prédéfini.
+
+L'englobage porte sur **l'élément ajouté et lui seul**. Le premier jet passait par le marquage
+ordinaire, qui cherche d'abord la portée — le bloc dont le parent est un conteneur — parce qu'il
+répond à un clic visant un paragraphe et voulant le bloc. Sur une page sans grille, cette
+recherche remontait jusqu'à l'enrobage, et c'est la **page entière** qui se retrouvait dans une
+section de langue.
+
+### La différence avec l'aperçu visiteur
+
+L'aperçu **montre**, ce mode **écrit**. Ils sont présentés à part, et nommés autrement, pour
+qu'on ne croie pas relire alors qu'on est en train de marquer tout ce qu'on ajoute.
 
 ## Aperçu comme un visiteur
 

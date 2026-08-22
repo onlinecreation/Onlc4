@@ -66,6 +66,11 @@ attributs imbriqués serait illisible. Le plugin écrit donc du json :
 Dans l'éditeur, ce n'est pas ce texte qu'on voit : c'est une carte grise qui annonce le type
 décrit, résume les valeurs principales et rappelle que rien n'en paraîtra sur le site.
 
+La carte est **monolithique** : rien ne s'y sélectionne, rien ne s'y modifie au clavier. Ce n'est
+pas la fiche, c'est un résumé reconstruit depuis les données à chaque ouverture — le curseur posé
+au milieu ferait croire qu'on peut le corriger, et le texte copié n'aurait pas de rapport avec ce
+qui sera publié. Tout passe par le formulaire.
+
 ## Le formulaire
 
 Trois temps, dans cet ordre :
@@ -84,6 +89,45 @@ trouve et permet de remonter. Empiler des fenêtres pour renseigner une adresse 
 insupportable.
 
 Le bas du formulaire montre le json produit, tel qu'il sera écrit dans la page.
+
+### Une image se choisit dans la médiathèque
+
+Une propriété d'image — `image`, `logo`, `thumbnailUrl` — n'a **pas de champ d'adresse** : une
+vignette cliquable, l'adresse choisie écrite en clair, et deux boutons, « Changer l'image… » et
+« Retirer ». Personne n'écrit de mémoire l'adresse d'une photo, et une adresse recopiée de
+travers donne une fiche que les moteurs rejettent sans rien dire.
+
+Le champ d'adresse ne reparaît que si l'explorateur de médias — [`onlcmedia`](onlcmedia.md) —
+n'est pas chargé.
+
+### Un champ peut avoir une version par langue
+
+Une valeur est **internationale** par défaut : elle est publiée quelle que soit la langue
+demandée, et c'est ce que veut la quasi-totalité des propriétés — un prix, une référence, un
+code-barres n'ont pas de traduction. Le nom et la description d'un produit, si.
+
+Chaque champ de texte porte donc une barre : « Toutes les langues », puis une pastille par langue
+déclarée. Un point vert marque celles pour lesquelles une version est écrite ; sans lui, il
+faudrait cliquer sur chacune pour savoir ce que la fiche contient. **Vider un champ retire la
+version**, ce qui ramène à l'international sans qu'on ait à chercher un bouton de suppression.
+
+La fiche stocke ces versions avec les marqueurs du moteur du site, exactement comme le reste de
+la page :
+
+```json
+"name": "[LG=fr]Coque de clef[/LG][LG=en]Key case[/LG]"
+```
+
+La barre n'apparaît **que si le site déclare des langues** (`onlc_multilang_languages`, voir
+[`onlcmultilang`](onlcmultilang.md)). Sur un site monolingue, le champ est celui d'avant : rien
+de tout ceci n'aurait de sens à montrer.
+
+### Le formulaire défile
+
+Il est long — une fiche produit complète fait plus de mille pixels — et il défile dans son cadre.
+Il ne l'a pas toujours fait : le dialogue place un composant libre dans un cadre en
+`overflow: hidden`, et tout ce qui passait sous la ligne de flottaison, l'aperçu du json compris,
+était **hors d'atteinte**, sans barre de défilement pour le dire.
 
 ## Où va la fiche
 

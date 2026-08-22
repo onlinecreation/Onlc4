@@ -129,7 +129,15 @@ Un test n'a de valeur que s'il peut échouer. Plusieurs de ceux-ci ont trouvé d
   valeurs json, ce qui la rendait illisible et faisait perdre les données du rédacteur ;
 * `onlcswiper/BlockAccessTest` — il vérifie qu'on peut **atteindre** les réglages, ce qui est
   autre chose que de savoir les lire. Sur la page qui a révélé le défaut, aucun diaporama n'avait
-  d'entrée : ni bouton dans la barre du bloc, ni bulle contextuelle.
+  d'entrée : ni bouton dans la barre du bloc, ni bulle contextuelle ;
+* `onlcmultilang/TagSpansTest` — il pose un marqueur de langue **dans un attribut `class`**,
+  comme le fait une page réelle. Le plugin en faisait un élément, écrit au milieu d'une balise
+  ouvrante : la section entière du contenu s'en trouvait disloquée. Le cas voisin — une balise
+  `<multilang>`, qui *est* un marqueur et commence par un chevron — garde la distinction ouverte ;
+* `onlcwidgets/PagePreviewTest` — il donne à l'aperçu le mouchard Google Tag Manager d'un gabarit
+  réel. `[l]` y était pris pour un code court sans valeur, donc effacé, et le script tombait en
+  erreur. Le même fichier avait par ailleurs un `it` imbriqué dans un autre, qui ne s'exécutait
+  jamais comme un cas à part.
 
 Une remarque sur les simulations : l'api média se branche par `onlc_media_handlers`, ce qui
 permet à un test de décrire exactement l'arborescence dont il a besoin — et de compter les

@@ -21,8 +21,9 @@ HugeRTE n'est pas modifié, chaque fonctionnalité s'active dans l'option `plugi
 
 `onlcshared` n'est pas un plugin : c'est la bibliothèque interne (client HTTP, section « lien »,
 styles de dialogue, registres partagés — feuilles de style de publication, boutons de propriétés
-des blocs, blocs insécables, types de `script` revendiqués —, feuille de style du site, corps de
-`script` et de `style` d'une chaîne html) incluse dans les plugins qui en ont besoin.
+des blocs, types de blocs, blocs insécables, types de `script` revendiqués —, feuille de style du
+site, marqueurs de langue lus comme valeur, balises et corps de `script` d'une chaîne html)
+incluse dans les plugins qui en ont besoin.
 
 Les **registres** vivent sur l'objet éditeur, que tous les plugins partagent, et sont consultés
 au moment de s'en servir. Un plugin y déclare ce qu'il sait faire sans connaître les autres, et
@@ -168,17 +169,22 @@ pour faciliter une remontée éventuelle en amont.
   et non dans une seconde bulle ouverte par-dessus. Chaque plugin y déclare ses boutons par
   `onlcshared/BlockActions`, sans connaître `onlcblocks` ni savoir s'il est chargé ; quand la
   barre des blocs n'existe pas, chacun garde sa bulle contextuelle.
+- **Le type d'un bloc, d'un coup d'œil** : chaque contour porte dans son angle haut gauche un
+  dessin de seize pixels qui dit à quoi l'on a affaire — paragraphe, ligne de grille, diaporama,
+  fiche de microdonnées. Chaque plugin déclare les types qu'il reconnaît par
+  `onlcshared/BlockKinds` ; sans lui, vingt rectangles pointillés se ressemblent tous.
 - **Les blocs insécables** : un diaporama, un bloc prédéfini se manipulent d'une pièce. On les
   déplace, on les duplique, on les supprime entiers ; leur intérieur n'est pas manipulable, faute
   de quoi on pourrait tirer une vue hors de sa piste et casser le diaporama sans rien annoncer. Le
   plugin qui possède l'objet le déclare par `onlcshared/BlockAtoms` — voir
   [onlcblocks](plugins/onlcblocks.md).
-- **Ce qui n'est pas du html ne se réécrit pas** : plusieurs plugins réécrivent la chaîne html
-  brute avant l'analyse, faute de pouvoir faire autrement — un code court n'est pas un élément.
-  Ces réécritures s'arrêtent aux portes d'un `script` et d'un `style`, où le même motif ne veut
-  plus dire la même chose (`onlcshared/text/RawElements`). Un `[LG=fr]…[/LG]` écrit dans une fiche
-  de microdonnées est une donnée que le moteur du site résoudra, pas une section à transformer en
-  élément : l'y transformer y posait des guillemets et rendait le json illisible.
+- **Ce qui n'est pas du texte de contenu ne se réécrit pas** : plusieurs plugins réécrivent la
+  chaîne html brute avant l'analyse, faute de pouvoir faire autrement — un code court n'est pas un
+  élément. Ces réécritures s'arrêtent aux portes d'un `script`, d'un `style` et de **l'intérieur
+  d'une balise** (`onlcshared/text/RawElements`). Trois défauts sont venus de là, tous sur du
+  contenu réel : un `[LG=fr]…[/LG]` dans une valeur json, qui rendait la fiche illisible ; le même
+  dans un attribut `class`, qui disloquait la balise ; et un `[l]` du mouchard Google Tag Manager
+  d'un gabarit, pris pour un code court et effacé.
 - **Rien qui dépende de la page d'accueil** : les dialogues vivent dans le document du
   back-office, pas dans un cadre à part. Une règle css que cette page écrit sur un **nom
   d'élément** — `pre`, `textarea`, `summary`, `iframe` — atteint donc l'interface de l'éditeur.

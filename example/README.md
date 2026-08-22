@@ -37,12 +37,22 @@ paragraphe tout en bas, deux gros scripts. Ses images pointent vers l'hébergeme
 ligne elles ne s'affichent pas, mais la structure — ce que la démonstration montre — reste
 entière.
 
-Trois défauts sont venus d'elle, et ils valent d'être connus de qui reprend un site existant :
-la page ne comptait que pour **un seul bloc** faute de grille Bootstrap ; les diaporamas
-n'étaient ni des blocs ni atteignables ; et la fiche de microdonnées revenait **vide** parce que
-les marqueurs de langue de ses valeurs json étaient pris pour des sections. Voir
-[onlcblocks](../docs/plugins/onlcblocks.md), [onlcswiper](../docs/plugins/onlcswiper.md) et
-[onlcseo](../docs/plugins/onlcseo.md).
+Le **gabarit** aussi est celui du site, recopié sans retouche dans
+`api/templates/lmparts.html` : sa barre de navigation, son logo svg, son menu déroulant des
+langues, son écran de transition et son mouchard Google Tag Manager. L'aperçu montre donc la page
+telle qu'un visiteur la verra, à ceci près que les bibliothèques viennent de CDN — sans réseau
+sortant, la structure est là mais l'habillage manque.
+
+Cinq défauts sont venus de cette page, et ils valent d'être connus de qui reprend un site
+existant :
+
+| Ce qui n'allait pas | Où |
+| --- | --- |
+| La page ne comptait que pour **un seul bloc**, faute de grille Bootstrap | [onlcblocks](../docs/plugins/onlcblocks.md) |
+| Les diaporamas n'étaient ni des blocs ni atteignables | [onlcswiper](../docs/plugins/onlcswiper.md) |
+| La fiche de microdonnées revenait **vide** : les marqueurs de langue de ses valeurs json étaient pris pour des sections | [onlcseo](../docs/plugins/onlcseo.md) |
+| Un marqueur de langue écrit dans un attribut `class` **disloquait la balise** | [onlcmultilang](../docs/plugins/onlcmultilang.md) |
+| Le `[l]` du mouchard Google Tag Manager du gabarit était pris pour un code court, donc effacé | [onlcwidgets](../docs/plugins/onlcwidgets.md) |
 
 > La feuille du design est déclarée à son adresse réelle **et** dans une version locale
 > (`assets/lmparts-site.css`). La version locale reprend les classes de structure : elle garde la
@@ -85,6 +95,7 @@ example/
 │   ├── links-api.js     simulation de l'API des liens prédéfinis
 │   ├── icons-api.js     simulation du catalogue d'icônes Material Design
 │   ├── template-api.js  les deux gabarits de site, pour l'aperçu visiteur
+│   ├── templates/lmparts.html  le gabarit du site réel, recopié sans retouche
 │   ├── site-css-api.js  relais de lecture des feuilles de style du site
 │   └── multipart.js     analyseur multipart/form-data minimal
 ├── public/

@@ -140,6 +140,36 @@ propre plugin.
 Le registre vit sur l'objet éditeur, que tous les plugins partagent, et il est consulté au moment
 où l'on cherche un bloc : **l'ordre de chargement des plugins n'a aucun effet**.
 
+## Le type du bloc, d'un coup d'œil
+
+Une page de travail montre une vingtaine de rectangles pointillés qui se ressemblent tous. Chaque
+contour porte donc, dans son **angle haut gauche**, un dessin de seize pixels qui dit à quoi l'on
+a affaire : paragraphe, titre, liste, tableau, ligne de grille, colonne, diaporama, bloc
+prédéfini, script, code court, section de langue, fiche de microdonnées. L'infobulle le nomme.
+
+Comme l'identifiant, il est dessiné **dans le contour** et jamais dans le contenu : aucune mise en
+page n'est décalée par son affichage.
+
+Le plugin qui possède un objet déclare le type qu'il lui reconnaît ; `onlcblocks` déclare ceux du
+html ordinaire avec un rang plus élevé, pour qu'un plugin plus précis passe devant :
+
+```ts
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
+import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
+
+BlockKinds.declare(editor, {
+  id: 'monplugin',
+  label: 'Mon objet',
+  icon: KindIcons.widget,
+  order: 20,
+  match: (editor, element) => element.classList.contains('mon-objet')
+});
+```
+
+Le premier `order` gagnant l'emporte, et un `match` qui lève une erreur vaut « non » sans priver
+le reste de la page de son repère. Le registre vit sur l'objet éditeur, comme les autres : l'ordre
+de chargement des plugins n'a aucun effet.
+
 ## Une seule barre par bloc
 
 Deux barres flottantes se disputaient l'espace au-dessus d'un bloc : celle qui le manipule et

@@ -10,6 +10,7 @@ import * as Languages from '../core/Languages';
 import * as Scope from '../core/Scope';
 import * as Sections from '../core/Sections';
 import * as View from '../core/View';
+import * as Work from '../core/Work';
 
 /**
  * Les commandes polyglottes, dans un seul menu.
@@ -98,6 +99,31 @@ const settingItems = (editor: Editor): Menu.NestedMenuItemContents[] =>
     ]
   );
 
+/**
+ * Les entrées du mode de travail.
+ *
+ * Il est présenté à part de l'aperçu visiteur, et nommé autrement, parce qu'il ne fait pas la
+ * même chose : l'aperçu **montre**, celui-ci **écrit**. Confondre les deux, c'est croire qu'on
+ * relit alors qu'on est en train de marquer tout ce qu'on ajoute.
+ */
+const workItems = (editor: Editor): Menu.ToggleMenuItemSpec[] => {
+  const working = Work.current(editor);
+
+  const none: Menu.ToggleMenuItemSpec = {
+    type: 'togglemenuitem',
+    text: 'Écrire dans toutes les langues',
+    active: working === '',
+    onAction: () => editor.execCommand('OnlcWorkInLanguage', false, '')
+  };
+
+  return [ none ].concat(Arr.map(Languages.list(editor), (language): Menu.ToggleMenuItemSpec => ({
+    type: 'togglemenuitem',
+    text: language.label,
+    active: working === language.code,
+    onAction: () => editor.execCommand('OnlcWorkInLanguage', false, language.code)
+  })));
+};
+
 const fetchItems = (editor: Editor): Menu.NestedMenuItemContents[] => {
   const inside = Sections.getSelected(editor).isSome();
 
@@ -113,6 +139,11 @@ const fetchItems = (editor: Editor): Menu.NestedMenuItemContents[] => {
 
   const viewing: Menu.NestedMenuItemContents[] = [
     { type: 'separator' },
+    {
+      type: 'nestedmenuitem',
+      text: 'Travailler dans une seule langue',
+      getSubmenuItems: () => workItems(editor)
+    },
     {
       type: 'nestedmenuitem',
       text: 'Afficher comme un visiteur',
@@ -150,6 +181,7 @@ export {
   settingItems,
   languageItems,
   viewItems,
+  workItems,
   fetchItems,
   register
 };

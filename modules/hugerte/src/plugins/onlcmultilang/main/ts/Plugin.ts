@@ -13,6 +13,7 @@ import * as Parse from './core/Parse';
 import * as Scope from './core/Scope';
 import * as Sections from './core/Sections';
 import * as View from './core/View';
+import * as Work from './core/Work';
 import * as Buttons from './ui/Buttons';
 
 /**
@@ -79,6 +80,13 @@ export interface OnlcMultilangApi {
   readonly allowsBlockAt: (element: HTMLElement) => boolean;
   /** N'affiche plus qu'une langue dans l'éditeur ; une valeur vide les rend toutes. */
   readonly view: (code: string) => void;
+  /**
+   * Ouvre le mode « travailler dans une langue » : les autres sont masquées, et tout bloc ajouté
+   * prend celle-ci. Un code vide referme le mode.
+   */
+  readonly work: (code: string) => void;
+  /** La langue dans laquelle on travaille, ou la chaîne vide quand le mode est fermé. */
+  readonly working: () => string;
   readonly viewed: () => string;
   /**
    * Le contenu réduit à une langue, comme le publiera le site.
@@ -116,6 +124,10 @@ export default (): void => {
     // pas livrées avec la feuille de styles.
     editor.contentStyles.push(View.styles(editor));
 
+    // Le mode « travailler dans une langue » pose ses écouteurs une fois pour toutes : ils ne
+    // font rien tant qu'aucune langue n'est choisie.
+    Work.setup(editor);
+
     FilterContent.setup(editor);
     Commands.register(editor);
     Commands.registerQuery(editor);
@@ -142,6 +154,8 @@ export default (): void => {
       allowsBlockAt: (element: HTMLElement) =>
         Sections.sectionOf(editor, element).isSome() || Scope.allowsBlockFor(editor, element),
       view: (code: string) => View.show(editor, code),
+      work: (code: string) => Work.enter(editor, code),
+      working: () => Work.current(editor),
       viewed: () => View.current(editor),
       resolve: (code?: string) => resolveHtml(editor.getContent(), code),
       resolveHtml

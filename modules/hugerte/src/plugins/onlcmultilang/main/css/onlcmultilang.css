@@ -74,3 +74,44 @@ div.onlc-lang,
   content: attr(data-onlc-lang-label) " ?";
   background: #a3701c;
 }
+
+/**
+ * Le mode « travailler dans une langue ».
+ *
+ * Un bandeau collant en haut de la zone d'écriture rappelle que ce qui est à l'écran n'est pas
+ * toute la page : sans lui, on cherche un paragraphe qu'on croit perdu, alors qu'il est
+ * simplement dans une autre langue. L'intitulé vient d'un attribut du corps du document, qui ne
+ * fait pas partie du contenu et ne peut donc pas se retrouver dans la page publiée.
+ */
+body.onlc-lang-work {
+  padding-top: 34px;
+}
+
+body.onlc-lang-work::before {
+  content: attr(data-onlc-lang-work);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+  padding: 6px 12px;
+  overflow: hidden;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: #1f6f43;
+  pointer-events: none;
+}
+
+/**
+ * Ce qui est ajouté prend la langue en cours : la section neuve est signalée un instant, le temps
+ * qu'on la voie apparaître. Sans cela, le marquage se fait sans que rien ne l'annonce, et on
+ * découvre les sections en refermant le mode.
+ */
+body.onlc-lang-work .onlc-lang {
+  border-style: solid;
+}

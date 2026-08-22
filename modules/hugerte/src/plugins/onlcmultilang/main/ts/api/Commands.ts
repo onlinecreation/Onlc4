@@ -4,6 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 
 import * as Sections from '../core/Sections';
 import * as View from '../core/View';
+import * as Work from '../core/Work';
 
 const register = (editor: Editor): void => {
   /**
@@ -32,11 +33,22 @@ const register = (editor: Editor): void => {
   editor.addCommand('OnlcViewLanguage', (_ui, value?: string) => {
     View.show(editor, Type.isString(value) ? value : '');
   });
+
+  /**
+   * Ouvre — ou referme — le mode « travailler dans une langue ».
+   *
+   * Une valeur vide referme. Voir `core/Work` : ce mode masque les autres langues **et** marque
+   * dans celle-ci tout bloc ajouté.
+   */
+  editor.addCommand('OnlcWorkInLanguage', (_ui, value?: string) => {
+    Work.enter(editor, Type.isString(value) ? value : '');
+  });
 };
 
 const registerQuery = (editor: Editor): void => {
   editor.addQueryValueHandler('OnlcCurrentLanguage', () => Sections.currentCode(editor));
   editor.addQueryValueHandler('OnlcViewedLanguage', () => View.current(editor));
+  editor.addQueryValueHandler('OnlcWorkLanguage', () => Work.current(editor));
 };
 
 export {

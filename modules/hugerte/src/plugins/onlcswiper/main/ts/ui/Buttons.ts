@@ -2,6 +2,7 @@ import { Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as Detect from '../core/Detect';
@@ -20,9 +21,17 @@ import * as SwiperDialog from '../ui/SwiperDialog';
  */
 
 const swiperAt = (editor: Editor, block: HTMLElement): Optional<HTMLElement> =>
-  Detect.at(editor, block).map((swiper) => swiper.container);
+  Detect.forBlock(editor, block).map((swiper) => swiper.container);
 
 const register = (editor: Editor): void => {
+  // Un diaporama se manipule d'une pièce : l'espace de travail le voit comme un bloc, et ce
+  // qu'il contient — la piste, les vues — comme n'en étant pas un. Sans cela la barre des blocs
+  // se posait sur la section qui l'entoure, et le diaporama restait impossible à désigner.
+  BlockAtoms.declare(editor, {
+    id: 'onlcswiper',
+    match: (target, element) => Detect.isContainer(target, element)
+  });
+
   editor.ui.registry.addButton('onlcswiperedit', {
     icon: 'gallery',
     tooltip: 'Modifier le diaporama',
@@ -56,9 +65,13 @@ const register = (editor: Editor): void => {
     scope: 'node'
   });
 
-  // Un double clic ouvre le formulaire, comme pour les autres objets de l'éditeur.
+  // Un double clic ouvre le formulaire, comme pour les autres objets de l'éditeur. Sur une image
+  // de vue, le plugin des médias ouvre le sien : les deux se répondent, et c'est voulu — on
+  // modifie l'image quand on vise l'image, le diaporama quand on vise autour.
   editor.on('dblclick', (e) => {
-    if (Detect.at(editor, e.target as Node).isSome()) {
+    const target = e.target as Node;
+    const isImage = Type.isNonNullable(target) && target.nodeName === 'IMG';
+    if (!isImage && Detect.at(editor, target).isSome()) {
       editor.execCommand('OnlcSwiper');
     }
   });

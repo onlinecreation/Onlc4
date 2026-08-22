@@ -174,6 +174,39 @@ const at = (editor: Editor, node: Node | null): Optional<Swiper> => {
   return Arr.find(all(editor), (swiper) => swiper.container === node || swiper.container.contains(node));
 };
 
+/**
+ * Le diaporama qu'un **bloc** désigne, quand il n'y a pas d'ambiguïté.
+ *
+ * `at` ne regarde que vers le haut : il répond pour un nœud pris dans un diaporama. Mais la barre
+ * des blocs se pose parfois sur un élément qui *contient* le diaporama — une section entière qui
+ * n'en porte qu'un — et il faut alors regarder vers le bas. Trois cas, dans cet ordre, les mêmes
+ * que pour les autres boutons de propriétés (voir `BlockActions.matchIn`) :
+ *
+ * 1. le bloc est un diaporama, ou se trouve dans un diaporama ;
+ * 2. la sélection est dans un diaporama que ce bloc contient ;
+ * 3. le bloc ne contient qu'un seul diaporama.
+ *
+ * Un bloc qui en contient plusieurs sans qu'aucun ne soit désigné ne propose pas le bouton :
+ * mieux vaut pas de bouton qu'un bouton dont on ignore lequel il ouvrira.
+ */
+const forBlock = (editor: Editor, block: HTMLElement): Optional<Swiper> => {
+  const swipers = all(editor);
+
+  const inSelection = (): Optional<Swiper> => {
+    const selected = editor.selection.getNode();
+    return Arr.find(swipers, (swiper) =>
+      block.contains(swiper.container)
+      && (swiper.container === selected || swiper.container.contains(selected)));
+  };
+
+  const onlyOne = (): Optional<Swiper> => {
+    const inside = Arr.filter(swipers, (swiper) => block.contains(swiper.container));
+    return inside.length === 1 ? Optional.some(inside[0]) : Optional.none<Swiper>();
+  };
+
+  return at(editor, block).orThunk(inSelection).orThunk(onlyOne);
+};
+
 /** Ce nœud est-il un conteneur de diaporama ? */
 const isContainer = (editor: Editor, node: Node | null): node is HTMLElement =>
   Type.isNonNullable(node) && node.nodeType === 1
@@ -189,5 +222,6 @@ export {
   matches,
   all,
   at,
+  forBlock,
   isContainer
 };

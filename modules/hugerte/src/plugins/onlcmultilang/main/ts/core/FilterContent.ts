@@ -2,6 +2,7 @@ import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import AstNode from 'hugerte/core/api/html/Node';
+import * as RawElements from 'hugerte/plugins/onlcshared/text/RawElements';
 
 import { Syntax } from '../api/Types';
 import * as Dom from './Dom';
@@ -43,8 +44,23 @@ const syntaxFor = (syntax: Syntax, bracket: boolean): Syntax =>
 /** Repérage rapide : rien à faire sur une page qui ne porte aucun marqueur. */
 const marks = /\[LG=|<multilang /i;
 
+/**
+ * Les sections d'une chaîne html, moins celles qui tombent dans un `script` ou un `style`.
+ *
+ * Un `[LG=fr]…[/LG]` écrit dans du javascript ou dans une fiche de microdonnées est une donnée
+ * que le moteur du site résoudra à la publication, pas une section à transformer en élément.
+ * L'y transformer y poserait des guillemets, et casserait le code ou le json qui l'entoure.
+ */
+const editableSections = (html: string): Parse.Section[] => {
+  const raw = RawElements.spansOf(html);
+  return raw.length === 0
+    ? Parse.sections(html)
+    : Arr.filter(Parse.sections(html), (section) =>
+      !RawElements.overlaps(raw, section.start, section.end));
+};
+
 const rewriteHtml = (editor: Editor, html: string): string =>
-  Arr.foldr(Parse.sections(html), (result: string, section) => {
+  Arr.foldr(editableSections(html), (result: string, section) => {
     if (!Parse.isBalanced(section.inner)) {
       return result;
     }
@@ -149,6 +165,7 @@ const setup = (editor: Editor): void => {
 
 export {
   syntaxFor,
+  editableSections,
   rewriteHtml,
   hasBracket,
   marker,

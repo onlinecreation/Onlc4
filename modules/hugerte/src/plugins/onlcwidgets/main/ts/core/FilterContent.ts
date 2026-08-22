@@ -2,6 +2,7 @@ import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import AstNode from 'hugerte/core/api/html/Node';
+import * as ScriptTypes from 'hugerte/plugins/onlcshared/ScriptTypes';
 
 import * as Options from '../api/Options';
 import * as Script from './Script';
@@ -40,10 +41,14 @@ const hasFlag = (attributes: string, name: string): boolean =>
  *
  * Les types réclamés par un autre plugin sont laissés intacts : une fiche de microdonnées est un
  * `script` qui ne contient que des données, et `onlcseo` sait la présenter bien mieux qu'un jeton
- * de code (voir l'option `onlc_script_ignored_types`).
+ * de code. Deux sources s'additionnent : l'option `onlc_script_ignored_types`, par laquelle le
+ * projet ajoute les siens, et le registre `ScriptTypes`, par lequel un plugin revendique les
+ * types qu'il prend en charge — sans dépendre de l'ordre dans lequel les plugins sont chargés.
  */
 const scriptsToPlaceholders = (editor: Editor, content: string): string => {
-  const ignored = Options.getIgnoredScriptTypes(editor);
+  const ignored = Arr.map(
+    Options.getIgnoredScriptTypes(editor).concat(ScriptTypes.claimed(editor)),
+    (type) => type.trim().toLowerCase());
 
   return content.replace(scriptRegExp, (all: string, attributes: string, code: string) => {
     const type = attributeOf(attributes, 'type');

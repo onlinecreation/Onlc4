@@ -77,30 +77,11 @@ const getTestUrl = (editor: Editor): string => {
   return Type.isString(value) ? value : '';
 };
 
-/**
- * Demande à `onlcwidgets` de laisser passer les fiches de microdonnées.
- *
- * Sans cela, une fiche déjà publiée reviendrait dans l'éditeur sous la forme d'un jeton
- * « Script JavaScript » — ce qu'elle n'est pas : c'est une donnée, que personne n'exécute. Le
- * réglage est posé plutôt que codé en dur dans `onlcwidgets` : sans ce plugin-ci, les fiches
- * doivent continuer d'être prises en charge par le jeton de script, faute de quoi le nettoyeur
- * du cœur les supprimerait purement et simplement.
- */
-const claimScriptType = (editor: Editor, type: string): void => {
-  if (!editor.options.isRegistered('onlc_script_ignored_types')) {
-    return;
-  }
-  const current = editor.options.get('onlc_script_ignored_types');
-  const list = Type.isArrayOf(current, Type.isString) ? current : [];
-  editor.options.set('onlc_script_ignored_types', Arr.unique(list.concat([ type ])));
-};
-
 export {
   register,
   getCustomTypes,
   getExcludedTypes,
   getBuiltInTypes,
   getContext,
-  getTestUrl,
-  claimScriptType
+  getTestUrl
 };

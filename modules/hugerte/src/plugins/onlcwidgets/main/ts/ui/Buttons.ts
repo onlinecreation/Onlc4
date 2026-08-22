@@ -1,5 +1,6 @@
 import Editor from 'hugerte/core/api/Editor';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as Script from '../core/Script';
@@ -85,6 +86,15 @@ const register = (editor: Editor): void => {
    * ouverte par-dessus : c'est le même bloc, il n'y a pas de raison d'avoir deux barres. La
    * suppression n'est pas reprise ici — la barre du bloc a déjà sa croix.
    */
+  // Un bloc prédéfini se manipule d'une pièce : c'est l'éditeur qui possède son markup, et son
+  // formulaire qui en change le contenu. L'espace de travail le traite donc comme insécable,
+  // faute de quoi la barre se poserait sur le titre ou l'image qu'il contient, et proposerait de
+  // les déplacer hors du bloc qui les a produits.
+  BlockAtoms.declare(editor, {
+    id: 'onlcwidgets',
+    match: (target, element) => WidgetDom.isWidget(target, element)
+  });
+
   BlockActions.declare(editor, {
     id: 'onlcwidgets-edit',
     label: 'Modifier le bloc',

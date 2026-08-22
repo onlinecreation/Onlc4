@@ -1,4 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as ScriptTypes from 'hugerte/plugins/onlcshared/ScriptTypes';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
@@ -55,9 +56,10 @@ export default (): void => {
 
     editor.contentCSS.push(`${pluginUrl}/css/onlcseo.css`);
 
-    // Les fiches de microdonnées sont des données, pas du code : elles ne doivent pas devenir un
-    // jeton « Script JavaScript ». Voir `Options.claimScriptType`.
-    Options.claimScriptType(editor, Jsonld.scriptType);
+    // Une fiche de microdonnées est une donnée, pas du code : elle ne doit pas revenir dans
+    // l'éditeur sous la forme d'un jeton « Script JavaScript ». Le registre partagé le dit à
+    // `onlcwidgets` quel que soit l'ordre dans lequel les deux plugins ont été chargés.
+    ScriptTypes.claim(editor, Jsonld.scriptType);
 
     FilterContent.setup(editor);
     Commands.register(editor);

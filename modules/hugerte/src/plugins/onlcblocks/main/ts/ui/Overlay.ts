@@ -2,6 +2,7 @@ import { Arr, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 
 import * as Blocks from '../core/Blocks';
 import * as Multilang from '../core/Multilang';
@@ -75,6 +76,7 @@ const buttonHtml = (button: ToolbarButton): string =>
 
 const layerHtml = (editor: Editor): string =>
   '<div class="onlc-blocks-outline" data-onlc-part="outline">' +
+  '<span class="onlc-blocks-outline__kind onlc-blocks-hidden" data-onlc-part="blockkind"></span>' +
   '<span class="onlc-blocks-outline__id onlc-blocks-hidden" data-onlc-part="blockid"></span></div>' +
   '<div class="onlc-blocks-toolbar" data-onlc-part="toolbar">' +
   `${Arr.map(buttonsFor(editor), buttonHtml).join('')}` +
@@ -104,6 +106,7 @@ const propertiesStateAttribute = 'data-onlc-props-state';
 
 /** Dernier identifiant affiché dans le contour, pour ne le réécrire qu'au changement. */
 const blockIdStateAttribute = 'data-onlc-id-state';
+const blockKindStateAttribute = 'data-onlc-kind-state';
 
 /** Préfixe des actions de propriétés, pour les distinguer de celles de la manipulation. */
 const propertyPrefix = 'prop:';
@@ -369,6 +372,32 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
    * Il est écrit dans le contour plutôt que dans la page : rien n'est ajouté au contenu, et
    * aucune mise en page n'est décalée par son affichage.
    */
+  /**
+   * Le dessin du type, dans l'angle haut gauche du contour.
+   *
+   * Il est redessiné seulement quand le type change : reposer le même svg à chaque mouvement de
+   * souris ferait clignoter le dessin et rejouerait son rendu pour rien.
+   */
+  const updateBlockKind = (block: HTMLElement) => {
+    const badge = part('blockkind');
+    if (!Type.isNonNullable(badge)) {
+      return;
+    }
+    BlockKinds.kindOf(editor, block).fold(
+      () => {
+        setVisible(badge, false);
+      },
+      (kind) => {
+        setVisible(badge, true);
+        if (badge.getAttribute(blockKindStateAttribute) !== kind.id) {
+          badge.setAttribute(blockKindStateAttribute, kind.id);
+          badge.innerHTML = kind.icon;
+          badge.title = editor.translate(kind.label) as string;
+        }
+      }
+    );
+  };
+
   const updateBlockId = (block: HTMLElement) => {
     const badge = part('blockid');
     if (!Type.isNonNullable(badge)) {
@@ -385,6 +414,7 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
 
   const positionForBlock = (block: HTMLElement) => {
     const rect = rectOf(block);
+    updateBlockKind(block);
     updateBlockId(block);
 
     setPosition(part('outline'), {

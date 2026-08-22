@@ -1,7 +1,9 @@
 import Editor from 'hugerte/core/api/Editor';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
+import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
 
 import * as Script from '../core/Script';
 import * as WidgetDom from '../core/WidgetDom';
@@ -90,6 +92,22 @@ const register = (editor: Editor): void => {
   // formulaire qui en change le contenu. L'espace de travail le traite donc comme insécable,
   // faute de quoi la barre se poserait sur le titre ou l'image qu'il contient, et proposerait de
   // les déplacer hors du bloc qui les a produits.
+  BlockKinds.declare(editor, {
+    id: 'onlcwidgets-widget',
+    label: 'Bloc prédéfini',
+    icon: KindIcons.widget,
+    order: 20,
+    match: (target, element) => WidgetDom.isWidget(target, element)
+  });
+
+  BlockKinds.declare(editor, {
+    id: 'onlcwidgets-script',
+    label: 'Script',
+    icon: KindIcons.script,
+    order: 22,
+    match: (target, element) => target.dom.is(element, `[${Script.dataAttribute}]`) as boolean
+  });
+
   BlockAtoms.declare(editor, {
     id: 'onlcwidgets',
     match: (target, element) => WidgetDom.isWidget(target, element)

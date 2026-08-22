@@ -12,6 +12,65 @@
  * la vraie bibliothèque.
  */
 
+/**
+ * L'aperçu : un bandeau qui nomme le bloc, un cadre, une mention qui dit comment le régler.
+ *
+ * Le bandeau et la mention sont des nœuds **fantômes** — `data-mce-bogus="all"` — posés par
+ * `core/Card`. Le cœur les retire à l'enregistrement : rien de ce décor ne touche le html du
+ * rédacteur, dont ce plugin n'est jamais propriétaire.
+ *
+ * Le cadre est dessiné sur le bandeau et sur la piste plutôt que sur le conteneur, qui appartient
+ * lui aussi au rédacteur et ne doit recevoir ni classe ni style de notre fait.
+ */
+.onlc-swiper-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  box-sizing: border-box;
+  padding: 6px 10px;
+  color: #22303c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  background: #eef2f6;
+  border: 1px solid #dde3ea;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  user-select: none;
+}
+
+.onlc-swiper-head__name {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.onlc-swiper-head__detail {
+  color: #5a6570;
+}
+
+.onlc-swiper-foot {
+  box-sizing: border-box;
+  padding: 5px 10px;
+  color: #5a6570;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  background: #f8fafc;
+  border: 1px solid #dde3ea;
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+  user-select: none;
+}
+
+/* La piste devient le corps de la vignette dès qu'un bandeau la précède. */
+.onlc-swiper-head + .swiper-wrapper {
+  background: #fff;
+  border-right: 1px solid #dde3ea;
+  border-left: 1px solid #dde3ea;
+}
+
 .swiper-wrapper {
   display: flex;
   gap: 8px;

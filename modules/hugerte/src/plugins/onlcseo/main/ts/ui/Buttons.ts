@@ -3,7 +3,9 @@ import { Arr } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
+import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
 
 import * as Jsonld from '../core/Jsonld';
 import * as Meta from '../core/Meta';
@@ -73,6 +75,14 @@ const register = (editor: Editor): void => {
   });
 
   // Réglages de la fiche, dans la barre du bloc quand elle existe (voir `BlockActions`).
+  BlockKinds.declare(editor, {
+    id: 'onlcseo',
+    label: 'Microdonnées de la page',
+    icon: KindIcons.tag,
+    order: 20,
+    match: (target, element) => target.dom.hasClass(element, Jsonld.blockClass)
+  });
+
   BlockActions.declare(editor, {
     id: 'onlcseo-microdata',
     label: 'Modifier les microdonnées',

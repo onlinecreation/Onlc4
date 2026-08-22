@@ -3,7 +3,9 @@ import { Optional, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
+import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
 
 import * as Detect from '../core/Detect';
 import * as SwiperDialog from '../ui/SwiperDialog';
@@ -27,6 +29,14 @@ const register = (editor: Editor): void => {
   // Un diaporama se manipule d'une pièce : l'espace de travail le voit comme un bloc, et ce
   // qu'il contient — la piste, les vues — comme n'en étant pas un. Sans cela la barre des blocs
   // se posait sur la section qui l'entoure, et le diaporama restait impossible à désigner.
+  BlockKinds.declare(editor, {
+    id: 'onlcswiper',
+    label: 'Diaporama',
+    icon: KindIcons.slideshow,
+    order: 20,
+    match: (target, element) => Detect.isContainer(target, element)
+  });
+
   BlockAtoms.declare(editor, {
     id: 'onlcswiper',
     match: (target, element) => Detect.isContainer(target, element)

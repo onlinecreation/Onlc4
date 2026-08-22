@@ -46,6 +46,18 @@ const styles = `
   border: 1px solid rgba(34, 47, 62, 0.2); border-radius: 6px; font: inherit; color: #22303c;
 }
 .tox .onlc-slides__hint { margin: 0; color: #5a6570; font-size: 12px; }
+.tox .onlc-slides__image {
+  display: flex; gap: 10px; align-items: flex-start; padding: 8px;
+  border: 1px solid rgba(34, 47, 62, 0.12); border-radius: 6px; background: #f8fafc;
+}
+.tox .onlc-slides__imagethumb {
+  flex: 0 0 auto; width: 56px; height: 56px; border-radius: 4px; border: 0; padding: 0;
+  background: #eef1f4 center/cover no-repeat; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; color: #8a949e; font-size: 10px;
+}
+.tox .onlc-slides__imagethumb:hover { outline: 2px solid #006ce7; outline-offset: 1px; }
+.tox .onlc-slides__imagefields { display: flex; flex: 1 1 auto; min-width: 0; flex-direction: column; gap: 6px; }
+.tox .onlc-slides__imageactions { display: flex; flex-wrap: wrap; gap: 6px; }
 .tox .onlc-slides__free { margin: 0; color: #22303c; font-size: 13px; line-height: 1.5; }
 .tox .onlc-slides__actions { display: flex; flex: 0 0 auto; flex-direction: column; gap: 4px; }
 .tox .onlc-slides__btn {
@@ -55,6 +67,7 @@ const styles = `
 .tox .onlc-slides__btn:hover { background: #eef2f6; }
 .tox .onlc-slides__btn:disabled { opacity: 0.4; cursor: default; }
 .tox .onlc-slides__btn--danger:hover { background: #fdecec; color: #b4241f; }
+.tox .onlc-slides__btn--wide { min-width: 0; padding: 0 12px; font-size: 13px; min-height: 36px; }
 .tox .onlc-slides__bar { display: flex; flex-wrap: wrap; gap: 8px; }
 .tox .onlc-slides__add {
   min-height: 44px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px;
@@ -136,40 +149,151 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
       return node;
     };
 
+    /**
+     * Une image se choisit dans la médiathèque, jamais en tapant son adresse.
+     *
+     * Personne n'écrit de mémoire `https://static.exemple.tld/…/178069794252.webp`, et une
+     * adresse recopiée de travers donne une vue vide sans rien dire. Le champ d'adresse a donc
+     * disparu au profit de la vignette et du bouton, qui ouvrent l'explorateur.
+     *
+     * Il ne réapparaît que si l'explorateur n'est **pas** chargé : mieux vaut un champ austère
+     * que pas de moyen du tout d'indiquer une image.
+     */
+    const renderImage = (
+      slide: Slides.Slide,
+      index: number,
+      image: Slides.SlideImage,
+      position: number
+    ): HTMLElement => {
+      const row = doc.createElement('div');
+      row.className = 'onlc-slides__image';
+
+      const setSrc = (src: string) => {
+        const images = slide.images.slice();
+        images[position] = { ...images[position], src };
+        replace(index, { ...slide, images });
+        render();
+      };
+
+      const pick = () => {
+        const handled = editor.execCommand('OnlcPickMedia', false, {
+          multiple: false,
+          accept: 'image/',
+          onSelect: (files: Array<{ url: string }>) => {
+            Arr.head(files).each((file) => setSrc(file.url));
+          }
+        });
+        return handled !== false;
+      };
+
+      const thumb = doc.createElement('button');
+      thumb.type = 'button';
+      thumb.className = 'onlc-slides__imagethumb';
+      thumb.title = t('Changer cette image');
+      thumb.setAttribute('aria-label', thumb.title);
+      if (image.src !== '') {
+        thumb.style.backgroundImage = backgroundUrl(editor.documentBaseURI.toAbsolute(image.src));
+      } else {
+        thumb.textContent = t('vide');
+      }
+      thumb.addEventListener('click', pick);
+
+      const fields = doc.createElement('div');
+      fields.className = 'onlc-slides__imagefields';
+
+      const alt = doc.createElement('input');
+      alt.type = 'text';
+      alt.className = 'onlc-slides__input';
+      alt.value = image.alt;
+      alt.placeholder = t('Ce que montre l’image, en une phrase');
+      alt.setAttribute('aria-label', t('Texte de remplacement'));
+      alt.addEventListener('input', () => {
+        const images = slide.images.slice();
+        images[position] = { ...images[position], alt: alt.value };
+        replace(index, { ...slide, images });
+      });
+      fields.appendChild(alt);
+
+      const actions = doc.createElement('div');
+      actions.className = 'onlc-slides__imageactions';
+      actions.appendChild(button(
+        t(image.src === '' ? 'Choisir une image…' : 'Changer l’image…'),
+        'Choisir cette image dans la médiathèque', 'onlc-slides__btn--wide', () => {
+          if (!pick()) {
+            fallbackUrl(row, image.src, setSrc);
+          }
+        }));
+
+      if (slide.images.length > 1) {
+        actions.appendChild(button('✕', 'Retirer cette image de la vue', 'onlc-slides__btn--danger', () => {
+          const images = Arr.filter(slide.images, (_candidate, at) => at !== position);
+          replace(index, { ...slide, images });
+          render();
+        }));
+      }
+      fields.appendChild(actions);
+
+      row.appendChild(thumb);
+      row.appendChild(fields);
+      return row;
+    };
+
+    /**
+     * Champ d'adresse de secours, posé seulement quand l'explorateur n'a pas répondu.
+     *
+     * Il est ajouté une seule fois par vue : redemander l'explorateur ne doit pas empiler les
+     * champs.
+     */
+    const fallbackUrl = (row: HTMLElement, value: string, onSet: (next: string) => void) => {
+      if (row.querySelector('.onlc-slides__fallback') !== null) {
+        return;
+      }
+      const input = doc.createElement('input');
+      input.type = 'text';
+      input.className = 'onlc-slides__input onlc-slides__fallback';
+      input.value = value;
+      input.placeholder = t('Adresse de l’image');
+      input.setAttribute('aria-label', t('Adresse de l’image'));
+      input.addEventListener('change', () => onSet(input.value));
+      const holder = row.querySelector('.onlc-slides__imagefields');
+      if (holder !== null) {
+        holder.appendChild(input);
+        input.focus();
+      }
+    };
+
     const renderImageFields = (slide: Slides.Slide, index: number, fields: HTMLElement) => {
       Arr.each(slide.images, (image, position) => {
-        const src = doc.createElement('input');
-        src.type = 'text';
-        src.className = 'onlc-slides__input';
-        src.value = image.src;
-        src.placeholder = t('Adresse de l’image');
-        src.setAttribute('aria-label', t('Adresse de l’image'));
-        src.addEventListener('input', () => {
-          const images = slide.images.slice();
-          images[position] = { ...images[position], src: src.value };
-          replace(index, { ...slide, images });
-        });
-
-        const alt = doc.createElement('input');
-        alt.type = 'text';
-        alt.className = 'onlc-slides__input';
-        alt.value = image.alt;
-        alt.placeholder = t('Ce que montre l’image, en une phrase');
-        alt.setAttribute('aria-label', t('Texte de remplacement'));
-        alt.addEventListener('input', () => {
-          const images = slide.images.slice();
-          images[position] = { ...images[position], alt: alt.value };
-          replace(index, { ...slide, images });
-        });
-
-        fields.appendChild(src);
-        fields.appendChild(alt);
+        fields.appendChild(renderImage(slide, index, image, position));
       });
+
+      const more = button(t('Ajouter une image à cette vue'), 'Ajouter une image à cette vue',
+        'onlc-slides__btn--wide', () => {
+          const add = (src: string) => {
+            replace(index, { ...slide, images: slide.images.concat([{ src, alt: '' }]) });
+            render();
+          };
+          const handled = editor.execCommand('OnlcPickMedia', false, {
+            multiple: true,
+            accept: 'image/',
+            onSelect: (files: Array<{ url: string }>) => {
+              replace(index, {
+                ...slide,
+                images: slide.images.concat(Arr.map(files, (file) => ({ src: file.url, alt: '' })))
+              });
+              render();
+            }
+          });
+          if (handled === false) {
+            add('');
+          }
+        });
+      fields.appendChild(more);
 
       const hint = doc.createElement('p');
       hint.className = 'onlc-slides__hint';
-      hint.textContent = t('La seconde ligne décrit l’image : elle est lue à voix haute par les ' +
-        'lecteurs d’écran et reprise par les moteurs de recherche.');
+      hint.textContent = t('Le texte décrit l’image : il est lu à voix haute par les ' +
+        'lecteurs d’écran et repris par les moteurs de recherche.');
       fields.appendChild(hint);
     };
 

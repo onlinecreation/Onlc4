@@ -13,6 +13,7 @@ import * as Blocks from './core/Blocks';
 import * as Controller from './core/Controller';
 import * as Grid from './core/Grid';
 import * as Buttons from './ui/Buttons';
+import * as Kinds from './ui/Kinds';
 import * as PropertiesDialog from './ui/PropertiesDialog';
 
 /**
@@ -48,6 +49,10 @@ export default (): void => {
     // Dit aux autres plugins que la barre des blocs existe : leurs boutons de propriétés y
     // trouveront une place, et leur bulle contextuelle n'a plus lieu de s'ouvrir par-dessus.
     BlockActions.declareToolbar(editor);
+
+    // Les types du html ordinaire. Chaque plugin déclare les siens, plus précis : un diaporama
+    // est reconnu par `onlcswiper` avant d'être vu ici comme une section.
+    Kinds.declare(editor);
 
     // Feuille de style du site : elle habille la zone d'écriture, et ses classes garnissent les
     // suggestions du formulaire des propriétés.

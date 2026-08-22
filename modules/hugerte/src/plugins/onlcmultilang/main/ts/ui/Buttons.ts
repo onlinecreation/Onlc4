@@ -2,7 +2,10 @@ import { Arr, Fun } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
+import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
 
+import * as Dom from '../core/Dom';
 import * as Languages from '../core/Languages';
 import * as Scope from '../core/Scope';
 import * as Sections from '../core/Sections';
@@ -121,6 +124,14 @@ const fetchItems = (editor: Editor): Menu.NestedMenuItemContents[] => {
 };
 
 const register = (editor: Editor): void => {
+  BlockKinds.declare(editor, {
+    id: 'onlcmultilang',
+    label: 'Section de langue',
+    icon: KindIcons.language,
+    order: 28,
+    match: (target, element) => target.dom.hasClass(element, Dom.blockClass)
+  });
+
   editor.ui.registry.addMenuButton('onlcmultilang', {
     icon: 'language',
     tooltip: 'Langues de la page',

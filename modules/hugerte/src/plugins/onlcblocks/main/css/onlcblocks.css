@@ -49,6 +49,32 @@ body.onlc-blocks-enabled {
  * En bas plutôt qu'en haut : la barre des commandes occupe déjà le bord supérieur, et deux
  * étiquettes au même endroit se recouvrent sur un bloc court.
  */
+/**
+ * Le type du bloc, dans l'angle haut gauche du contour.
+ *
+ * Seize pixels, la même couleur que le contour : c'est un repère qu'on lit du coin de l'œil pour
+ * savoir à quoi l'on a affaire, pas un bouton. Il est dessiné **dans** le contour, jamais dans le
+ * contenu : aucune mise en page de la page n'est décalée par son affichage.
+ */
+.onlc-blocks-outline__kind {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: #fff;
+  background: rgba(0, 108, 231, 0.85);
+  border-radius: 3px 0 3px 0;
+  pointer-events: none;
+}
+
+.onlc-blocks-outline__kind svg {
+  display: block;
+}
+
 .onlc-blocks-outline__id {
   position: absolute;
   right: 0;

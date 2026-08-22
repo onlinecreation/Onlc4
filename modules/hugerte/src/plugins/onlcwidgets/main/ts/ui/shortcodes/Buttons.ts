@@ -1,6 +1,8 @@
 import Editor from 'hugerte/core/api/Editor';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
+import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
 
 import * as Dom from '../../core/shortcodes/Dom';
 
@@ -44,6 +46,14 @@ const register = (editor: Editor): void => {
   });
 
   // Réglages de l'élément, dans la barre du bloc quand elle existe (voir `BlockActions`).
+  BlockKinds.declare(editor, {
+    id: 'onlcwidgets-shortcode',
+    label: 'Code court',
+    icon: KindIcons.shortcode,
+    order: 24,
+    match: (target, element) => target.dom.hasClass(element, Dom.blockClass)
+  });
+
   BlockActions.declare(editor, {
     id: 'onlcwidgets-shortcode',
     label: 'Modifier cet élément',

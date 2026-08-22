@@ -1,8 +1,11 @@
+import { Throttler } from '@ephox/katamari';
+
 import PluginManager from 'hugerte/core/api/PluginManager';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
 import * as Options from './api/Options';
+import * as Card from './core/Card';
 import * as Detect from './core/Detect';
 import * as Settings from './core/Settings';
 import * as Slides from './core/Slides';
@@ -56,6 +59,18 @@ export default (): void => {
 
     Commands.register(editor);
     Buttons.register(editor);
+
+    // L'aperçu est reposé après chaque changement de contenu. `Throttler` évite d'y revenir à
+    // chaque frappe : le décor ne change qu'au retrait ou à l'ajout d'une vue.
+    const redraw = Throttler.last(() => {
+      if (!editor.removed) {
+        Card.decorate(editor);
+      }
+    }, 120);
+
+    editor.on('init SetContent', () => Card.decorate(editor));
+    editor.on('NodeChange Undo Redo', redraw.throttle);
+    editor.on('remove', redraw.cancel);
 
     return {
       list: () => Detect.all(editor),

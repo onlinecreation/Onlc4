@@ -1,0 +1,276 @@
+/**
+ * Feuille de style du site LM Parts — version locale du second exemple.
+ *
+ * En production, cette feuille est celle du design, servie par le site :
+ * `https://lmparts.fr/head-style.<empreinte>xfr.css`. Elle est déclarée telle quelle dans
+ * `onlc_site_css` (voir `assets/lmparts.js`), et c'est bien elle qui habille la page publiée.
+ *
+ * Celle-ci en reprend les classes **de structure**, celles dont dépend la lecture de la page dans
+ * l'éditeur : les écrans pleine hauteur, la parallaxe, les centrages, les boutons, les panneaux.
+ * Elle existe pour deux raisons :
+ *
+ * 1. la démonstration doit être lisible **sans accès réseau** — un poste de développement derrière
+ *    un pare-feu, une machine d'intégration continue ;
+ * 2. elle donne un exemple concret de ce à quoi ressemble une feuille de site, pour qui n'en a pas
+ *    sous la main.
+ *
+ * Les deux sont déclarées ensemble : celle du site a le dernier mot puisqu'elle vient après.
+ */
+
+/* Écrans pleine hauteur ---------------------------------------------------- */
+
+.screens {
+  padding: 48px 0;
+}
+
+.bg-gradient {
+  background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
+}
+
+.screen0 {
+  position: relative;
+  min-height: 70vh;
+  color: #ffffff;
+}
+
+/**
+ * La parallaxe : un fond fixé sous un contenu qui défile.
+ *
+ * `background-attachment: fixed` est ignoré sur iOS — le site le corrige en javascript, ce que
+ * l'éditeur ne fait pas puisqu'il n'exécute pas le contenu.
+ */
+.parallax .full-width.screen {
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+  background: #1b2733 url("/media/lmparts/fond-parallaxe.svg") center / cover no-repeat fixed;
+}
+
+.parallax-layer,
+.parallax-content {
+  width: 100%;
+}
+
+.parallax-placeholder {
+  height: 0;
+}
+
+.screen0-left {
+  max-width: 640px;
+  padding: 32px 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+.scroll-btn {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scroll-btn img {
+  width: 32px;
+  height: 32px;
+}
+
+/* Les trois marques qui se relaient dans le titre. */
+.alternate-brands-container {
+  display: inline-block;
+  min-width: 5em;
+  margin-left: 0.3em;
+  font-weight: 700;
+}
+
+.alternate-brands {
+  display: inline-block;
+}
+
+.alternate-brands-2,
+.alternate-brands-3 {
+  display: none;
+}
+
+/* Grille et centrages ------------------------------------------------------- */
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-v-center {
+  align-items: center;
+}
+
+.flex1 {
+  flex: 1 1 0;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.central-block {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.position-relative {
+  position: relative;
+}
+
+/* Espacements ---------------------------------------------------------------
+ *
+ * Les mêmes échelles que le site : `ma-3` pour une marge intérieure, `mt-1` / `mb-2` pour les
+ * écarts verticaux. Elles sont reprises ici parce que la page les emploie partout.
+ */
+
+.ma-1 { padding: 8px; }
+.ma-3 { padding: 24px; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.mr-1 { margin-right: 8px; }
+
+/* Typographie ---------------------------------------------------------------- */
+
+.fs-0 { font-size: 0.85rem; }
+.fs-2 { font-size: 1.8rem; line-height: 1.25; }
+.fs-4 { font-size: 1.1rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+.big {
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+
+.thin {
+  font-weight: 300;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+.text-break { overflow-wrap: anywhere; }
+
+/* Boutons --------------------------------------------------------------------- */
+
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-default {
+  background: #22303c;
+  color: #ffffff;
+}
+
+.btn-outline-default {
+  border-color: currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+.btn-outline-default:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Panneaux dépliables des questions fréquentes ---------------------------------- */
+
+.panel {
+  margin-bottom: 12px;
+  background: #ffffff;
+  border: 1px solid #dde3ea;
+  border-radius: 6px;
+}
+
+.panel-heading {
+  padding: 14px 18px;
+  background: #f4f6f8;
+  border-bottom: 1px solid #dde3ea;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.panel-body {
+  padding: 16px 18px;
+}
+
+/* Diaporamas ------------------------------------------------------------------
+ *
+ * Sur le site, Swiper pose lui-même les dimensions. Ces règles ne concernent que la taille des
+ * images à l'intérieur d'une vue, qui relève du design et non de la bibliothèque.
+ */
+
+.swiper-slide img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.swiper-slide-double img + img {
+  margin-left: 8px;
+}
+
+.images-show .swiper-slide img {
+  width: 100%;
+}
+
+/* Pied de page ------------------------------------------------------------------ */
+
+.footer {
+  padding-top: 24px;
+  border-top: 1px solid #dde3ea;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.team img,
+.screen5-half {
+  width: 100%;
+  height: auto;
+}
+
+/* Animation du montage, remplacée ici par une image fixe. */
+.keyring-animation-webp {
+  min-height: 220px;
+  background: #eef1f5 url("/media/lmparts/montage.svg") center / contain no-repeat;
+  border-radius: 6px;
+}
+
+/* Boutique --------------------------------------------------------------------- */
+
+.products-thumbs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.product-item-thumb {
+  width: 100%;
+}
+
+.product-details-container {
+  min-height: 120px;
+}

@@ -438,6 +438,8 @@ module.exports = function (grunt) {
           { src: 'src/plugins/onlcmultilang/main/css/onlcmultilang.css', dest: 'js/hugerte/plugins/onlcmultilang/css/onlcmultilang.css' },
           { src: 'src/plugins/onlcwidgets/main/css/onlcwidgets.css', dest: 'js/hugerte/plugins/onlcwidgets/css/onlcwidgets.css' },
           { src: 'src/plugins/onlcwidgets/main/css/onlcshortcodes.css', dest: 'js/hugerte/plugins/onlcwidgets/css/onlcshortcodes.css' },
+          { src: 'src/plugins/onlcseo/main/css/onlcseo.css', dest: 'js/hugerte/plugins/onlcseo/css/onlcseo.css' },
+          { src: 'src/plugins/onlcswiper/main/css/onlcswiper.css', dest: 'js/hugerte/plugins/onlcswiper/css/onlcswiper.css' },
           // Polices d'icônes et index des dessins OpenMoji embarqués dans onlcicons
           { expand: true, cwd: 'src/plugins/onlcicons/main/css', src: '**', dest: 'js/hugerte/plugins/onlcicons/css' },
           { expand: true, cwd: 'src/plugins/onlcicons/main/fonts', src: '**', dest: 'js/hugerte/plugins/onlcicons/fonts' },

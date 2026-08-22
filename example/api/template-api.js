@@ -60,19 +60,85 @@ const template = `<!doctype html>
 </html>
 `;
 
+/**
+ * Second gabarit : celui d'un vrai site marchand, sur Bootstrap 3 et Swiper.
+ *
+ * Il est servi sous `/api/template/lmparts`. Deux différences avec le premier, et ce sont
+ * justement celles qui comptent pour l'aperçu :
+ *
+ *   - la **bibliothèque Swiper** est chargée par le gabarit, pas par le contenu. Un diaporama
+ *     écrit dans la page ne fonctionne donc que dans l'aperçu et sur le site, jamais dans la zone
+ *     d'écriture — c'est la raison d'être du rendu de repli de `onlcswiper` ;
+ *   - la **feuille du design** vient du site lui-même, à une adresse versionnée. C'est elle que
+ *     `onlc_site_css` déclare, et c'est d'elle que viennent les classes proposées dans les
+ *     formulaires.
+ */
+const lmparts = `<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>[TitreSite] • [NomPage]</title>
+    <meta charset="utf-8">
+    <meta name="description" content="[DescriptionSite]">
+    <meta name="keywords" content="[KeywordsSite]">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="robots" content="index,follow">
+    <meta name="generator" content="OnlineCreation.me">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"><\/script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"><\/script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/assets/lmparts-site.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-transparent" data-spy="affix" data-offset-top="1">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+            <span class="sr-only">Menu</span>
+            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">[TitreLogoSite]</a>
+        </div>
+        <div class="collapse navbar-collapse" id="main-menu">
+          [MenuSite type="ul" classparent="nav navbar-nav main-navbar" classchild="" classactivechild="active"]
+        </div>
+      </div>
+    </nav>
+    <main>
+      [ContenuPage]
+    </main>
+    <!-- Swiper JS : la bibliothèque est chargée par le gabarit, jamais par le contenu. -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>
+  </body>
+</html>
+`;
+
 const create = () => {
   /**
    * Traite une requête. Renvoie `null` si l'URL ne correspond à aucun point d'entrée, pour
    * laisser le serveur essayer les autres routes.
    */
   const handle = (request, url) => {
-    if (url.pathname === '/' && request.method.toUpperCase() === 'GET') {
+    if (request.method.toUpperCase() !== 'GET') {
+      return null;
+    }
+    if (url.pathname === '/') {
       return { template };
+    }
+    if (url.pathname === '/lmparts') {
+      return { template: lmparts };
     }
     return null;
   };
 
-  return { handle, template };
+  return { handle, template, lmparts };
 };
 
-module.exports = { create, template };
+module.exports = { create, template, lmparts };

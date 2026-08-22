@@ -22,6 +22,7 @@ const path = require('path');
 const iconsApi = require('./api/icons-api');
 const linksApi = require('./api/links-api');
 const mediaApiFactory = require('./api/media-api');
+const siteCssApiFactory = require('./api/site-css-api');
 const templateApiFactory = require('./api/template-api');
 
 const argument = (name, fallback) => {
@@ -57,6 +58,18 @@ prepareStorage();
 
 const mediaApi = mediaApiFactory.create({ root: storageDir, publicPrefix: '/media' });
 const templateApi = templateApiFactory.create();
+
+/**
+ * Relais de lecture des feuilles de style du site.
+ *
+ * La liste des domaines est **fermée** : un relais ouvert irait chercher n'importe quelle adresse
+ * pour le compte de qui la demande, y compris sur le réseau interne. En production, elle contient
+ * les domaines des sites que le back-office administre.
+ */
+const siteCssApi = siteCssApiFactory.create({
+  allowedHosts: (process.env.ONLC_DEMO_CSS_HOSTS || 'lmparts.fr,static.onlc.eu')
+    .split(',').map((host) => host.trim()).filter(Boolean)
+});
 
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -147,7 +160,8 @@ const handleApi = async (request, response, url) => {
     { prefix: '/api/media', api: mediaApi },
     { prefix: '/api/links', api: linksApi },
     { prefix: '/api/icons', api: iconsApi },
-    { prefix: '/api/template', api: templateApi }
+    { prefix: '/api/template', api: templateApi },
+    { prefix: '/api/site-css', api: siteCssApi }
   ];
 
   const matched = prefixes.find((entry) => url.pathname === entry.prefix || url.pathname.startsWith(entry.prefix + '/'));
@@ -162,8 +176,10 @@ const handleApi = async (request, response, url) => {
   // Latence artificielle : les états de chargement de l'éditeur restent visibles
   await wait(latency);
 
-  const result = matched.api.handle(request, subUrl, body);
-  if (result === null) {
+  // Le résultat peut être une promesse : le relais de feuilles de style va chercher un fichier
+  // sur le réseau, et son erreur doit remonter au gestionnaire d'erreurs comme les autres.
+  const result = await matched.api.handle(request, subUrl, body);
+  if (result === null || result === undefined) {
     sendJson(response, 404, { error: { message: 'Point d’entrée inconnu : ' + url.pathname } });
   } else {
     sendJson(response, 200, result);
@@ -220,12 +236,15 @@ server.listen(port, () => {
   const missing = !fs.existsSync(path.join(editorDir, 'hugerte.js'));
   console.log('');
   console.log('  Démonstration ONLC 4');
-  console.log('  → http://localhost:' + port + '/');
+  console.log('  → http://localhost:' + port + '/           (démonstration des blocs)');
+  console.log('  → http://localhost:' + port + '/lmparts.html (page d’accueil d’un site réel)');
   console.log('');
   console.log('  API simulées :');
   console.log('    • médias  : /api/media  (fichiers dans example/storage)');
   console.log('    • liens   : /api/links');
   console.log('    • icônes  : /api/icons');
+  console.log('    • gabarits : /api/template et /api/template/lmparts');
+  console.log('    • feuilles de style du site : /api/site-css?url=…');
   console.log('    • éditeur d’images Pixel•OnlineCreation : /pixie/');
   console.log('    • latence simulée : ' + latency + ' ms');
   console.log('');

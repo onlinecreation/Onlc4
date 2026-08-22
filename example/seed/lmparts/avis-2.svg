@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" width="420" height="260" role="img" aria-label="Avis client">
+  <rect width="420" height="260" rx="12" fill="#ffffff" stroke="#dde3ea"/>
+  <polygon points="40,22 48,40 68,42 53,56 57,76 40,66 23,76 27,56 12,42 32,40" fill="#f5a623"/><polygon points="74,22 82,40 102,42 87,56 91,76 74,66 57,76 61,56 46,42 66,40" fill="#f5a623"/><polygon points="108,22 116,40 136,42 121,56 125,76 108,66 91,76 95,56 80,42 100,40" fill="#f5a623"/><polygon points="142,22 150,40 170,42 155,56 159,76 142,66 125,76 129,56 114,42 134,40" fill="#f5a623"/><polygon points="176,22 184,40 204,42 189,56 193,76 176,66 159,76 163,56 148,42 168,40" fill="#f5a623"/>
+  <text x="24" y="130" font-family="sans-serif" font-size="17" fill="#22303c">La couleur est identique a ma voiture</text>
+  <text x="24" y="222" font-family="sans-serif" font-size="14" fill="#5a6570">Avis verifie</text>
+</svg>

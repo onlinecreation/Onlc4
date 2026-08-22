@@ -182,18 +182,29 @@ const readArray = (cursor: Cursor): Optional<JsValue[]> => {
   }
 };
 
+/**
+ * Lit le nom d'une propriété.
+ *
+ * Trois écritures, et les trois se rencontrent dans les configurations de diaporama :
+ *
+ * * un identifiant — `slidesPerView` ;
+ * * une chaîne — `'@1.5'`, quand le nom ne peut pas s'écrire nu ;
+ * * un **nombre** — `768: { slidesPerView: 2 }`, qui est la façon la plus répandue d'écrire un
+ *   palier d'écran en pixels. Javascript l'accepte comme clé et le convertit en chaîne ; le
+ *   refuser rendait illisibles la moitié des configurations réelles.
+ */
 const readKey = (cursor: Cursor): Optional<string> => {
   skipTrivia(cursor);
   const character = cursor.text[cursor.index];
   if (character === '"' || character === '\'') {
     return readString(cursor);
   }
-  const identifier = /^[A-Za-z_$@][\w$@.-]*/.exec(cursor.text.substring(cursor.index));
-  if (identifier === null) {
+  const nom = /^(?:[A-Za-z_$@][\w$@.-]*|\d+(?:\.\d+)?)/.exec(cursor.text.substring(cursor.index));
+  if (nom === null) {
     return Optional.none();
   }
-  cursor.index += identifier[0].length;
-  return Optional.some(identifier[0]);
+  cursor.index += nom[0].length;
+  return Optional.some(nom[0]);
 };
 
 const readObject = (cursor: Cursor): Optional<JsObjectValue> => {

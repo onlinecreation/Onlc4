@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c0392b'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+    <title>ONLC 4 — page d’accueil d’un site réel</title>
+    <link rel="stylesheet" href="/assets/demo.css">
+  </head>
+  <body>
+    <header class="entete">
+      <div>
+        <h1>Une page d’accueil réelle</h1>
+        <p>La page d’accueil d’un site marchand, avec ses diaporamas, sa parallaxe et ses trois langues — reprise telle qu’elle est publiée.</p>
+      </div>
+      <nav class="entete__liens">
+        <a href="/">Démonstration des blocs</a>
+        <a href="/api/template/lmparts" target="_blank" rel="noopener">Gabarit du site</a>
+        <a href="/assets/lmparts-site.css" target="_blank" rel="noopener">Feuille du design</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="carte carte--astuces">
+        <h2>Ce que cette page démontre</h2>
+        <ul>
+          <li><strong>Feuille de style du site</strong> : la page est habillée dans l’éditeur comme elle le sera sur le site. Les classes de cette feuille sont proposées dans « Identifiant et classes du bloc ».</li>
+          <li><strong>Diaporamas</strong> : trois blocs Swiper écrits à la main, configurés par le script du bas de page. Survolez-en un et cliquez l’icône de diaporama dans sa barre : images, défilement, affichage et paliers d’écran.</li>
+          <li><strong>Identifiants</strong> : les sections portent <code>#what-is-it</code>, <code>#how-it-works</code>, <code>#shop</code>. Ils s’affichent dans le coin du bloc survolé et se modifient dans ses propriétés.</li>
+          <li><strong>Une seule barre par bloc</strong> : les réglages d’un bloc sont dans sa barre de manipulation, à droite du filet, et non plus dans une bulle qui la recouvre.</li>
+          <li><strong>Microdonnées</strong> : bouton <em>Référencement</em> — décrivez la page comme un produit, avec son prix et sa disponibilité. Le résultat part en <code>ld+json</code>, tout en haut de la page.</li>
+          <li><strong>Trois langues</strong> : les passages <code>&lt;multilang&gt;</code> et <code>[LG]</code> deviennent des sections nommées. L’aperçu n’en montre qu’une à la fois.</li>
+          <li><strong>Aperçu</strong> : le gabarit charge Swiper et Bootstrap 3 ; les diaporamas y défilent vraiment, ce que la zone d’écriture ne peut pas faire.</li>
+        </ul>
+      </section>
+
+      <textarea id="contenu" aria-label="Contenu de la page"></textarea>
+
+      <section class="carte">
+        <div class="carte__entete">
+          <h2>HTML enregistré</h2>
+          <div>
+            <button type="button" id="enregistrer">Enregistrer</button>
+            <button type="button" id="rafraichir">Rafraîchir l’aperçu</button>
+          </div>
+        </div>
+        <p class="carte__note" id="statut">Le contenu envoyé au serveur s’affiche ici, tel qu’il serait stocké en base.</p>
+        <pre id="sortie"><code>—</code></pre>
+      </section>
+    </main>
+
+    <script src="/hugerte/hugerte.js"></script>
+    <script src="/assets/lmparts.js"></script>
+  </body>
+</html>

@@ -89,6 +89,23 @@ const assert = {
       fail(message, list.length, length);
     }
   },
+  /**
+   * Vérifie qu'un appel **asynchrone** échoue, et avec quel statut http.
+   *
+   * `throws` ne convient pas pour cela : une fonction asynchrone ne lève pas, elle rend une
+   * promesse rompue, et le `try` l'aurait laissée passer sans rien voir.
+   */
+  rejects: async (body, status, message = 'l’appel aurait dû échouer') => {
+    try {
+      await body();
+    } catch (err) {
+      if (status !== undefined && err.status !== status) {
+        fail(message + ' (mauvais statut)', err.status, status);
+      }
+      return err;
+    }
+    return fail(message, 'aucune erreur', status === undefined ? 'une erreur' : 'statut ' + status);
+  },
   /** Vérifie qu'un appel échoue, et — quand on le demande — avec quel statut http. */
   throws: (body, status, message = 'l’appel aurait dû échouer') => {
     try {

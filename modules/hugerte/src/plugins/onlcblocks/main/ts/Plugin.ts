@@ -103,6 +103,29 @@ export default (): void => {
       `body.onlc-blocks-enabled > .${Options.getRowClass(editor)} { margin-right: 0; margin-left: 0; }`
     );
 
+    /**
+     * Le modèle de boîte que la grille suppose.
+     *
+     * Les distributions « grille seule » de Bootstrap — celles qu'on charge pour ne pas emporter
+     * tout le reste — ne posent `box-sizing: border-box` que sur les **colonnes**. Le modèle
+     * global, elles le tiennent pour acquis : il vient de la remise à zéro de la distribution
+     * complète, que le site charge et que l'éditeur ne charge pas.
+     *
+     * Sans lui, un conteneur en `width: 100%` avec ses 12 pixels de retrait de chaque côté mesure
+     * vingt-quatre pixels de trop. La page déborde alors sur la droite, une barre de défilement
+     * horizontale apparaît sans rien à faire défiler, et le rendu ne ressemble plus à celui du
+     * site — où le modèle est bien `border-box`.
+     *
+     * La règle est posée sur les conteneurs de grille seulement, pas sur tout le contenu : ce
+     * serait changer le modèle de boîte d'une page dont on ne sait rien.
+     */
+    if (gridCss !== '') {
+      editor.contentStyles.push(
+        '.container,.container-fluid,.container-sm,.container-md,' +
+        '.container-lg,.container-xl,.container-xxl { box-sizing: border-box; }'
+      );
+    }
+
     const controller = Controller.setup(editor);
 
     Commands.register(editor, controller);

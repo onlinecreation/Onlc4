@@ -1,0 +1,106 @@
+import { Arr, Type } from '@ephox/katamari';
+
+import Editor from 'hugerte/core/api/Editor';
+
+import * as Catalog from '../core/Catalog';
+import { SchemaType } from './Types';
+
+const register = (editor: Editor): void => {
+  const registerOption = editor.options.register;
+
+  /**
+   * Types ajoutés ou complétés par le projet.
+   *
+   * Un type dont le nom existe déjà **complète** celui d'origine plutôt que de le remplacer : on
+   * peut ainsi ajouter une propriété à `Product` sans avoir à en recopier la définition entière.
+   */
+  registerOption('onlc_seo_schema_types', {
+    processor: (value) => {
+      const valid = Type.isArrayOf(value, Type.isObject);
+      return valid ? { value, valid } : { valid: false, message: 'Must be an array of schema types.' };
+    },
+    default: []
+  });
+
+  /** Types retirés du choix, par leur nom schema.org. */
+  registerOption('onlc_seo_schema_exclude', {
+    processor: 'string[]',
+    default: []
+  });
+
+  /**
+   * Le contexte écrit en tête de la fiche.
+   *
+   * `https://schema.org` dans la quasi-totalité des cas. L'option existe pour les projets qui
+   * publient un vocabulaire à eux.
+   */
+  registerOption('onlc_seo_context', {
+    processor: 'string',
+    default: 'https://schema.org'
+  });
+
+  /**
+   * Adresse de l'outil de vérification proposé dans le formulaire.
+   *
+   * Vide, aucun lien n'est proposé : un back-office sans accès sortant n'a pas à afficher un
+   * bouton qui ne mènera nulle part.
+   */
+  registerOption('onlc_seo_test_url', {
+    processor: 'string',
+    default: 'https://search.google.com/test/rich-results'
+  });
+};
+
+const getCustomTypes = (editor: Editor): SchemaType[] => {
+  const value = editor.options.get('onlc_seo_schema_types');
+  return Type.isArray(value) ? value as SchemaType[] : [];
+};
+
+const getExcludedTypes = (editor: Editor): string[] => {
+  const value = editor.options.get('onlc_seo_schema_exclude');
+  return Type.isArrayOf(value, Type.isString) ? value : [];
+};
+
+/** Le catalogue livré, moins ce que le projet a exclu. */
+const getBuiltInTypes = (editor: Editor): SchemaType[] => {
+  const excluded = getExcludedTypes(editor);
+  return Arr.filter(Catalog.catalog, (type) => !Arr.contains(excluded, type.name));
+};
+
+const getContext = (editor: Editor): string => {
+  const value = editor.options.get('onlc_seo_context');
+  return Type.isString(value) && value !== '' ? value : 'https://schema.org';
+};
+
+const getTestUrl = (editor: Editor): string => {
+  const value = editor.options.get('onlc_seo_test_url');
+  return Type.isString(value) ? value : '';
+};
+
+/**
+ * Demande à `onlcwidgets` de laisser passer les fiches de microdonnées.
+ *
+ * Sans cela, une fiche déjà publiée reviendrait dans l'éditeur sous la forme d'un jeton
+ * « Script JavaScript » — ce qu'elle n'est pas : c'est une donnée, que personne n'exécute. Le
+ * réglage est posé plutôt que codé en dur dans `onlcwidgets` : sans ce plugin-ci, les fiches
+ * doivent continuer d'être prises en charge par le jeton de script, faute de quoi le nettoyeur
+ * du cœur les supprimerait purement et simplement.
+ */
+const claimScriptType = (editor: Editor, type: string): void => {
+  if (!editor.options.isRegistered('onlc_script_ignored_types')) {
+    return;
+  }
+  const current = editor.options.get('onlc_script_ignored_types');
+  const list = Type.isArrayOf(current, Type.isString) ? current : [];
+  editor.options.set('onlc_script_ignored_types', Arr.unique(list.concat([ type ])));
+};
+
+export {
+  register,
+  getCustomTypes,
+  getExcludedTypes,
+  getBuiltInTypes,
+  getContext,
+  getTestUrl,
+  claimScriptType
+};

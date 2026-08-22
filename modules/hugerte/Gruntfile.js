@@ -17,7 +17,7 @@ let plugins = [
   'table', 'template', 'visualblocks', 'visualchars', 'wordcount', 'quickbars',
   // Online Création (ONLC 4) plugins
   'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcmultilang', 'onlcresponsiveimages',
-  'onlcshortcodes', 'onlcspacer', 'onlcwidgets'
+  'onlcseo', 'onlcshortcodes', 'onlcspacer', 'onlcswiper', 'onlcwidgets'
 ];
 
 let themes = [

@@ -37,17 +37,29 @@ const hasFlag = (attributes: string, name: string): boolean =>
 /**
  * Replaces the script tags of an html string by their editing chip. Done on the raw string
  * because the sanitizer drops script elements long before any node filter could see them.
+ *
+ * Les types réclamés par un autre plugin sont laissés intacts : une fiche de microdonnées est un
+ * `script` qui ne contient que des données, et `onlcseo` sait la présenter bien mieux qu'un jeton
+ * de code (voir l'option `onlc_script_ignored_types`).
  */
-const scriptsToPlaceholders = (editor: Editor, content: string): string =>
-  content.replace(scriptRegExp, (_all, attributes: string, code: string) =>
-    Script.toPlaceholderHtml(editor, {
+const scriptsToPlaceholders = (editor: Editor, content: string): string => {
+  const ignored = Options.getIgnoredScriptTypes(editor);
+
+  return content.replace(scriptRegExp, (all: string, attributes: string, code: string) => {
+    const type = attributeOf(attributes, 'type');
+    if (Arr.contains(ignored, type.trim().toLowerCase())) {
+      return all;
+    }
+    return Script.toPlaceholderHtml(editor, {
       code: code.trim(),
       src: attributeOf(attributes, 'src'),
-      type: attributeOf(attributes, 'type') || Options.getScriptType(editor),
+      type: type || Options.getScriptType(editor),
       async: hasFlag(attributes, 'async'),
       defer: hasFlag(attributes, 'defer'),
       position: attributeOf(attributes, 'data-onlc-position') || 'inline'
-    }));
+    });
+  });
+};
 
 const toScriptNode = (editor: Editor, node: AstNode): void => {
   const data = Script.decode(editor, node.attr(Script.dataAttribute) ?? null);

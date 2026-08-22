@@ -40,6 +40,7 @@
       "hugerte/plugins/onlcmedia/*": ["src/plugins/onlcmedia/main/ts/*"],
       "hugerte/plugins/onlcmultilang/*": ["src/plugins/onlcmultilang/main/ts/*"],
       "hugerte/plugins/onlcresponsiveimages/*": ["src/plugins/onlcresponsiveimages/main/ts/*"],
+      "hugerte/plugins/onlcseo/*": ["src/plugins/onlcseo/main/ts/*"],
       "hugerte/plugins/onlcshared/*": ["src/plugins/onlcshared/main/ts/*"],
       "hugerte/plugins/onlcspacer/*": ["src/plugins/onlcspacer/main/ts/*"],
       "hugerte/plugins/onlcwidgets/*": ["src/plugins/onlcwidgets/main/ts/*"],

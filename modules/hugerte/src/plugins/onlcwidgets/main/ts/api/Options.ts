@@ -85,6 +85,23 @@ const register = (editor: Editor): void => {
     default: true
   });
 
+  /**
+   * Types de `script` qu'un autre plugin prend en charge.
+   *
+   * Tous les scripts d'une page ne sont pas du code. Une fiche de microdonnées est un
+   * `<script type="application/ld+json">` qui ne contient que des données, et que personne
+   * n'exécute : l'afficher sous un jeton « Script JavaScript » induit en erreur, et l'ouvrir dans
+   * un éditeur de code demande d'écrire du json à la main.
+   *
+   * Le plugin qui sait faire mieux inscrit son type ici — voir `onlcseo`. Par défaut la liste est
+   * vide : sans ce plugin, mieux vaut le jeton de script que rien du tout, car le nettoyeur du
+   * cœur supprime les éléments `script` avant qu'aucun filtre ne les voie.
+   */
+  registerOption('onlc_script_ignored_types', {
+    processor: 'string[]',
+    default: []
+  });
+
   registerOption('onlc_code_tab_size', {
     processor: 'number',
     default: 2
@@ -211,6 +228,7 @@ const shouldInjectStyles = option<boolean>('onlc_widgets_inject_styles');
 const getScriptType = option<string>('onlc_script_default_type');
 const getScriptPositions = option<WidgetFieldItem[]>('onlc_script_positions');
 const allowScriptSrc = option<boolean>('onlc_script_allow_src');
+const getIgnoredScriptTypes = option<string[]>('onlc_script_ignored_types');
 const getTabSize = option<number>('onlc_code_tab_size');
 const hasLineNumbers = option<boolean>('onlc_code_line_numbers');
 const shouldPrettyPrint = option<boolean>('onlc_source_pretty_print');
@@ -305,6 +323,7 @@ export {
   getScriptType,
   getScriptPositions,
   allowScriptSrc,
+  getIgnoredScriptTypes,
   getTabSize,
   hasLineNumbers,
   shouldPrettyPrint

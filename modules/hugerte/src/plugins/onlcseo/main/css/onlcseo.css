@@ -1,0 +1,62 @@
+/**
+ * Le bloc des microdonnées dans la zone d'écriture.
+ *
+ * Cette feuille ne décrit **que** l'édition : sur le site publié, la fiche est un élément
+ * `script`, invisible par nature. Elle n'est donc pas déclarée au registre des styles de
+ * publication — l'aperçu visiteur ne doit rien en montrer, puisque le visiteur ne verra rien.
+ *
+ * L'allure est celle d'une carte grise et discrète plutôt que d'un bloc de contenu : ce qui est là
+ * ne fait pas partie de la page, et doit se lire comme tel.
+ */
+
+.onlc-jsonld {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  color: #22303c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  background: #f4f6f8;
+  border: 1px dashed #b6c2cd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.onlc-jsonld__icon {
+  flex: 0 0 auto;
+  color: #5a6570;
+}
+
+.onlc-jsonld__body {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.onlc-jsonld__label {
+  font-weight: 600;
+}
+
+.onlc-jsonld__description {
+  color: #5a6570;
+  font-size: 12px;
+}
+
+/**
+ * Le résumé tient sur une ligne : c'est un repère, pas un contenu. Une fiche complète ferait dix
+ * lignes et repousserait la page vers le bas sans rien apprendre de plus.
+ */
+.onlc-jsonld__summary {
+  overflow: hidden;
+  color: #22303c;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

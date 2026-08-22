@@ -1,6 +1,7 @@
 import { Arr } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
@@ -152,6 +153,8 @@ const register = (editor: Editor): void => {
         'les moteurs de recherche n’en lisent qu’une, et choisissent au hasard quand il y en a plusieurs.');
     }
   });
+  MenuEntries.declare(editor, 'tools', [ 'onlcseo' ]);
+
 };
 
 export {

@@ -4,6 +4,7 @@ import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 import * as Dom from '../core/Dom';
 import * as Languages from '../core/Languages';
@@ -204,6 +205,22 @@ const register = (editor: Editor): void => {
     text: 'Langues',
     getSubmenuItems: () => fetchItems(editor)
   });
+
+  /**
+   * Le mode monolingue a sa propre entrée, en plus du sous-menu « Langues ».
+   *
+   * C'est une façon de **travailler**, pas une propriété du contenu : la ranger au troisième
+   * niveau du menu des langues revenait à ne la ranger nulle part, et c'est déjà ce qui lui était
+   * arrivé une fois.
+   */
+  editor.ui.registry.addNestedMenuItem('onlcmultilangwork', {
+    icon: Icons.translateName,
+    text: 'Travailler dans une seule langue',
+    getSubmenuItems: () => workItems(editor)
+  });
+
+  MenuEntries.declare(editor, 'format', [ 'onlcmultilang' ]);
+  MenuEntries.declare(editor, 'tools', [ 'onlcmultilangwork' ]);
 };
 
 export {

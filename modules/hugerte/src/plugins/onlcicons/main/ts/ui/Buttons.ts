@@ -1,4 +1,5 @@
 import Editor from 'hugerte/core/api/Editor';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 /**
  * Un seul bouton suffit : la fenêtre porte les deux onglets.
@@ -31,6 +32,22 @@ const register = (editor: Editor): void => {
     text: 'Emojis et icônes...',
     onAction: () => editor.execCommand('OnlcIcons')
   });
+
+  editor.ui.registry.addMenuItem('onlcemoji', {
+    icon: 'insert-character',
+    text: 'Emojis seuls...',
+    onAction: () => editor.execCommand('OnlcEmojis')
+  });
+
+  editor.ui.registry.addMenuItem('onlcmaterialicons', {
+    icon: 'template',
+    text: 'Icônes seules...',
+    onAction: () => editor.execCommand('OnlcMaterialIcons')
+  });
+
+  // Les deux variantes ne sont pas rangées dans le menu : la fenêtre unique porte leurs deux
+  // onglets, et trois entrées voisines qui ouvrent la même chose n'apprennent rien.
+  MenuEntries.declare(editor, 'insert', [ 'onlcicons' ]);
 };
 
 export {

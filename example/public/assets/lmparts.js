@@ -52,13 +52,17 @@ hugerte.init({
     'lists', 'table', 'searchreplace', 'fullscreen'
   ].join(' '),
 
+  // Le paquet de langue du cœur : sans lui, « Insertion » et « Outils » resteraient en anglais
+  // au-dessus d'une interface écrite en français.
+  language: 'fr',
+
   menubar: 'edit insert format table tools',
 
   toolbar: [
     'undo redo',
     'blocks bold italic',
     'onlcblocksinsert onlcblocksrow',
-    'onlcimage onlclink',
+    'onlcimage onlclink onlcicons',
     'onlcwidget onlcscript onlcsource',
     'onlcmultilang onlcmultilangwork onlcseo',
     'onlcpreview',

@@ -1,4 +1,5 @@
 import Editor from 'hugerte/core/api/Editor';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
@@ -198,6 +199,9 @@ const register = (editor: Editor): void => {
     text: 'Aperçu comme un visiteur...',
     onAction: () => editor.execCommand('OnlcPreview')
   });
+
+  MenuEntries.declare(editor, 'insert', [ 'onlcwidget', 'onlcscript', 'onlcsource' ]);
+  MenuEntries.declare(editor, 'tools', [ 'onlcpreview' ]);
 
 };
 

@@ -1,4 +1,5 @@
 import Editor from 'hugerte/core/api/Editor';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
@@ -87,6 +88,8 @@ const register = (editor: Editor): void => {
       editor.execCommand('OnlcEditShortcode');
     }
   });
+  MenuEntries.declare(editor, 'insert', [ 'onlcshortcodes' ]);
+
 };
 
 export {

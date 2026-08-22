@@ -1,6 +1,7 @@
 import { Arr, Fun } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
@@ -96,6 +97,8 @@ const register = (editor: Editor): void => {
     tooltip: 'Supprimer le séparateur',
     onAction: () => editor.execCommand('OnlcRemoveSpacer')
   });
+  MenuEntries.declare(editor, 'insert', [ 'onlcspacer' ]);
+
 };
 
 export {

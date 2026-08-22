@@ -1,6 +1,7 @@
 import { Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import { Toolbar } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
@@ -117,6 +118,8 @@ const register = (editor: Editor): void => {
   });
 
   editor.addShortcut('Meta+K', 'Insérer ou modifier un lien', () => editor.execCommand('OnlcLink'));
+  MenuEntries.declare(editor, 'insert', [ 'onlclink', 'onlcunlink' ]);
+
 };
 
 export {

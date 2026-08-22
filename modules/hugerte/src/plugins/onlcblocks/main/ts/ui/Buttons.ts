@@ -3,6 +3,7 @@ import { Arr, Optional, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as Options from '../api/Options';
@@ -104,6 +105,21 @@ const register = (editor: Editor, controller: Controller): void => {
     text: 'Ajouter des colonnes...',
     onAction: openRowDialog
   });
+
+  editor.ui.registry.addToggleMenuItem('onlcblocks', {
+    icon: 'edit-block',
+    text: 'Outils de blocs',
+    onAction: () => editor.execCommand('OnlcBlocksToggle'),
+    onSetup: (api) => {
+      const update = () => api.setActive(controller.isEnabled());
+      update();
+      editor.on('NodeChange', update);
+      return () => editor.off('NodeChange', update);
+    }
+  });
+
+  MenuEntries.declare(editor, 'insert', [ 'onlcblocksinsert', 'onlcblocksrow' ]);
+  MenuEntries.declare(editor, 'tools', [ 'onlcblocks' ]);
 
   Arr.each([
     { name: 'onlcblockup', icon: 'chevron-up', tooltip: 'Monter le bloc', command: 'OnlcBlockMoveUp' },

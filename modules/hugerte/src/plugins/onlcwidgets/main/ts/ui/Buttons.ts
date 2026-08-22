@@ -174,8 +174,9 @@ const register = (editor: Editor): void => {
   // Double clicking a block opens its form, like every other object of the editor
   editor.on('dblclick', (e) => {
     // La barre des blocs ouvre déjà la configuration au double clic, pour tout objet et par le
-    // registre des propriétés. Ce gestionnaire ne sert que sans elle.
-    if (BlockActions.hasToolbar(editor)) {
+    // registre des propriétés. Ce gestionnaire ne sert que sans elle — et jamais en lecture
+    // seule, où un formulaire qui écrit dans le document n'a rien à faire.
+    if (BlockActions.hasToolbar(editor) || editor.mode.isReadOnly()) {
       return;
     }
     const node = e.target as Node;

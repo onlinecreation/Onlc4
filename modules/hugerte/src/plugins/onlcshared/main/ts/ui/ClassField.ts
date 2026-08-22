@@ -247,6 +247,27 @@ const create = (editor: Editor, spec: ClassFieldSpec) => (element: HTMLElement):
   });
 };
 
+/**
+ * Les classes déjà posées ailleurs dans la page.
+ *
+ * Elles sont proposées en plus de celles de la feuille du site : une page reprend souvent ses
+ * propres conventions, et une classe utilisée trois fois plus haut est la suggestion la plus
+ * juste qu'on puisse faire — même quand la feuille du site n'a pas pu être lue.
+ */
+const inPage = (editor: Editor): string[] => {
+  const body = editor.getBody();
+  if (!Type.isNonNullable(body)) {
+    return [];
+  }
+  return Arr.unique(Arr.bind(editor.dom.select('*[class]', body), (element) =>
+    Arr.filter(split(element.className), (name) =>
+      // Les classes de l'interface d'écriture ne décrivent pas la page : les proposer inviterait
+      // à les poser sur du contenu, où elles ne voudraient rien dire. Et un attribut `class` d'une
+      // page réelle contient parfois autre chose qu'une classe — un marqueur de langue laissé là
+      // par un gabarit : ce qui ne peut pas être un nom de classe n'est pas une suggestion.
+      isValidName(name) && name.indexOf('onlc-') !== 0 && name.indexOf('mce-') !== 0))).sort();
+};
+
 /** Spec du composant, à placer dans un dialogue. */
 const field = (editor: Editor, name: string, spec: ClassFieldSpec = {}): Dialog.CustomEditorSpec => ({
   type: 'customeditor',
@@ -259,6 +280,7 @@ export {
   styles,
   isValidName,
   split,
+  inPage,
   create,
   field
 };

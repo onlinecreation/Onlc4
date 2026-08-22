@@ -145,7 +145,7 @@ const open = (editor: Editor, api: MediaApi.MediaApi, context: LinkContext, imag
   const linkTab = (kind: string): Dialog.TabSpec => ({
     title: 'Lien',
     name: 'link',
-    items: LinkFields.getItems(editor, context, kind).concat(LinkFields.getAdvancedItems())
+    items: LinkFields.getItems(editor, context, kind).concat(LinkFields.getAdvancedItems(editor))
   });
 
   const bodyFor = (kind: string): Dialog.TabPanelSpec => ({

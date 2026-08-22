@@ -89,10 +89,11 @@ const applyToSelection = (editor: Editor, attributes: LinkAttributes, text?: str
           const anchor = dom.create('a', toAttributeMap(attributes), dom.encode(label));
           editor.insertContent(anchor.outerHTML);
         } else {
-          editor.formatter.apply('link', { value: attributes.href });
-          getSelectedAnchor(editor).each((anchor) => {
-            dom.setAttribs(anchor, toAttributeMap(attributes));
-          });
+          // Le format `link` du cœur pose **chaque** variable qu'on lui donne en attribut. Il
+          // recevait `{ value: … }`, et produisait donc `<a value="/contact">` : un élément sans
+          // `href`, que plus rien ne retrouvait ensuite — ni le titre, ni les classes, ni le
+          // reste n'étaient posés. On lui donne la carte complète des attributs.
+          editor.formatter.apply('link', toAttributeMap(attributes));
         }
       },
       (anchor) => {

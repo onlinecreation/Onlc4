@@ -59,6 +59,10 @@
     "Buy",
     "Comprar"
   ],
+  "Action javascript au clic": [
+    "Javascript action on click",
+    "Acción javascript al hacer clic"
+  ],
   "Actions": [
     "Actions",
     "Acciones"
@@ -194,6 +198,14 @@
   "Ajouter des colonnes...": [
     "Add columns...",
     "Añadir columnas..."
+  ],
+  "Ajouter des images au début…": [
+    "Add images at the start…",
+    "Añadir imágenes al principio…"
+  ],
+  "Ajouter des images à la fin…": [
+    "Add images at the end…",
+    "Añadir imágenes al final…"
   ],
   "Ajouter des images…": [
     "Add images…",
@@ -491,6 +503,10 @@
     "Text block",
     "Bloque de texto"
   ],
+  "Bloc prédéfini": [
+    "Ready-made block",
+    "Bloque predefinido"
+  ],
   "Blocs et éléments": [
     "Blocks and elements",
     "Bloques y elementos"
@@ -659,6 +675,14 @@
     "This slide contains something other than images. It is edited directly in the page.",
     "Esta vista contiene algo distinto de imágenes. Se modifica directamente en la página."
   ],
+  "Cette vue ne contient pas qu’une image — plusieurs images, ou une mise en page. Elle est déplaçable, mais son contenu n’est pas réécrit.": [
+    "This view holds more than a single image — several images, or a layout. It can be moved, but its content is never rewritten.",
+    "Esta vista no contiene solo una imagen: son varias imágenes o una maquetación. Se puede mover, pero su contenido nunca se reescribe."
+  ],
+  "Changer cette image": [
+    "Change this image",
+    "Cambiar esta imagen"
+  ],
   "Changer de type de contenu…": [
     "Change the content type…",
     "Cambiar el tipo de contenido…"
@@ -822,6 +846,10 @@
   "Code JavaScript": [
     "JavaScript code",
     "Código JavaScript"
+  ],
+  "Code court": [
+    "Shortcode",
+    "Código corto"
   ],
   "Code de la formation": [
     "Course code",
@@ -1190,6 +1218,10 @@
   "Déplacer": [
     "Move",
     "Mover"
+  ],
+  "Déplacer cette vue": [
+    "Move this view",
+    "Mover esta vista"
   ],
   "Déplacer le bloc": [
     "Move the block",
@@ -1875,6 +1907,10 @@
     "The site as a whole. To be placed on the home page.",
     "El sitio en su conjunto. Se coloca en la portada."
   ],
+  "Le texte décrit l’image : il est lu à voix haute par les lecteurs d’écran et repris par les moteurs de recherche.": [
+    "The text describes the image: screen readers read it aloud and search engines pick it up.",
+    "El texto describe la imagen: los lectores de pantalla lo leen en voz alta y los motores de búsqueda lo recogen."
+  ],
   "Le texte d’une réponse.": [
     "The text of an answer.",
     "El texto de una respuesta."
@@ -2163,6 +2199,10 @@
     "Edit the slideshow",
     "Modificar el carrusel"
   ],
+  "Modifier le lien": [
+    "Edit the link",
+    "Editar el enlace"
+  ],
   "Modifier le script": [
     "Edit the script",
     "Editar el script"
@@ -2447,6 +2487,10 @@
     "Wikipedia page, Facebook profile, Google listing: the addresses that name the same thing elsewhere.",
     "Página de Wikipedia, perfil de Facebook, ficha de Google: las direcciones que designan la misma cosa en otros sitios."
   ],
+  "Page actuelle (ancres)": [
+    "This page (anchors)",
+    "Esta página (anclas)"
+  ],
   "Page intégrée": [
     "Embedded page",
     "Página integrada"
@@ -2482,6 +2526,10 @@
   "Peinture automobile": [
     "Vehicle paint spraying",
     "Pintura de automóviles"
+  ],
+  "Personnalisé (adresse)": [
+    "Custom (address)",
+    "Personalizado (dirección)"
   ],
   "Personnalisées": [
     "Custom",
@@ -2879,6 +2927,10 @@
     "Secondary",
     "Secundario"
   ],
+  "Section de langue": [
+    "Language section",
+    "Sección de idioma"
+  ],
   "Semaine": [
     "Week",
     "Semana"
@@ -2907,6 +2959,10 @@
     "Pinpoints an address on an OpenStreetMap map",
     "Sitúa una dirección en un mapa de OpenStreetMap"
   ],
+  "Sorte de lien": [
+    "Kind of link",
+    "Tipo de enlace"
+  ],
   "Souligné": [
     "Underlined",
     "Subrayado"
@@ -2930,6 +2986,10 @@
   "Style": [
     "Style",
     "Estilo"
+  ],
+  "Style CSS écrit à même le lien": [
+    "CSS style written on the link itself",
+    "Estilo CSS escrito en el propio enlace"
   ],
   "Style du lien": [
     "Link style",
@@ -3191,6 +3251,10 @@
     "Link title",
     "Título del enlace"
   ],
+  "Titre du lien (bulle d’aide au survol)": [
+    "Link title (tooltip on hover)",
+    "Título del enlace (información al pasar el ratón)"
+  ],
   "Titre du site avec son logo": [
     "Site name with its logo",
     "Nombre del sitio con su logotipo"
@@ -3234,6 +3298,10 @@
   "Trait horizontal": [
     "Horizontal rule",
     "Línea horizontal"
+  ],
+  "Travailler dans une seule langue": [
+    "Work in a single language",
+    "Trabajar en un solo idioma"
   ],
   "Type": [
     "Type",
@@ -3615,6 +3683,10 @@
     "files selected",
     "archivos seleccionados"
   ],
+  "https://exemple.tld/photo.jpg": [
+    "https://example.tld/photo.jpg",
+    "https://ejemplo.tld/foto.jpg"
+  ],
   "le bloc": [
     "the block",
     "el bloque"
@@ -3659,6 +3731,10 @@
     "properties",
     "propiedades"
   ],
+  "return confirm('Quitter la page ?')": [
+    "return confirm('Leave the page?')",
+    "return confirm('¿Salir de la página?')"
+  ],
   "script vide": [
     "empty script",
     "script vacío"
@@ -3702,6 +3778,10 @@
   "Écrans": [
     "Screens",
     "Pantallas"
+  ],
+  "Écrire dans toutes les langues": [
+    "Write in every language",
+    "Escribir en todos los idiomas"
   ],
   "Éditeur": [
     "Publisher",
@@ -3774,6 +3854,10 @@
   "Œuvre": [
     "Creative work",
     "Obra"
+  ],
+  "— Choisir une ancre —": [
+    "— Choose an anchor —",
+    "— Elegir un ancla —"
   ],
   "— choisir —": [
     "— choose —",

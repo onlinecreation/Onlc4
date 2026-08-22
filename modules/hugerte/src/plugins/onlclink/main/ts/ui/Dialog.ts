@@ -45,7 +45,10 @@ const openDialog = (editor: Editor, context: LinkContext): void => {
 
     return {
       title: anchor.isSome() ? 'Modifier le lien' : 'Insérer un lien',
-      size: 'normal',
+      // Une fenêtre à onglets doit fixer sa hauteur : sans elle, le thème la calcule sur le
+      // premier onglet rendu et le pied de page remonte par-dessus les champs suivants. C'est
+      // la taille que prennent déjà toutes les autres fenêtres à onglets du projet.
+      size: 'large',
       body: {
         type: 'tabpanel',
         tabs: [
@@ -59,7 +62,7 @@ const openDialog = (editor: Editor, context: LinkContext): void => {
           {
             name: 'avance',
             title: 'Avancé',
-            items: LinkFields.getAdvancedItems()
+            items: LinkFields.getAdvancedItems(editor)
           }
         ]
       },

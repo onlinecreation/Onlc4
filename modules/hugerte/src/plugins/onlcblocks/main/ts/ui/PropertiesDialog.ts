@@ -54,25 +54,6 @@ interface PropertiesData {
   readonly classes: string;
 }
 
-/**
- * Classes déjà posées sur les autres blocs de la page.
- *
- * Elles sont proposées en plus de celles de la feuille du site : une page reprend souvent ses
- * propres conventions, et une classe utilisée trois fois plus haut est la suggestion la plus
- * juste qu'on puisse faire — même quand la feuille du site n'a pas pu être lue.
- */
-const classesInPage = (editor: Editor): string[] => {
-  const body = editor.getBody();
-  if (!Type.isNonNullable(body)) {
-    return [];
-  }
-  return Arr.unique(Arr.bind(editor.dom.select('*[class]', body), (element) =>
-    Arr.filter(ClassField.split(element.className), (name) =>
-      // Les classes de l'interface d'écriture ne décrivent pas la page : les proposer inviterait
-      // à les poser sur du contenu, où elles ne voudraient rien dire.
-      name.indexOf('onlc-') !== 0 && name.indexOf('mce-') !== 0))).sort();
-};
-
 const helpPanel = (editor: Editor, text: string): Dialog.HtmlPanelSpec => ({
   type: 'htmlpanel',
   presets: 'presentation',
@@ -97,7 +78,7 @@ const open = (editor: Editor, block: HTMLElement): void => {
           type: 'label',
           label: 'Classes CSS',
           items: [
-            ClassField.field(editor, 'classes', { extra: classesInPage(editor) }),
+            ClassField.field(editor, 'classes', { extra: ClassField.inPage(editor) }),
             helpPanel(editor, 'Les classes décident de l’allure du bloc. Celles qui sont proposées ' +
               'viennent de la feuille de style de votre site et des autres blocs de la page.')
           ]
@@ -140,6 +121,5 @@ const open = (editor: Editor, block: HTMLElement): void => {
 export {
   isValidId,
   isEditable,
-  classesInPage,
   open
 };

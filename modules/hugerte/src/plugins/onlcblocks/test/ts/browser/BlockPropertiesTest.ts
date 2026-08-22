@@ -7,6 +7,7 @@ import Editor from 'hugerte/core/api/Editor';
 import BlocksPlugin from 'hugerte/plugins/onlcblocks/Plugin';
 import * as PropertiesDialog from 'hugerte/plugins/onlcblocks/ui/PropertiesDialog';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as ClassField from 'hugerte/plugins/onlcshared/ui/ClassField';
 
 /**
  * Les propriétés d'un bloc, et la barre unique qui les porte.
@@ -63,13 +64,59 @@ describe('browser.hugerte.plugins.onlcblocks.BlockPropertiesTest', () => {
   it('propose les classes des autres blocs de la page', () => {
     const editor = hook.editor();
     editor.setContent('<p class="text-center big">a</p><p class="text-center">b</p>' +
-      '<div class="onlc-blocks-ui mce-item">c</div>');
-    const classes = PropertiesDialog.classesInPage(editor);
+      '<div class="onlc-blocks-ui mce-item">c</div>' +
+      '<p class="[LG=fr]etiquette[/LG]">d</p>');
+    const classes = ClassField.inPage(editor);
     assert.include(classes, 'text-center');
     assert.include(classes, 'big');
     assert.notInclude(classes, 'onlc-blocks-ui', 'les classes de l’interface ne décrivent pas la page');
     assert.notInclude(classes, 'mce-item');
+    assert.notInclude(classes, '[LG=fr]etiquette[/LG]',
+      'ce qui ne peut pas être un nom de classe n’est pas une suggestion');
     assert.equal(classes.length, new Set(classes).size, 'sans doublon');
+  });
+
+  /**
+   * Le double clic ouvre ce qu'on vient de désigner, par le registre des propriétés — c'est ce
+   * que fait `openFor`. Deux règles le gouvernent : la cible la plus profonde l'emporte, et rien
+   * ne s'ouvre en lecture seule.
+   */
+  it('ouvre la configuration du bloc désigné, et la plus proche', () => {
+    const editor = hook.editor();
+    editor.setContent('<div class="screens"><p>Texte <em>accentué</em></p></div>');
+
+    const ouverts: string[] = [];
+    BlockActions.declare(editor, {
+      id: 'epreuve-bloc',
+      label: 'Épreuve — le bloc',
+      icon: '<svg></svg>',
+      order: 200,
+      match: (_editor, unBloc) => Optional.some(unBloc),
+      run: () => ouverts.push('bloc')
+    });
+    BlockActions.declare(editor, {
+      id: 'epreuve-accent',
+      label: 'Épreuve — l’accent',
+      icon: '<svg></svg>',
+      order: 210,
+      match: (unEditor, unBloc) => BlockActions.matchIn(unEditor, unBloc, 'em'),
+      run: () => ouverts.push('accent')
+    });
+
+    assert.isTrue(BlockActions.openFor(editor, bloc(editor, 'em')), 'quelque chose s’est ouvert');
+    assert.deepEqual(ouverts, [ 'accent' ], 'la cible la plus profonde l’emporte');
+
+    editor.mode.set('readonly');
+    assert.isFalse(BlockActions.openFor(editor, bloc(editor, 'em')),
+      'rien ne s’ouvre en lecture seule');
+    editor.mode.set('design');
+    assert.deepEqual(ouverts, [ 'accent' ], 'et rien n’a été ouvert entre-temps');
+  });
+
+  it('n’ouvre rien hors de tout bloc', () => {
+    const editor = hook.editor();
+    editor.setContent('<p>Texte</p>');
+    assert.isFalse(BlockActions.openFor(editor, null));
   });
 
   it('déclare que la barre des blocs existe', () => {

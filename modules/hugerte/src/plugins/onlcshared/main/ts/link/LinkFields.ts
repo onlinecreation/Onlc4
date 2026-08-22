@@ -3,6 +3,7 @@ import { Arr, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
 
+import * as ClassField from '../ui/ClassField';
 import * as Anchors from './Anchors';
 import * as LinkApi from './LinkApi';
 import { LinkAttributes, LinkContext, LinkListGroup, LinkListItem, LinkListOption } from './LinkTypes';
@@ -171,21 +172,21 @@ const getItems = (editor: Editor, context: LinkContext, kind: string): Dialog.Bo
  * javascript, et **ne s'exécute pas** dans la zone d'écriture : elle voyage dans un attribut de
  * données jusqu'à l'enregistrement.
  */
-const getAdvancedItems = (): Dialog.BodyComponentSpec[] => [
+const getAdvancedItems = (editor: Editor): Dialog.BodyComponentSpec[] => [
   {
     type: 'input',
     name: fields.title,
     label: 'Titre du lien (bulle d’aide au survol)'
   },
   {
-    type: 'input',
-    name: fields.classes,
-    label: 'Classes css'
+    type: 'label',
+    label: 'Classes CSS',
+    items: [ ClassField.field(editor, fields.classes, { extra: ClassField.inPage(editor) }) ]
   },
   {
     type: 'textarea',
     name: fields.style,
-    label: 'Style css écrit à même le lien',
+    label: 'Style CSS écrit à même le lien',
     placeholder: 'color: #c0392b; font-weight: 600'
   },
   {
@@ -253,7 +254,9 @@ const toAttributes = (data: LinkFieldValues): LinkAttributes => {
   // propose une, ajoute la sienne à celles qui étaient déjà là.
   const libres = readString(data, fields.classes).trim();
   const choisie = readString(data, fields.cls).trim();
-  const toutes = Arr.unique(Arr.filter(`${libres} ${choisie}`.split(/\s+/), (name) => name !== ''));
+  // Les noms sont revalidés ici, et pas seulement à la saisie : ce qui atteint l'attribut ne doit
+  // dépendre d'aucun composant d'interface, si soigneux soit-il.
+  const toutes = Arr.unique(Arr.filter(ClassField.split(`${libres} ${choisie}`), ClassField.isValidName));
 
   return {
     href: hrefOf(data),

@@ -176,9 +176,13 @@ const hasToolbar = (editor: Editor): boolean =>
  * Rien ne s'ouvre sur un contenu **non modifiable** : un diaporama se manipule d'une pièce, et
  * l'image d'une de ses vues n'a pas à ouvrir le formulaire des images. C'est le bloc entier qui
  * répond, par son propre bouton.
+ *
+ * Rien ne s'ouvre non plus quand l'éditeur est **en lecture seule** : la barre des blocs se
+ * retire déjà dans ce mode, et un double clic ne doit pas rouvrir par une autre porte des
+ * formulaires qui écrivent dans le document.
  */
 const openFor = (editor: Editor, node: Node | null): boolean => {
-  if (!Type.isNonNullable(node) || !hasToolbar(editor)) {
+  if (!Type.isNonNullable(node) || !hasToolbar(editor) || editor.mode.isReadOnly()) {
     return false;
   }
 

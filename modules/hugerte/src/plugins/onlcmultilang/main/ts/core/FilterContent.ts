@@ -45,18 +45,34 @@ const syntaxFor = (syntax: Syntax, bracket: boolean): Syntax =>
 const marks = /\[LG=|<multilang /i;
 
 /**
- * Les sections d'une chaîne html, moins celles qui tombent dans un `script` ou un `style`.
+ * Les sections d'une chaîne html, moins celles qui ne sont pas du **texte de contenu**.
  *
- * Un `[LG=fr]…[/LG]` écrit dans du javascript ou dans une fiche de microdonnées est une donnée
- * que le moteur du site résoudra à la publication, pas une section à transformer en élément.
- * L'y transformer y poserait des guillemets, et casserait le code ou le json qui l'entoure.
+ * Deux endroits où un marqueur reste un marqueur, et ne doit surtout pas devenir un élément :
+ *
+ * * **le corps d'un `script` ou d'un `style`.** Un `[LG=fr]…[/LG]` écrit dans du javascript, ou
+ *   dans la valeur d'une fiche de microdonnées, est une donnée que le moteur du site résoudra à
+ *   la publication. L'y transformer poserait des guillemets au milieu du code ou du json ;
+ * * **l'intérieur d'une balise.** Une page réelle porte
+ *   `class="screen6 [LG=fr]label-fr[/LG][LG=en]label-en[/LG]"` — le moteur choisit la classe
+ *   selon la langue, comme il choisirait un morceau de texte. Y poser un élément revenait à
+ *   écrire un `span` au milieu d'une balise ouvrante, qui n'en était plus une : la section
+ *   entière du contenu s'en trouvait disloquée.
+ *
+ * Dans les deux cas le marqueur traverse l'éditeur intact et ressort tel quel, ce qui est
+ * exactement ce que le site attend.
  */
 const editableSections = (html: string): Parse.Section[] => {
-  const raw = RawElements.spansOf(html);
-  return raw.length === 0
-    ? Parse.sections(html)
-    : Arr.filter(Parse.sections(html), (section) =>
-      !RawElements.overlaps(raw, section.start, section.end));
+  const bodies = RawElements.spansOf(html);
+  const tags = RawElements.tagSpansOf(html);
+  if (bodies.length === 0 && tags.length === 0) {
+    return Parse.sections(html);
+  }
+  return Arr.filter(Parse.sections(html), (section) =>
+    !RawElements.overlaps(bodies, section.start, section.end)
+    // `strictlyInside` et non `overlaps` : une balise `<multilang>` **est** un marqueur, et sa
+    // position de départ est celle du chevron. L'exclure reviendrait à ne plus jamais reconnaître
+    // cette écriture-là.
+    && !RawElements.strictlyInside(tags, section.start));
 };
 
 const rewriteHtml = (editor: Editor, html: string): string =>

@@ -2,6 +2,7 @@ import { Arr, Fun, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import * as Http from 'hugerte/plugins/onlcshared/Http';
+import * as RawElements from 'hugerte/plugins/onlcshared/text/RawElements';
 
 import * as Options from '../api/Options';
 import { PreviewValue } from '../api/Types';
@@ -165,6 +166,40 @@ const resolveContent = (html: string, values: Record<string, PreviewValue>): str
     part.text ? resolveText(part.value, values, '') : part.value).join('');
 
 /**
+ * Remplace les codes courts d'un **gabarit**, en sautant le corps des `script` et des `style`.
+ *
+ * Un gabarit place ses codes dans des attributs à dessein — `<meta content="[TitreSite]">` — et y
+ * sauter les balises, comme on le fait pour le contenu, reviendrait à ne rien remplacer. Mais un
+ * gabarit porte aussi du javascript, et là un crochet n'est jamais un code court.
+ *
+ * Le gabarit d'un site réel commence par le mouchard de Google Tag Manager :
+ *
+ * ```js
+ * (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': …
+ * ```
+ *
+ * `[l]` y était pris pour un code court sans valeur configurée, donc effacé : le script devenait
+ * `w=w||[];w.push(…)`, et le mouchard tombait en erreur dans l'aperçu. Le même piège attend
+ * n'importe quel `tableau[i]` d'un gabarit.
+ */
+const resolveTemplate = (template: string, values: Record<string, PreviewValue>, content: string): string => {
+  const raw = RawElements.spansOf(template);
+  if (raw.length === 0) {
+    return resolveText(template, values, content);
+  }
+
+  // Les intervalles sont dans l'ordre : on recompose en alternant texte résolu et corps intacts.
+  let out = '';
+  let cursor = 0;
+  Arr.each(raw, (span) => {
+    out += resolveText(template.slice(cursor, span.start), values, content);
+    out += template.slice(span.start, span.end);
+    cursor = span.end;
+  });
+  return out + resolveText(template.slice(cursor), values, content);
+};
+
+/**
  * Gabarit et contenu, tous deux résolus.
  *
  * Les codes courts ne sont pas seulement dans le gabarit : la page en contient aussi — un
@@ -173,7 +208,7 @@ const resolveContent = (html: string, values: Record<string, PreviewValue>): str
  * en toutes lettres au milieu de la page, ce qu'aucun visiteur ne verra jamais.
  */
 const fill = (template: string, content: string, values: Record<string, PreviewValue>): string =>
-  resolveText(template, values, resolveContent(content, values));
+  resolveTemplate(template, values, resolveContent(content, values));
 
 /**
  * Gabarit rempli, prêt à être affiché.
@@ -203,6 +238,7 @@ export {
   contentPlaceholder,
   fallbackTemplate,
   loadTemplate,
+  resolveTemplate,
   withBase,
   withStyles,
   valueOf,

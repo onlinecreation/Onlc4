@@ -92,6 +92,29 @@ describe('atomic.hugerte.plugins.onlcwidgets.PagePreviewTest', () => {
     assert.equal(PagePreview.fill('[titresite]', '', values), 'Ma boutique');
   });
 
+  /**
+   * Le mouchard de Google Tag Manager, tel qu'il ouvre le gabarit d'un site réel.
+   *
+   * `[l]` y était pris pour un code court sans valeur configurée, donc effacé : le script
+   * devenait `w=w||[];w.push(…)` et tombait en erreur dans l'aperçu. Le même piège attend
+   * n'importe quel `tableau[i]` écrit dans un gabarit.
+   */
+  it('ne touche pas au javascript du gabarit', () => {
+    const gtm = '<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':' +
+      'new Date().getTime()});})(window,document,\'script\',\'dataLayer\',\'GTM-X\');</script>';
+    const out = PagePreview.fill('<head><title>[TitreSite]</title>' + gtm + '</head>', '', values);
+
+    assert.include(out, '<title>Ma boutique</title>', 'le code court du gabarit est bien remplacé');
+    assert.include(out, 'w[l]=w[l]||[];w[l].push', 'le script ressort au caractère près');
+  });
+
+  it('ne touche pas non plus au contenu d’un style du gabarit', () => {
+    const out = PagePreview.fill('<style>.a[data-x] { color: red; }</style>[TitreSite]', '', values);
+
+    assert.include(out, '.a[data-x] { color: red; }');
+    assert.include(out, 'Ma boutique');
+  });
+
   describe('feuilles de style de la page', () => {
     const styles = [ '/assets/grille.css', '/assets/site.css' ];
 

@@ -42,6 +42,70 @@ const spansOf = (html: string): Span[] => {
   return spans;
 };
 
+/**
+ * Les **balises** d'une chaîne html : de leur `<` à leur `>` compris.
+ *
+ * Ce qui est écrit là n'est pas du contenu, c'est de la structure. Une page réelle porte
+ * `class="screen6 [LG=fr]label-fr[/LG][LG=en]label-en[/LG]"` : le moteur du site choisit la
+ * classe selon la langue demandée, exactement comme il choisit un morceau de texte. Le plugin
+ * des langues, lui, y voyait des sections à transformer en éléments — et posait un `span` **au
+ * milieu d'une balise ouvrante**, qui n'en était plus une.
+ *
+ * Les guillemets sont suivis : un `>` dans une valeur d'attribut ne ferme pas la balise.
+ */
+const tagSpansOf = (html: string): Span[] => {
+  const spans: Span[] = [];
+  let index = 0;
+
+  while (index < html.length) {
+    const open = html.indexOf('<', index);
+    if (open === -1) {
+      break;
+    }
+    let cursor = open + 1;
+    let quote = '';
+    while (cursor < html.length) {
+      const ch = html.charAt(cursor);
+      if (quote !== '') {
+        if (ch === quote) {
+          quote = '';
+        }
+      } else if (ch === '"' || ch === '\'') {
+        quote = ch;
+      } else if (ch === '>') {
+        break;
+      }
+      cursor += 1;
+    }
+    // Une balise qui ne se referme pas emporte le reste de la chaîne, comme pour un navigateur.
+    const end = cursor >= html.length ? html.length : cursor + 1;
+    spans.push({ start: open, end });
+    index = end;
+  }
+
+  return spans;
+};
+
+/**
+ * Tout ce qui n'est pas du texte de contenu : les balises, et le corps des `script` et `style`.
+ *
+ * Les intervalles sont rendus dans l'ordre du document ; ils ne se chevauchent pas, un corps de
+ * `script` étant par construction situé entre deux balises.
+ */
+const nonTextSpansOf = (html: string): Span[] =>
+  Arr.sort(spansOf(html).concat(tagSpansOf(html)), (a, b) => a.start - b.start);
+
+/**
+ * Cette position est-elle **strictement à l'intérieur** de l'un de ces intervalles ?
+ *
+ * La nuance compte pour les balises. `<multilang lang="fr">` **est** un marqueur de langue : sa
+ * position de départ est celle du chevron, et l'exclure reviendrait à ne plus jamais reconnaître
+ * cette écriture. `class="a [LG=fr]b[/LG]"`, lui, commence après le chevron : il est bien dans
+ * la balise, et n'est pas du contenu.
+ */
+const strictlyInside = (spans: Span[], index: number): boolean =>
+  Arr.exists(spans, (span) => index > span.start && index < span.end);
+
 /** Cette position tombe-t-elle dans l'un de ces intervalles ? */
 const contains = (spans: Span[], index: number): boolean =>
   Arr.exists(spans, (span) => index >= span.start && index < span.end);
@@ -52,6 +116,9 @@ const overlaps = (spans: Span[], start: number, end: number): boolean =>
 
 export {
   spansOf,
+  tagSpansOf,
+  nonTextSpansOf,
+  strictlyInside,
   contains,
   overlaps
 };

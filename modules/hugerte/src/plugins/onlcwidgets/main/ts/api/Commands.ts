@@ -10,6 +10,7 @@ import * as ScriptDialog from '../ui/ScriptDialog';
 import * as SourceDialog from '../ui/SourceDialog';
 import * as WidgetDialog from '../ui/WidgetDialog';
 import * as WidgetPicker from '../ui/WidgetPicker';
+import { ScriptData } from './Types';
 
 const register = (editor: Editor): void => {
   // Script tool: edits the selected script, otherwise creates a new one
@@ -19,6 +20,23 @@ const register = (editor: Editor): void => {
 
   editor.addCommand('OnlcRemoveScript', () => {
     Script.getSelected(editor).each((elm) => Script.remove(editor, elm));
+  });
+
+  /**
+   * Pose un script sans passer par le formulaire.
+   *
+   * Un autre plugin a parfois besoin d'écrire du javascript dans la page — `onlcswiper` crée
+   * ainsi la configuration d'un diaporama qui n'en avait pas. Il ne peut pas le faire lui-même :
+   * un `<script>` inséré dans la zone d'écriture est supprimé par le nettoyeur du cœur avant
+   * qu'aucun filtre ne le voie. Cette commande pose le jeton à sa place.
+   *
+   * La valeur est un `ScriptData` partiel ; ce qui manque prend les valeurs par défaut.
+   */
+  editor.addCommand('OnlcInsertScript', (_ui, value?: Partial<ScriptData>) => {
+    if (!Type.isObject(value)) {
+      return;
+    }
+    Script.insert(editor, { ...Script.emptyData(editor), ...value });
   });
 
   // Html source of the whole document

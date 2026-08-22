@@ -1,0 +1,58 @@
+/**
+ * Les diaporamas dans la zone d'écriture.
+ *
+ * Cette feuille ne décrit **que** l'édition, et n'est pas déclarée au registre des styles de
+ * publication : sur le site, c'est Swiper qui met les vues côte à côte et la feuille du design qui
+ * les habille. Ici, aucun script du contenu ne s'exécute — c'est la règle qui protège le
+ * back-office — et un diaporama de huit photos s'empilerait sur huit écrans.
+ *
+ * Le rendu d'écriture est donc une **bande qui défile horizontalement** : on voit les vues dans
+ * leur ordre, on peut faire défiler pour les compter, et le reste de la page reste atteignable.
+ * Ce n'est pas un aperçu fidèle, et cela ne prétend pas l'être ; l'aperçu visiteur, lui, exécute
+ * la vraie bibliothèque.
+ */
+
+.swiper-wrapper {
+  display: flex;
+  gap: 8px;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* Sans cela, une piste posée dans une colonne étroite pousse la colonne au lieu de défiler. */
+  min-width: 0;
+}
+
+.swiper-wrapper > .swiper-slide {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  max-width: 60%;
+  padding: 4px;
+  overflow: hidden;
+  background: #f4f6f8;
+  border: 1px solid #dde3ea;
+  border-radius: 6px;
+}
+
+.swiper-wrapper > .swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/**
+ * Les commandes de Swiper — flèches, points, barre — n'ont rien à commander tant que la
+ * bibliothèque ne tourne pas. Elles sont montrées estompées : les cacher ferait croire qu'elles
+ * n'existent pas, et le formulaire propose justement de les activer ou non.
+ */
+.swiper-button-next,
+.swiper-button-prev,
+.swiper-pagination,
+.swiper-scrollbar {
+  opacity: 0.35;
+}

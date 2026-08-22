@@ -43,6 +43,7 @@
       "hugerte/plugins/onlcseo/*": ["src/plugins/onlcseo/main/ts/*"],
       "hugerte/plugins/onlcshared/*": ["src/plugins/onlcshared/main/ts/*"],
       "hugerte/plugins/onlcspacer/*": ["src/plugins/onlcspacer/main/ts/*"],
+      "hugerte/plugins/onlcswiper/*": ["src/plugins/onlcswiper/main/ts/*"],
       "hugerte/plugins/onlcwidgets/*": ["src/plugins/onlcwidgets/main/ts/*"],
       "hugerte/plugins/pagebreak/*": ["src/plugins/pagebreak/main/ts/*"],
       "hugerte/plugins/preview/*": ["src/plugins/preview/main/ts/*"],

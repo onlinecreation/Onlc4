@@ -2,9 +2,11 @@ import { Arr, Obj, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
+import * as LangMarkers from 'hugerte/plugins/onlcshared/text/LangMarkers';
 
 import { SchemaField } from '../api/Types';
 import * as Jsonld from '../core/Jsonld';
+import * as Langs from '../core/Langs';
 import * as Schema from '../core/Schema';
 import * as FormStyles from './FormStyles';
 
@@ -115,6 +117,8 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
   FormStyles.ensure(doc);
 
   const t = (text: string): string => editor.translate(text) as string;
+
+  const languages = Langs.list(editor);
 
   let root: Jsonld.JsonldObject = {};
   let stack: Level[] = [];
@@ -257,7 +261,7 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
 
     if (required) {
       const badge = node('span', 'onlc-schema__badge');
-      badge.textContent = t('Exigé');
+      badge.textContent = t('Obligatoire');
       head.appendChild(badge);
     }
 
@@ -271,7 +275,96 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     return head;
   };
 
-  const simpleInput = (field: SchemaField, value: string, onChange: (next: string) => void): HTMLElement => {
+  /**
+   * Le sélecteur d'une image : sa vignette, et le bouton qui ouvre la médiathèque.
+   *
+   * Aucun champ d'adresse. Personne n'écrit de mémoire l'adresse d'une photo, et une adresse
+   * recopiée de travers donne une fiche que les moteurs rejettent sans rien dire. Le champ ne
+   * reparaît que si l'explorateur n'est pas chargé : mieux vaut un champ austère que pas de
+   * moyen du tout d'indiquer une image.
+   */
+  const imageInput = (value: string, onChange: (next: string) => void): HTMLElement => {
+    const box = node('div', 'onlc-schema__image');
+
+    const thumb = node('button', 'onlc-schema__thumb');
+    thumb.type = 'button';
+    thumb.title = t('Choisir cette image dans la médiathèque');
+    thumb.setAttribute('aria-label', thumb.title);
+
+    const caption = node('span', 'onlc-schema__imagepath');
+    const actions = node('div', 'onlc-schema__imageactions');
+
+    const show = (next: string) => {
+      if (next.trim() === '') {
+        thumb.style.backgroundImage = '';
+        thumb.textContent = t('aucune');
+        caption.textContent = t('Aucune image choisie.');
+      } else {
+        thumb.textContent = '';
+        thumb.style.backgroundImage = `url("${next.replace(/["\\]/g, '\\$&')}")`;
+        caption.textContent = next;
+      }
+    };
+
+    const set = (next: string) => {
+      show(next);
+      onChange(next);
+    };
+
+    const pick = (): boolean => editor.execCommand('OnlcPickMedia', false, {
+      multiple: false,
+      accept: 'image/',
+      onSelect: (files: Array<{ url: string }>) => {
+        Arr.head(files).each((file) => set(editor.documentBaseURI.toAbsolute(file.url)));
+      }
+    }) !== false;
+
+    /** Champ d'adresse de secours, posé une seule fois, quand l'explorateur n'a pas répondu. */
+    const fallback = () => {
+      if (box.querySelector('.onlc-schema__fallback') !== null) {
+        return;
+      }
+      const input = node('input', 'onlc-schema__input onlc-schema__fallback');
+      input.type = 'url';
+      input.value = value;
+      input.placeholder = t('Adresse de l’image');
+      input.setAttribute('aria-label', t('Adresse de l’image'));
+      input.addEventListener('change', () => set(input.value));
+      box.appendChild(input);
+      input.focus();
+    };
+
+    thumb.addEventListener('click', () => {
+      if (!pick()) {
+        fallback();
+      }
+    });
+
+    actions.appendChild(button(value.trim() === '' ? 'Choisir une image…' : 'Changer l’image…',
+      'onlc-schema__btn--small', () => {
+        if (!pick()) {
+          fallback();
+        }
+      }));
+
+    if (value.trim() !== '') {
+      const clear = button('Retirer', 'onlc-schema__btn--small onlc-schema__btn--danger', () => set(''));
+      clear.title = t('Retirer cette image');
+      actions.appendChild(clear);
+    }
+
+    const body = node('div', 'onlc-schema__imagebody');
+    body.appendChild(caption);
+    body.appendChild(actions);
+
+    box.appendChild(thumb);
+    box.appendChild(body);
+    show(value);
+    return box;
+  };
+
+  /** Le champ nu, sans la barre des langues : c'est lui qui porte réellement la valeur. */
+  const plainInput = (field: SchemaField, value: string, onChange: (next: string) => void): HTMLElement => {
     if (field.type === 'select') {
       const select = node('select', 'onlc-schema__select');
       const blank = doc.createElement('option');
@@ -306,31 +399,102 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
       input.placeholder = field.placeholder;
     }
     input.addEventListener('input', () => onChange(input.value));
+    return input;
+  };
 
-    if (field.type !== 'image') {
-      return input;
+  /** Les types de champs qui se traduisent : du texte lu par un humain, et rien d'autre. */
+  const translatable = (field: SchemaField): boolean =>
+    field.type === 'text' || field.type === 'textarea';
+
+  /**
+   * Un champ de texte, avec ses versions par langue.
+   *
+   * Par défaut une valeur est **internationale** : elle est publiée quelle que soit la langue
+   * demandée, et c'est ce que veut la quasi-totalité des propriétés — un prix, une référence, un
+   * code-barres n'ont pas de traduction. Le nom et la description d'un produit, si.
+   *
+   * La barre n'apparaît que si le site déclare des langues. Sur un site monolingue, le champ est
+   * exactement celui d'avant : rien de tout ceci n'a alors de sens à montrer.
+   *
+   * Vider la version d'une langue la retire : c'est ainsi qu'on revient à l'international, sans
+   * avoir à chercher un bouton de suppression.
+   */
+  const multilingualInput = (
+    field: SchemaField,
+    value: string,
+    onChange: (next: string) => void
+  ): HTMLElement => {
+    const box = node('div', 'onlc-schema__langs');
+    let parsed = LangMarkers.parse(value);
+    let selected = '';
+
+    const bar = node('div', 'onlc-schema__langbar');
+    const holder = node('div', 'onlc-schema__langfield');
+    const note = node('p', 'onlc-schema__help');
+
+    const publish = () => onChange(LangMarkers.compose(parsed));
+
+    const draw = () => {
+      bar.innerHTML = '';
+      holder.innerHTML = '';
+
+      const chip = (code: string, label: string) => {
+        const written = code === ''
+          ? parsed.common.trim() !== ''
+          : LangMarkers.textOf(parsed, code).trim() !== '';
+        const active = code === selected;
+        const entry = node('button', 'onlc-schema__lang'
+          + (active ? ' onlc-schema__lang--current' : '')
+          + (written ? ' onlc-schema__lang--filled' : ''));
+        entry.type = 'button';
+        entry.textContent = label;
+        entry.setAttribute('aria-pressed', String(active));
+        entry.addEventListener('click', () => {
+          selected = code;
+          draw();
+        });
+        bar.appendChild(entry);
+      };
+
+      chip('', t('Toutes les langues'));
+      Arr.each(languages, (language) => chip(language.code, language.label));
+
+      const currentText = selected === '' ? parsed.common : LangMarkers.textOf(parsed, selected);
+      holder.appendChild(plainInput(field, currentText, (next) => {
+        parsed = selected === ''
+          ? LangMarkers.withCommon(parsed, next)
+          : LangMarkers.withText(parsed, selected, next);
+        publish();
+      }));
+
+      note.textContent = selected === ''
+        ? t('Cette valeur est publiée dans toutes les langues. Choisissez une langue pour en écrire une version qui ne paraîtra que dans celle-là.')
+        : `${t('Version publiée uniquement en')} ${
+          Arr.find(languages, (language) => language.code === selected)
+            .fold(() => selected, (language) => language.label)
+        }. ${t('Videz ce champ pour la retirer.')}`;
+    };
+
+    // On ouvre sur la version internationale, sauf si la valeur n'en a pas : une fiche déjà
+    // traduite doit montrer ce qu'elle contient, pas un champ vide.
+    const written = LangMarkers.codesOf(parsed);
+    selected = parsed.common.trim() === '' && written.length > 0 ? written[0] : '';
+
+    box.appendChild(bar);
+    box.appendChild(holder);
+    box.appendChild(note);
+    draw();
+    return box;
+  };
+
+  const simpleInput = (field: SchemaField, value: string, onChange: (next: string) => void): HTMLElement => {
+    if (field.type === 'image') {
+      return imageInput(value, onChange);
     }
-
-    // Une image se choisit dans la médiathèque : c'est là qu'elle est, et son adresse ne s'écrit
-    // pas de mémoire. La saisie reste possible pour un fichier hébergé ailleurs.
-    const row = node('div', 'onlc-schema__row');
-    row.appendChild(input);
-    row.appendChild(button('Choisir…', '', () => {
-      const handled = editor.execCommand('OnlcPickMedia', false, {
-        multiple: false,
-        accept: 'image/',
-        onSelect: (files: Array<{ url: string }>) => {
-          Arr.head(files).each((file) => {
-            input.value = editor.documentBaseURI.toAbsolute(file.url);
-            onChange(input.value);
-          });
-        }
-      });
-      if (handled === false) {
-        input.focus();
-      }
-    }));
-    return row;
+    if (translatable(field) && languages.length > 0) {
+      return multilingualInput(field, value, onChange);
+    }
+    return plainInput(field, value, onChange);
   };
 
   const nestedInput = (
@@ -542,7 +706,7 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
       const intro = node('div', 'onlc-schema__intro');
       intro.innerHTML = `<strong>${Jsonld.escape(Schema.labelOf(editor, level.typeName))}</strong> ` +
         `<code class="onlc-schema__name">${Jsonld.escape(level.typeName)}</code><br>` +
-        Jsonld.escape(t('Les propriétés marquées « Exigé » doivent être remplies pour que les moteurs ' +
+        Jsonld.escape(t('Les propriétés marquées « Obligatoire » doivent être remplies pour que les moteurs ' +
           'acceptent la fiche. Les autres l’enrichissent.'));
       element.appendChild(intro);
       element.appendChild(button('Changer de type de contenu…', 'onlc-schema__btn--small', () => {

@@ -77,11 +77,29 @@ const getTestUrl = (editor: Editor): string => {
   return Type.isString(value) ? value : '';
 };
 
+/**
+ * Les langues déclarées par le plugin polyglotte.
+ *
+ * `onlcseo` n'en dépend pas : sur un site monolingue l'option n'existe pas, et le formulaire
+ * n'affiche alors aucune barre de langues. Lire l'option d'un autre plugin est sans danger —
+ * contrairement à l'écrire, qui n'aboutirait que s'il avait été chargé avant : la lecture n'a
+ * lieu qu'à l'ouverture du formulaire, donc bien après que tous se sont présentés.
+ */
+const getSiteLanguages = (editor: Editor): unknown[] => {
+  const name = 'onlc_multilang_languages';
+  if (!editor.options.isRegistered(name)) {
+    return [];
+  }
+  const value = editor.options.get(name);
+  return Type.isArray(value) ? value : [];
+};
+
 export {
   register,
   getCustomTypes,
   getExcludedTypes,
   getBuiltInTypes,
   getContext,
-  getTestUrl
+  getTestUrl,
+  getSiteLanguages
 };

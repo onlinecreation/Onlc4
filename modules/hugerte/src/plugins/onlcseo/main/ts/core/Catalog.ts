@@ -211,12 +211,15 @@ const catalog: SchemaType[] = [
       { name: 'color', label: 'Couleur', type: 'text' },
       { name: 'material', label: 'Matière', type: 'text' },
       { name: 'weight', label: 'Poids', type: 'nested', of: [ 'QuantitativeValue' ] },
-      { name: 'itemCondition', label: 'État', type: 'select', items: [
-        { text: 'Neuf', value: 'https://schema.org/NewCondition' },
-        { text: 'Reconditionné', value: 'https://schema.org/RefurbishedCondition' },
-        { text: 'Occasion', value: 'https://schema.org/UsedCondition' },
-        { text: 'Endommagé', value: 'https://schema.org/DamagedCondition' }
-      ] }
+      { name: 'itemCondition', label: 'État du produit', type: 'select',
+        help: 'Neuf, d’occasion, reconditionné. Les moteurs l’affichent à côté du prix, et une ' +
+          'place de marché peut le refuser s’il manque.',
+        items: [
+          { text: 'Neuf', value: 'https://schema.org/NewCondition' },
+          { text: 'Reconditionné', value: 'https://schema.org/RefurbishedCondition' },
+          { text: 'Occasion', value: 'https://schema.org/UsedCondition' },
+          { text: 'Endommagé', value: 'https://schema.org/DamagedCondition' }
+        ] }
     ]
   },
   {
@@ -245,6 +248,15 @@ const catalog: SchemaType[] = [
       ] },
       { name: 'priceValidUntil', label: 'Prix valable jusqu’au', type: 'date',
         help: 'Au-delà de cette date, les moteurs cessent d’afficher le prix.' },
+      { name: 'itemCondition', label: 'État du produit', type: 'select',
+        help: 'Neuf, d’occasion, reconditionné. Les moteurs l’affichent à côté du prix, et une ' +
+          'place de marché peut le refuser s’il manque.',
+        items: [
+          { text: 'Neuf', value: 'https://schema.org/NewCondition' },
+          { text: 'Reconditionné', value: 'https://schema.org/RefurbishedCondition' },
+          { text: 'Occasion', value: 'https://schema.org/UsedCondition' },
+          { text: 'Endommagé', value: 'https://schema.org/DamagedCondition' }
+        ] },
       { name: 'shippingDetails', label: 'Livraison', type: 'nested', of: [ 'OfferShippingDetails' ] },
       { name: 'seller', label: 'Vendeur', type: 'nested', of: [ 'Organization', 'Person' ] }
     ]

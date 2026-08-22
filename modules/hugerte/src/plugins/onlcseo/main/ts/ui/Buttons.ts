@@ -3,6 +3,7 @@ import { Arr } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
@@ -72,6 +73,18 @@ const register = (editor: Editor): void => {
     icon: 'remove',
     tooltip: 'Supprimer les microdonnées',
     onAction: () => editor.execCommand('OnlcSeoRemoveMicrodata')
+  });
+
+  /**
+   * La fiche se manipule d'une pièce, et son intérieur ne se manipule pas.
+   *
+   * Ce qui s'affiche à l'écran n'est pas la fiche : c'est une carte qui la résume. La modifier au
+   * clavier n'aurait aucun effet sur les données — il n'y a rien à y gagner, et un résumé
+   * bricolé à la main donnerait à croire que la fiche a changé alors que non.
+   */
+  BlockAtoms.declare(editor, {
+    id: 'onlcseo',
+    match: (target, element) => target.dom.hasClass(element, Jsonld.blockClass)
   });
 
   // Réglages de la fiche, dans la barre du bloc quand elle existe (voir `BlockActions`).

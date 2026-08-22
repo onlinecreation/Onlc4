@@ -25,6 +25,15 @@
   border: 1px dashed #b6c2cd;
   border-radius: 8px;
   cursor: pointer;
+  /**
+   * Rien ne se sélectionne dans la carte.
+   *
+   * Ce qui s'affiche n'est pas la fiche : c'est un résumé, reconstruit à chaque ouverture depuis
+   * les données. Le curseur posé au milieu ferait croire qu'on peut le corriger, et le texte
+   * copié n'aurait pas de rapport avec ce qui sera publié. Tout passe par le formulaire.
+   */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .onlc-jsonld__icon {

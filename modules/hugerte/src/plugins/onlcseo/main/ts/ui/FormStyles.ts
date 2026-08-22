@@ -9,7 +9,24 @@
 const styleId = 'onlc-seo-form-styles';
 
 const styles = `
-.tox .onlc-schema { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+/**
+ * Le formulaire défile **lui-même**.
+ *
+ * Le dialogue place un composant libre dans un cadre en overflow:hidden, dont
+ * la hauteur vient du flex du corps. Une fiche produit complète y faisait douze cents pixels de
+ * contenu dans quatre cent quatre-vingt-douze de cadre : tout ce qui passait sous la ligne de
+ * flottaison — les dernières propriétés, et l'aperçu du json — était **hors d'atteinte**, sans
+ * barre de défilement pour le dire.
+ *
+ * Le composant prend donc la hauteur de son cadre et fait défiler son propre contenu. Le retrait
+ * intérieur est de son ressort aussi : le thème n'en pose aucun autour d'un composant libre, et
+ * les champs se collaient aux bords.
+ */
+.tox .onlc-schema {
+  display: flex; flex-direction: column; gap: 12px;
+  box-sizing: border-box; width: 100%; height: 100%; max-height: 100%; min-height: 260px;
+  padding: 4px 14px 14px; overflow-y: auto; overflow-x: hidden;
+}
 .tox .onlc-schema__trail { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
 .tox .onlc-schema__crumb {
   padding: 4px 10px; border: 0; border-radius: 999px; background: #eef2f6;
@@ -63,6 +80,44 @@ const styles = `
 .tox .onlc-schema__btn--danger:hover { background: #fdecec; color: #b4241f; }
 .tox .onlc-schema__btn--small { min-height: 34px; padding: 0 10px; font-size: 13px; }
 
+/* Le sélecteur d'image : vignette, adresse en clair, et les deux boutons. */
+.tox .onlc-schema__image { display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.tox .onlc-schema__thumb {
+  flex: 0 0 auto; width: 88px; height: 88px; padding: 0; border-radius: 6px; cursor: pointer;
+  border: 1px solid rgba(34, 47, 62, 0.2); background: #eef1f4 center/cover no-repeat;
+  display: flex; align-items: center; justify-content: center; color: #8a949e; font: inherit; font-size: 11px;
+}
+.tox .onlc-schema__thumb:hover { outline: 2px solid #006ce7; outline-offset: 1px; }
+.tox .onlc-schema__imagebody { display: flex; flex: 1 1 200px; min-width: 0; flex-direction: column; gap: 8px; }
+.tox .onlc-schema__imagepath {
+  color: #5a6570; font-size: 12px; overflow-wrap: anywhere; line-height: 1.4;
+}
+.tox .onlc-schema__imageactions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/**
+ * La barre des langues d'un champ de texte.
+ *
+ * Une pastille par langue déclarée, plus « Toutes les langues » qui est le cas ordinaire. Le
+ * point marque celles pour lesquelles une version est écrite : sans lui, il faudrait cliquer sur
+ * chacune pour savoir ce que la fiche contient.
+ */
+.tox .onlc-schema__langs { display: flex; flex-direction: column; gap: 8px; }
+.tox .onlc-schema__langbar { display: flex; flex-wrap: wrap; gap: 6px; }
+.tox .onlc-schema__lang {
+  position: relative; min-height: 30px; padding: 3px 12px; border: 1px solid rgba(34, 47, 62, 0.18);
+  border-radius: 999px; background: #fff; font: inherit; font-size: 12px; color: #5a6570; cursor: pointer;
+}
+.tox .onlc-schema__lang:hover { background: #eef2f6; }
+.tox .onlc-schema__lang--current {
+  border-color: #006ce7; background: #006ce7; color: #fff; font-weight: 600;
+}
+.tox .onlc-schema__lang--current:hover { background: #005bc4; }
+.tox .onlc-schema__lang--filled::after {
+  content: ""; position: absolute; top: 3px; right: 4px; width: 6px; height: 6px;
+  border-radius: 50%; background: #2fae5e;
+}
+.tox .onlc-schema__lang--current.onlc-schema__lang--filled::after { background: #b9f2cf; }
+
 .tox .onlc-schema__nested {
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 8px 10px;
   border: 1px dashed rgba(34, 47, 62, 0.28); border-radius: 6px; background: #f8fafc;
@@ -94,7 +149,10 @@ const styles = `
  * formulaire hors de l'écran.
  */
 .tox .onlc-schema__preview {
-  max-height: 220px; margin: 0; padding: 10px 12px; overflow: auto;
+  /* flex: 0 0 auto — sans lui, le formulaire étant une colonne flex, l'aperçu se laissait
+     écraser à une ligne de haut par les champs qui le précèdent. */
+  flex: 0 0 auto;
+  max-height: 180px; margin: 0; padding: 10px 12px; overflow: auto;
   border-radius: 8px; background: #22303c; color: #e8eef5;
   font-family: ui-monospace, "SFMono-Regular", "Menlo", monospace; font-size: 12px; line-height: 1.5;
   white-space: pre; tab-size: 2;

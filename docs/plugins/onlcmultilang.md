@@ -59,7 +59,10 @@ qu'un clic ne parvient pas toujours à sélectionner. Il ne s'affiche pas sur le
 d'un bloc prédéfini, où seul le marquage en ligne a un sens (voir plus bas).
 
 **Le bouton `onlcmultilangwork`**, à côté, ouvre le mode d'écriture dans une seule langue — voir
-« Travailler dans une seule langue » plus bas.
+« Travailler dans une seule langue » plus bas. Il porte une **icône distincte** de celle du globe :
+les deux boutons voisinent dans la barre, et deux dessins identiques laissaient croire à un
+doublon. Celui-ci montre une lettre latine et un idéogramme — le signe usuel de la traduction —,
+là où le globe dit « la langue de ce contenu ».
 
 **Dans le menu « Langues »** de la barre d'outils principale, pour tout le reste :
 
@@ -301,7 +304,8 @@ Le mode s'ouvre par son **bouton de barre d'outils**, `onlcmultilangwork`. Il n'
 actif au départ, et se referme par « Écrire dans toutes les langues ».
 
 Le bouton porte le **nom de la langue en cours** et s'allume quand le mode est ouvert : on voit du
-premier coup d'œil qu'on n'écrit pas dans toutes les langues. Il vivait au troisième niveau du
+premier coup d'œil qu'on n'écrit pas dans toutes les langues. Son icône — lettre latine et
+idéogramme — ne se confond pas avec le globe du bouton voisin, qui règle la langue d'un bloc. Il vivait au troisième niveau du
 menu des langues — « Langues › Travailler dans une seule langue › Français » —, c'est-à-dire
 nulle part : personne ne va chercher un mode de travail à trois crans de profondeur. L'entrée de
 menu reste, pour les projets qui préfèrent une barre d'outils courte.

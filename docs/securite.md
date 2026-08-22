@@ -26,8 +26,9 @@ Ce document décrit comment ces deux garanties sont obtenues.
 | Vidéo, page intégrée | une vignette inerte (image, titre, adresse) | l'`<iframe>` prévue |
 | Carte | un damier de tuiles OpenStreetMap, en fond de `span` | Leaflet, ou le cadre OpenStreetMap |
 | Galerie, document PDF | une vignette inerte | nanogallery2 / pdf.js et leurs imports |
-| Diaporama Swiper | une bande d'images qui défile horizontalement, sans javascript | le html d'origine, inchangé |
+| Diaporama Swiper | une bande d'images alignées horizontalement, sans javascript | le html d'origine, inchangé |
 | Fiche de microdonnées | une carte grise annonçant le type décrit | `<script type="application/ld+json">` |
+| Action au clic d'un lien | l'attribut inerte `data-onlc-click` | l'attribut `onclick` d'origine |
 
 Aucune de ces représentations ne contient d'`<iframe>`, de `<script>` ni d'écouteur : ce sont des
 `div` et des `span`.
@@ -70,6 +71,27 @@ l'identique, sans jamais être interprété.
 
 La réécriture est tout aussi bornée : seul l'intervalle exact du littéral est remplacé dans le
 script, et la fonction refuse d'écrire si cet intervalle n'est plus celui qu'elle croit.
+
+### L'action au clic d'un lien
+
+Un lien peut porter une action javascript au clic — un `onclick`, souvent une confirmation avant
+de quitter la page. Posé tel quel dans la zone d'écriture, cet attribut **s'exécute** : le
+rédacteur qui clique sur son propre lien déclenche son propre code, au milieu de l'éditeur. C'est
+précisément ce que le bac à sable des scripts évite par ailleurs.
+
+L'attribut voyage donc sous un nom inerte, `data-onlc-click`, pendant toute l'écriture, et
+redevient `onclick` à la sérialisation. La conversion se fait dans les deux sens : un `onclick`
+présent dans le html chargé est désarmé à l'ouverture. Le formulaire du lien le montre, et le
+prévient : « Elle ne s'exécute jamais pendant que vous écrivez. »
+
+Le plugin neutralise aussi le **ctrl-clic** et le **clic du milieu** sur un lien de la zone
+d'écriture. Le cœur bloque déjà le clic simple ; le navigateur, lui, ouvre l'adresse dans ces deux
+cas, et l'on quitte son back-office sans avoir rien demandé.
+
+Cette action est du javascript **choisi par la personne connectée, pour son propre site** : elle
+relève du modèle de menace « soi-même », comme les scripts et les widgets html. Ce qui est en jeu
+n'est pas de l'empêcher, mais de l'empêcher de s'exécuter **dans l'éditeur**, où elle ne
+s'exécuterait pas sur le site.
 
 ### Les fiches de microdonnées
 

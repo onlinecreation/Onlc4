@@ -116,10 +116,18 @@ onlc_link_list: (done) => {
 Le lien inséré ou mis à jour porte les attributs suivants :
 
 ```html
-<a href="/services/conseil" title="Notre offre" target="_blank" rel="noopener" class="btn btn-primary">Conseil</a>
+<a href="/services/conseil" title="Notre offre" target="_blank" rel="noopener"
+   class="btn btn-primary" style="text-transform: uppercase"
+   onclick="return confirm('Partir ?')">Conseil</a>
 ```
 
 - `target` et `rel` ne sont écrits que s'ils ne sont pas vides ;
 - lorsque la cible est `_blank` sans `rel` choisi, `rel="noopener"` est ajouté par les blocs
   prédéfinis de `onlcwidgets` ;
+- `class`, `style` et `onclick` viennent de l'onglet « Avancé » et sont facultatifs. Les noms de
+  classe sont revalidés avant d'atteindre l'attribut ;
+- `onclick` **n'existe pas** pendant l'écriture : le lien porte alors `data-onlc-click`, et
+  l'attribut n'est reformé qu'à la sérialisation. Une api qui relit le contenu par
+  `editor.getContent()` reçoit bien l'`onclick` ; une api qui inspecte le dom de l'éditeur doit
+  lire `data-onlc-click`. Voir [`onlclink`](../plugins/onlclink.md#laction-au-clic-ne-sexécute-pas-pendant-lécriture) ;
 - « Supprimer le lien » retire l'élément `<a>` sans toucher à son contenu.

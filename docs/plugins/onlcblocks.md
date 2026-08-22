@@ -43,11 +43,15 @@ Chaque bouton fait **50 × 50 pixels**, comme les commandes des dialogues. Ils �
 pour la souris — vingt-quatre pixels, deux d'écart : au doigt on les manquait, et on attrapait
 celui d'à côté, dont « Supprimer ».
 
-Quand le bloc survolé porte un **identifiant**, celui-ci s'affiche dans l'angle bas droit de son
-contour : `#tarifs`. Un `id` ne se voit nulle part dans une page, et c'est pourtant lui que visent
-les ancres du menu et les scripts du site ; le supprimer par inadvertance casse des liens sans
-rien afficher. L'étiquette est écrite dans le contour, jamais dans le contenu : aucune mise en
-page n'est décalée par son affichage.
+Quand le bloc survolé porte un **identifiant**, celui-ci s'affiche dans l'angle **haut droit** de
+son contour : `#tarifs`. Un `id` ne se voit nulle part dans une page, et c'est pourtant lui que
+visent les ancres du menu et les scripts du site ; le supprimer par inadvertance casse des liens
+sans rien afficher. L'étiquette est écrite dans le contour, jamais dans le contenu : aucune mise
+en page n'est décalée par son affichage.
+
+Il répond ainsi au dessin du type, en haut à gauche : les deux repères se lisent sur la même
+ligne. Il était en bas à droite, à l'opposé, et sur un bloc haut de six cents pixels on ne
+voyait jamais les deux ensemble.
 
 Les zones « Ajouter un bloc au début » et « Ajouter un bloc à la fin » sont placées **dans le
 flux du document**, avant le premier bloc et après le dernier : elles ne recouvrent jamais le
@@ -147,8 +151,8 @@ contour porte donc, dans son **angle haut gauche**, un dessin de seize pixels qu
 a affaire : paragraphe, titre, liste, tableau, ligne de grille, colonne, diaporama, bloc
 prédéfini, script, code court, section de langue, fiche de microdonnées. L'infobulle le nomme.
 
-Comme l'identifiant, il est dessiné **dans le contour** et jamais dans le contenu : aucune mise en
-page n'est décalée par son affichage.
+Comme l'identifiant — qui lui fait face dans l'angle haut droit — il est dessiné **dans le
+contour** et jamais dans le contenu : aucune mise en page n'est décalée par son affichage.
 
 Le plugin qui possède un objet déclare le type qu'il lui reconnaît ; `onlcblocks` déclare ceux du
 html ordinaire avec un rang plus élevé, pour qu'un plugin plus précis passe devant :
@@ -218,6 +222,54 @@ BlockActions.declare(editor, {
 
 Une exception levée par un `match` fait disparaître **ce bouton-là**, et lui seul : un plugin qui
 se trompe n'emporte pas la barre entière.
+
+### Le double clic ouvre la configuration du bloc
+
+Un **double clic** n'importe où dans la zone d'écriture ouvre la configuration de ce qu'on vient
+de désigner : un lien ouvre la fenêtre du lien, une image celle de l'image, un code court son
+formulaire, un diaporama sa liste de vues, un paragraphe ses propriétés. Le rédacteur n'a pas à
+retrouver le bon bouton dans la barre — il ouvre ce qu'il regarde.
+
+C'est le registre `BlockActions` lui-même qui répond, par `BlockActions.openFor` : aucun plugin
+n'ajoute son propre écouteur, et un bouton déclaré comme ci-dessus devient **automatiquement**
+double-cliquable.
+
+Deux règles départagent les boutons quand plusieurs conviennent :
+
+1. **La cible la plus profonde l'emporte.** Un double clic sur une image dans un paragraphe
+   ouvre l'image, pas les propriétés du paragraphe.
+2. **À profondeur égale, le plus petit `order` gagne.**
+
+Un bouton dont la cible ne **contient** pas le nœud visé n'est jamais retenu : sans cette
+condition, viser le titre d'une colonne ouvrirait l'image posée à côté.
+
+Rien ne s'ouvre sur un contenu **non modifiable** — l'image d'une vue de diaporama, par exemple :
+c'est le bloc entier qui répond, par son propre bouton. Rien ne s'ouvre non plus quand l'éditeur
+est **en lecture seule** : la barre des blocs s'y retire déjà, et le double clic ne doit pas
+rouvrir par une autre porte des formulaires qui écrivent dans le document. Chaque plugin garde
+par ailleurs son écouteur de secours pour le cas où `onlcblocks` n'est pas chargé, sous la garde
+de `BlockActions.hasToolbar`.
+
+### Ce qui n'est pas modifiable ne se sélectionne pas
+
+Un bloc marqué `contenteditable="false"` — un diaporama, un jeton de script, un bloc prédéfini —
+ne se modifie pas au clavier, mais son contenu restait **sélectionnable** : on surlignait le
+texte d'une vue, on croyait pouvoir le couper, et rien ne se passait. Pire, un glisser sur une
+image en tirait une copie hors du bloc.
+
+Le plugin pose donc une règle globale dans la feuille de la zone d'écriture :
+
+```css
+body [contenteditable="false"] { user-select: none; -webkit-user-select: none; }
+body [contenteditable="false"] [contenteditable="true"] { user-select: text; -webkit-user-select: text; }
+```
+
+La seconde ligne compte autant que la première : un bloc verrouillé qui rouvre une **partie**
+intérieure à l'écriture — le texte d'un bloc prédéfini, par exemple — la garde sélectionnable.
+
+Le `contenteditable` lui-même est un état d'écriture, jamais du contenu : il est posé au moment
+de décorer la page et retiré à l'enregistrement par le plugin qui l'a posé. Ce que l'on publie
+ne le porte pas.
 
 ## Propriétés d'un bloc
 
@@ -371,4 +423,5 @@ blocks.blockAt(nœud);    // le bloc manipulable qui entoure ce nœud, ou null
 ```
 
 `blockAt` sert aux autres plugins : c'est par elle qu'ils savent si la barre des blocs prend déjà
-un élément en charge, et donc s'ils doivent ouvrir leur propre bulle.
+un élément en charge, et donc s'ils doivent ouvrir leur propre bulle. C'est aussi elle que
+`BlockActions.openFor` interroge pour savoir quoi ouvrir sur un double clic.

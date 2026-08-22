@@ -135,6 +135,10 @@ et MIT), Material Icons (Apache 2.0) — sont rappelées dans
 `modules/hugerte/src/plugins/onlcicons/main/LICENCES.md`. **L'attribution d'OpenMoji est
 obligatoire sur les pages qui affichent ses dessins.**
 
+Une icône d'interface est par ailleurs écrite en dur dans le code, et non produite par ces
+générateurs : le dessin de traduction du bouton `onlcmultilangwork`
+(`plugins/onlcmultilang/main/ts/ui/Icons.ts`), fourni par le projet, qui en détient la licence.
+
 ## Corrections apportées au cœur et au thème
 
 Le fork corrige quelques défauts rencontrés en développant les plugins ; ils sont signalés ici

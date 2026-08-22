@@ -141,6 +141,27 @@ n'est pas chargé : mieux vaut un champ austère que pas de moyen du tout d'indi
 Le **texte de remplacement**, lui, se saisit toujours : ce n'est pas une adresse, c'est ce que
 lit un lecteur d'écran et ce qu'indexent les moteurs.
 
+### La liste des vues
+
+La liste **défile** dans la fenêtre : un diaporama de douze vues se parcourt en entier, là où
+seules les trois premières étaient atteignables. Seule la liste défile — les deux boutons
+d'ajout, eux, restent en place.
+
+| Commande | Où | Effet |
+|---|---|---|
+| ⠿ | À gauche de la vue | Poignée de glisser-déposer ; seule elle est saisissable, pour qu'un clic dans un champ ne déplace rien |
+| ↑ / ↓ | À droite de la vue | Déplacer d'un rang, au clavier comme à la souris |
+| ✕ | À droite de la vue | Retirer la vue |
+| « Ajouter des images au début… » | Au-dessus de la liste | Ouvre la médiathèque ; les images choisies s'insèrent **avant** la première vue |
+| « Ajouter des images à la fin… » | Sous la liste | Les mêmes, insérées **après** la dernière |
+
+Les deux boutons d'ajout existent parce qu'une liste longue rendait l'ajout en tête impossible
+autrement : il fallait ajouter en bas, puis remonter la vue de douze rangs. Après un ajout, la
+liste se déplace jusqu'au bout concerné, pour qu'on voie ce qu'on vient d'ajouter.
+
+Il n'y a **pas** de bouton « ajouter une vue vide » : une vue sans image n'est ni visible dans la
+liste ni utile dans le diaporama, et elle ne servait qu'à ouvrir la médiathèque en deux temps.
+
 ### Une seule image par vue
 
 C'est ce que le formulaire **produit** : une vue, une image, un texte de remplacement. C'est le
@@ -181,8 +202,8 @@ la page deviendrait inatteignable.
 
 Le diaporama se présente donc comme les blocs galerie et carte : un **bandeau** qui le nomme et
 dit ce qu'il contient — « Diaporama · 4 vues · réglages retrouvés » —, un cadre où les vues
-défilent horizontalement, et la phrase qui dit comment le régler. On voit les vues dans leur
-ordre, on peut faire défiler pour les compter.
+s'alignent horizontalement, et la phrase qui dit comment le régler. On voit les vues dans leur
+ordre, et le bandeau les compte.
 
 Ce n'est pas un aperçu fidèle et cela ne prétend pas l'être — l'aperçu visiteur, lui, exécute la
 vraie bibliothèque, à condition que le gabarit la charge.
@@ -209,6 +230,37 @@ endroit qui sache ce qu'une vue doit contenir.
 
 `contenteditable` est retiré à l'enregistrement : c'est un état d'éditeur, et une page publiée
 n'a pas à porter une zone morte.
+
+Un **double clic** sur une image d'une vue n'ouvre pas non plus le formulaire des images :
+[`BlockActions.openFor`](onlcblocks.md#le-double-clic-ouvre-la-configuration-du-bloc) ne descend
+jamais dans un contenu non modifiable, et le plugin des médias vérifie de son côté que sa cible
+est modifiable. C'est le diaporama entier qui répond, par son propre bouton — et par le double
+clic, qui ouvre sa liste de vues.
+
+Le contenu du bloc ne se **sélectionne** pas davantage : la règle globale posée par `onlcblocks`
+sur tout `[contenteditable="false"]` l'interdit, ce qui empêche aussi de tirer une image hors de
+sa piste.
+
+### Le cadre ne défile pas — et pourquoi
+
+La piste est en `overflow: hidden`, avec un **fondu** de quarante-huit pixels sur son bord droit
+qui dit qu'il y a une suite. Elle défilait auparavant, et c'était la cause d'une gêne signalée de
+longue date : *une barre de défilement horizontale apparaissait dans la zone d'écriture pendant
+quelques secondes quand le pointeur en sortait.*
+
+La mesure a tranché. En échantillonnant `html` et `body` à chaque image pendant la sortie du
+pointeur, leur débordement horizontal reste **nul** : ce n'est donc pas la page qui déborde. En
+énumérant tous les éléments en `overflow-x: auto|scroll` qui débordent réellement, il en restait
+exactement **un** — la piste d'un diaporama, de cent trente-neuf pixels. Une page de démonstration
+sans diaporama n'en compte aucun, et n'a jamais montré la barre.
+
+Il ne s'agissait donc pas d'un défaut de calcul de largeur : c'était une barre **superposée**, qui
+existait légitimement et que le système fait persister environ deux secondes après le départ du
+pointeur. La seule façon de la faire disparaître était de retirer le défilement.
+
+Ce que l'on perd est mesuré : le bloc se manipule désormais d'une pièce, ses vues sont comptées
+dans le bandeau et réordonnées dans le formulaire. Faire défiler la piste avec la souris
+n'apprenait plus rien qu'on ne puisse lire ailleurs.
 
 ### La largeur des vues n'est pas forcée
 

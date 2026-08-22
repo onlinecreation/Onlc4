@@ -127,9 +127,13 @@ commandes que le html contient déjà.
 
 ### Les images se choisissent, elles ne s'écrivent pas
 
-Il n'y a **pas de champ d'adresse** dans l'onglet Images : une vignette cliquable et un bouton
-ouvrent la médiathèque. Personne n'écrit de mémoire `…/178069794252.webp`, et une adresse
-recopiée de travers donne une vue vide sans que rien ne le dise.
+Il n'y a **pas de champ d'adresse** dans l'onglet Images : la vignette de la vue **est** le bouton
+qui ouvre la médiathèque, et un second bouton le répète en toutes lettres. Personne n'écrit de
+mémoire `…/178069794252.webp`, et une adresse recopiée de travers donne une vue vide sans que rien
+ne le dise.
+
+Il y avait un temps deux vignettes côte à côte montrant la même image : une vue ne portant plus
+qu'une seule image, la seconde n'apprenait rien.
 
 Le champ d'adresse ne reparaît que si l'explorateur de médias — [`onlcmedia`](onlcmedia.md) —
 n'est pas chargé : mieux vaut un champ austère que pas de moyen du tout d'indiquer une image.
@@ -137,16 +141,26 @@ n'est pas chargé : mieux vaut un champ austère que pas de moyen du tout d'indi
 Le **texte de remplacement**, lui, se saisit toujours : ce n'est pas une adresse, c'est ce que
 lit un lecteur d'écran et ce qu'indexent les moteurs.
 
+### Une seule image par vue
+
+C'est ce que le formulaire **produit** : une vue, une image, un texte de remplacement. C'est le
+modèle qu'un diaporama demande, et deux images dans une même vue relèvent d'une mise en page que
+la bibliothèque ne connaît pas.
+
+Les vues déjà écrites autrement ne sont pas converties pour autant.
+
 ### Deux sortes de vues
 
-Une vue est dite **d'images** quand elle ne contient que des images, et **libre** dans tous les
-autres cas — un titre, un paragraphe, un bouton.
+Une vue est dite **d'image** quand elle contient exactement une image et rien d'autre, et
+**libre** dans tous les autres cas — plusieurs images, un titre, un paragraphe, un bouton.
 
-Les vues libres apparaissent dans la liste, avec un extrait de leur texte : on peut les déplacer
-et les supprimer, ce sont des vues comme les autres. Mais leur contenu n'est **jamais réécrit** :
-il se modifie directement dans la page. Un formulaire qui ramènerait toute vue à « une image et
-un texte de remplacement » effacerait sans prévenir le titre et le bouton d'un diaporama
-d'accueil.
+Les vues libres apparaissent dans la liste, avec un extrait de leur contenu : on peut les déplacer
+et les supprimer, ce sont des vues comme les autres. Mais leur contenu n'est **jamais réécrit**.
+Un formulaire qui ramènerait toute vue à une seule image effacerait sans prévenir la seconde image
+d'une vue double, ou le titre et le bouton d'un diaporama d'accueil.
+
+Leur contenu se modifie dans le code source de la page — bouton `<>` de la barre d'outils —,
+le diaporama lui-même n'étant plus modifiable au clavier.
 
 ### Les paliers d'écran
 
@@ -187,10 +201,27 @@ caractère près.
 Le cadre est dessiné sur le bandeau et sur la piste, jamais sur le conteneur, qui appartient lui
 aussi au rédacteur et ne doit recevoir ni classe ni style de notre fait.
 
-> **Une différence assumée avec une galerie.** Le diaporama n'est **pas figé** : ses vues gardent
-> leur texte modifiable au clavier. Une page réelle y met des avis clients, et le formulaire ne
-> sait que déplacer une vue libre, pas en réécrire le contenu. Les enfermer derrière lui rendrait
-> ce texte inaccessible. L'aperçu est une présentation, pas une serrure.
+### Le bloc se manipule d'une pièce
+
+Le conteneur est **non modifiable** pendant l'écriture : on ne tape pas dans une vue, on ne colle
+pas entre deux, on ne tire pas une image hors de sa piste. Tout passe par le formulaire, seul
+endroit qui sache ce qu'une vue doit contenir.
+
+`contenteditable` est retiré à l'enregistrement : c'est un état d'éditeur, et une page publiée
+n'a pas à porter une zone morte.
+
+### La largeur des vues n'est pas forcée
+
+Seule la **hauteur** est bornée — `onlc_swiper_edit_height` la fixe, et c'est elle qui empêche un
+diaporama de huit photos d'occuper huit écrans. La largeur découle du rapport de l'image : les
+vues s'alignent alors dans leurs proportions, comme elles le feront sur le site.
+
+Elles étaient auparavant plafonnées à 60 % de la piste. Sur un diaporama d'avis en pleine largeur,
+cela donnait des vues de six cents pixels autour d'une image de deux cents, avec un vide démesuré
+de part et d'autre, qui ne ressemblait à rien de ce que le visiteur verra.
+
+Un plancher de quatre-vingt-dix pixels évite qu'une image encore en cours de chargement — ou
+introuvable — n'écrase la vue à zéro pixel de large.
 
 ## Options
 

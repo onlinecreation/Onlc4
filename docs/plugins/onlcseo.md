@@ -129,6 +129,25 @@ Il ne l'a pas toujours fait : le dialogue place un composant libre dans un cadre
 `overflow: hidden`, et tout ce qui passait sous la ligne de flottaison, l'aperçu du json compris,
 était **hors d'atteinte**, sans barre de défilement pour le dire.
 
+Un **changement de niveau repart du haut**. Descendre dans le prix d'une offre laissait sinon le
+formulaire à la hauteur du clic — souvent au milieu de rien — et il fallait remonter à la main
+pour voir où l'on était. Les redessins **à l'intérieur** d'un niveau, eux, gardent la position :
+ajouter une valeur ne doit pas faire sauter la page.
+
+### Où l'on est, dans un objet imbriqué
+
+Un objet imbriqué porte une **barre collante** qui occupe toute la largeur : un bouton de retour
+qui nomme le niveau parent — « ← Retour à Produit » —, le niveau courant en gros — « Vous
+modifiez : Offre » — et son nom schema.org. Le chemin complet n'apparaît qu'à partir de deux
+crans d'imbrication, où il commence à servir.
+
+Un fil d'Ariane seul ne suffisait pas : trois mots discrets en haut d'une page identique à la
+précédente. On ne voyait pas qu'on avait changé de niveau.
+
+Les **boutons du pied s'appliquent à la fiche entière**, et sont éteints tant qu'on n'est pas à la
+racine. On les prenait pour le moyen de remonter d'un cran, et l'on refermait le dialogue en
+croyant revenir en arrière. « Annuler » reste actif : il faut toujours pouvoir renoncer.
+
 ## Où va la fiche
 
 **Tout en haut du document** — à l'ouverture comme à l'enregistrement, quel que soit l'endroit où
@@ -208,7 +227,6 @@ Trois portes de sortie, de la plus légère à la plus lourde :
 | `onlc_seo_schema_types` | `[]` | Types ajoutés ou complétés, au format de `api/Types.ts` |
 | `onlc_seo_schema_exclude` | `[]` | Types retirés du choix, par leur nom schema.org |
 | `onlc_seo_context` | `https://schema.org` | Le contexte écrit en tête de la fiche |
-| `onlc_seo_test_url` | outil de test de Google | Vide, aucun lien n'est proposé |
 
 ### Ajouter un type
 
@@ -268,5 +286,8 @@ Un objet sans `@type` passé à `setMicrodata` **supprime** la fiche : c'est la 
 
 Il ne dit pas si la fiche est valide. La validité d'une fiche schema.org dépend de règles que
 chaque moteur fait évoluer de son côté ; un éditeur qui afficherait « c'est bon » se tromperait
-tôt ou tard. Le formulaire signale seulement les propriétés **exigées restées vides**, et propose
-d'ouvrir l'outil de test qui fait autorité.
+tôt ou tard. Le formulaire signale seulement les propriétés **obligatoires restées vides**.
+
+Il ne renvoie plus non plus vers l'outil de test des moteurs. Ce bouton demandait de publier la
+page d'abord, puis d'en donner l'adresse : au milieu d'un formulaire de saisie, il posait plus de
+questions qu'il n'en résolvait.

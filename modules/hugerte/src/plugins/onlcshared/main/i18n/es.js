@@ -535,7 +535,6 @@
   "Les effets autres que le glissement demandent leur module dans la page. Si le diaporama se fige après un changement d’effet, revenez au glissement.": "Los efectos distintos del deslizamiento necesitan su módulo en la página. Si el carrusel se congela tras cambiar de efecto, vuelva al deslizamiento.",
   "les microdonnées de cette page": "los microdatos de esta página",
   "Les moteurs de recherche affichent un prix, des étoiles ou une date de concert quand la page le leur dit dans un langage qu’ils connaissent. Choisissez ce qui correspond le mieux — vous pourrez en changer.": "Los buscadores muestran un precio, estrellas o la fecha de un concierto cuando la página se lo dice en un lenguaje que conocen. Elija lo que mejor encaje: podrá cambiarlo.",
-  "Les moteurs de recherche mettent à disposition un outil qui lit une page publiée et dit ce qu’ils y comprennent. Publiez d’abord la page, puis donnez-lui son adresse.": "Los buscadores ofrecen una herramienta que lee una página publicada y dice lo que entienden de ella. Publique primero la página y después indíquele su dirección.",
   "Les moteurs ignoreront la fiche tant qu’elles manqueront. L’enregistrer quand même ?": "Los buscadores ignorarán la ficha mientras falten. ¿Guardarla de todos modos?",
   "Les propriétés marquées « Obligatoire » doivent être remplies pour que les moteurs acceptent la fiche. Les autres l’enrichissent.": "Las propiedades marcadas «Obligatorio» deben rellenarse para que los buscadores acepten la ficha. Las demás la enriquecen.",
   "Les rendez-vous d’avril": "Las citas de abril",
@@ -655,7 +654,6 @@
   "Organisme": "Organismo",
   "Ou adresse d’une image en ligne (https://…)": "O la dirección de una imagen en línea (https://…)",
   "Oui": "Sí",
-  "Outil de test des moteurs…": "Herramienta de prueba de los buscadores…",
   "Outils nécessaires": "Herramientas necesarias",
   "Ouverture": "Apertura",
   "Ouvrir dans": "Abrir en",
@@ -935,7 +933,6 @@
   "Vendeur": "Vendedor",
   "Vendredi": "Viernes",
   "Vérification des quotas…": "Comprobando las cuotas…",
-  "Vérifier la fiche": "Comprobar la ficha",
   "Version": "Versión",
   "Version enregistrée": "Versión guardada",
   "Versions": "Versiones",
@@ -985,7 +982,10 @@
   "Code court": "Código corto",
   "Section de langue": "Sección de idioma",
   "Travailler dans une seule langue": "Trabajar en un solo idioma",
-  "Écrire dans toutes les langues": "Escribir en todos los idiomas"
+  "Écrire dans toutes les langues": "Escribir en todos los idiomas",
+  "Retour à": "Volver a",
+  "Vous modifiez": "Está modificando",
+  "Cette vue ne contient pas qu’une image — plusieurs images, ou une mise en page. Elle est déplaçable, mais son contenu n’est pas réécrit.": "Esta diapositiva no contiene solo una imagen — varias imágenes, o una maquetación. Se puede mover, pero su contenido no se reescribe."
   };
 
   window.hugerte.addI18n('es', strings);

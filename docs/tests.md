@@ -134,6 +134,10 @@ Un test n'a de valeur que s'il peut échouer. Plusieurs de ceux-ci ont trouvé d
   comme le fait une page réelle. Le plugin en faisait un élément, écrit au milieu d'une balise
   ouvrante : la section entière du contenu s'en trouvait disloquée. Le cas voisin — une balise
   `<multilang>`, qui *est* un marqueur et commence par un chevron — garde la distinction ouverte ;
+* `onlcswiper/DetectTest` — il pose une vue à **deux images**, comme la page réelle en contient
+  deux. Le formulaire ne produit plus qu'une image par vue : la question est de savoir ce qu'il
+  advient de celles qui existaient déjà. Elles passent en vues libres, et un cas vérifie que la
+  seconde image survit à un déplacement ;
 * `onlcwidgets/PagePreviewTest` — il donne à l'aperçu le mouchard Google Tag Manager d'un gabarit
   réel. `[l]` y était pris pour un code court sans valeur, donc effacé, et le script tombait en
   erreur. Le même fichier avait par ailleurs un `it` imbriqué dans un autre, qui ne s'exécutait

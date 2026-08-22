@@ -535,7 +535,6 @@
   "Les effets autres que le glissement demandent leur module dans la page. Si le diaporama se fige après un changement d’effet, revenez au glissement.": "Effects other than slide need their module in the page. If the slideshow freezes after an effect change, go back to slide.",
   "les microdonnées de cette page": "the microdata of this page",
   "Les moteurs de recherche affichent un prix, des étoiles ou une date de concert quand la page le leur dit dans un langage qu’ils connaissent. Choisissez ce qui correspond le mieux — vous pourrez en changer.": "Search engines show a price, stars or a concert date when the page tells them so in a language they know. Choose what fits best — you can change it later.",
-  "Les moteurs de recherche mettent à disposition un outil qui lit une page publiée et dit ce qu’ils y comprennent. Publiez d’abord la page, puis donnez-lui son adresse.": "Search engines provide a tool that reads a published page and says what they understand from it. Publish the page first, then give it its address.",
   "Les moteurs ignoreront la fiche tant qu’elles manqueront. L’enregistrer quand même ?": "Search engines will ignore the record while they are missing. Save it anyway?",
   "Les propriétés marquées « Obligatoire » doivent être remplies pour que les moteurs acceptent la fiche. Les autres l’enrichissent.": "The properties marked “Required” must be filled in for search engines to accept the record. The others enrich it.",
   "Les rendez-vous d’avril": "April’s appointments",
@@ -655,7 +654,6 @@
   "Organisme": "Provider",
   "Ou adresse d’une image en ligne (https://…)": "Or the address of an online image (https://…)",
   "Oui": "Yes",
-  "Outil de test des moteurs…": "Search engine test tool…",
   "Outils nécessaires": "Tools needed",
   "Ouverture": "Opening",
   "Ouvrir dans": "Open in",
@@ -935,7 +933,6 @@
   "Vendeur": "Seller",
   "Vendredi": "Friday",
   "Vérification des quotas…": "Checking quotas…",
-  "Vérifier la fiche": "Check the record",
   "Version": "Version",
   "Version enregistrée": "Saved version",
   "Versions": "Versions",
@@ -985,7 +982,10 @@
   "Code court": "Shortcode",
   "Section de langue": "Language section",
   "Travailler dans une seule langue": "Work in a single language",
-  "Écrire dans toutes les langues": "Write in every language"
+  "Écrire dans toutes les langues": "Write in every language",
+  "Retour à": "Back to",
+  "Vous modifiez": "You are editing",
+  "Cette vue ne contient pas qu’une image — plusieurs images, ou une mise en page. Elle est déplaçable, mais son contenu n’est pas réécrit.": "This slide holds more than one image, or a layout. It can be moved, but its content is never rewritten."
   };
 
   window.hugerte.addI18n('en', strings);

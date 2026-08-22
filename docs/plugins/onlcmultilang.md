@@ -27,7 +27,7 @@ exactement les marqueurs d'où elle vient — même écriture, même langue, au 
 hugerte.init({
   selector: 'textarea',
   plugins: 'onlcmultilang',
-  toolbar: 'onlcmultilang',
+  toolbar: 'onlcmultilang onlcmultilangwork',
   onlc_multilang_languages: [ 'fr', 'en', 'nl' ]
 });
 ```
@@ -57,6 +57,9 @@ le code de celle qui est posée (`FR`, `NL`) dès qu'il y en a une. C'est le che
 c'est le seul qui marche à coup sûr sur un bloc de média — un bandeau, une carte, un séparateur —
 qu'un clic ne parvient pas toujours à sélectionner. Il ne s'affiche pas sur les parties intérieures
 d'un bloc prédéfini, où seul le marquage en ligne a un sens (voir plus bas).
+
+**Le bouton `onlcmultilangwork`**, à côté, ouvre le mode d'écriture dans une seule langue — voir
+« Travailler dans une seule langue » plus bas.
 
 **Dans le menu « Langues »** de la barre d'outils principale, pour tout le reste :
 
@@ -294,8 +297,14 @@ c'est la bonne façon de la **relire**. Ce n'est pas la bonne façon de l'**écr
 dans une langue, et les deux autres versions doublent la hauteur de la page et brouillent la mise
 en forme.
 
-Le mode s'ouvre par « Langues › Travailler dans une seule langue ». Il n'est **jamais** actif au
-départ, et se referme par « Écrire dans toutes les langues ».
+Le mode s'ouvre par son **bouton de barre d'outils**, `onlcmultilangwork`. Il n'est **jamais**
+actif au départ, et se referme par « Écrire dans toutes les langues ».
+
+Le bouton porte le **nom de la langue en cours** et s'allume quand le mode est ouvert : on voit du
+premier coup d'œil qu'on n'écrit pas dans toutes les langues. Il vivait au troisième niveau du
+menu des langues — « Langues › Travailler dans une seule langue › Français » —, c'est-à-dire
+nulle part : personne ne va chercher un mode de travail à trois crans de profondeur. L'entrée de
+menu reste, pour les projets qui préfèrent une barre d'outils courte.
 
 Deux choses s'y produisent :
 

@@ -28,7 +28,9 @@
   gap: 4px 10px;
   align-items: baseline;
   box-sizing: border-box;
-  padding: 6px 10px;
+  /* Le retrait à gauche dégage la pastille du type, que l'espace de travail dessine dans l'angle
+     du contour pendant le survol : sans lui, elle recouvrait le début du bandeau. */
+  padding: 6px 10px 6px 24px;
   color: #22303c;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 12px;

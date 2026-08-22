@@ -63,8 +63,10 @@ body.onlc-blocks-enabled {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  /* La pastille épouse le dessin : elle ne recouvre que seize pixels du contenu, le temps du
+     survol. Plus large, elle cachait les premiers caractères de la première ligne. */
+  width: 18px;
+  height: 18px;
   color: #fff;
   background: rgba(0, 108, 231, 0.85);
   border-radius: 3px 0 3px 0;

@@ -43,6 +43,29 @@ body.onlc-blocks-enabled {
   border-radius: 3px;
 }
 
+/**
+ * Identifiant du bloc, dans l'angle bas droit de son contour.
+ *
+ * En bas plutôt qu'en haut : la barre des commandes occupe déjà le bord supérieur, et deux
+ * étiquettes au même endroit se recouvrent sur un bloc court.
+ */
+.onlc-blocks-outline__id {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  max-width: 100%;
+  padding: 1px 6px;
+  overflow: hidden;
+  color: #fff;
+  font-family: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+  font-size: 11px;
+  line-height: 16px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: rgba(0, 108, 231, 0.85);
+  border-radius: 3px 0 3px 0;
+}
+
 .onlc-blocks-toolbar {
   position: absolute;
   display: flex;
@@ -84,6 +107,31 @@ body.onlc-blocks-enabled {
 .onlc-blocks-btn:focus {
   background: #f0f4f8;
   outline: none;
+}
+
+/**
+ * Propriétés du bloc, à la suite des commandes de manipulation.
+ *
+ * Elles vivent dans la même barre parce qu'elles parlent du même bloc. Un filet les sépare des
+ * commandes : ce qui déplace un bloc et ce qui l'ouvre ne sont pas la même famille de gestes, et
+ * une rangée de huit boutons identiques ne se lit pas.
+ */
+.onlc-blocks-toolbar__props {
+  display: flex;
+  gap: 2px;
+  margin-left: 4px;
+  padding-left: 6px;
+  border-left: 1px solid #e3e3e3;
+}
+
+.onlc-blocks-btn--prop {
+  color: #006ce7;
+}
+
+.onlc-blocks-btn--prop svg {
+  display: block;
+  width: 22px;
+  height: 22px;
 }
 
 /* Le bloc porte déjà une langue : le bouton l'affiche au lieu du globe. */

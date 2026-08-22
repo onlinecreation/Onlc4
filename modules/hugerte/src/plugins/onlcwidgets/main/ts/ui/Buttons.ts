@@ -1,4 +1,6 @@
 import Editor from 'hugerte/core/api/Editor';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as Script from '../core/Script';
 import * as WidgetDom from '../core/WidgetDom';
@@ -76,15 +78,57 @@ const register = (editor: Editor): void => {
     onAction: () => editor.execCommand('OnlcRemoveScript')
   });
 
+  /**
+   * Modifier un bloc, depuis la barre du bloc lui-même.
+   *
+   * Le bouton se range à côté des commandes de déplacement plutôt que dans une seconde bulle
+   * ouverte par-dessus : c'est le même bloc, il n'y a pas de raison d'avoir deux barres. La
+   * suppression n'est pas reprise ici — la barre du bloc a déjà sa croix.
+   */
+  BlockActions.declare(editor, {
+    id: 'onlcwidgets-edit',
+    label: 'Modifier le bloc',
+    icon: ActionIcons.edit,
+    order: 110,
+    match: (target, block) => BlockActions.matchIn(target, block, WidgetDom.blockSelector(target)),
+    run: (target, element) => {
+      target.selection.select(element);
+      target.execCommand('OnlcEditWidget');
+    }
+  });
+
+  BlockActions.declare(editor, {
+    id: 'onlcwidgets-script',
+    label: 'Modifier le script',
+    icon: ActionIcons.code,
+    order: 112,
+    match: (target, block) => BlockActions.matchIn(target, block, `.${Script.placeholderClass}`),
+    run: (target, element) => {
+      target.selection.select(element);
+      target.execCommand('OnlcScript');
+    }
+  });
+
+  /**
+   * Les bulles restent, pour les configurations sans espace de travail en blocs.
+   *
+   * Quand `onlcblocks` est chargé, le bouton est déjà dans la barre du bloc : une bulle de plus
+   * ne ferait que la recouvrir. Quand il ne l'est pas, il n'y a aucune barre à masquer, et la
+   * bulle est le seul accès aux réglages du bloc.
+   */
   editor.ui.registry.addContextToolbar('onlcwidget', {
-    predicate: (node) => WidgetDom.isWidget(editor, node) && editor.dom.isEditable(node.parentNode),
+    predicate: (node) => WidgetDom.isWidget(editor, node)
+      && editor.dom.isEditable(node.parentNode)
+      && !BlockActions.isHandledByToolbar(editor, node),
     items: 'onlcwidgetedit onlcwidgetremove',
     position: 'node',
     scope: 'node'
   });
 
   editor.ui.registry.addContextToolbar('onlcscript', {
-    predicate: (node) => Script.isPlaceholder(editor, node) && editor.dom.isEditable(node.parentNode),
+    predicate: (node) => Script.isPlaceholder(editor, node)
+      && editor.dom.isEditable(node.parentNode)
+      && !BlockActions.isHandledByToolbar(editor, node),
     items: 'onlcscriptedit onlcscriptremove',
     position: 'node',
     scope: 'node'

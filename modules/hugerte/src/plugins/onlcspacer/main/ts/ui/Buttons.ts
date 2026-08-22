@@ -2,6 +2,8 @@ import { Arr, Fun } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as Options from '../api/Options';
 import * as Spacer from '../core/Spacer';
@@ -39,8 +41,23 @@ const register = (editor: Editor): void => {
     select: Fun.never
   });
 
+  // Hauteur de l'espace, dans la barre du bloc quand elle existe (voir `BlockActions`).
+  BlockActions.declare(editor, {
+    id: 'onlcspacer-height',
+    label: 'Hauteur du séparateur',
+    icon: ActionIcons.spacing,
+    order: 115,
+    match: (target, block) => BlockActions.matchIn(target, block, `.${Options.getSpacerClass(target)}`),
+    run: (target, element) => {
+      target.selection.select(element);
+      target.execCommand('OnlcEditSpacer');
+    }
+  });
+
   editor.ui.registry.addContextToolbar('onlcspacer', {
-    predicate: (node) => Spacer.isSpacer(editor, node) && editor.dom.isEditable(node.parentNode),
+    predicate: (node) => Spacer.isSpacer(editor, node)
+      && editor.dom.isEditable(node.parentNode)
+      && !BlockActions.isHandledByToolbar(editor, node),
     items: 'onlcspacerdecrease onlcspacerincrease onlcspaceredit onlcspacerremove',
     position: 'node',
     scope: 'node'

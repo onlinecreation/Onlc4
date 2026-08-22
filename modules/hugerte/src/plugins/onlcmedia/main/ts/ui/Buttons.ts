@@ -1,6 +1,8 @@
 import { Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as ImageHtml from '../core/ImageHtml';
 
@@ -49,10 +51,31 @@ const register = (editor: Editor): void => {
     }
   });
 
+  /**
+   * Réglages de l'image, dans la barre du bloc qui la contient.
+   *
+   * Une image est rarement un bloc à elle seule : elle vit dans un paragraphe, une colonne, une
+   * légende. Sa bulle s'ouvrait donc juste au-dessus d'elle, c'est-à-dire par-dessus la barre du
+   * bloc environnant. Le bouton rejoint cette barre, et vise l'image du bloc — celle qui est
+   * sélectionnée, ou la seule qu'il contienne.
+   */
+  BlockActions.declare(editor, {
+    id: 'onlcmedia-image',
+    label: 'Propriétés de l’image',
+    icon: ActionIcons.image,
+    order: 120,
+    match: (target, block) => BlockActions.matchIn(target, block, 'img'),
+    run: (target, element) => {
+      target.selection.select(element);
+      target.execCommand('OnlcImage');
+    }
+  });
+
   editor.ui.registry.addContextToolbar('onlcimage', {
     predicate: (node) => {
       const isImage = editor.dom.is(node, 'img') || ImageHtml.isFigure(editor, node);
-      return isImage && editor.dom.isEditable(node.parentNode);
+      return isImage && editor.dom.isEditable(node.parentNode)
+        && !BlockActions.isHandledByToolbar(editor, node);
     },
     items: 'onlcimage onlcmediaeditimage',
     position: 'node',

@@ -1,4 +1,6 @@
 import Editor from 'hugerte/core/api/Editor';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as Dom from '../../core/shortcodes/Dom';
 
@@ -41,8 +43,23 @@ const register = (editor: Editor): void => {
     onAction: () => editor.execCommand('OnlcRemoveShortcode')
   });
 
+  // Réglages de l'élément, dans la barre du bloc quand elle existe (voir `BlockActions`).
+  BlockActions.declare(editor, {
+    id: 'onlcwidgets-shortcode',
+    label: 'Modifier cet élément',
+    icon: ActionIcons.edit,
+    order: 111,
+    match: (target, block) => BlockActions.matchIn(target, block, Dom.selector),
+    run: (target, element) => {
+      target.selection.select(element);
+      target.execCommand('OnlcEditShortcode');
+    }
+  });
+
   editor.ui.registry.addContextToolbar('onlcshortcode', {
-    predicate: (node) => Dom.isBlock(editor, node) && editor.dom.isEditable(node.parentNode),
+    predicate: (node) => Dom.isBlock(editor, node)
+      && editor.dom.isEditable(node.parentNode)
+      && !BlockActions.isHandledByToolbar(editor, node),
     items: 'onlcshortcodeedit onlcshortcodeduplicate onlcshortcoderemove',
     position: 'node',
     scope: 'node'

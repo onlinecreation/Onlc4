@@ -2,6 +2,8 @@ import { Arr, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
+import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 
 import * as Options from '../api/Options';
 import * as Actions from '../core/Actions';
@@ -125,12 +127,32 @@ const register = (editor: Editor, controller: Controller): void => {
     onAction: () => editor.execCommand('OnlcColumnRemove')
   });
 
+  /**
+   * Disposition de la ligne, dans la barre de la ligne elle-même.
+   *
+   * Une ligne de grille **est** un bloc : elle a déjà sa barre, avec sa poignée et sa croix. La
+   * bulle qui proposait la disposition s'ouvrait par-dessus. Seul le choix de la disposition la
+   * rejoint : dupliquer et supprimer sont déjà dans la barre du bloc.
+   */
+  BlockActions.declare(editor, {
+    id: 'onlcblocks-row-layout',
+    label: 'Disposition des colonnes',
+    icon: ActionIcons.columns,
+    order: 105,
+    match: (target, block) => target.dom.hasClass(block, Options.getRowClass(target))
+      ? Optional.some(block)
+      : Optional.none<HTMLElement>(),
+    run: (target, row) => RowDialog.openLayout(target, row)
+  });
+
   // Dès que le curseur entre dans une colonne, la barre de la ligne apparaît : elle propose la
-  // disposition, la duplication et la suppression de la ligne entière.
+  // disposition, la duplication et la suppression de la ligne entière. Elle ne s'ouvre plus quand
+  // l'espace de travail en blocs est là : ses commandes sont alors dans la barre du bloc.
   editor.ui.registry.addContextToolbar('onlcblocksrowtools', {
     predicate: (node) => Type.isNonNullable(node)
       && Grid.getParentColumn(editor, node as HTMLElement).isSome()
-      && editor.dom.isEditable(node),
+      && editor.dom.isEditable(node)
+      && !BlockActions.isHandledByToolbar(editor, node),
     items: 'onlcrowlayout | onlcrowduplicate onlcrowremove',
     position: 'node',
     scope: 'node'

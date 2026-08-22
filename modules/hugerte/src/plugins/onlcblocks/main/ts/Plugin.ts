@@ -1,7 +1,10 @@
 import { Optional } from '@ephox/katamari';
 
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
+import * as SiteCss from 'hugerte/plugins/onlcshared/SiteCss';
+import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
@@ -10,6 +13,7 @@ import * as Blocks from './core/Blocks';
 import * as Controller from './core/Controller';
 import * as Grid from './core/Grid';
 import * as Buttons from './ui/Buttons';
+import * as PropertiesDialog from './ui/PropertiesDialog';
 
 /**
  * Block based workspace: every element behaving as a block gets a toolbar to move, duplicate or
@@ -26,6 +30,13 @@ export interface OnlcBlocksApi {
   readonly getActiveBlock: () => Optional<HTMLElement>;
   readonly listBlocks: () => HTMLElement[];
   readonly insertRow: (widths: number[]) => void;
+  /**
+   * Le bloc manipulable qui entoure ce nœud, ou `null`.
+   *
+   * Les autres plugins s'en servent pour savoir si la barre des blocs prend déjà cet élément en
+   * charge, et donc s'ils doivent ouvrir leur propre bulle de propriétés.
+   */
+  readonly blockAt: (node: Node) => HTMLElement | null;
 }
 
 export default (): void => {
@@ -33,6 +44,31 @@ export default (): void => {
     Options.register(editor);
 
     DialogStyles.setup(editor);
+
+    // Dit aux autres plugins que la barre des blocs existe : leurs boutons de propriétés y
+    // trouveront une place, et leur bulle contextuelle n'a plus lieu de s'ouvrir par-dessus.
+    BlockActions.declareToolbar(editor);
+
+    // Feuille de style du site : elle habille la zone d'écriture, et ses classes garnissent les
+    // suggestions du formulaire des propriétés.
+    SiteCss.setup(editor);
+
+    /**
+     * Identifiant et classes, en premier dans la rangée des propriétés.
+     *
+     * C'est le seul bouton que **tout** bloc ordinaire propose : il vient donc avant ceux des
+     * plugins, qui ne concernent chacun qu'une famille de blocs.
+     */
+    BlockActions.declare(editor, {
+      id: 'onlcblocks-properties',
+      label: 'Identifiant et classes du bloc',
+      icon: ActionIcons.sliders,
+      order: 100,
+      match: (target, block) => PropertiesDialog.isEditable(target, block)
+        ? Optional.some(block)
+        : Optional.none<HTMLElement>(),
+      run: (target, block) => PropertiesDialog.open(target, block)
+    });
 
     if (Options.shouldInjectStyles(editor)) {
       editor.contentCSS.push(`${pluginUrl}/css/onlcblocks.css`);
@@ -77,7 +113,8 @@ export default (): void => {
       toggle: () => controller.toggle(),
       getActiveBlock: () => controller.getActive(),
       listBlocks: () => Blocks.listAll(editor),
-      insertRow: (widths: number[]) => Grid.insertRow(editor, widths, controller.getActive(), 'after')
+      insertRow: (widths: number[]) => Grid.insertRow(editor, widths, controller.getActive(), 'after'),
+      blockAt: (node: Node) => Blocks.getBlockFor(editor, node).getOrNull()
     };
   });
 };

@@ -1,6 +1,7 @@
 import { Arr, Optional, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 
 import * as Blocks from '../core/Blocks';
 import * as Multilang from '../core/Multilang';
@@ -73,8 +74,11 @@ const buttonHtml = (button: ToolbarButton): string =>
   `<button type="button" class="onlc-blocks-btn" data-onlc-action="${button.action}" title="${button.label}" aria-label="${button.label}">${button.icon}</button>`;
 
 const layerHtml = (editor: Editor): string =>
-  '<div class="onlc-blocks-outline" data-onlc-part="outline"></div>' +
-  `<div class="onlc-blocks-toolbar" data-onlc-part="toolbar">${Arr.map(buttonsFor(editor), buttonHtml).join('')}</div>` +
+  '<div class="onlc-blocks-outline" data-onlc-part="outline">' +
+  '<span class="onlc-blocks-outline__id onlc-blocks-hidden" data-onlc-part="blockid"></span></div>' +
+  '<div class="onlc-blocks-toolbar" data-onlc-part="toolbar">' +
+  `${Arr.map(buttonsFor(editor), buttonHtml).join('')}` +
+  '<span class="onlc-blocks-toolbar__props" data-onlc-part="props"></span></div>' +
   '<div class="onlc-blocks-langmenu onlc-blocks-hidden" data-onlc-part="langmenu"></div>' +
   `<button type="button" class="onlc-blocks-add onlc-blocks-add--before" data-onlc-part="add-before" data-onlc-action="insert-before" title="Ajouter un bloc avant" aria-label="Ajouter un bloc avant">${plusIcon(16)}</button>` +
   `<button type="button" class="onlc-blocks-add onlc-blocks-add--after" data-onlc-part="add-after" data-onlc-action="insert-after" title="Ajouter un bloc après" aria-label="Ajouter un bloc après">${plusIcon(16)}</button>` +
@@ -95,6 +99,15 @@ const addButtonSize = 28;
 /** Dernier code de langue dessiné sur le bouton, pour ne le redessiner qu'au changement. */
 const languageStateAttribute = 'data-onlc-lang-state';
 
+/** Dernière liste de boutons de propriétés dessinée, pour ne la redessiner qu'au changement. */
+const propertiesStateAttribute = 'data-onlc-props-state';
+
+/** Dernier identifiant affiché dans le contour, pour ne le réécrire qu'au changement. */
+const blockIdStateAttribute = 'data-onlc-id-state';
+
+/** Préfixe des actions de propriétés, pour les distinguer de celles de la manipulation. */
+const propertyPrefix = 'prop:';
+
 const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
   let active = Optional.none<HTMLElement>();
 
@@ -108,6 +121,22 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
   let pinned = Optional.none<HTMLElement>();
   let layer: HTMLElement | null = null;
   const edges: Record<'start' | 'end', HTMLElement | null> = { start: null, end: null };
+
+  /**
+   * Boutons de propriétés du bloc affiché, avec l'élément que chacun modifiera.
+   *
+   * Ils sont recalculés à chaque positionnement et relus au clic : le geste agit ainsi sur
+   * l'élément qui était sous le bouton au moment où on l'a pressé.
+   */
+  let properties: BlockActions.ResolvedAction[] = [];
+
+  const runProperty = (id: string) => {
+    Arr.find(properties, (entry) => entry.action.id === id).each((entry) => {
+      if (editor.getBody().contains(entry.target)) {
+        entry.action.run(editor, entry.target);
+      }
+    });
+  };
 
   /** Le bloc sur lequel agir : celui du geste en cours, à défaut celui qui est survolé. */
   const targetOf = (): Optional<HTMLElement> => pinned.or(active);
@@ -162,7 +191,11 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
       e.stopPropagation();
 
       const action = button.getAttribute('data-onlc-action') ?? '';
-      if (action !== 'drag') {
+      if (action.indexOf(propertyPrefix) === 0) {
+        // Les propriétés sont servies ici plutôt que par le contrôleur : l'overlay a déjà sous la
+        // main l'élément que chaque bouton doit modifier, qui n'est pas toujours le bloc lui-même.
+        runProperty(action.substring(propertyPrefix.length));
+      } else if (action !== 'drag') {
         handlers.onAction(action, targetOf());
       }
       // Le gel ne survit pas au geste, sauf tant que le menu des langues reste ouvert : c'est
@@ -294,8 +327,65 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     }
   };
 
+  /**
+   * Les boutons de propriétés du bloc survolé, à la suite des boutons de manipulation.
+   *
+   * Comme le bouton de langue, ils sont mis à jour **avant** la mesure de la barre — ils en
+   * changent la largeur — et ne sont redessinés que lorsque la liste change réellement : le
+   * repositionnement tourne à chaque mouvement de souris, et remplacer les nœuds à chaque passage
+   * détacherait le bouton visé par le `mousedown` avant que le `mouseup` n'arrive. Le navigateur
+   * n'émet alors aucun `click`, et le bouton reste inerte sans que rien ne le signale.
+   */
+  const updateProperties = (toolbar: HTMLElement, block: HTMLElement) => {
+    const host = toolbar.querySelector<HTMLElement>('[data-onlc-part="props"]');
+    if (!Type.isNonNullable(host)) {
+      return;
+    }
+
+    properties = BlockActions.forBlock(editor, block);
+    const signature = Arr.map(properties, (entry) => entry.action.id).join(',');
+    setVisible(host, properties.length > 0);
+
+    if (host.getAttribute(propertiesStateAttribute) === signature) {
+      return;
+    }
+    host.setAttribute(propertiesStateAttribute, signature);
+    host.innerHTML = Arr.map(properties, (entry) => {
+      const label = editor.dom.encode(editor.translate(entry.action.label) as string);
+      return '<button type="button" class="onlc-blocks-btn onlc-blocks-btn--prop"' +
+        ` data-onlc-action="${propertyPrefix}${editor.dom.encode(entry.action.id)}"` +
+        ` title="${label}" aria-label="${label}">${entry.action.icon}</button>`;
+    }).join('');
+  };
+
+  /**
+   * L'identifiant du bloc, écrit dans un coin de son contour.
+   *
+   * Un `id` ne se voit nulle part dans une page : c'est pourtant lui que visent les ancres du
+   * menu et les scripts du site, et le supprimer par inadvertance casse des liens sans que rien
+   * ne l'affiche. Il est donc montré là où on manipule le bloc, et le bouton des propriétés
+   * permet de le changer.
+   *
+   * Il est écrit dans le contour plutôt que dans la page : rien n'est ajouté au contenu, et
+   * aucune mise en page n'est décalée par son affichage.
+   */
+  const updateBlockId = (block: HTMLElement) => {
+    const badge = part('blockid');
+    if (!Type.isNonNullable(badge)) {
+      return;
+    }
+    const id = editor.dom.getAttrib(block, 'id');
+    setVisible(badge, id !== '');
+    if (badge.getAttribute(blockIdStateAttribute) !== id) {
+      badge.setAttribute(blockIdStateAttribute, id);
+      badge.textContent = `#${id}`;
+      badge.title = editor.translate('Identifiant du bloc, utilisable comme ancre') as string;
+    }
+  };
+
   const positionForBlock = (block: HTMLElement) => {
     const rect = rectOf(block);
+    updateBlockId(block);
 
     setPosition(part('outline'), {
       top: `${rect.y}px`,
@@ -310,6 +400,7 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     if (Type.isNonNullable(toolbar)) {
       setVisible(toolbar, true);
       updateLanguageButton(toolbar, block);
+      updateProperties(toolbar, block);
       const height = toolbar.offsetHeight > 0 ? toolbar.offsetHeight : 30;
       setPosition(toolbar, {
         top: `${Math.max(0, rect.y - height - 2)}px`,

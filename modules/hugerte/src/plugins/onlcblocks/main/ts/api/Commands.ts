@@ -5,6 +5,7 @@ import Editor from 'hugerte/core/api/Editor';
 import * as Blocks from '../core/Blocks';
 import { Controller } from '../core/Controller';
 import * as Grid from '../core/Grid';
+import * as PropertiesDialog from '../ui/PropertiesDialog';
 
 const selectedBlock = (editor: Editor, controller: Controller): Optional<HTMLElement> =>
   controller.getActive().orThunk(() => Blocks.getBlockFor(editor, editor.selection.getNode()));
@@ -30,6 +31,20 @@ const register = (editor: Editor, controller: Controller): void => {
     { command: 'OnlcBlockSelectParent', action: 'parent' }
   ], (entry) => {
     editor.addCommand(entry.command, () => controller.act(entry.action));
+  });
+
+  /**
+   * Identifiant et classes du bloc courant.
+   *
+   * Ouvre le formulaire pour le bloc survolé, ou à défaut pour celui où se trouve le curseur :
+   * la commande est appelée aussi bien depuis la barre du bloc que depuis un menu.
+   */
+  editor.addCommand('OnlcBlockProperties', () => {
+    selectedBlock(editor, controller).each((block) => {
+      if (PropertiesDialog.isEditable(editor, block)) {
+        PropertiesDialog.open(editor, block);
+      }
+    });
   });
 
   // Bootstrap grid

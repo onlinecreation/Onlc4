@@ -92,6 +92,54 @@ partout ailleurs, et c'est bien le bloc visé qui reçoit la barre, pas la secti
 `onlcblocks` ne dépend pas de `onlcmultilang` — le bouton n'apparaît que si le plugin est chargé
 et déclare au moins une langue, et la barre reste identique sans lui.
 
+## Quel bloc l'éditeur désigne
+
+Un même point de la page appartient à plusieurs éléments imbriqués. L'éditeur en choisit un, et
+c'est celui-là qu'il entoure et qu'on manipule. Trois règles, dans cet ordre :
+
+1. **Un bloc insécable l'emporte.** Un diaporama, un bloc prédéfini se manipulent d'une pièce :
+   viser leur intérieur les désigne, eux. Voir « Les blocs insécables » ci-dessous.
+2. **Le bloc parmi ses semblables.** En remontant depuis le point visé, le premier bloc qui a des
+   **voisins de même rang** est retenu. C'est l'unité que le rédacteur reconnaît : celle qu'il
+   peut monter, descendre ou dupliquer sans que la question « par rapport à quoi ? » se pose.
+3. **Sinon, le bloc dont le parent est un conteneur** (`onlc_blocks_containers` : une ligne, une
+   colonne, une section, une balise de structure), et à défaut le plus extérieur.
+
+Un bloc **seul dans son parent** est traversé : il ne se distingue pas de ce parent, et offrir
+« monter » et « descendre » là où il n'y a rien à dépasser n'aurait pas de sens. Le bouton **⤒**
+remonte d'un cran quand on veut le bloc englobant.
+
+> **Pourquoi la deuxième règle existe.** Une page écrite à la main n'a pas de grille : ses
+> sections tiennent dans un `div` d'enrobage, et lui seul a le corps du document pour parent. Sans
+> cette règle, toute la page se surlignait d'un seul bloc, et plus rien n'y était manipulable — ni
+> les sections, ni les diaporamas qu'elles portent. Une page bâtie sur une grille, elle, se
+> comporte exactement comme avant : ses blocs ont déjà un conteneur pour parent.
+
+## Les blocs insécables
+
+Certains objets se manipulent d'une pièce, et leur intérieur ne se manipule pas : un diaporama
+Swiper, un bloc prédéfini. On les déplace, on les duplique, on les supprime entiers ; on ne tire
+pas une vue hors de sa piste, ni un titre hors du bandeau qui l'a produit.
+
+Le plugin qui possède l'objet le déclare, `onlcblocks` n'a pas à les connaître :
+
+```ts
+import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
+
+BlockAtoms.declare(editor, {
+  id: 'monplugin',
+  match: (editor, element) => element.classList.contains('mon-objet')
+});
+```
+
+`match` est une **fonction**, pas un sélecteur : ce qui définit un diaporama sur une page réelle
+est d'avoir une piste `.swiper-wrapper` pour enfant direct, et deux diaporamas de la même page ne
+portent pas la même classe. Un `match` qui lève une erreur vaut « non » et n'emporte que son
+propre plugin.
+
+Le registre vit sur l'objet éditeur, que tous les plugins partagent, et il est consulté au moment
+où l'on cherche un bloc : **l'ordre de chargement des plugins n'a aucun effet**.
+
 ## Une seule barre par bloc
 
 Deux barres flottantes se disputaient l'espace au-dessus d'un bloc : celle qui le manipule et

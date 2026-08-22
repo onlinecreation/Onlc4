@@ -91,6 +91,20 @@ describe('browser.hugerte.plugins.onlcseo.JsonldRoundTripTest', () => {
     assert.include(sortie, '"price": "28"');
   });
 
+  it('la remonte en tête dès l’ouverture, pas seulement à l’enregistrement', () => {
+    const editor = hook.editor();
+    editor.setContent('<p>Un paragraphe d’abord</p><p>Un second</p>' + fiche);
+
+    // L'ordre est lu sur le html de la zone d'édition : la fiche doit y précéder le texte.
+    const html = editor.getBody().innerHTML;
+    const carte = html.indexOf('onlc-jsonld');
+    const texte = html.indexOf('Un paragraphe d’abord');
+
+    assert.notEqual(carte, -1, 'la fiche est présentée par son bloc');
+    assert.isBelow(carte, texte,
+      'ce qu’on voit à l’écran est ce qui sera publié : la fiche d’abord');
+  });
+
   it('laisse les marqueurs de langue du texte devenir des sections', () => {
     const editor = hook.editor();
     editor.setContent('<p>[LG=fr]Bonjour[/LG]</p>' + fiche);

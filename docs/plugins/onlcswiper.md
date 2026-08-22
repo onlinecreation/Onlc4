@@ -22,7 +22,24 @@ Il n'y a **pas** de bouton « insérer un diaporama » dans la barre d'outils. S
 chargé par le gabarit du site : poser le html d'un diaporama dans une page qui n'a pas la
 bibliothèque donnerait une colonne d'images empilées, sans que rien ne l'explique.
 
-L'accès se fait par la barre du bloc survolé, ou par un double clic sur le diaporama.
+## Comment on y accède
+
+Le diaporama **est un bloc**. Il se déplace, se duplique et se supprime d'une pièce, et sa barre
+porte le bouton qui ouvre ses réglages. Ses vues, elles, n'en sont pas : on ne peut pas en tirer
+une hors de sa piste, ce qui casserait le diaporama sans rien annoncer. C'est ce que le plugin
+déclare à [`onlcblocks`](onlcblocks.md) — voir « Les blocs insécables ».
+
+Quand la barre se pose **plus haut** que le diaporama — une section qui n'en porte qu'un — le
+bouton suit, avec les mêmes règles que les autres propriétés : le bloc lui-même, sinon celui que
+la sélection désigne, sinon l'unique. Une section qui en contient plusieurs sans qu'aucun ne soit
+sélectionné ne propose rien : mieux vaut pas de bouton qu'un bouton dont on ignore ce qu'il
+ouvrira.
+
+Un **double clic** sur le diaporama ouvre aussi le formulaire — sauf sur une image, où c'est
+celui de l'image qui s'ouvre : on modifie l'image quand on vise l'image, le diaporama quand on
+vise autour.
+
+Sans `onlcblocks`, une bulle contextuelle prend le relais.
 
 ## Comment un diaporama est reconnu
 

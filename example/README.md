@@ -31,6 +31,19 @@ de cette page n'a été écrit pour l'éditeur, et tout y reste modifiable. Elle
 de style du site (`onlc_site_css`), la détection des diaporamas (`onlcswiper`) et les
 microdonnées (`onlcseo`).
 
+Elle est recopiée **telle qu'elle est publiée**, sans retouche : 63 Ko, trois diaporamas nommés
+chacun à sa façon, une parallaxe, trois langues, une fiche `ld+json` écrite au milieu d'un
+paragraphe tout en bas, deux gros scripts. Ses images pointent vers l'hébergement du site : hors
+ligne elles ne s'affichent pas, mais la structure — ce que la démonstration montre — reste
+entière.
+
+Trois défauts sont venus d'elle, et ils valent d'être connus de qui reprend un site existant :
+la page ne comptait que pour **un seul bloc** faute de grille Bootstrap ; les diaporamas
+n'étaient ni des blocs ni atteignables ; et la fiche de microdonnées revenait **vide** parce que
+les marqueurs de langue de ses valeurs json étaient pris pour des sections. Voir
+[onlcblocks](../docs/plugins/onlcblocks.md), [onlcswiper](../docs/plugins/onlcswiper.md) et
+[onlcseo](../docs/plugins/onlcseo.md).
+
 > La feuille du design est déclarée à son adresse réelle **et** dans une version locale
 > (`assets/lmparts-site.css`). La version locale reprend les classes de structure : elle garde la
 > démonstration lisible sur un poste hors ligne ou derrière un pare-feu, et sert d'exemple de ce

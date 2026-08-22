@@ -87,13 +87,43 @@ Le bas du formulaire montre le json produit, tel qu'il sera écrit dans la page.
 
 ## Où va la fiche
 
-**Tout en haut du document**, à l'enregistrement, quel que soit l'endroit où le bloc a été
-déplacé entre-temps. Ce sont des métadonnées : elles décrivent ce qui suit, et celui qui ouvre la
-source doit les trouver sans dérouler la page.
+**Tout en haut du document** — à l'ouverture comme à l'enregistrement, quel que soit l'endroit où
+elle était écrite ou a été déplacée entre-temps. Ce sont des métadonnées : elles décrivent ce qui
+suit, et celui qui ouvre la source doit les trouver sans dérouler la page.
+
+Une page réelle l'écrit parfois au milieu d'un paragraphe, tout en bas, après le pied de page.
+Elle est remontée dès l'ouverture : ce qu'on voit à l'écran est alors ce qui sera publié.
 
 Si une page arrive avec plusieurs fiches — d'un autre éditeur, d'un copier-coller — la première
 est conservée, les autres retirées, et le rédacteur en est averti. Les retirer en silence serait
 modifier le travail de quelqu'un sans le lui dire.
+
+## Ce que les autres plugins ne doivent pas en faire
+
+Une fiche est un `script`, mais elle ne contient que des données : personne ne l'exécute jamais.
+Deux plugins pourraient s'y tromper, et le plugin le leur dit.
+
+**`onlcwidgets`** remplace chaque `script` d'une page par un jeton de code. `onlcseo` revendique
+le type `application/ld+json` par le registre partagé `ScriptTypes`, posé sur l'objet éditeur :
+la fiche traverse le jeton et arrive à son propre bloc. La revendication passait autrefois par
+une option, ce qui n'était possible que si `onlcwidgets` avait été chargé **avant** — l'ordre des
+plugins appartenant au projet, la fiche revenait alors en pavé de code sans que rien ne
+l'explique. L'ordre n'a plus d'effet.
+
+**`onlcmultilang`** transforme les marqueurs `[LG=fr]…[/LG]` en sections de langue. Une fiche
+réelle en porte dans ses valeurs :
+
+```json
+"name": "[LG=en]Keychain[/LG][LG=fr]Coque de clef[/LG]"
+```
+
+Ce sont des données, que le moteur du site résoudra à la publication. Les transformer en éléments
+y poserait des guillemets, au milieu d'une chaîne json : la fiche devenait illisible, et
+l'éditeur en affichait une vide. Le plugin des langues s'arrête désormais aux portes d'un
+`script` et d'un `style` — la même règle que le plugin des codes courts appliquait déjà.
+
+Un projet qui ajoute ses propres types de `script` de données passe par l'option
+`onlc_script_ignored_types` d'[`onlcwidgets`](onlcwidgets.md) : les deux s'additionnent.
 
 ## Le catalogue schema.org
 

@@ -35,24 +35,35 @@ const hasClass = (node: AstNode, cls: string): boolean => {
 const jsonldRegExp =
   /<script\b([^>]*\btype\s*=\s*(?:"application\/ld\+json"|'application\/ld\+json')[^>]*)>([\s\S]*?)<\/script\s*>/gi;
 
+/** Le json d'une fiche, ou un objet vide s'il est illisible. */
+const parseBody = (body: string): Jsonld.JsonldObject => {
+  try {
+    const parsed: unknown = JSON.parse(body.trim());
+    return Type.isObject(parsed) ? parsed as Jsonld.JsonldObject : {};
+  } catch (_err) {
+    return {};
+  }
+};
+
 /**
- * Remplace les fiches d'une chaîne html par leur bloc d'édition.
+ * Remplace les fiches d'une chaîne html par leur bloc d'édition, **en tête**.
+ *
+ * La fiche est remontée avant tout le reste, comme elle le sera à l'enregistrement : c'est le
+ * seul endroit où l'on pense à la chercher, et une page réelle l'écrit parfois au milieu d'un
+ * paragraphe, tout en bas. Ce qu'on voit à l'écran est alors ce qui sera publié.
  *
  * Une fiche illisible — json malformé, texte tronqué — n'est pas jetée : elle devient un bloc
  * vide dont le formulaire repart de zéro. Perdre les données de quelqu'un parce qu'une virgule
  * manque serait la pire des réponses.
  */
-const toBlocks = (editor: Editor, content: string): string =>
-  content.replace(jsonldRegExp, (_all, _attributes: string, body: string) => {
-    let data: Jsonld.JsonldObject = {};
-    try {
-      const parsed: unknown = JSON.parse(body.trim());
-      data = Type.isObject(parsed) ? parsed as Jsonld.JsonldObject : {};
-    } catch (_err) {
-      data = {};
-    }
-    return Jsonld.toBlockHtml(editor, data);
+const toBlocks = (editor: Editor, content: string): string => {
+  const blocks: string[] = [];
+  const rest = content.replace(jsonldRegExp, (_all, _attributes: string, body: string) => {
+    blocks.push(Jsonld.toBlockHtml(editor, parseBody(body)));
+    return '';
   });
+  return blocks.join('') + rest;
+};
 
 /** Le json échappé pour vivre dans un élément à contenu brut. */
 const safeJson = (editor: Editor, data: Jsonld.JsonldObject): string =>
@@ -126,6 +137,7 @@ const setup = (editor: Editor): void => {
 
 export {
   jsonldRegExp,
+  parseBody,
   toBlocks,
   safeJson,
   rootOf,

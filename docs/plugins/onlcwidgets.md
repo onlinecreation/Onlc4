@@ -216,6 +216,7 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_script_default_type` | `'text/javascript'` | Type MIME proposé |
 | `onlc_script_positions` | 3 emplacements | Emplacements proposés pour un script |
 | `onlc_script_allow_src` | `true` | Autorise les scripts externes (`src`) |
+| `onlc_script_ignored_types` | `[]` | Types de `script` laissés intacts : ce sont des données, pas du code, et un autre plugin les prend en charge — voir ci-dessous |
 | `onlc_code_tab_size` | `2` | Taille d'une tabulation dans les éditeurs de code |
 | `onlc_code_line_numbers` | `true` | Affiche les numéros de ligne |
 | `onlc_source_pretty_print` | `true` | Indente le HTML à l'ouverture du code source |
@@ -228,6 +229,21 @@ elles sont rendues non éditables dans l'éditeur uniquement.
 | `onlc_preview_values` | `{}` | Valeurs des codes courts dans l'aperçu |
 | `onlc_preview_css` | `content_css` de l'éditeur | Feuilles du **site** dans l'aperçu ; celles des plugins s'y ajoutent toujours |
 | `onlc_preview_sandbox` | `allow-scripts allow-same-origin allow-popups allow-forms allow-presentation` | Jetons du bac à sable du cadre d'aperçu |
+
+### Les `script` qui ne sont pas du code
+
+Un `script` de type `application/ld+json` ne contient que des données : personne ne l'exécute, et
+en faire un jeton de code le rendrait illisible. `onlc_script_ignored_types` liste les types que
+le plugin laisse traverser intacts.
+
+Deux sources s'additionnent : cette option, par laquelle le **projet** ajoute les siennes, et le
+registre partagé `onlcshared/ScriptTypes`, par lequel un **plugin** revendique les types qu'il
+prend en charge — [`onlcseo`](onlcseo.md) y revendique `application/ld+json`. Le registre vivant
+sur l'objet éditeur et n'étant lu qu'à l'arrivée du contenu, l'ordre de chargement des plugins
+n'a aucun effet.
+
+Un type qui n'est réclamé par personne reste un jeton de code : sans cela, le nettoyeur du cœur
+le supprimerait purement et simplement.
 
 ### Ajouter un bloc maison
 

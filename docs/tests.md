@@ -107,7 +107,7 @@ Rien d'autre à déclarer : les deux lanceurs trouvent les fichiers par leur emp
 
 ### Ce que certaines épreuves ont trouvé
 
-Un test n'a de valeur que s'il peut échouer. Trois de ceux-ci ont trouvé de vrais défauts en
+Un test n'a de valeur que s'il peut échouer. Plusieurs de ceux-ci ont trouvé de vrais défauts en
 étant écrits, et il vaut la peine de dire lesquels :
 
 * `onlcswiper/JsObjectTest` — le lecteur de littéraux refusait les **clés numériques**, alors que
@@ -118,7 +118,18 @@ Un test n'a de valeur que s'il peut échouer. Trois de ceux-ci ont trouvé de vr
   survit. C'est le bug qui coupait le code source à la dix-septième ligne ;
 * `onlcblocks/BlockPropertiesTest` — il déclare un bouton de propriétés dont le `match` lève une
   exception, et vérifie que **les autres restent** : un plugin qui se trompe ne doit pas emporter
-  la barre entière.
+  la barre entière ;
+* `onlcblocks/BlockResolutionTest` — il décrit une page **sans grille**, des sections dans un
+  `div` d'enrobage, comme celles qu'on reprend d'un site existant. La règle d'origine y rendait la
+  page entière comme bloc unique : plus rien n'y était manipulable, ni les sections, ni les
+  diaporamas qu'elles portent ;
+* `onlcseo/JsonldRoundTripTest` — il charge trois plugins qui réécrivent tous la chaîne html
+  brute, et cite `onlcseo` **avant** `onlcwidgets` : c'est l'ordre qui faisait échouer la
+  revendication du type de script. La fiche qu'il emploie porte des marqueurs de langue dans ses
+  valeurs json, ce qui la rendait illisible et faisait perdre les données du rédacteur ;
+* `onlcswiper/BlockAccessTest` — il vérifie qu'on peut **atteindre** les réglages, ce qui est
+  autre chose que de savoir les lire. Sur la page qui a révélé le défaut, aucun diaporama n'avait
+  d'entrée : ni bouton dans la barre du bloc, ni bulle contextuelle.
 
 Une remarque sur les simulations : l'api média se branche par `onlc_media_handlers`, ce qui
 permet à un test de décrire exactement l'arborescence dont il a besoin — et de compter les

@@ -27,6 +27,31 @@ const styles = `
   box-sizing: border-box; width: 100%; height: 100%; max-height: 100%; min-height: 260px;
   padding: 4px 14px 14px; overflow-y: auto; overflow-x: hidden;
 }
+/**
+ * L'entête d'un objet imbriqué.
+ *
+ * Elle est collante et occupe toute la largeur : descendre dans le prix d'une offre affichait
+ * sinon la même page que la fiche elle-même, à trois mots près en haut de l'écran. On ne voyait
+ * pas qu'on avait changé de niveau, et les boutons du pied du dialogue étaient pris pour le moyen
+ * de revenir en arrière.
+ */
+.tox .onlc-schema__level {
+  position: sticky; top: -4px; z-index: 2;
+  display: flex; flex-direction: column; gap: 8px;
+  margin: -4px -14px 0; padding: 12px 14px;
+  background: #eef4fc; border-bottom: 2px solid #006ce7;
+}
+.tox .onlc-schema__back {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 40px; padding: 0 16px;
+  border: 1px solid #006ce7; border-radius: 8px; background: #fff;
+  font: inherit; font-weight: 600; color: #006ce7; cursor: pointer;
+}
+.tox .onlc-schema__back:hover { background: #006ce7; color: #fff; }
+.tox .onlc-schema__here { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.tox .onlc-schema__heretitle { font-size: 15px; font-weight: 600; color: #22303c; }
+
 .tox .onlc-schema__trail { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
 .tox .onlc-schema__crumb {
   padding: 4px 10px; border: 0; border-radius: 999px; background: #eef2f6;

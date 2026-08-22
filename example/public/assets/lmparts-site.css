@@ -217,21 +217,22 @@
 
 /* Diaporamas ------------------------------------------------------------------
  *
- * Sur le site, Swiper pose lui-même les dimensions. Ces règles ne concernent que la taille des
- * images à l'intérieur d'une vue, qui relève du design et non de la bibliothèque.
+ * Sur le site, c'est Swiper qui pose les dimensions des vues, et la feuille du design qui habille
+ * les images. Cette feuille-ci n'est qu'un **remplaçant hors ligne** : elle ne doit donc rien
+ * décider que la vraie ne déciderait pas.
+ *
+ * Elle a un temps posé `border-radius: 6px` et `width: 100%` sur les images de vue. Ces deux
+ * règles étaient de mon invention : elles se voyaient dans l'aperçu — coins arrondis, images
+ * étirées — et donnaient une page qui ne ressemblait pas au site. Une feuille de remplacement qui
+ * invente du design ment sur ce que l'aperçu montre ; celle-ci s'en tient à la structure.
  */
 
 .swiper-slide img {
   max-width: 100%;
-  border-radius: 6px;
 }
 
 .swiper-slide-double img + img {
   margin-left: 8px;
-}
-
-.images-show .swiper-slide img {
-  width: 100%;
 }
 
 /* Pied de page ------------------------------------------------------------------ */

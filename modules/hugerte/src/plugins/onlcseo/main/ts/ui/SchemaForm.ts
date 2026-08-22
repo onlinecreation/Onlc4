@@ -112,7 +112,20 @@ const asList = (value: Jsonld.JsonldValue | undefined): Jsonld.JsonldValue[] => 
   return Type.isArray(value) ? value : [ value ];
 };
 
-const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.CustomEditorInit> => {
+/** Ce que le formulaire dit au dialogue à chaque changement de niveau. */
+export interface LevelState {
+  /** 0 à la racine de la fiche, 1 dans un objet imbriqué, et ainsi de suite. */
+  readonly depth: number;
+  /** Intitulé du niveau où l'on se trouve. */
+  readonly label: string;
+  /** Intitulé du niveau qui le contient, ou chaîne vide à la racine. */
+  readonly parent: string;
+}
+
+/** Ce que le formulaire appelle à chaque changement de niveau. */
+export type LevelListener = (state: LevelState) => void;
+
+const create = (editor: Editor, onLevel: LevelListener) => (element: HTMLElement): Promise<Dialog.CustomEditorInit> => {
   const doc = element.ownerDocument;
   FormStyles.ensure(doc);
 
@@ -143,7 +156,7 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
 
   const descend = (level: Level) => {
     stack = stack.concat([ level ]);
-    render();
+    renderFromTop();
   };
 
   /** Remonte jusqu'au niveau demandé, en reposant chaque valeur dans celui qui la contient. */
@@ -157,7 +170,7 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
 
   const goUp = (to: number) => {
     ascend(to);
-    render();
+    renderFromTop();
   };
 
   const renderTypePicker = () => {
@@ -221,15 +234,57 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
         root = value;
       }
     }];
-    render();
+    renderFromTop();
   };
 
+  /**
+   * L'entête d'un objet imbriqué : d'où l'on vient, et ce qu'on modifie.
+   *
+   * Un fil d'Ariane seul ne suffisait pas. Descendre dans le prix d'une offre affichait la même
+   * page que la fiche elle-même, à trois mots près en haut de l'écran : on ne voyait pas qu'on
+   * avait changé de niveau, et les boutons du pied — « Annuler », « Mettre à jour » — étaient pris
+   * pour le moyen de revenir en arrière.
+   *
+   * La barre est donc **collante** et occupe toute la largeur : un bouton de retour qui nomme le
+   * niveau parent, le nom du niveau courant en gros, et le chemin complet en dessous pour qui
+   * descend de plusieurs crans.
+   */
+  const levelHeader = (): HTMLElement => {
+    const parent = stack[stack.length - 2];
+    const level = current();
+
+    const bar = node('div', 'onlc-schema__level');
+
+    const back = node('button', 'onlc-schema__back');
+    back.type = 'button';
+    back.innerHTML = '<span aria-hidden="true">\u2190</span> ';
+    back.appendChild(doc.createTextNode(`${t('Retour à')} ${t(parent.label)}`));
+    back.addEventListener('click', () => goUp(stack.length - 2));
+    bar.appendChild(back);
+
+    const here = node('div', 'onlc-schema__here');
+    const title = node('span', 'onlc-schema__heretitle');
+    title.textContent = `${t('Vous modifiez')} : ${t(level.label)}`;
+    const name = node('code', 'onlc-schema__name');
+    name.textContent = level.typeName;
+    here.appendChild(title);
+    here.appendChild(name);
+    bar.appendChild(here);
+
+    if (stack.length > 2) {
+      bar.appendChild(trail());
+    }
+
+    return bar;
+  };
+
+  /** Le chemin complet, en rappel : utile à partir de deux niveaux d'imbrication. */
   const trail = (): HTMLElement => {
     const bar = node('div', 'onlc-schema__trail');
     Arr.each(stack, (level, index) => {
       if (index > 0) {
         const sep = node('span', 'onlc-schema__sep');
-        sep.textContent = '>';
+        sep.textContent = '\u203a';
         bar.appendChild(sep);
       }
       const last = index === stack.length - 1;
@@ -694,10 +749,12 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
 
   const renderLevel = () => {
     const level = current();
-    element.innerHTML = '';
-    element.appendChild(trail());
-
     const isRoot = stack.length === 1;
+    element.innerHTML = '';
+    if (!isRoot) {
+      element.appendChild(levelHeader());
+    }
+
     const required = Schema.requiredOf(editor, level.typeName);
     const recommended = Schema.recommendedOf(editor, level.typeName);
     const known = Schema.fieldsOf(editor, level.typeName);
@@ -711,7 +768,7 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
       element.appendChild(intro);
       element.appendChild(button('Changer de type de contenu…', 'onlc-schema__btn--small', () => {
         stack = [];
-        render();
+        renderFromTop();
       }));
     }
 
@@ -745,6 +802,28 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     } else {
       renderLevel();
     }
+    onLevel(stack.length === 0
+      ? { depth: 0, label: '', parent: '' }
+      : {
+        depth: stack.length - 1,
+        label: current().label,
+        parent: stack.length > 1 ? stack[stack.length - 2].label : ''
+      });
+  };
+
+  /**
+   * Redessine, puis **remonte en haut**.
+   *
+   * Un changement de niveau doit repartir du début : descendre dans le prix d'une offre laissait
+   * le formulaire à la hauteur où l'on venait de cliquer, c'est-à-dire souvent au milieu de rien,
+   * et il fallait remonter à la main pour voir où l'on était et commencer à écrire.
+   *
+   * Les redessins **à l'intérieur** d'un niveau — ajouter une valeur, retirer une propriété —
+   * passent par `render` et gardent la position : y remonter serait tout aussi désagréable.
+   */
+  const renderFromTop = () => {
+    render();
+    element.scrollTop = 0;
   };
 
   /** La fiche complète : tous les niveaux ouverts sont refermés avant d'être lus. */
@@ -779,11 +858,11 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
 };
 
 /** Spec du composant, à placer dans un dialogue. */
-const field = (editor: Editor, name: string): Dialog.CustomEditorSpec => ({
+const field = (editor: Editor, name: string, onLevel: LevelListener): Dialog.CustomEditorSpec => ({
   type: 'customeditor',
   name,
   tag: 'div',
-  init: create(editor)
+  init: create(editor, onLevel)
 });
 
 export {

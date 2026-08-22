@@ -38,17 +38,6 @@ const register = (editor: Editor): void => {
     processor: 'string',
     default: 'https://schema.org'
   });
-
-  /**
-   * Adresse de l'outil de vérification proposé dans le formulaire.
-   *
-   * Vide, aucun lien n'est proposé : un back-office sans accès sortant n'a pas à afficher un
-   * bouton qui ne mènera nulle part.
-   */
-  registerOption('onlc_seo_test_url', {
-    processor: 'string',
-    default: 'https://search.google.com/test/rich-results'
-  });
 };
 
 const getCustomTypes = (editor: Editor): SchemaType[] => {
@@ -70,11 +59,6 @@ const getBuiltInTypes = (editor: Editor): SchemaType[] => {
 const getContext = (editor: Editor): string => {
   const value = editor.options.get('onlc_seo_context');
   return Type.isString(value) && value !== '' ? value : 'https://schema.org';
-};
-
-const getTestUrl = (editor: Editor): string => {
-  const value = editor.options.get('onlc_seo_test_url');
-  return Type.isString(value) ? value : '';
 };
 
 /**
@@ -100,6 +84,5 @@ export {
   getExcludedTypes,
   getBuiltInTypes,
   getContext,
-  getTestUrl,
   getSiteLanguages
 };

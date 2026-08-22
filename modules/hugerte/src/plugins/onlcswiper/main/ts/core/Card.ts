@@ -23,12 +23,14 @@ import * as Detect from './Detect';
  * caractère près. C'est le même procédé que la barre des blocs, qui vit elle aussi dans la zone
  * d'écriture sans jamais être publiée.
  *
- * ## Ce qui reste modifiable
+ * ## Le diaporama se manipule d'une pièce
  *
- * Contrairement à une galerie, le diaporama **n'est pas figé** : ses vues gardent leur texte
- * modifiable au clavier. Une page réelle y met des avis clients, et les enfermer derrière le
- * formulaire — qui ne sait que déplacer une vue libre, pas en réécrire le contenu — reviendrait
- * à rendre ce texte inaccessible. L'aperçu est une présentation, pas une serrure.
+ * Le conteneur est rendu **non modifiable** pendant l'écriture : on ne tape pas dans une vue, on
+ * ne colle pas entre deux, on ne tire pas une image hors de sa piste. Tout passe par le
+ * formulaire, seul endroit qui sache ce qu'une vue doit contenir.
+ *
+ * `contenteditable` est posé ici et retiré à l'enregistrement par le filtre de sérialisation :
+ * c'est un état d'écriture, il n'a rien à faire dans la page publiée.
  */
 
 export const headClass = 'onlc-swiper-head';
@@ -70,6 +72,11 @@ const decorateOne = (editor: Editor, swiper: Detect.Swiper): void => {
   const wrapper = container.querySelector(`.${Detect.wrapperClass}`);
   if (!Type.isNonNullable(wrapper)) {
     return;
+  }
+
+  // Le diaporama se manipule d'une pièce : rien ne s'y tape, rien ne s'y colle.
+  if (container.getAttribute('contenteditable') !== 'false') {
+    container.setAttribute('contenteditable', 'false');
   }
 
   const existingHead = container.querySelector(`:scope > .${headClass}`);

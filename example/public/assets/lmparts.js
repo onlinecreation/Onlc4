@@ -60,7 +60,7 @@ hugerte.init({
     'onlcblocksinsert onlcblocksrow',
     'onlcimage onlclink',
     'onlcwidget onlcscript onlcsource',
-    'onlcmultilang onlcseo',
+    'onlcmultilang onlcmultilangwork onlcseo',
     'onlcpreview',
     'fullscreen'
   ].join(' | '),

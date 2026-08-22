@@ -78,13 +78,24 @@
   gap: 8px;
   box-sizing: border-box;
   max-width: 100%;
-  padding: 4px;
+  padding: 0;
   overflow-x: auto;
   overflow-y: hidden;
   /* Sans cela, une piste posée dans une colonne étroite pousse la colonne au lieu de défiler. */
   min-width: 0;
 }
 
+/**
+ * Une vue garde sa **largeur naturelle**.
+ *
+ * Seule la hauteur est bornée — c'est `onlc_swiper_edit_height` qui la fixe, et c'est elle qui
+ * empêche un diaporama de huit photos d'occuper huit écrans. La largeur, elle, découle du rapport
+ * de l'image : les vues s'alignent alors comme sur le site, dans leurs proportions.
+ *
+ * Elle était auparavant plafonnée à 60 % de la piste, ce qui donnait, sur un diaporama d'avis en
+ * pleine largeur, des vues de six cents pixels de large autour d'une image de deux cents : un
+ * espace vide démesuré de part et d'autre, qui ne ressemblait à rien de ce que le visiteur verra.
+ */
 .swiper-wrapper > .swiper-slide {
   display: flex;
   flex: 0 0 auto;
@@ -92,18 +103,22 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  max-width: 60%;
-  padding: 4px;
+  /* La largeur vient du contenu ; le plafond ne sert qu'aux vues libres, dont le texte s'étirerait
+     sur une seule ligne interminable. */
+  width: auto;
+  /* Un plancher, pour qu'une image encore en cours de chargement — ou introuvable — n'écrase pas
+     la vue à zéro pixel de large : la piste deviendrait illisible le temps du chargement. */
+  min-width: 90px;
+  max-width: 420px;
   overflow: hidden;
-  background: #f4f6f8;
-  border: 1px solid #dde3ea;
-  border-radius: 6px;
+  background: transparent;
 }
 
 .swiper-wrapper > .swiper-slide img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  display: block;
+  width: auto;
+  max-width: none;
+  height: 100%;
 }
 
 /**

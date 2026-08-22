@@ -49,7 +49,7 @@ hugerte.init({
     'onlclink onlcunlink',
     'onlcspacer onlcicons',
     'onlcwidget onlcscript onlcsource',
-    'onlcmultilang',
+    'onlcmultilang onlcmultilangwork',
     'onlcpreview',
     'fullscreen'
   ].join(' | '),

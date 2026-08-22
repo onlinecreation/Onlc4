@@ -163,6 +163,33 @@ const register = (editor: Editor): void => {
     match: (target, element) => target.dom.hasClass(element, Dom.blockClass)
   });
 
+  /**
+   * Le mode de rédaction, dans la barre d'outils.
+   *
+   * Il vivait au troisième niveau du menu des langues — « Langues › Travailler dans une seule
+   * langue › Français » — c'est-à-dire nulle part : personne ne trouve un mode de travail à trois
+   * crans de profondeur. Il a donc son propre bouton, qui **porte le nom de la langue en cours**
+   * et s'allume quand le mode est ouvert. On voit ainsi du premier coup d'œil qu'on n'écrit pas
+   * dans toutes les langues, ce qui est l'essentiel : sans cela, on cherche un paragraphe qu'on
+   * croit perdu.
+   */
+  editor.ui.registry.addMenuButton('onlcmultilangwork', {
+    icon: 'language',
+    tooltip: 'Travailler dans une seule langue',
+    text: '',
+    fetch: (callback) => callback(workItems(editor)),
+    onSetup: (api) => {
+      const refresh = () => {
+        const code = Work.current(editor);
+        api.setActive(code !== '');
+        api.setText(code === '' ? '' : Languages.displayOf(editor, code));
+      };
+      refresh();
+      editor.on('NodeChange SetContent', refresh);
+      return () => editor.off('NodeChange SetContent', refresh);
+    }
+  });
+
   editor.ui.registry.addMenuButton('onlcmultilang', {
     icon: 'language',
     tooltip: 'Langues de la page',

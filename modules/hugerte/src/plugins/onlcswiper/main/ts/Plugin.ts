@@ -7,6 +7,7 @@ import * as Commands from './api/Commands';
 import * as Options from './api/Options';
 import * as Card from './core/Card';
 import * as Detect from './core/Detect';
+import * as FilterContent from './core/FilterContent';
 import * as Settings from './core/Settings';
 import * as Slides from './core/Slides';
 import * as Buttons from './ui/Buttons';
@@ -53,10 +54,13 @@ export default (): void => {
 
     if (Options.shouldInjectStyles(editor)) {
       editor.contentCSS.push(`${pluginUrl}/css/onlcswiper.css`);
+      // La hauteur des vues est la **seule** dimension imposée : la largeur suit le rapport de
+      // l'image, pour que les vues s'alignent comme elles le feront sur le site.
       editor.contentStyles.push(
-        `body .swiper-wrapper > .swiper-slide { max-height: ${Options.getEditHeight(editor)}; }`);
+        `body .swiper-wrapper > .swiper-slide { height: ${Options.getEditHeight(editor)}; }`);
     }
 
+    FilterContent.setup(editor);
     Commands.register(editor);
     Buttons.register(editor);
 

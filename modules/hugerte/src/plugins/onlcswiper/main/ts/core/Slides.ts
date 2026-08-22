@@ -10,17 +10,24 @@ import * as Detect from './Detect';
  * ## Deux sortes de vues
  *
  * Dans une page réelle, une vue contient tantôt une image, tantôt deux, tantôt un bloc de texte
- * avec un bouton. Le formulaire ne peut proposer un champ « adresse de l'image » que pour les
- * premières.
+ * avec un bouton. Le formulaire ne sait proposer « une image et son texte de remplacement » que
+ * pour la première sorte.
  *
- * Une vue est donc dite **d'images** quand elle ne contient que des images, et **libre** dans tous
- * les autres cas. Les vues libres apparaissent dans la liste — on peut les déplacer et les
- * supprimer, ce sont des vues comme les autres — mais leur contenu n'est jamais réécrit : il se
- * modifie directement dans la page, où il est visible et modifiable comme n'importe quel texte.
+ * Une vue est donc dite **d'image** quand elle contient exactement **une** image et rien d'autre,
+ * et **libre** dans tous les autres cas — plusieurs images, du texte, un bouton. Les vues libres
+ * apparaissent dans la liste : on les déplace et on les retire comme les autres, mais leur
+ * contenu n'est **jamais réécrit**.
  *
  * C'est la seule façon de ne pas détruire le travail de quelqu'un. Un formulaire qui ramènerait
- * toute vue à « une image et un texte de remplacement » effacerait sans prévenir le bouton, le
- * titre et la légende d'un diaporama d'accueil.
+ * toute vue à une image effacerait sans prévenir la seconde image d'une vue double, ou le bouton
+ * et le titre d'un diaporama d'accueil.
+ *
+ * ## Une seule image par vue
+ *
+ * Ce que l'éditeur **produit** ne porte qu'une image : c'est le modèle qu'un diaporama demande, et
+ * deux images dans une même vue relèvent d'une mise en page que la bibliothèque ne connaît pas.
+ * Les vues doubles déjà écrites ne sont pas converties pour autant — elles passent en vues libres,
+ * et traversent l'éditeur intactes.
  */
 
 export interface SlideImage {
@@ -52,15 +59,23 @@ const extraClasses = (element: HTMLElement): string =>
   Arr.filter(element.className.split(/\s+/), (name) =>
     name !== '' && name !== Detect.slideClass && name.indexOf('mce-') !== 0).join(' ');
 
-const readSlide = (editor: Editor, element: HTMLElement): Slide => ({
-  element,
-  images: Arr.map(editor.dom.select<HTMLImageElement>('img', element), (image) => ({
+const readSlide = (editor: Editor, element: HTMLElement): Slide => {
+  const images = Arr.map(editor.dom.select<HTMLImageElement>('img', element), (image) => ({
     src: editor.dom.getAttrib(image, 'src'),
     alt: editor.dom.getAttrib(image, 'alt')
-  })),
-  classes: extraClasses(element),
-  custom: Arr.exists(Arr.from(element.childNodes), isMeaningful)
-});
+  }));
+
+  // Une vue à deux images est une mise en page que le formulaire ne saurait pas reconstruire :
+  // elle est traitée comme libre, donc déplacée sans jamais être réécrite.
+  const libre = Arr.exists(Arr.from(element.childNodes), isMeaningful) || images.length > 1;
+
+  return {
+    element,
+    images: libre ? images : images.slice(0, 1),
+    classes: extraClasses(element),
+    custom: libre
+  };
+};
 
 const read = (editor: Editor, swiper: Detect.Swiper): Slide[] =>
   Arr.map(
@@ -75,7 +90,7 @@ const classesOf = (slide: Slide): string =>
   slide.classes === '' ? Detect.slideClass : `${Detect.slideClass} ${slide.classes}`;
 
 /**
- * Le html d'une vue d'images.
+ * Le html d'une vue d'image.
  *
  * `loading="lazy"` est posé comme dans les pages d'Online Création : un diaporama d'accueil charge
  * volontiers huit photos, dont sept ne seront jamais regardées.

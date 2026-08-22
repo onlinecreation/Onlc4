@@ -4,7 +4,6 @@ import Editor from 'hugerte/core/api/Editor';
 import { Dialog } from 'hugerte/core/api/ui/Ui';
 import * as Destroy from 'hugerte/plugins/onlcshared/ui/Destroy';
 
-import * as Options from '../api/Options';
 import * as Jsonld from '../core/Jsonld';
 import * as Schema from '../core/Schema';
 import * as SchemaForm from './SchemaForm';
@@ -27,16 +26,32 @@ interface JsonldDialogData {
 
 const open = (editor: Editor): void => {
   const existing = Jsonld.existing(editor);
+
+  /**
+   * Les boutons du pied ne s'appliquent qu'à la **fiche entière**.
+   *
+   * Descendu dans un objet imbriqué — le prix d'une offre —, le rédacteur les prenait pour le
+   * moyen de revenir au niveau au-dessus, et refermait le dialogue en croyant remonter d'un cran.
+   * Ils sont donc éteints tant qu'on n'est pas à la racine, et c'est la barre de retour du
+   * formulaire qui porte la navigation. « Annuler » reste actif : il faut toujours pouvoir
+   * renoncer.
+   */
+  let api: Dialog.DialogInstanceApi<JsonldDialogData> | null = null;
+  const onLevel = (state: SchemaForm.LevelState): void => {
+    if (!Type.isNonNullable(api)) {
+      return;
+    }
+    const atRoot = state.depth === 0;
+    api.setEnabled('save', atRoot);
+    if (existing.isSome()) {
+      api.setEnabled('remove', atRoot);
+    }
+  };
   const initial = existing.fold(() => ({} as Jsonld.JsonldObject), (element) => Jsonld.read(editor, element));
 
   const buttons: Dialog.DialogFooterButtonSpec[] = [
     { type: 'cancel', name: 'cancel', text: 'Annuler' }
   ];
-
-  const testUrl = Options.getTestUrl(editor);
-  if (testUrl !== '') {
-    buttons.push({ type: 'custom', name: 'test', text: 'Outil de test des moteurs…' });
-  }
 
   existing.each(() => {
     buttons.push({ type: 'custom', name: 'remove', text: 'Supprimer la fiche' });
@@ -49,35 +64,16 @@ const open = (editor: Editor): void => {
     primary: true
   });
 
-  editor.windowManager.open<JsonldDialogData>({
+  api = editor.windowManager.open<JsonldDialogData>({
     title: 'Microdonnées de la page',
     size: 'large',
     body: {
       type: 'panel',
-      items: [ SchemaForm.field(editor, 'microdata') ]
+      items: [ SchemaForm.field(editor, 'microdata', onLevel) ]
     },
     initialData: { microdata: JSON.stringify(initial) },
     buttons,
     onAction: (api, details) => {
-      if (details.name === 'test') {
-        editor.windowManager.open({
-          title: 'Vérifier la fiche',
-          body: {
-            type: 'panel',
-            items: [{
-              type: 'htmlpanel',
-              presets: 'document',
-              html: `<p>${editor.dom.encode(editor.translate(
-                'Les moteurs de recherche mettent à disposition un outil qui lit une page publiée et ' +
-                'dit ce qu’ils y comprennent. Publiez d’abord la page, puis donnez-lui son adresse.') as string)}</p>` +
-                `<p><a href="${Jsonld.escape(testUrl)}" target="_blank" rel="noopener noreferrer">` +
-                `${Jsonld.escape(testUrl)}</a></p>`
-            }]
-          },
-          buttons: [{ type: 'cancel', name: 'close', text: 'Fermer', primary: true }]
-        });
-      }
-
       if (details.name === 'remove') {
         Destroy.open(editor, {
           what: editor.translate('les microdonnées de cette page') as string,

@@ -87,7 +87,14 @@ describe('browser.hugerte.plugins.onlcswiper.DetectTest', () => {
     assert.isTrue(Detect.at(editor, editor.dom.select('p', editor.getBody())[0]).isNone());
   });
 
-  it('distingue les vues d’images des vues libres', () => {
+  /**
+   * Une vue est **d'image** quand elle contient exactement une image et rien d'autre.
+   *
+   * Tout le reste est une vue libre : plusieurs images, du texte, un bouton. Le formulaire ne les
+   * réécrit jamais, il les déplace — c'est ce qui protège la seconde image d'une vue double, que
+   * le modèle « une image et son texte de remplacement » effacerait sans prévenir.
+   */
+  it('distingue les vues d’image des vues libres', () => {
     const editor = hook.editor();
     editor.setContent(page);
     const vues = Slides.read(editor, Detect.all(editor)[0]);
@@ -97,11 +104,25 @@ describe('browser.hugerte.plugins.onlcswiper.DetectTest', () => {
     assert.equal(vues[0].images.length, 1);
     assert.equal(vues[0].images[0].alt, 'Un');
 
-    assert.isFalse(vues[1].custom, 'deux images restent une vue d’images');
-    assert.equal(vues[1].images.length, 2);
+    assert.isTrue(vues[1].custom, 'deux images font une vue libre : le formulaire n’en produit plus');
+    assert.equal(vues[1].images.length, 2, 'ses deux images sont relevées, et gardées');
     assert.equal(vues[1].classes, 'swiper-slide-double', 'sa classe propre est relevée');
 
     assert.isTrue(vues[2].custom, 'un titre et un paragraphe font une vue libre');
+  });
+
+  it('garde les deux images d’une vue double à la réécriture', () => {
+    const editor = hook.editor();
+    editor.setContent(page);
+    const diaporama = Detect.all(editor)[0];
+    const vues = Slides.read(editor, diaporama);
+
+    // On inverse deux vues : la vue double doit ressortir entière.
+    Slides.write(editor, diaporama, [ vues[1], vues[0], vues[2] ]);
+
+    const apres = Slides.read(editor, diaporama);
+    assert.equal(apres[0].images.length, 2, 'la seconde image survit au déplacement');
+    assert.equal(apres[0].classes, 'swiper-slide-double');
   });
 
   it('réécrit la piste sans reconstruire les vues libres', () => {

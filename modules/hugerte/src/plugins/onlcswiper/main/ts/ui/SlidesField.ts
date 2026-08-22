@@ -46,17 +46,8 @@ const styles = `
   border: 1px solid rgba(34, 47, 62, 0.2); border-radius: 6px; font: inherit; color: #22303c;
 }
 .tox .onlc-slides__hint { margin: 0; color: #5a6570; font-size: 12px; }
-.tox .onlc-slides__image {
-  display: flex; gap: 10px; align-items: flex-start; padding: 8px;
-  border: 1px solid rgba(34, 47, 62, 0.12); border-radius: 6px; background: #f8fafc;
-}
-.tox .onlc-slides__imagethumb {
-  flex: 0 0 auto; width: 56px; height: 56px; border-radius: 4px; border: 0; padding: 0;
-  background: #eef1f4 center/cover no-repeat; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; color: #8a949e; font-size: 10px;
-}
-.tox .onlc-slides__imagethumb:hover { outline: 2px solid #006ce7; outline-offset: 1px; }
-.tox .onlc-slides__imagefields { display: flex; flex: 1 1 auto; min-width: 0; flex-direction: column; gap: 6px; }
+.tox .onlc-slides__thumb--action { border: 0; padding: 0; cursor: pointer; }
+.tox .onlc-slides__thumb--action:hover { outline: 2px solid #006ce7; outline-offset: 1px; }
 .tox .onlc-slides__imageactions { display: flex; flex-wrap: wrap; gap: 6px; }
 .tox .onlc-slides__free { margin: 0; color: #22303c; font-size: 13px; line-height: 1.5; }
 .tox .onlc-slides__actions { display: flex; flex: 0 0 auto; flex-direction: column; gap: 4px; }
@@ -159,93 +150,30 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
      * Il ne réapparaît que si l'explorateur n'est **pas** chargé : mieux vaut un champ austère
      * que pas de moyen du tout d'indiquer une image.
      */
-    const renderImage = (
-      slide: Slides.Slide,
-      index: number,
-      image: Slides.SlideImage,
-      position: number
-    ): HTMLElement => {
-      const row = doc.createElement('div');
-      row.className = 'onlc-slides__image';
-
-      const setSrc = (src: string) => {
-        const images = slide.images.slice();
-        images[position] = { ...images[position], src };
-        replace(index, { ...slide, images });
-        render();
-      };
-
-      const pick = () => {
-        const handled = editor.execCommand('OnlcPickMedia', false, {
-          multiple: false,
-          accept: 'image/',
-          onSelect: (files: Array<{ url: string }>) => {
-            Arr.head(files).each((file) => setSrc(file.url));
-          }
-        });
-        return handled !== false;
-      };
-
-      const thumb = doc.createElement('button');
-      thumb.type = 'button';
-      thumb.className = 'onlc-slides__imagethumb';
-      thumb.title = t('Changer cette image');
-      thumb.setAttribute('aria-label', thumb.title);
-      if (image.src !== '') {
-        thumb.style.backgroundImage = backgroundUrl(editor.documentBaseURI.toAbsolute(image.src));
-      } else {
-        thumb.textContent = t('vide');
-      }
-      thumb.addEventListener('click', pick);
-
-      const fields = doc.createElement('div');
-      fields.className = 'onlc-slides__imagefields';
-
-      const alt = doc.createElement('input');
-      alt.type = 'text';
-      alt.className = 'onlc-slides__input';
-      alt.value = image.alt;
-      alt.placeholder = t('Ce que montre l’image, en une phrase');
-      alt.setAttribute('aria-label', t('Texte de remplacement'));
-      alt.addEventListener('input', () => {
-        const images = slide.images.slice();
-        images[position] = { ...images[position], alt: alt.value };
-        replace(index, { ...slide, images });
-      });
-      fields.appendChild(alt);
-
-      const actions = doc.createElement('div');
-      actions.className = 'onlc-slides__imageactions';
-      actions.appendChild(button(
-        t(image.src === '' ? 'Choisir une image…' : 'Changer l’image…'),
-        'Choisir cette image dans la médiathèque', 'onlc-slides__btn--wide', () => {
-          if (!pick()) {
-            fallbackUrl(row, image.src, setSrc);
-          }
-        }));
-
-      if (slide.images.length > 1) {
-        actions.appendChild(button('✕', 'Retirer cette image de la vue', 'onlc-slides__btn--danger', () => {
-          const images = Arr.filter(slide.images, (_candidate, at) => at !== position);
-          replace(index, { ...slide, images });
-          render();
-        }));
-      }
-      fields.appendChild(actions);
-
-      row.appendChild(thumb);
-      row.appendChild(fields);
-      return row;
+    /** Ouvre la médiathèque pour la vue donnée. Rend `false` si l'explorateur n'est pas chargé. */
+    const pickInto = (slide: Slides.Slide, index: number): boolean => {
+      const image = slide.images[0] ?? { src: '', alt: '' };
+      return editor.execCommand('OnlcPickMedia', false, {
+        multiple: false,
+        accept: 'image/',
+        onSelect: (files: Array<{ url: string }>) => {
+          Arr.head(files).each((file) => {
+            replace(index, { ...slide, images: [{ ...image, src: file.url }] });
+            render();
+          });
+        }
+      }) !== false;
     };
 
     /**
-     * Champ d'adresse de secours, posé seulement quand l'explorateur n'a pas répondu.
+     * Champ d'adresse de secours, posé une seule fois, quand l'explorateur n'a pas répondu.
      *
-     * Il est ajouté une seule fois par vue : redemander l'explorateur ne doit pas empiler les
-     * champs.
+     * Personne n'écrit de mémoire l'adresse d'une photo, et une adresse recopiée de travers donne
+     * une vue vide sans rien dire : le champ n'apparaît donc que faute d'explorateur, où mieux
+     * vaut un champ austère que pas de moyen du tout d'indiquer une image.
      */
-    const fallbackUrl = (row: HTMLElement, value: string, onSet: (next: string) => void) => {
-      if (row.querySelector('.onlc-slides__fallback') !== null) {
+    const fallbackUrl = (fields: HTMLElement, value: string, onSet: (next: string) => void) => {
+      if (fields.querySelector('.onlc-slides__fallback') !== null) {
         return;
       }
       const input = doc.createElement('input');
@@ -255,40 +183,44 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
       input.placeholder = t('Adresse de l’image');
       input.setAttribute('aria-label', t('Adresse de l’image'));
       input.addEventListener('change', () => onSet(input.value));
-      const holder = row.querySelector('.onlc-slides__imagefields');
-      if (holder !== null) {
-        holder.appendChild(input);
-        input.focus();
-      }
+      fields.appendChild(input);
+      input.focus();
     };
 
+    /**
+     * Les champs d'une vue d'image : son texte de remplacement, et le bouton qui la remplace.
+     *
+     * La vignette n'est pas ici : c'est celle de la vue, à gauche, qui sert de bouton. Il y en
+     * avait deux côte à côte, montrant la même image — une vue ne portant plus qu'une seule
+     * image, la seconde n'apprenait rien.
+     */
     const renderImageFields = (slide: Slides.Slide, index: number, fields: HTMLElement) => {
-      Arr.each(slide.images, (image, position) => {
-        fields.appendChild(renderImage(slide, index, image, position));
-      });
+      const image = slide.images[0] ?? { src: '', alt: '' };
 
-      const more = button(t('Ajouter une image à cette vue'), 'Ajouter une image à cette vue',
-        'onlc-slides__btn--wide', () => {
-          const add = (src: string) => {
-            replace(index, { ...slide, images: slide.images.concat([{ src, alt: '' }]) });
-            render();
-          };
-          const handled = editor.execCommand('OnlcPickMedia', false, {
-            multiple: true,
-            accept: 'image/',
-            onSelect: (files: Array<{ url: string }>) => {
-              replace(index, {
-                ...slide,
-                images: slide.images.concat(Arr.map(files, (file) => ({ src: file.url, alt: '' })))
-              });
+      const alt = doc.createElement('input');
+      alt.type = 'text';
+      alt.className = 'onlc-slides__input';
+      alt.value = image.alt;
+      alt.placeholder = t('Ce que montre l’image, en une phrase');
+      alt.setAttribute('aria-label', t('Texte de remplacement'));
+      alt.addEventListener('input', () => {
+        replace(index, { ...slide, images: [{ ...image, alt: alt.value }] });
+      });
+      fields.appendChild(alt);
+
+      const actions = doc.createElement('div');
+      actions.className = 'onlc-slides__imageactions';
+      actions.appendChild(button(
+        t(image.src === '' ? 'Choisir une image…' : 'Changer l’image…'),
+        'Choisir cette image dans la médiathèque', 'onlc-slides__btn--wide', () => {
+          if (!pickInto(slide, index)) {
+            fallbackUrl(fields, image.src, (src) => {
+              replace(index, { ...slide, images: [{ ...image, src }] });
               render();
-            }
-          });
-          if (handled === false) {
-            add('');
+            });
           }
-        });
-      fields.appendChild(more);
+        }));
+      fields.appendChild(actions);
 
       const hint = doc.createElement('p');
       hint.className = 'onlc-slides__hint';
@@ -301,13 +233,23 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
       const item = doc.createElement('div');
       item.className = 'onlc-slides__item';
 
-      const thumb = doc.createElement('span');
+      // Une vue d'image : la vignette **est** le bouton qui ouvre la médiathèque. Une vue libre :
+      // elle ne fait que montrer ce qu'il y a dedans, son contenu n'étant jamais réécrit.
+      const thumb = doc.createElement(slide.custom ? 'span' : 'button');
       thumb.className = 'onlc-slides__thumb';
       const first = slide.images[0];
       if (Type.isNonNullable(first) && first.src !== '') {
         thumb.style.backgroundImage = backgroundUrl(editor.documentBaseURI.toAbsolute(first.src));
       } else {
         thumb.textContent = t(slide.custom ? 'contenu' : 'vide');
+      }
+      if (!slide.custom) {
+        const bouton = thumb as HTMLButtonElement;
+        bouton.type = 'button';
+        bouton.title = t('Changer cette image');
+        bouton.setAttribute('aria-label', bouton.title);
+        bouton.className = 'onlc-slides__thumb onlc-slides__thumb--action';
+        bouton.addEventListener('click', () => pickInto(slide, index));
       }
 
       const fields = doc.createElement('div');
@@ -323,7 +265,7 @@ const create = (editor: Editor, initial: Slides.Slide[], onChange: (slides: Slid
         free.className = 'onlc-slides__free';
         const excerpt = (slide.element?.textContent ?? '').trim().replace(/\s+/g, ' ');
         free.textContent = excerpt === ''
-          ? t('Cette vue contient autre chose que des images. Elle se modifie directement dans la page.')
+          ? t('Cette vue ne contient pas qu’une image — plusieurs images, ou une mise en page. Elle est déplaçable, mais son contenu n’est pas réécrit.')
           : `${t('Contenu libre :')} ${excerpt.substring(0, 90)}${excerpt.length > 90 ? '…' : ''}`;
         fields.appendChild(free);
       } else {

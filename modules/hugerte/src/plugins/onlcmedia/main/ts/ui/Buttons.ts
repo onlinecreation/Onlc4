@@ -65,7 +65,10 @@ const register = (editor: Editor): void => {
     label: 'Propriétés de l’image',
     icon: ActionIcons.image,
     order: 120,
-    match: (target, block) => BlockActions.matchIn(target, block, 'img'),
+    // Un emoji est un `img`, et ses propriétés d'image n'ont aucun sens : son adresse est celle
+    // d'un dessin du catalogue, pas d'un fichier du site. Il porte un attribut qui le dit, et
+    // c'est le sélectionneur d'icônes qui répond sur lui.
+    match: (target, block) => BlockActions.matchIn(target, block, 'img:not([data-onlc-emoji])'),
     run: (target, element) => {
       target.selection.select(element);
       target.execCommand('OnlcImage');
@@ -105,7 +108,7 @@ const register = (editor: Editor): void => {
     }
     const cible = e.target as Node;
     const estImage = Type.isNonNullable(cible)
-      && (editor.dom.is(cible, 'img') || ImageHtml.isFigure(editor, cible));
+      && (editor.dom.is(cible, 'img:not([data-onlc-emoji])') || ImageHtml.isFigure(editor, cible));
     if (estImage && editor.dom.isEditable(cible)) {
       openImage();
     }

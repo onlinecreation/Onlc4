@@ -113,6 +113,65 @@ describe('browser.hugerte.plugins.onlcblocks.BlockPropertiesTest', () => {
     assert.deepEqual(ouverts, [ 'accent' ], 'et rien n’a été ouvert entre-temps');
   });
 
+  /**
+   * Le double clic sait sur **quoi** on a cliqué ; la barre des blocs, elle, ne le sait pas.
+   *
+   * Un paragraphe qui porte trois icônes ne permettait d'en changer aucune : « le seul élément de
+   * ce genre » n'existait pas, et la sélection, après un double clic sur une icône dans un lien,
+   * désigne le lien.
+   */
+  it('désigne l’élément visé, même quand le bloc en contient plusieurs', () => {
+    const editor = hook.editor();
+    editor.setContent('<p><a href="/a"><em>un</em></a> <em>deux</em> <em>trois</em></p>');
+
+    const vus: string[] = [];
+    BlockActions.declare(editor, {
+      id: 'epreuve-accentue',
+      label: 'Épreuve — un accent',
+      icon: '<svg></svg>',
+      order: 100,
+      match: (unEditor, unBloc) => BlockActions.matchIn(unEditor, unBloc, 'em'),
+      run: (_editor, element) => vus.push(element.textContent ?? '')
+    });
+
+    const troisiemes = editor.dom.select<HTMLElement>('em', editor.getBody());
+    assert.isTrue(BlockActions.openFor(editor, troisiemes[2]));
+    assert.deepEqual(vus, [ 'trois' ], 'c’est celui qu’on a visé, pas un autre');
+
+    assert.isTrue(BlockActions.openFor(editor, troisiemes[0]));
+    assert.deepEqual(vus, [ 'trois', 'un' ], 'y compris au fond d’un lien');
+  });
+
+  /**
+   * Un bloc verrouillé — un diaporama, un jeton de script — se manipule d'une pièce : viser son
+   * intérieur doit ouvrir **son** formulaire, jamais celui d'un morceau qu'il contient.
+   */
+  it('ne descend pas dans un bloc non modifiable', () => {
+    const editor = hook.editor();
+    editor.setContent('<div class="verrou" contenteditable="false"><p><em>dedans</em></p></div>');
+
+    const vus: string[] = [];
+    BlockActions.declare(editor, {
+      id: 'epreuve-verrou',
+      label: 'Épreuve — le bloc verrouillé',
+      icon: '<svg></svg>',
+      order: 100,
+      match: (unEditor, unBloc) => BlockActions.matchIn(unEditor, unBloc, '.verrou'),
+      run: () => vus.push('bloc')
+    });
+    BlockActions.declare(editor, {
+      id: 'epreuve-dedans',
+      label: 'Épreuve — le morceau',
+      icon: '<svg></svg>',
+      order: 100,
+      match: (unEditor, unBloc) => BlockActions.matchIn(unEditor, unBloc, 'em'),
+      run: () => vus.push('dedans')
+    });
+
+    assert.isTrue(BlockActions.openFor(editor, editor.dom.select('em', editor.getBody())[0]));
+    assert.deepEqual(vus, [ 'bloc' ], 'c’est le bloc entier qui répond');
+  });
+
   it('n’ouvre rien hors de tout bloc', () => {
     const editor = hook.editor();
     editor.setContent('<p>Texte</p>');

@@ -122,10 +122,32 @@ const forBlock = (editor: Editor, block: HTMLElement): ResolvedAction[] =>
  * Un bloc qui en contient plusieurs sans qu'aucun ne soit sélectionné ne propose pas le bouton :
  * mieux vaut pas de bouton qu'un bouton dont on ne sait pas ce qu'il va ouvrir.
  */
+/**
+ * Le nœud désigné, quand il est plus précis que la sélection.
+ *
+ * La barre des blocs ne sait pas ce que le rédacteur regarde : elle apparaît au survol du bloc, et
+ * `matchIn` doit deviner sur quoi son bouton agira. Un **double clic**, lui, le sait exactement —
+ * et cette différence compte : un bloc de texte qui porte trois icônes ne permettait d'en changer
+ * aucune, parce que « le seul élément de ce genre » n'existait pas et que la sélection, après un
+ * double clic sur une icône dans un lien, désigne le lien.
+ *
+ * `openFor` dépose donc le nœud visé sur l'objet éditeur le temps de départager les boutons, et
+ * `matchIn` le préfère à la sélection. La clé est portée par l'éditeur et non par ce module :
+ * chaque plugin en reçoit sa propre copie à la compilation, et une variable de module ne serait
+ * pas partagée.
+ */
+const targetKey = '_onlcActionTarget';
+
+const referenceOf = (editor: Editor): Node => {
+  const store = editor as unknown as Record<string, Node | undefined>;
+  const node = store[targetKey];
+  return Type.isNonNullable(node) ? node : editor.selection.getNode();
+};
+
 const matchIn = (editor: Editor, block: HTMLElement, selector: string): Optional<HTMLElement> => {
-  /** L'élément sélectionné, s'il est de ce genre et qu'il se trouve dans ce bloc. */
+  /** L'élément désigné — ou, à défaut, sélectionné — s'il est de ce genre et dans ce bloc. */
   const inSelection = (): Optional<HTMLElement> => {
-    const selected: HTMLElement | null = editor.dom.getParent(editor.selection.getNode(), selector, editor.getBody());
+    const selected: HTMLElement | null = editor.dom.getParent(referenceOf(editor), selector, editor.getBody());
     return Type.isNonNullable(selected) && block.contains(selected)
       ? Optional.some(selected)
       : Optional.none<HTMLElement>();
@@ -197,6 +219,12 @@ const openFor = (editor: Editor, node: Node | null): boolean => {
     return false;
   }
 
+  // Le nœud visé est déposé sur l'éditeur le temps du calcul : c'est ce qui permet à `matchIn` de
+  // savoir sur quelle des trois icônes d'un paragraphe le rédacteur vient de cliquer. Il est
+  // retiré avant d'ouvrir quoi que ce soit — le formulaire ouvert travaille sur la sélection.
+  const store = editor as unknown as Record<string, Node | undefined>;
+  store[targetKey] = node;
+
   const depth = (element: HTMLElement): number => {
     let steps = 0;
     let current: Node | null = element;
@@ -207,10 +235,19 @@ const openFor = (editor: Editor, node: Node | null): boolean => {
     return steps;
   };
 
+  /**
+   * Un bloc **verrouillé** ne répond que dans son ensemble.
+   *
+   * Un diaporama se manipule d'une pièce : viser l'image d'une de ses vues doit ouvrir sa liste
+   * de vues, pas le formulaire des images. Le bloc n'étant pas modifiable, aucun bouton visant
+   * son intérieur n'est retenu — seul celui qui vise le bloc lui-même.
+   */
+  const verrouille = !editor.dom.isEditable(block);
+
   // On ne retient que les boutons dont la cible **contient** le nœud désigné, ou le bloc entier :
   // sans cela, viser le titre d'une colonne ouvrirait l'image posée à côté.
   const candidates = Arr.filter(forBlock(editor, block), (resolved) =>
-    resolved.target === block || resolved.target.contains(node));
+    resolved.target === block || (!verrouille && resolved.target.contains(node)));
 
   const best = Arr.foldl(candidates, (retenu: Optional<ResolvedAction>, resolved) =>
     retenu.forall((autre) => {
@@ -218,6 +255,8 @@ const openFor = (editor: Editor, node: Node | null): boolean => {
       return ecart > 0 || (ecart === 0 && (resolved.action.order ?? 100) < (autre.action.order ?? 100));
     }) ? Optional.some(resolved) : retenu,
   Optional.none<ResolvedAction>());
+
+  delete store[targetKey];
 
   return best.fold(Fun.never, (chosen) => {
     chosen.action.run(editor, chosen.target);

@@ -20,6 +20,10 @@ describe('browser.hugerte.plugins.onlcshared.DialogStylesTest', () => {
   const hook = TinyHooks.bddSetupLight<Editor>({
     plugins: 'onlcwidgets',
     toolbar: 'onlcwidget',
+    // Ces épreuves portent sur la formulation **française** des intitulés. L'option « language »
+    // vaut « en » par défaut, et l'éditeur charge alors le paquet anglais : il faut donc demander
+    // le français pour que les clés s'affichent telles qu'elles sont écrites dans le code.
+    language: 'fr',
     base_url: '/project/hugerte/js/hugerte'
   }, [ Plugin ], true);
 

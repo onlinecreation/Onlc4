@@ -411,3 +411,7 @@ hugerte.addI18n("fr_FR", {
     "ImageProxy HTTP error: Incorrect Image Proxy URL": "Erreur HTTP d'ImageProxy : URL de ImageProxy incorrecte",
     "ImageProxy HTTP error: Unknown ImageProxy error": "Erreur HTTP d'ImageProxy : Erreur ImageProxy inconnue"
 });
+
+/* — ONLC : début des chaînes des plugins — */
+/* Le français est la langue d'écriture des plugins : rien à traduire. */
+/* — ONLC : fin des chaînes des plugins — */

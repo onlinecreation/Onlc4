@@ -48,16 +48,15 @@ describe('Traductions — couverture des modules', () => {
 });
 
 /**
- * Les paquets ONLC et ceux du cœur partagent un seul dictionnaire : `addI18n` verse tout dans la
- * même table. Une clé française qui s'écrit comme une clé anglaise du cœur prend donc sa place, et
- * la remplace dans toute l'interface.
+ * Les chaînes ONLC et celles du cœur partagent un seul dictionnaire : `addI18n` verse tout dans la
+ * même table. Une clé française qui s'écrit comme une clé anglaise du cœur prend donc sa place.
  *
  * C'est arrivé : « Format » désignait chez nous les proportions d'une vidéo, et le menu « Format »
  * de la barre s'intitulait « Beeldverhouding » en néerlandais.
  *
- * Les collisions qui restent sont **relues et acceptées** : les deux sens coïncident, et la
- * traduction convient des deux côtés. Toute nouvelle collision fait échouer cette épreuve, pour
- * qu'elle soit relue elle aussi.
+ * Le générateur tranche maintenant à la fabrication — **le cœur l'emporte** — et énumère les
+ * collisions. Celles qui restent sont relues et acceptées : les deux sens coïncident. Toute
+ * nouvelle collision fait échouer cette épreuve, pour qu'elle soit relue elle aussi.
  */
 const collisionsAcceptees = [
   'Emojis',   // le cœur dit « Émojis » ; c'est la même chose
@@ -66,48 +65,78 @@ const collisionsAcceptees = [
   'Version'   // une version, des deux côtés
 ];
 
-describe('Traductions — cohabitation avec le paquet du cœur', () => {
-  /** Les clés du paquet français du cœur, qui sont écrites en anglais. */
-  const clesDuCoeur = () => {
-    let table = {};
-    // Le paquet du cœur s'adresse au global `hugerte` sans passer par `window` : celui des
-    // plugins, lui, écrit `window.hugerte`. Les deux formes sont posées.
-    const precedent = { window: global.window, hugerte: global.hugerte };
-    const faux = { addI18n: (code, strings) => { if (code === 'fr_FR') { table = strings; } } };
-    global.hugerte = faux;
-    global.window = { hugerte: faux };
-    try {
-      const chemin = path.join(racine, 'modules/hugerte/src/core/main/langs/fr_FR.js');
-      delete require.cache[require.resolve(chemin)];
-      require(chemin);
-    } finally {
-      global.window = precedent.window;
-      global.hugerte = precedent.hugerte;
-    }
-    return Object.keys(table);
-  };
+/** Les codes de langue livrés, et le fichier que `language:` ira chercher pour chacun. */
+const codes = [ 'en', 'es', 'fr', 'nl' ];
+
+/** Les chaînes déclarées par un paquet du cœur, tous appels `addI18n` confondus. */
+const paquetDuCoeur = (code) => {
+  let table = {};
+  // Le paquet du cœur s'adresse au global `hugerte` sans passer par `window` ; la partie ajoutée
+  // par build-i18n fait de même. Les deux formes sont posées.
+  const precedent = { window: global.window, hugerte: global.hugerte };
+  const faux = { addI18n: (_code, strings) => { table = { ...table, ...strings }; } };
+  global.hugerte = faux;
+  global.window = { hugerte: faux };
+  try {
+    const chemin = path.join(racine, 'modules/hugerte/src/core/main/langs', `${code}.js`);
+    delete require.cache[require.resolve(chemin)];
+    require(chemin);
+  } finally {
+    global.window = precedent.window;
+    global.hugerte = precedent.hugerte;
+  }
+  return table;
+};
+
+describe('Traductions — un seul paquet par langue', () => {
+  /**
+   * Le cœur ne va chercher `langs/<code>.js` que si la langue n'est pas déjà déclarée. Un paquet
+   * ONLC chargé à la main la déclarait, et le cœur restait alors en anglais sous une interface
+   * traduite. Un seul fichier complet par langue supprime la question.
+   */
+  it('chaque paquet porte les chaînes du cœur et celles des plugins', () => {
+    [ 'es', 'nl' ].forEach((code) => {
+      const table = paquetDuCoeur(code);
+      assert.ok(Object.prototype.hasOwnProperty.call(table, 'Bold'), `${code} — une chaîne du cœur`);
+      assert.ok(Object.prototype.hasOwnProperty.call(table, 'Ajouter un bloc'), `${code} — une chaîne ONLC`);
+    });
+  });
+
+  it('l’anglais a le sien, que le cœur ne livre pas', () => {
+    const table = paquetDuCoeur('en');
+    assert.equal(table['Ajouter un bloc'], 'Add a block');
+  });
+
+  it('le français ne traduit rien : ses clés sont déjà la langue d’écriture', () => {
+    const table = paquetDuCoeur('fr');
+    assert.ok(Object.prototype.hasOwnProperty.call(table, 'Bold'), 'les chaînes du cœur y sont');
+    assert.notOk(Object.prototype.hasOwnProperty.call(table, 'Ajouter un bloc'),
+      'et aucune chaîne ONLC, qui se traduirait en elle-même');
+  });
+
+  it('les pages d’exemple n’incluent aucun paquet à la main', () => {
+    [ 'example/public/lmparts.html', 'example/public/index.html' ].forEach((page) => {
+      const html = fs.readFileSync(path.join(racine, page), 'utf8');
+      assert.notIncludes(html, '<script src="/hugerte/langs/',
+        `${page} — « language: » suffit, il n'y a rien à inclure`);
+    });
+  });
 
   it('aucune clé ONLC ne prend la place d’une clé du cœur sans qu’on l’ait voulu', () => {
-    const coeur = clesDuCoeur();
-    assert.notEqual(coeur.length, 0, 'le paquet du cœur a bien été lu');
+    const coeur = paquetDuCoeur('fr');
+    const cles = Object.keys(coeur);
+    assert.notEqual(cles.length, 0, 'le paquet du cœur a bien été lu');
 
-    const collisions = Object.keys(table).filter((cle) => coeur.indexOf(cle) !== -1);
+    const collisions = Object.keys(table).filter((cle) => cles.indexOf(cle) !== -1);
     const nouvelles = collisions.filter((cle) => collisionsAcceptees.indexOf(cle) === -1);
     assert.equal(nouvelles.length, 0,
       nouvelles.length === 0 ? '' : `collisions à relire : ${nouvelles.map((c) => JSON.stringify(c)).join(', ')}`);
   });
 
-  it('les pages d’exemple chargent les deux moitiés de chaque langue', () => {
-    // Le cœur ne va chercher son propre fichier que si la langue n'est pas déjà déclarée. Charger
-    // le paquet ONLC seul la déclare, et le cœur reste alors en anglais sous une interface
-    // traduite : les deux se chargent donc à la main, et c'est ce qu'on vérifie.
-    [ 'example/public/lmparts.html', 'example/public/index.html' ].forEach((page) => {
-      const html = fs.readFileSync(path.join(racine, page), 'utf8');
-      [ 'es', 'fr', 'nl' ].forEach((code) => {
-        assert.includes(html, `/hugerte/langs/${code}.js`, `${page} — paquet du cœur ${code}`);
-        assert.includes(html, `/hugerte/langs/onlc/${code}.js`, `${page} — paquet ONLC ${code}`);
-      });
-    });
+  it('le cœur l’emporte sur une collision', () => {
+    const table = paquetDuCoeur('nl');
+    // « Style » existe des deux côtés : c'est la valeur du cœur qui doit rester.
+    assert.equal(table.Style, 'Stijl');
   });
 });
 

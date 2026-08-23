@@ -72,24 +72,12 @@
 
     <script src="/hugerte/hugerte.js"></script>
     <!--
-      Les paquets de langue, en deux moitiés qui vont ensemble.
+      Aucun paquet de langue à inclure : `language:` s'en charge.
 
-      Celui du cœur traduit « Insertion », « Gras », « Annuler » ; celui de ONLC traduit les
-      formulaires des plugins. **Les deux se chargent à la main**, et c'est une obligation, pas
-      une commodité : le cœur ne va chercher son propre fichier que si la langue demandée n'est
-      pas déjà déclarée. Charger le paquet ONLC seul déclare la langue, et le cœur reste alors
-      en anglais sous une interface traduite.
-
-      Ajoutez « ?lang=nl » à l'adresse pour voir l'interface en néerlandais, « ?lang=en » ou
-      « ?lang=es » pour les deux autres.
+      Chaque `langs/<code>.js` porte les chaînes du cœur **et** celles des plugins ONLC ; le
+      cœur va le chercher tout seul. Ajoutez « ?lang=nl » à l'adresse pour voir l'interface en
+      néerlandais, « ?lang=en » ou « ?lang=es » pour les deux autres.
     -->
-    <script src="/hugerte/langs/es.js"></script>
-    <script src="/hugerte/langs/fr.js"></script>
-    <script src="/hugerte/langs/nl.js"></script>
-    <script src="/hugerte/langs/onlc/en.js"></script>
-    <script src="/hugerte/langs/onlc/es.js"></script>
-    <script src="/hugerte/langs/onlc/fr.js"></script>
-    <script src="/hugerte/langs/onlc/nl.js"></script>
     <script src="/assets/demo.js"></script>
   </body>
 </html>

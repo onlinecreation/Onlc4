@@ -52,8 +52,8 @@ hugerte.init({
     'lists', 'table', 'searchreplace', 'fullscreen'
   ].join(' '),
 
-  // La langue de l'interface. Le paquet du cœur traduit « Insertion » et « Outils » ; celui de
-  // ONLC traduit les formulaires des plugins. Les deux sont chargés dans la page.
+  // La langue de l'interface, et rien d'autre à faire : le paquet `langs/<code>.js` porte les
+  // chaînes du cœur comme celles des plugins, et l'éditeur va le chercher tout seul.
   //
   // Elle se choisit ici par l'adresse — « ?lang=nl » — pour que les quatre langues se vérifient
   // sans toucher au fichier. Un vrai back-office la tient de la préférence de la personne

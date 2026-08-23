@@ -1094,6 +1094,11 @@
     "Clases del sitio.",
     "Klassen van de site."
   ],
+  "Clignotant": [
+    "Blinking",
+    "Parpadeante",
+    "Knipperend"
+  ],
   "Cliquez pour sélectionner ce bloc, puis « Modifier le bloc » pour le régler.": [
     "Click to select this block, then “Edit the block” to set it up.",
     "Pulse para seleccionar este bloque y después «Editar el bloque» para configurarlo.",
@@ -1499,6 +1504,11 @@
     "Duración",
     "Duur"
   ],
+  "Durée d’un cycle (secondes)": [
+    "Length of one cycle (seconds)",
+    "Duración de un ciclo (segundos)",
+    "Duur van één cyclus (seconden)"
+  ],
   "Durée totale": [
     "Total duration",
     "Duración total",
@@ -1528,6 +1538,11 @@
     "Describe what you offer in one sentence.",
     "Describa su oferta en una frase.",
     "Beschrijf uw aanbod in één zin."
+  ],
+  "Défilant": [
+    "Scrolling",
+    "Desplazándose",
+    "Schuivend"
   ],
   "Défilement": [
     "Scrolling",
@@ -2159,6 +2174,11 @@
     "Insertar un emoji Unicode o un icono",
     "Een Unicode-emoji of een pictogram invoegen"
   ],
+  "Insérer un texte animé": [
+    "Insert an animated text",
+    "Insertar un texto animado",
+    "Een bewegende tekst invoegen"
+  ],
   "Intervenant": [
     "Performer",
     "Participante",
@@ -2444,6 +2464,16 @@
     "El nombre por el que se conoce esta cosa. Es lo que los buscadores muestran como título.",
     "De naam waaronder dit ding bekend staat. Dat is wat zoekmachines als titel tonen."
   ],
+  "Le passage apparaît et disparaît. À employer avec mesure : un texte qui clignote se lit mal, et se remarque partout ailleurs sur la page.": [
+    "The passage appears and disappears. Use it sparingly: blinking text reads badly, and draws the eye away from everything else on the page.",
+    "El pasaje aparece y desaparece. Úselo con moderación: un texto que parpadea se lee mal y distrae del resto de la página.",
+    "De passage verschijnt en verdwijnt. Spaarzaam gebruiken: knipperende tekst leest slecht en trekt de aandacht weg van de rest van de pagina."
+  ],
+  "Le passage traverse son cadre, de droite à gauche. Il occupe alors toute la largeur disponible, comme un paragraphe.": [
+    "The passage travels across its frame, from right to left. It then takes the full available width, like a paragraph.",
+    "El pasaje atraviesa su marco, de derecha a izquierda. Ocupa entonces todo el ancho disponible, como un párrafo.",
+    "De passage beweegt door zijn kader, van rechts naar links. Hij neemt dan de volledige beschikbare breedte in, als een alinea."
+  ],
   "Le plugin des scripts n’est pas chargé : la configuration ne peut pas être ajoutée depuis ici. Écrivez-la dans le gabarit du site.": [
     "The scripts plugin is not loaded: the configuration cannot be added from here. Write it in the site template.",
     "El complemento de scripts no está cargado: la configuración no puede añadirse desde aquí. Escríbala en la plantilla del sitio.",
@@ -2523,6 +2553,11 @@
     "Search engines will ignore the record while they are missing. Save it anyway?",
     "Los buscadores ignorarán la ficha mientras falten. ¿Guardarla de todos modos?",
     "Zoekmachines negeren de fiche zolang die ontbreken. Toch opslaan?"
+  ],
+  "Les mots se relaient à la même place. La place réservée est celle du plus long : le texte qui suit ne bouge pas quand ils changent.": [
+    "The words take turns in the same spot. The room set aside is that of the longest one: the text that follows does not move when they change.",
+    "Las palabras se alternan en el mismo sitio. El espacio reservado es el de la más larga: el texto que sigue no se mueve cuando cambian.",
+    "De woorden wisselen elkaar op dezelfde plek af. De gereserveerde ruimte is die van het langste woord: de tekst erna verspringt niet wanneer ze wisselen."
   ],
   "Les propriétés marquées « Exigé » doivent être remplies pour que les moteurs acceptent la fiche. Les autres l’enrichissent.": [
     "The properties marked “Required” must be filled in for search engines to accept the record. The others enrich it.",
@@ -2839,6 +2874,11 @@
     "Editar el script",
     "Het script bewerken"
   ],
+  "Modifier le texte animé": [
+    "Edit the animated text",
+    "Editar el texto animado",
+    "De bewegende tekst bewerken"
+  ],
   "Modifier les microdonnées": [
     "Edit the microdata",
     "Modificar los microdatos",
@@ -2893,6 +2933,16 @@
     "Square mosaic",
     "Mosaico cuadrado",
     "Vierkant mozaïek"
+  ],
+  "Mots qui se relaient": [
+    "Words taking turns",
+    "Palabras que se alternan",
+    "Woorden die elkaar afwisselen"
+  ],
+  "Mots qui se relaient (un par ligne)": [
+    "Words taking turns (one per line)",
+    "Palabras que se alternan (una por línea)",
+    "Woorden die elkaar afwisselen (één per regel)"
   ],
   "Mots-clés": [
     "Keywords",
@@ -3654,6 +3704,11 @@
     "Nada rellenado",
     "Niets ingevuld"
   ],
+  "Rien ne bouge pour qui a demandé à son système de réduire les animations : le texte reste alors lisible, arrêté.": [
+    "Nothing moves for anyone who has asked their system to reduce motion: the text then stays readable, at rest.",
+    "Nada se mueve para quien haya pedido a su sistema reducir las animaciones: el texto permanece legible, detenido.",
+    "Er beweegt niets voor wie zijn systeem om minder beweging heeft gevraagd: de tekst blijft dan leesbaar, stil."
+  ],
   "Rubrique": [
     "Section",
     "Sección",
@@ -3818,6 +3873,11 @@
     "Kind of link",
     "Tipo de enlace",
     "Soort link"
+  ],
+  "Sorte d’animation": [
+    "Kind of animation",
+    "Tipo de animación",
+    "Soort beweging"
   ],
   "Souligné": [
     "Underlined",
@@ -4093,6 +4153,16 @@
     "Alternative text (read by screen readers)",
     "Texto alternativo (leído por los lectores de pantalla)",
     "Alternatieve tekst (voorgelezen door schermlezers)"
+  ],
+  "Texte animé": [
+    "Animated text",
+    "Texto animado",
+    "Bewegende tekst"
+  ],
+  "Texte animé...": [
+    "Animated text...",
+    "Texto animado...",
+    "Bewegende tekst..."
   ],
   "Texte de la réponse": [
     "Text of the answer",

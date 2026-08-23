@@ -47,7 +47,7 @@ hugerte.init({
 
   plugins: [
     'onlcblocks', 'onlcmedia', 'onlcresponsiveimages', 'onlclink',
-    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcmultilang',
+    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcmultilang', 'onlcanimtext',
     'onlcseo', 'onlcswiper',
     'lists', 'table', 'searchreplace', 'fullscreen'
   ].join(' '),
@@ -70,7 +70,7 @@ hugerte.init({
     'undo redo',
     'blocks bold italic',
     'onlcblocksinsert onlcblocksrow',
-    'onlcimage onlclink onlcicons',
+    'onlcimage onlclink onlcicons onlcanimtext',
     'onlcwidget onlcscript onlcsource',
     'onlcmultilang onlcmultilangwork onlcseo',
     'onlcpreview',

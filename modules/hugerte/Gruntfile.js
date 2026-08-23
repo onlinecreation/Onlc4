@@ -16,7 +16,7 @@ let plugins = [
   'link', 'lists', 'media', 'nonbreaking', 'pagebreak', 'preview', 'save', 'searchreplace',
   'table', 'template', 'visualblocks', 'visualchars', 'wordcount', 'quickbars',
   // Online Création (ONLC 4) plugins
-  'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcmultilang', 'onlcresponsiveimages',
+  'onlcanimtext', 'onlcblocks', 'onlcicons', 'onlclink', 'onlcmedia', 'onlcmultilang', 'onlcresponsiveimages',
   'onlcseo', 'onlcshortcodes', 'onlcspacer', 'onlcswiper', 'onlcwidgets'
 ];
 

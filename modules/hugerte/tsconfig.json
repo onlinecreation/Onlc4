@@ -34,6 +34,7 @@
       "hugerte/plugins/lists/*": ["src/plugins/lists/main/ts/*"],
       "hugerte/plugins/media/*": ["src/plugins/media/main/ts/*"],
       "hugerte/plugins/nonbreaking/*": ["src/plugins/nonbreaking/main/ts/*"],
+      "hugerte/plugins/onlcanimtext/*": ["src/plugins/onlcanimtext/main/ts/*"],
       "hugerte/plugins/onlcblocks/*": ["src/plugins/onlcblocks/main/ts/*"],
       "hugerte/plugins/onlcicons/*": ["src/plugins/onlcicons/main/ts/*"],
       "hugerte/plugins/onlclink/*": ["src/plugins/onlclink/main/ts/*"],

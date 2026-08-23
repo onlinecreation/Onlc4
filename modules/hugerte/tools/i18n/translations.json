@@ -3299,6 +3299,11 @@
     "Planificación",
     "Planning"
   ],
+  "Plein écran": [
+    "Full screen",
+    "Pantalla completa",
+    "Volledig scherm"
+  ],
   "Pleine largeur": [
     "Full width",
     "Ancho completo",
@@ -3478,6 +3483,11 @@
     "Who publishes this content — most often your company.",
     "Quién publica este contenido, normalmente su empresa.",
     "Wie deze inhoud publiceert — meestal uw bedrijf."
+  ],
+  "Quitter le plein écran": [
+    "Leave full screen",
+    "Salir de pantalla completa",
+    "Volledig scherm verlaten"
   ],
   "Raison sociale": [
     "Legal name",

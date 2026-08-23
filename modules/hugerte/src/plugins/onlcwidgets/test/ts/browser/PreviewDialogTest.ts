@@ -120,8 +120,41 @@ describe('browser.hugerte.plugins.onlcwidgets.PreviewDialogTest', () => {
     await pOpen(editor);
 
     const devices = UiFinder.findAllIn<HTMLElement>(SugarBody.body(), '.onlc-pagepreview__device');
-    assert.deepEqual(Arr.map(devices, (d) => d.dom.textContent), [ 'Ordinateur', 'Tablette', 'Téléphone' ]);
+    assert.deepEqual(Arr.map(devices, (d) => d.dom.textContent),
+      [ 'Ordinateur', 'Tablette', 'Téléphone', 'Plein écran' ]);
     assert.equal(devices[0].dom.getAttribute('aria-pressed'), 'true');
+
+    editor.windowManager.close();
+  });
+
+  /**
+   * Une fenêtre d'éditeur mesure quelques centaines de pixels de haut, et une page d'accueil s'y
+   * juge mal : certaines techniques ne s'y voient même pas — une parallaxe faite d'un calque fixé
+   * se règle sur la hauteur du cadre, et un cadre court la montre de travers.
+   */
+  it('le plein écran agrandit la fenêtre, et le bouton dit comment en sortir', async () => {
+    const editor = hook.editor();
+    await pOpen(editor);
+
+    const bouton = () => Arr.find(
+      UiFinder.findAllIn<HTMLElement>(SugarBody.body(), '.onlc-pagepreview__device'),
+      (d) => (d.dom.textContent ?? '').indexOf('écran') !== -1).getOrDie();
+
+    const avant = UiFinder.findIn<HTMLElement>(SugarBody.body(), '.tox-dialog').getOrDie();
+    const hauteurAvant = avant.dom.getBoundingClientRect().height;
+
+    assert.equal(bouton().dom.textContent, 'Plein écran');
+    assert.equal(bouton().dom.getAttribute('aria-pressed'), 'false');
+    bouton().dom.click();
+
+    const apres = UiFinder.findIn<HTMLElement>(SugarBody.body(), '.tox-dialog').getOrDie();
+    assert.isAbove(apres.dom.getBoundingClientRect().height, hauteurAvant,
+      'la fenêtre occupe plus de hauteur qu’avant');
+    assert.equal(bouton().dom.textContent, 'Quitter le plein écran');
+    assert.equal(bouton().dom.getAttribute('aria-pressed'), 'true');
+
+    bouton().dom.click();
+    assert.equal(bouton().dom.textContent, 'Plein écran', 'et l’on peut en sortir');
 
     editor.windowManager.close();
   });

@@ -86,7 +86,19 @@ const injectStyles = (doc: Document): void => {
   }
 };
 
-const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.CustomEditorInit> => {
+/**
+ * Ce que la fenêtre sait faire, et que son contenu ne peut pas faire seul.
+ *
+ * Un `customeditor` reçoit un élément, pas l'api de la fenêtre qui le porte. Le bouton « Plein
+ * écran » a pourtant besoin de la seconde : elle lui est passée par cet objet, rempli une fois la
+ * fenêtre ouverte.
+ */
+export interface PreviewControls {
+  toggleFullscreen: () => void;
+}
+
+const create = (editor: Editor, controls: PreviewControls = { toggleFullscreen: Fun.noop }) =>
+  (element: HTMLElement): Promise<Dialog.CustomEditorInit> => {
   const doc = element.ownerDocument;
   injectStyles(doc);
 
@@ -141,6 +153,31 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
     });
     return button;
   });
+
+  /**
+   * Le plein écran : voir la page dans les conditions du visiteur.
+   *
+   * Une fenêtre d'éditeur mesure quelques centaines de pixels de haut. Une page d'accueil s'y
+   * juge mal — et certaines techniques ne s'y voient pas du tout : une parallaxe faite d'un
+   * calque fixé se règle sur la hauteur du cadre, et un cadre court la montre de travers.
+   */
+  let fullscreen = false;
+  const fullscreenButton = doc.createElement('button');
+  fullscreenButton.type = 'button';
+  fullscreenButton.className = 'onlc-pagepreview__device';
+
+  const refreshFullscreen = () => {
+    fullscreenButton.textContent = t(fullscreen ? 'Quitter le plein écran' : 'Plein écran');
+    fullscreenButton.setAttribute('aria-pressed', fullscreen ? 'true' : 'false');
+  };
+
+  fullscreenButton.addEventListener('click', () => {
+    fullscreen = !fullscreen;
+    refreshFullscreen();
+    controls.toggleFullscreen();
+  });
+  refreshFullscreen();
+  bar.appendChild(fullscreenButton);
 
   if (languageButtons.length > 0) {
     const spacer = doc.createElement('span');
@@ -278,19 +315,25 @@ const create = (editor: Editor) => (element: HTMLElement): Promise<Dialog.Custom
 };
 
 const open = (editor: Editor): void => {
-  editor.windowManager.open({
+  // La fenêtre n'existe pas encore quand son contenu est décrit : le basculement est posé dans
+  // cet objet, que le bouton interroge au moment où on le presse.
+  const controls: PreviewControls = { toggleFullscreen: Fun.noop };
+
+  const dialog = editor.windowManager.open({
     title: 'Aperçu comme un visiteur',
     size: 'large',
     body: {
       type: 'panel',
       items: [
-        { type: 'customeditor', name: 'preview', tag: 'div', init: create(editor) }
+        { type: 'customeditor', name: 'preview', tag: 'div', init: create(editor, controls) }
       ]
     },
     buttons: [
       { type: 'cancel', name: 'close', text: 'Fermer', primary: true }
     ]
   });
+
+  controls.toggleFullscreen = () => dialog.toggleFullscreen();
 };
 
 export {

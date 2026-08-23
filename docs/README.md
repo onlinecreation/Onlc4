@@ -126,8 +126,11 @@ node modules/hugerte/tools/openmoji/build-openmoji.js <dossier openmoji/color/sv
 # Catalogue Font Awesome Free (1 895 icônes, catégories comprises)
 node modules/hugerte/tools/openmoji/build-fontawesome.js <dossier @fortawesome/fontawesome-free>
 
-# Paquets de langue anglais et espagnol
+# Paquets de langue anglais, espagnol et néerlandais
 node modules/hugerte/tools/openmoji/build-i18n.js
+
+# Couverture des traductions, module par module
+node modules/hugerte/tools/i18n/coverage.js
 ```
 
 Les licences des ressources embarquées — OpenMoji (CC BY-SA 4.0), Font Awesome Free (SIL OFL 1.1
@@ -167,8 +170,9 @@ pour faciliter une remontée éventuelle en amont.
   médiathèque.
 - **Aperçus inertes** : une vidéo, une carte ou une page intégrée s'affichent en vignette pendant
   l'écriture. On peut cliquer, sélectionner et déplacer le bloc sans jamais déclencher le média.
-- **Langue** : les libellés sont en français par défaut ; l'anglais et l'espagnol se chargent en
-  ajoutant un fichier (voir [i18n.md](i18n.md)).
+- **Langue** : les libellés sont en français par défaut ; l'anglais, l'espagnol et le néerlandais
+  se chargent en ajoutant **deux** fichiers — celui du cœur et celui des plugins, qui vont
+  ensemble (voir [i18n.md](i18n.md)).
 - **Une seule barre par bloc** : les réglages d'un bloc — modifier, identifiant et classes,
   hauteur, disposition des colonnes — sont dans **sa** barre de manipulation, à droite d'un filet,
   et non dans une seconde bulle ouverte par-dessus. Chaque plugin y déclare ses boutons par

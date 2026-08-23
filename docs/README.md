@@ -144,6 +144,52 @@ Une icône d'interface est par ailleurs écrite en dur dans le code, et non prod
 générateurs : le dessin de traduction du bouton `onlcmultilangwork`
 (`plugins/onlcmultilang/main/ts/ui/Icons.ts`), fourni par le projet, qui en détient la licence.
 
+## Ce que la zone d'écriture ne peut pas reproduire
+
+La feuille du site est chargée telle quelle dans la zone d'écriture : une page y ressemble à ce
+qu'elle sera. Une chose lui échappe pourtant, et il vaut mieux la connaître que la chercher.
+
+### Un élément en `position: fixed`
+
+Un élément fixé se cale sur la **fenêtre** du navigateur. Dans la zone d'écriture, cette fenêtre
+est celle du cadre d'édition, qui grandit avec le contenu et ne défile pas comme une page. L'effet
+n'est donc pas le même, et une mise en page qui en dépend se voit de travers.
+
+Le cas courant est la **parallaxe faite d'un calque fixé** :
+
+```html
+<div class="screen0 parallax">
+  <div class="parallax-layer">…le contenu du bandeau…</div>
+</div>
+<div class="parallax-placeholder"></div>
+```
+
+Le calque sort du flux, et le `parallax-placeholder` — un `div` vide — réserve sa hauteur pour que
+la suite de la page ne passe pas dessous. Sur le site, les deux s'annulent et le bandeau occupe la
+place attendue. Dans la zone d'écriture, le calque se fige en haut du cadre **et** la réserve
+demeure : elle apparaît alors comme une bande vide après le bandeau.
+
+> Ce n'est ni un code parasite ni une erreur de configuration : c'est la technique elle-même, qui
+> n'a de sens que dans une page qui défile. Mesuré : avec un calque fixé et une réserve de 70 vh,
+> la zone d'écriture montre 450 pixels de vide là où le site n'en montre aucun.
+
+**La correction tient en deux lignes**, dans une feuille chargée par `content_css` — donc vue par
+l'éditeur seul, jamais par le site :
+
+```css
+/* Zone d'écriture : remettre le calque dans le flux et rendre la réserve inutile. */
+.parallax-layer { position: static; }
+.parallax-placeholder { height: 0; }
+```
+
+C'est ce que fait la feuille de la démonstration LMparts,
+`example/public/assets/lmparts-site.css`, qui obtient la parallaxe par
+`background-attachment: fixed` — un fond fixé n'a pas besoin de réserve.
+
+L'**aperçu visiteur**, lui, montre la vraie page dans un cadre qui défile : la technique y
+fonctionne. Elle se règle cependant sur la hauteur du cadre, et une fenêtre d'éditeur est courte —
+d'où le bouton **Plein écran** de l'aperçu.
+
 ## Corrections apportées au cœur et au thème
 
 Le fork corrige quelques défauts rencontrés en développant les plugins ; ils sont signalés ici

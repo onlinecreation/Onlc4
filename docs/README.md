@@ -126,7 +126,8 @@ node modules/hugerte/tools/openmoji/build-openmoji.js <dossier openmoji/color/sv
 # Catalogue Font Awesome Free (1 895 icônes, catégories comprises)
 node modules/hugerte/tools/openmoji/build-fontawesome.js <dossier @fortawesome/fontawesome-free>
 
-# Paquets de langue anglais, espagnol et néerlandais
+# Paquets de langue : d'abord ceux du cœur, puis les chaînes ONLC ajoutées aux mêmes fichiers
+node modules/hugerte/tools/i18n/build-langs.js
 node modules/hugerte/tools/openmoji/build-i18n.js
 
 # Couverture des traductions, module par module
@@ -153,6 +154,7 @@ pour faciliter une remontée éventuelle en amont.
 | `themes/silver/ui/alien/DialogTabHeight.ts` | La hauteur des onglets était calculée d'après la fenêtre, sans tenir compte de la hauteur propre du dialogue : les boutons du bas se retrouvaient coupés. |
 | `oxide/…/dialog.less` | `min-height: 0` sur le corps du dialogue : un contenu haut poussait le pied de page hors du cadre. La chaîne complète (`content-js` → `body` → `form`) est complétée par `onlcshared/ui/DialogStyles`, qui s'applique sans recompiler l'habillage. |
 | `Gruntfile.js` (copie des icônes) | Le pack d'icônes s'enregistrait sur le global `tinymce`, inexistant dans HugeRTE : aucune icône ne se chargeait hors webpack. |
+| `core/init/Render.ts` | Le chargement du paquet de langue sautait le code `en` : TinyMCE n'en livre aucun, son interface étant écrite en anglais. Ici les plugins sont écrits en français, et c'est donc l'anglais qui a besoin d'être traduit. Le cas particulier est retiré, et `langs/en.js` est livré comme les autres. **Conséquence** : `language` valant `en` par défaut, une configuration qui ne la précise pas obtient une interface anglaise. |
 | `themes/silver/ui/menus/menubar/Integration.ts` | Les listes par défaut des menus sont désormais **exportées**. L'option `menu` remplace la liste d'un menu et ne la complète jamais : un plugin qui veut y ranger une entrée doit connaître ces listes. Voir `onlcshared/ui/MenuEntries`, dont une épreuve compare sa copie à l'original. |
 
 ## Principes d'interface
@@ -170,9 +172,10 @@ pour faciliter une remontée éventuelle en amont.
   médiathèque.
 - **Aperçus inertes** : une vidéo, une carte ou une page intégrée s'affichent en vignette pendant
   l'écriture. On peut cliquer, sélectionner et déplacer le bloc sans jamais déclencher le média.
-- **Langue** : les libellés sont en français par défaut ; l'anglais, l'espagnol et le néerlandais
-  se chargent en ajoutant **deux** fichiers — celui du cœur et celui des plugins, qui vont
-  ensemble (voir [i18n.md](i18n.md)).
+- **Langue** : quatre langues sont livrées — français, anglais, espagnol, néerlandais. Une seule
+  option les choisit, `language:`, et le fichier chargé traduit aussi bien le cœur que les
+  plugins. L'option vaut `en` par défaut : précisez `language: 'fr'` pour une interface française
+  (voir [i18n.md](i18n.md)).
 - **Une seule barre par bloc** : les réglages d'un bloc — modifier, identifiant et classes,
   hauteur, disposition des colonnes — sont dans **sa** barre de manipulation, à droite d'un filet,
   et non dans une seconde bulle ouverte par-dessus. Chaque plugin y déclare ses boutons par

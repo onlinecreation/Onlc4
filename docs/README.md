@@ -18,6 +18,7 @@ HugeRTE n'est pas modifié, chaque fonctionnalité s'active dans l'option `plugi
 | `onlcmultilang` | Pages polyglottes : les passages `[LG]` et `<multilang>` deviennent des sections encadrées et nommées | [doc](plugins/onlcmultilang.md) |
 | `onlcseo` | Description pour les moteurs et microdonnées schema.org, uniques par page et placées en tête | [doc](plugins/onlcseo.md) |
 | `onlcswiper` | Diaporamas Swiper écrits à la main : détection du html et de sa configuration javascript, formulaire | [doc](plugins/onlcswiper.md) |
+| `onlcanimtext` | Texte animé : clignotant, défilant, ou des mots qui se relaient à la même place | [doc](plugins/onlcanimtext.md) |
 
 `onlcshared` n'est pas un plugin : c'est la bibliothèque interne (client HTTP, section « lien »,
 styles de dialogue, registres partagés — feuilles de style de publication, boutons de propriétés
@@ -77,7 +78,7 @@ hugerte.init({
   selector: 'textarea',
   plugins: [
     'onlcblocks', 'onlcmedia', 'onlcresponsiveimages', 'onlclink',
-    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcmultilang'
+    'onlcspacer', 'onlcicons', 'onlcwidgets', 'onlcmultilang', 'onlcanimtext'
   ].join(' '),
   toolbar: [
     'undo redo',
@@ -85,7 +86,7 @@ hugerte.init({
     'onlcblocksinsert onlcblocksrow',
     'onlcimage onlcmedialibrary',
     'onlclink onlcunlink',
-    'onlcspacer onlcemoji onlcicons',
+    'onlcspacer onlcemoji onlcicons onlcanimtext',
     'onlcwidget onlcscript onlcsource onlcmultilang onlcpreview'
   ].join(' | '),
 

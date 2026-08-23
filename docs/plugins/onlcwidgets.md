@@ -402,6 +402,12 @@ codes courts — du gabarit comme du contenu — sont remplacés par les valeurs
 
 Trois largeurs sont proposées : ordinateur, tablette (820 px) et téléphone (390 px).
 
+Un quatrième bouton, **Plein écran**, donne à la fenêtre toute la place de l'écran. Une fenêtre
+d'éditeur mesure quelques centaines de pixels de haut, et une page d'accueil s'y juge mal :
+certaines techniques ne s'y voient même pas — une parallaxe faite d'un calque fixé se règle sur la
+hauteur du cadre, et un cadre court la montre de travers. Le bouton dit comment en sortir une fois
+pressé.
+
 Les **feuilles de style nécessaires à la page publiée** sont ajoutées à la fin du `<head>`, après
 celles du gabarit : d'abord celles que les plugins déclarent — l'allure d'un bandeau, la grille
 d'un calendrier, la visionneuse d'un pdf, la taille d'un emoji, la parallaxe d'une image — puis

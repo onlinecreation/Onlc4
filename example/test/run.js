@@ -20,7 +20,8 @@ const files = [
   './template-api.test.js',
   './site-css-api.test.js',
   './branding.test.js',
-  './build-langs.test.js'
+  './build-langs.test.js',
+  './i18n.test.js'
 ];
 
 files.forEach((file) => require(path.resolve(__dirname, file)));

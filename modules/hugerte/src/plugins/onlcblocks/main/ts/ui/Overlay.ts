@@ -71,29 +71,56 @@ const plusIcon = (size: number): string =>
   `<svg viewBox="0 0 24 24" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">` +
   '<path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg>';
 
-const buttonHtml = (button: ToolbarButton): string =>
-  `<button type="button" class="onlc-blocks-btn" data-onlc-action="${button.action}" title="${button.label}" aria-label="${button.label}">${button.icon}</button>`;
+/**
+ * Les intitulés de la barre passent par la traduction, comme partout ailleurs.
+ *
+ * Ils sont écrits dans du html assemblé à la main, et non dans une spécification de dialogue : la
+ * traduction ne s'y fait donc pas d'elle-même. Elle avait été oubliée, et toute la barre de
+ * manipulation restait en français sous une interface néerlandaise.
+ */
+const translator = (editor: Editor) => (text: string): string =>
+  editor.dom.encode(editor.translate(text) as string);
 
-const layerHtml = (editor: Editor): string =>
-  '<div class="onlc-blocks-outline" data-onlc-part="outline">' +
-  '<span class="onlc-blocks-outline__kind onlc-blocks-hidden" data-onlc-part="blockkind"></span>' +
-  '<span class="onlc-blocks-outline__id onlc-blocks-hidden" data-onlc-part="blockid"></span></div>' +
-  '<div class="onlc-blocks-toolbar" data-onlc-part="toolbar">' +
-  `${Arr.map(buttonsFor(editor), buttonHtml).join('')}` +
-  '<span class="onlc-blocks-toolbar__props" data-onlc-part="props"></span></div>' +
-  '<div class="onlc-blocks-langmenu onlc-blocks-hidden" data-onlc-part="langmenu"></div>' +
-  `<button type="button" class="onlc-blocks-add onlc-blocks-add--before" data-onlc-part="add-before" data-onlc-action="insert-before" title="Ajouter un bloc avant" aria-label="Ajouter un bloc avant">${plusIcon(16)}</button>` +
-  `<button type="button" class="onlc-blocks-add onlc-blocks-add--after" data-onlc-part="add-after" data-onlc-action="insert-after" title="Ajouter un bloc après" aria-label="Ajouter un bloc après">${plusIcon(16)}</button>` +
-  '<div class="onlc-blocks-indicator" data-onlc-part="indicator"></div>';
+const buttonHtml = (editor: Editor) => (button: ToolbarButton): string => {
+  const t = translator(editor);
+  const intitule = t(button.label);
+  return `<button type="button" class="onlc-blocks-btn" data-onlc-action="${button.action}" ` +
+    `title="${intitule}" aria-label="${intitule}">${button.icon}</button>`;
+};
+
+const layerHtml = (editor: Editor): string => {
+  const t = translator(editor);
+  const avant = t('Ajouter un bloc avant');
+  const apres = t('Ajouter un bloc après');
+
+  return '<div class="onlc-blocks-outline" data-onlc-part="outline">' +
+    '<span class="onlc-blocks-outline__kind onlc-blocks-hidden" data-onlc-part="blockkind"></span>' +
+    '<span class="onlc-blocks-outline__id onlc-blocks-hidden" data-onlc-part="blockid"></span></div>' +
+    '<div class="onlc-blocks-toolbar" data-onlc-part="toolbar">' +
+    `${Arr.map(buttonsFor(editor), buttonHtml(editor)).join('')}` +
+    '<span class="onlc-blocks-toolbar__props" data-onlc-part="props"></span></div>' +
+    '<div class="onlc-blocks-langmenu onlc-blocks-hidden" data-onlc-part="langmenu"></div>' +
+    '<button type="button" class="onlc-blocks-add onlc-blocks-add--before" data-onlc-part="add-before" ' +
+    `data-onlc-action="insert-before" title="${avant}" aria-label="${avant}">${plusIcon(16)}</button>` +
+    '<button type="button" class="onlc-blocks-add onlc-blocks-add--after" data-onlc-part="add-after" ' +
+    `data-onlc-action="insert-after" title="${apres}" aria-label="${apres}">${plusIcon(16)}</button>` +
+    '<div class="onlc-blocks-indicator" data-onlc-part="indicator"></div>';
+};
 
 /**
  * Les zones d'ajout de début et de fin sont posées dans le flux du document, avant le premier
  * bloc et après le dernier : elles ne recouvrent jamais le contenu.
  */
-const edgeZoneHtml = (position: 'start' | 'end'): string =>
-  `<button type="button" class="onlc-blocks-edge" data-onlc-action="insert-${position}">` +
-  `<span class="onlc-blocks-edge__plus">${plusIcon(14)}</span>` +
-  `<span>Ajouter un bloc ${position === 'start' ? 'au début' : 'à la fin'}</span></button>`;
+const edgeZoneHtml = (editor: Editor, position: 'start' | 'end'): string => {
+  const t = translator(editor);
+  // Deux phrases entières, et non « Ajouter un bloc » suivi de « au début » : une langue ne place
+  // pas forcément son complément à la fin, et un intitulé assemblé de morceaux ne se traduit pas.
+  const intitule = position === 'start' ? t('Ajouter un bloc au début') : t('Ajouter un bloc à la fin');
+
+  return `<button type="button" class="onlc-blocks-edge" data-onlc-action="insert-${position}">` +
+    `<span class="onlc-blocks-edge__plus">${plusIcon(14)}</span>` +
+    `<span>${intitule}</span></button>`;
+};
 
 /** Diamètre des boutons « + », en pixels. Doit rester synchronisé avec onlcblocks.css. */
 const addButtonSize = 28;
@@ -268,7 +295,7 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
           'data-onlc-part': `edge-${position}`,
           'data-mce-bogus': 'all',
           contenteditable: 'false'
-        }, edgeZoneHtml(position));
+        }, edgeZoneHtml(editor, position));
         edges[position] = zone;
         bindActions(zone);
       }

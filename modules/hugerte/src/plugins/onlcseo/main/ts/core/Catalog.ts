@@ -396,7 +396,7 @@ const catalog: SchemaType[] = [
       { name: 'openingHoursSpecification', label: 'Horaires d’ouverture', type: 'nested',
         of: [ 'OpeningHoursSpecification' ], many: true },
       { name: 'geo', label: 'Coordonnées géographiques', type: 'nested', of: [ 'GeoCoordinates' ] },
-      { name: 'priceRange', label: 'Niveau de prix', type: 'text', placeholder: 'EUR EUR',
+      { name: 'priceRange', label: 'Niveau de prix', type: 'text', placeholder: '€€',
         help: 'De « € » à « €€€€ », ou une fourchette : « 15 € – 40 € ».' },
       { name: 'servesCuisine', label: 'Type de cuisine', type: 'text', placeholder: 'Française' },
       { name: 'areaServed', label: 'Zone desservie', type: 'text', placeholder: 'Indre-et-Loire' }

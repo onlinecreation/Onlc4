@@ -1,3890 +1,4977 @@
 {
+  "1 vue": [
+    "1 view",
+    "1 vista",
+    "1 weergave"
+  ],
   "10 rue de la Paix, Paris": [
     "10 Downing Street, London",
-    "Calle Mayor 10, Madrid"
+    "Calle Mayor 10, Madrid",
+    "Damrak 10, Amsterdam"
   ],
   "16:9 (paysage)": [
     "16:9 (landscape)",
-    "16:9 (horizontal)"
+    "16:9 (horizontal)",
+    "16:9 (liggend)"
   ],
   "1:1 (carré)": [
     "1:1 (square)",
-    "1:1 (cuadrado)"
+    "1:1 (cuadrado)",
+    "1:1 (vierkant)"
   ],
   "2 à 3 jours ouvrés": [
     "2 to 3 working days",
-    "2 a 3 días laborables"
+    "2 a 3 días laborables",
+    "2 tot 3 werkdagen"
   ],
   "200 g de farine": [
     "200 g of flour",
-    "200 g de harina"
+    "200 g de harina",
+    "200 g bloem"
   ],
   "21:9 (cinéma)": [
     "21:9 (cinema)",
-    "21:9 (cine)"
+    "21:9 (cine)",
+    "21:9 (bioscoop)"
   ],
   "240 calories": [
     "240 calories",
-    "240 calorías"
+    "240 calorías",
+    "240 calorieën"
   ],
   "26 rue de la Roquille": [
     "26 Roquille Street",
-    "Calle de la Roquille, 26"
+    "Calle de la Roquille, 26",
+    "Roquillestraat 26"
   ],
   "3000 millisecondes valent trois secondes. En dessous de 2000, la plupart des visiteurs n’ont pas le temps de lire.": [
     "3000 milliseconds is three seconds. Below 2000, most visitors do not have time to read.",
-    "3000 milisegundos son tres segundos. Por debajo de 2000, la mayoría de los visitantes no tiene tiempo de leer."
+    "3000 milisegundos son tres segundos. Por debajo de 2000, la mayoría de los visitantes no tiene tiempo de leer.",
+    "3000 milliseconden zijn drie seconden. Onder de 2000 heeft de meeste bezoekers geen tijd om te lezen."
   ],
   "4 parts": [
     "4 servings",
-    "4 raciones"
+    "4 raciones",
+    "4 porties"
   ],
   "61 rue du Château d’Eau, 33000 Bordeaux": [
     "1 Market Street, Manchester M1 1AA",
-    "Calle Mayor 1, 28013 Madrid"
+    "Calle Mayor 1, 28013 Madrid",
+    "Grote Markt 1, 2000 Antwerpen"
   ],
   "9:16 (vertical)": [
     "9:16 (portrait)",
-    "9:16 (vertical)"
+    "9:16 (vertical)",
+    "9:16 (staand)"
   ],
   "Abonnement annuel": [
     "Annual subscription",
-    "Suscripción anual"
+    "Suscripción anual",
+    "Jaarabonnement"
   ],
   "Accessible sans payer": [
     "Free to access",
-    "Acceso gratuito"
+    "Acceso gratuito",
+    "Gratis toegankelijk"
   ],
   "Acheter": [
     "Buy",
-    "Comprar"
+    "Comprar",
+    "Kopen"
   ],
   "Action javascript au clic": [
     "Javascript action on click",
-    "Acción javascript al hacer clic"
+    "Acción javascript al hacer clic",
+    "Javascript-actie bij klikken"
   ],
   "Actions": [
     "Actions",
-    "Acciones"
+    "Acciones",
+    "Acties"
   ],
   "Actuelle": [
     "Current",
-    "Actual"
+    "Actual",
+    "Huidige"
   ],
   "Adresse": [
     "Address",
-    "Dirección"
+    "Dirección",
+    "Adres"
   ],
   "Adresse de la page": [
     "Page address",
-    "Dirección de la página"
+    "Dirección de la página",
+    "Adres van de pagina"
   ],
   "Adresse de la vidéo": [
     "Video address",
-    "Dirección del vídeo"
+    "Dirección del vídeo",
+    "Adres van de video"
   ],
   "Adresse de l’agenda": [
     "Calendar address",
-    "Dirección de la agenda"
+    "Dirección de la agenda",
+    "Adres van de agenda"
   ],
   "Adresse de l’image": [
     "Image address",
-    "Dirección de la imagen"
+    "Dirección de la imagen",
+    "Adres van de afbeelding"
   ],
   "Adresse de l’événement": [
     "Event address",
-    "Dirección del evento"
+    "Dirección del evento",
+    "Adres van het evenement"
   ],
   "Adresse du fichier": [
     "File address",
-    "Dirección del archivo"
+    "Dirección del archivo",
+    "Adres van het bestand"
   ],
   "Adresse du fichier vidéo": [
     "Video file address",
-    "Dirección del archivo de vídeo"
+    "Dirección del archivo de vídeo",
+    "Adres van het videobestand"
   ],
   "Adresse du lecteur intégré": [
     "Embedded player address",
-    "Dirección del reproductor integrado"
+    "Dirección del reproductor integrado",
+    "Adres van de ingesloten speler"
   ],
   "Adresse du lien": [
     "Link address",
-    "Dirección del enlace"
+    "Dirección del enlace",
+    "Adres van de link"
   ],
   "Adresse du lieu": [
     "Address of the place",
-    "Dirección del lugar"
+    "Dirección del lugar",
+    "Adres van de locatie"
   ],
   "Adresse e-mail": [
     "E-mail address",
-    "Correo electrónico"
+    "Correo electrónico",
+    "E-mailadres"
   ],
   "Adresse personnalisée…": [
     "Custom address…",
-    "Dirección personalizada…"
+    "Dirección personalizada…",
+    "Aangepast adres…"
   ],
   "Adresse postale": [
     "Postal address",
-    "Dirección postal"
+    "Dirección postal",
+    "Postadres"
   ],
   "Adresse à laquelle les messages du formulaire seront envoyés.": [
     "Address the form messages will be sent to.",
-    "Dirección a la que se enviarán los mensajes del formulario."
+    "Dirección a la que se enviarán los mensajes del formulario.",
+    "Adres waarnaar de berichten van het formulier worden gestuurd."
   ],
   "Affichage": [
     "View",
-    "Vista"
+    "Vista",
+    "Weergave"
   ],
   "Affiche du code sans le formater": [
     "Shows code exactly as written",
-    "Muestra código tal cual está escrito"
+    "Muestra código tal cual está escrito",
+    "Toont code precies zoals ze geschreven is"
   ],
   "Affiche un PDF directement dans la page, page après page": [
     "Shows a PDF right inside the page, page after page",
-    "Muestra un PDF dentro de la página, página tras página"
+    "Muestra un PDF dentro de la página, página tras página",
+    "Toont een pdf rechtstreeks in de pagina, bladzijde na bladzijde"
   ],
   "Affiche une autre page web à l’intérieur de la vôtre": [
     "Shows another web page inside yours",
-    "Muestra otra página web dentro de la suya"
+    "Muestra otra página web dentro de la suya",
+    "Toont een andere webpagina binnen de uwe"
   ],
   "Afficher comme un visiteur": [
     "Show as a visitor",
-    "Ver como un visitante"
+    "Ver como un visitante",
+    "Tonen als bezoeker"
   ],
   "Afficher les flèches précédent / suivant": [
     "Show previous / next arrows",
-    "Mostrar las flechas anterior / siguiente"
+    "Mostrar las flechas anterior / siguiente",
+    "Pijlen vorige / volgende tonen"
   ],
   "Afficher les intitulés sur les vignettes": [
     "Show captions on thumbnails",
-    "Mostrar los títulos en las miniaturas"
+    "Mostrar los títulos en las miniaturas",
+    "Bijschriften op de miniaturen tonen"
   ],
   "Afficher les outils de blocs": [
     "Show block tools",
-    "Mostrar las herramientas de bloques"
+    "Mostrar las herramientas de bloques",
+    "Blokgereedschap tonen"
   ],
   "Afficher les points de position": [
     "Show position dots",
-    "Mostrar los puntos de posición"
+    "Mostrar los puntos de posición",
+    "Positiestippen tonen"
   ],
   "Afficher une barre de défilement": [
     "Show a scrollbar",
-    "Mostrar una barra de desplazamiento"
+    "Mostrar una barra de desplazamiento",
+    "Een schuifbalk tonen"
   ],
   "Agenda": [
     "Calendar",
+    "Agenda",
     "Agenda"
   ],
   "Agenda partagé": [
     "Shared calendar",
-    "Agenda compartida"
+    "Agenda compartida",
+    "Gedeelde agenda"
   ],
   "Agrandir": [
     "Enlarge",
-    "Ampliar"
+    "Ampliar",
+    "Vergroten"
   ],
   "Ajoute du vide entre deux blocs, hauteur réglable": [
     "Adds adjustable empty space between two blocks",
-    "Añade un espacio vacío ajustable entre dos bloques"
+    "Añade un espacio vacío ajustable entre dos bloques",
+    "Voegt instelbare lege ruimte toe tussen twee blokken"
   ],
   "Ajouter": [
     "Add",
-    "Añadir"
+    "Añadir",
+    "Toevoegen"
   ],
   "Ajouter des colonnes": [
     "Add columns",
-    "Añadir columnas"
+    "Añadir columnas",
+    "Kolommen toevoegen"
   ],
   "Ajouter des colonnes...": [
     "Add columns...",
-    "Añadir columnas..."
+    "Añadir columnas...",
+    "Kolommen toevoegen..."
   ],
   "Ajouter des images au début…": [
     "Add images at the start…",
-    "Añadir imágenes al principio…"
+    "Añadir imágenes al principio…",
+    "Afbeeldingen vooraan toevoegen…"
   ],
   "Ajouter des images à la fin…": [
     "Add images at the end…",
-    "Añadir imágenes al final…"
+    "Añadir imágenes al final…",
+    "Afbeeldingen achteraan toevoegen…"
   ],
   "Ajouter des images…": [
     "Add images…",
-    "Añadir imágenes…"
+    "Añadir imágenes…",
+    "Afbeeldingen toevoegen…"
   ],
   "Ajouter un bloc": [
     "Add a block",
-    "Añadir un bloque"
+    "Añadir un bloque",
+    "Een blok toevoegen"
+  ],
+  "Ajouter un bloc après": [
+    "Add a block after",
+    "Añadir un bloque después",
+    "Een blok erna toevoegen"
+  ],
+  "Ajouter un bloc au début": [
+    "Add a block at the start",
+    "Añadir un bloque al principio",
+    "Een blok vooraan toevoegen"
+  ],
+  "Ajouter un bloc avant": [
+    "Add a block before",
+    "Añadir un bloque antes",
+    "Een blok ervoor toevoegen"
+  ],
+  "Ajouter un bloc à la fin": [
+    "Add a block at the end",
+    "Añadir un bloque al final",
+    "Een blok achteraan toevoegen"
   ],
   "Ajouter un bloc...": [
     "Add a block...",
-    "Añadir un bloque..."
+    "Añadir un bloque...",
+    "Een blok toevoegen..."
   ],
   "Ajouter un espace vertical de la hauteur de votre choix": [
     "Add vertical space of the height you choose",
-    "Añadir un espacio vertical de la altura que elija"
+    "Añadir un espacio vertical de la altura que elija",
+    "Verticale ruimte toevoegen met de hoogte van uw keuze"
   ],
   "Ajouter un palier": [
     "Add a breakpoint",
-    "Añadir un umbral"
+    "Añadir un umbral",
+    "Een breekpunt toevoegen"
   ],
   "Ajouter un rendez-vous": [
     "Add an appointment",
-    "Añadir una cita"
+    "Añadir una cita",
+    "Een afspraak toevoegen"
   ],
   "Ajouter une classe": [
     "Add a class",
-    "Añadir una clase"
+    "Añadir una clase",
+    "Een klasse toevoegen"
   ],
   "Ajouter une colonne": [
     "Add a column",
-    "Añadir una columna"
+    "Añadir una columna",
+    "Een kolom toevoegen"
   ],
   "Ajouter une configuration": [
     "Add a configuration",
-    "Añadir una configuración"
+    "Añadir una configuración",
+    "Een configuratie toevoegen"
   ],
   "Ajouter une description pour les moteurs…": [
     "Add a description for search engines…",
-    "Añadir una descripción para los buscadores…"
+    "Añadir una descripción para los buscadores…",
+    "Een beschrijving voor zoekmachines toevoegen…"
   ],
   "Ajouter une propriété…": [
     "Add a property…",
-    "Añadir una propiedad…"
+    "Añadir una propiedad…",
+    "Een eigenschap toevoegen…"
   ],
   "Ajouter une valeur": [
     "Add a value",
-    "Añadir un valor"
+    "Añadir un valor",
+    "Een waarde toevoegen"
   ],
   "Ajouter une vue vide": [
     "Add an empty slide",
-    "Añadir una vista vacía"
+    "Añadir una vista vacía",
+    "Een lege weergave toevoegen"
   ],
   "Ajouter à la page": [
     "Add to the page",
-    "Añadir a la página"
+    "Añadir a la página",
+    "Aan de pagina toevoegen"
   ],
   "Ajouter à mon calendrier": [
     "Add to my calendar",
-    "Añadir a mi calendario"
+    "Añadir a mi calendario",
+    "Aan mijn agenda toevoegen"
   ],
   "Ajoutez au moins une image à la galerie": [
     "Add at least one image to the gallery",
-    "Añada al menos una imagen a la galería"
+    "Añada al menos una imagen a la galería",
+    "Voeg minstens één afbeelding aan de galerij toe"
   ],
   "Ajoutées": [
     "Added",
-    "Añadidas"
+    "Añadidas",
+    "Toegevoegd"
   ],
   "Ajustée à la taille de l'écran": [
     "Fitted to the screen",
-    "Ajustada al tamaño de la pantalla"
+    "Ajustada al tamaño de la pantalla",
+    "Aangepast aan de schermgrootte"
   ],
   "Alignement": [
     "Alignment",
-    "Alineación"
+    "Alineación",
+    "Uitlijning"
   ],
   "Ancre dans la page": [
     "Anchor on this page",
-    "Ancla en la página"
+    "Ancla en la página",
+    "Anker op deze pagina"
   ],
   "Angle (°)": [
     "Angle (°)",
-    "Ángulo (°)"
+    "Ángulo (°)",
+    "Hoek (°)"
   ],
   "Annuler": [
     "Cancel",
-    "Cancelar"
+    "Cancelar",
+    "Annuleren"
   ],
   "Annulé": [
     "Cancelled",
-    "Cancelado"
+    "Cancelado",
+    "Geannuleerd"
   ],
   "Année précédente": [
     "Previous year",
-    "Año anterior"
+    "Año anterior",
+    "Vorig jaar"
   ],
   "Année suivante": [
     "Next year",
-    "Año siguiente"
+    "Año siguiente",
+    "Volgend jaar"
   ],
   "Aperçu comme un visiteur": [
     "Preview as a visitor",
-    "Vista previa como visitante"
+    "Vista previa como visitante",
+    "Voorbeeld als bezoeker"
   ],
   "Aperçu comme un visiteur...": [
     "Preview as a visitor...",
-    "Vista previa como visitante..."
+    "Vista previa como visitante...",
+    "Voorbeeld als bezoeker..."
   ],
   "Aperçu de la page": [
     "Page preview",
-    "Vista previa de la página"
+    "Vista previa de la página",
+    "Voorbeeld van de pagina"
   ],
   "Apparence": [
     "Appearance",
-    "Apariencia"
+    "Apariencia",
+    "Uiterlijk"
   ],
   "Application": [
     "Application",
-    "Aplicación"
+    "Aplicación",
+    "Toepassing"
   ],
   "Arrondi": [
     "Rounded",
-    "Redondeado"
+    "Redondeado",
+    "Afgerond"
   ],
   "Article": [
     "Article",
-    "Artículo"
+    "Artículo",
+    "Artikel"
   ],
   "Article de presse": [
     "News article",
-    "Artículo de prensa"
+    "Artículo de prensa",
+    "Nieuwsartikel"
   ],
   "Article non renseigné": [
     "Item not filled in",
-    "Artículo sin indicar"
+    "Artículo sin indicar",
+    "Item niet ingevuld"
   ],
   "Assistance technique": [
     "Technical support",
-    "Asistencia técnica"
+    "Asistencia técnica",
+    "Technische ondersteuning"
   ],
   "Au format ISO 8601 : PT20M vaut 20 minutes, PT1H30M une heure et demie.": [
     "In ISO 8601 format: PT20M means 20 minutes, PT1H30M an hour and a half.",
-    "En formato ISO 8601: PT20M son 20 minutos, PT1H30M una hora y media."
+    "En formato ISO 8601: PT20M son 20 minutos, PT1H30M una hora y media.",
+    "In ISO 8601-formaat: PT20M betekent 20 minuten, PT1H30M anderhalf uur."
   ],
   "Au format ISO 8601 : PT2M30S vaut 2 minutes 30.": [
     "In ISO 8601 format: PT2M30S means 2 minutes 30 seconds.",
-    "En formato ISO 8601: PT2M30S son 2 minutos y 30 segundos."
+    "En formato ISO 8601: PT2M30S son 2 minutos y 30 segundos.",
+    "In ISO 8601-formaat: PT2M30S betekent 2 minuten 30 seconden."
   ],
   "Au format international, indicatif compris.": [
     "In international format, country code included.",
-    "En formato internacional, con prefijo del país."
+    "En formato internacional, con prefijo del país.",
+    "In internationaal formaat, landnummer inbegrepen."
   ],
   "Au-delà de cette date, les moteurs cessent d’afficher le prix.": [
     "Past this date, search engines stop showing the price.",
-    "Pasada esta fecha, los buscadores dejan de mostrar el precio."
+    "Pasada esta fecha, los buscadores dejan de mostrar el precio.",
+    "Na deze datum tonen zoekmachines de prijs niet meer."
   ],
   "Aucun code pour le moment.": [
     "No code yet.",
-    "Todavía no hay código."
+    "Todavía no hay código.",
+    "Nog geen code."
   ],
   "Aucun fichier choisi.": [
     "No file chosen.",
-    "Ningún archivo elegido."
+    "Ningún archivo elegido.",
+    "Geen bestand gekozen."
   ],
   "Aucun fichier ne correspond à cette recherche.": [
     "No file matches this search.",
-    "Ningún archivo coincide con esta búsqueda."
+    "Ningún archivo coincide con esta búsqueda.",
+    "Geen enkel bestand komt overeen met deze zoekopdracht."
   ],
   "Aucun lieu ne correspond. Essayez une adresse plus simple, ou entrez les coordonnées à la main.": [
     "No place matches. Try a simpler address, or enter the coordinates by hand.",
-    "Ningún lugar coincide. Pruebe una dirección más sencilla o introduzca las coordenadas a mano."
+    "Ningún lugar coincide. Pruebe una dirección más sencilla o introduzca las coordenadas a mano.",
+    "Geen enkele locatie komt overeen. Probeer een eenvoudiger adres, of voer de coördinaten met de hand in."
   ],
   "Aucun palier : le diaporama montre le même nombre de vues sur tous les écrans.": [
     "No breakpoints: the slideshow shows the same number of slides on every screen.",
-    "Sin umbrales: el carrusel muestra el mismo número de vistas en todas las pantallas."
+    "Sin umbrales: el carrusel muestra el mismo número de vistas en todas las pantallas.",
+    "Geen breekpunten: de diavoorstelling toont op elk scherm evenveel weergaven."
   ],
   "Aucun rendez-vous pour ce mois. Ajoutez-en un pour le voir apparaître dans la grille.": [
     "No appointments this month. Add one to see it appear in the grid.",
-    "No hay citas este mes. Añada una para verla aparecer en la cuadrícula."
+    "No hay citas este mes. Añada una para verla aparecer en la cuadrícula.",
+    "Geen afspraken deze maand. Voeg er een toe om die in het raster te zien verschijnen."
   ],
   "Aucune": [
     "None",
-    "Ninguna"
+    "Ninguna",
+    "Geen"
   ],
   "Aucune adresse renseignée": [
     "No address given",
-    "Sin dirección indicada"
+    "Sin dirección indicada",
+    "Geen adres opgegeven"
   ],
   "Aucune classe du site ne commence ainsi. Vous pouvez tout de même l’ajouter.": [
     "No class of the site starts like this. You can add it anyway.",
-    "Ninguna clase del sitio empieza así. Puede añadirla igualmente."
+    "Ninguna clase del sitio empieza así. Puede añadirla igualmente.",
+    "Geen enkele klasse van de site begint zo. U kunt ze toch toevoegen."
   ],
   "Aucune classe pour l’instant.": [
     "No class yet.",
-    "Ninguna clase por ahora."
+    "Ninguna clase por ahora.",
+    "Nog geen klasse."
   ],
   "Aucune description": [
     "No description",
-    "Sin descripción"
+    "Sin descripción",
+    "Geen beschrijving"
   ],
   "Aucune feuille de style de site n’est déclarée : écrivez le nom de la classe à la main.": [
     "No site stylesheet is declared: write the class name by hand.",
-    "No hay ninguna hoja de estilo del sitio declarada: escriba el nombre de la clase a mano."
+    "No hay ninguna hoja de estilo del sitio declarada: escriba el nombre de la clase a mano.",
+    "Er is geen stijlblad van de site opgegeven: schrijf de naam van de klasse met de hand."
   ],
   "Aucune image choisie.": [
     "No image chosen.",
-    "Ninguna imagen elegida."
+    "Ninguna imagen elegida.",
+    "Geen afbeelding gekozen."
   ],
   "Aucune image pour l’instant. Cliquez sur « Ajouter des images… » pour en choisir.": [
     "No images yet. Click “Add images…” to choose some.",
-    "Todavía no hay imágenes. Pulse «Añadir imágenes…» para elegirlas."
+    "Todavía no hay imágenes. Pulse «Añadir imágenes…» para elegirlas.",
+    "Nog geen afbeeldingen. Klik op « Afbeeldingen toevoegen… » om er te kiezen."
   ],
   "Aucune propriété renseignée pour l’instant.": [
     "No property filled in yet.",
-    "Ninguna propiedad rellenada por ahora."
+    "Ninguna propiedad rellenada por ahora.",
+    "Nog geen eigenschap ingevuld."
   ],
   "Aucune — visible par tous": [
     "None — visible to everyone",
-    "Ninguno — visible para todos"
+    "Ninguno — visible para todos",
+    "Geen — zichtbaar voor iedereen"
   ],
   "Auteur": [
     "Author",
-    "Autor"
+    "Autor",
+    "Auteur"
   ],
   "Autre nom": [
     "Other name",
-    "Otro nombre"
+    "Otro nombre",
+    "Andere naam"
   ],
   "Autres pages qui parlent de cette chose": [
     "Other pages about this thing",
-    "Otras páginas que hablan de esta cosa"
+    "Otras páginas que hablan de esta cosa",
+    "Andere pagina's over dit ding"
   ],
   "Avancer avec les flèches du clavier": [
     "Move with the keyboard arrows",
-    "Avanzar con las flechas del teclado"
+    "Avanzar con las flechas del teclado",
+    "Vooruit met de pijltjestoetsen"
   ],
   "Avancer tout seul": [
     "Advance on its own",
-    "Avanzar solo"
+    "Avanzar solo",
+    "Vanzelf doorgaan"
   ],
   "Avancer à la molette de la souris": [
     "Advance with the mouse wheel",
-    "Avanzar con la rueda del ratón"
+    "Avanzar con la rueda del ratón",
+    "Vooruit met het muiswiel"
   ],
   "Avancé": [
     "Advanced",
-    "Avanzado"
+    "Avanzado",
+    "Geavanceerd"
   ],
   "Avant retouche": [
     "Before editing",
-    "Antes de editar"
+    "Antes de editar",
+    "Voor bewerking"
   ],
   "Avec empattement": [
     "Serif",
-    "Con serifa"
+    "Con serifa",
+    "Met schreef"
   ],
   "Avis": [
     "Review",
-    "Reseña"
+    "Reseña",
+    "Beoordeling"
   ],
   "Balise « div ». L’identifiant et les classes voyagent avec le bloc : ils sont écrits tels quels dans la page publiée.": [
     "“div” tag. The identifier and the classes travel with the block: they are written as they are in the published page.",
-    "Etiqueta «div». El identificador y las clases viajan con el bloque: se escriben tal cual en la página publicada."
+    "Etiqueta «div». El identificador y las clases viajan con el bloque: se escriben tal cual en la página publicada.",
+    "« div »-tag. De identificatie en de klassen reizen mee met het blok: ze worden onveranderd in de gepubliceerde pagina geschreven."
   ],
   "Bandeau d’introduction avec titre, texte et bouton": [
     "Opening banner with a heading, text and a button",
-    "Banner de presentación con título, texto y botón"
+    "Banner de presentación con título, texto y botón",
+    "Openingsbanner met titel, tekst en knop"
   ],
   "Barre de progression": [
     "Progress bar",
-    "Barra de progreso"
+    "Barra de progreso",
+    "Voortgangsbalk"
   ],
   "Bas centre": [
     "Bottom centre",
-    "Abajo centro"
+    "Abajo centro",
+    "Onder midden"
   ],
   "Bas droite": [
     "Bottom right",
-    "Abajo derecha"
+    "Abajo derecha",
+    "Onder rechts"
   ],
   "Bas gauche": [
     "Bottom left",
-    "Abajo izquierda"
+    "Abajo izquierda",
+    "Onder links"
   ],
   "Billet de blog": [
     "Blog post",
-    "Entrada de blog"
+    "Entrada de blog",
+    "Blogbericht"
   ],
   "Billetterie": [
     "Tickets",
-    "Entradas"
+    "Entradas",
+    "Kaartverkoop"
   ],
   "Bloc de texte": [
     "Text block",
-    "Bloque de texto"
+    "Bloque de texto",
+    "Tekstblok"
   ],
   "Bloc prédéfini": [
     "Ready-made block",
-    "Bloque predefinido"
+    "Bloque predefinido",
+    "Kant-en-klaar blok"
   ],
   "Blocs et éléments": [
     "Blocks and elements",
-    "Bloques y elementos"
+    "Bloques y elementos",
+    "Blokken en elementen"
   ],
   "Blocs et éléments du site": [
     "Blocks and site elements",
-    "Bloques y elementos del sitio"
+    "Bloques y elementos del sitio",
+    "Blokken en elementen van de site"
   ],
   "Blocs et éléments du site...": [
     "Blocks and site elements...",
-    "Bloques y elementos del sitio..."
+    "Bloques y elementos del sitio...",
+    "Blokken en elementen van de site..."
   ],
   "Blocs prédéfinis": [
     "Ready-made blocks",
-    "Bloques predefinidos"
+    "Bloques predefinidos",
+    "Kant-en-klare blokken"
   ],
   "Blocs prédéfinis...": [
     "Ready-made blocks...",
-    "Bloques predefinidos..."
+    "Bloques predefinidos...",
+    "Kant-en-klare blokken..."
   ],
   "Bouton": [
     "Button",
-    "Botón"
+    "Botón",
+    "Knop"
   ],
   "Bouton de paiement PayPal": [
     "PayPal payment button",
-    "Botón de pago PayPal"
+    "Botón de pago PayPal",
+    "PayPal-betaalknop"
   ],
   "Bouton d’appel à l’action": [
     "Call-to-action button",
-    "Botón de llamada a la acción"
+    "Botón de llamada a la acción",
+    "Actieknop"
   ],
   "Bouton ombré": [
     "Shadowed button",
-    "Botón con sombra"
+    "Botón con sombra",
+    "Knop met schaduw"
   ],
   "Bouton, vidéo, carte…": [
     "Button, video, map…",
-    "Botón, vídeo, mapa…"
+    "Botón, vídeo, mapa…",
+    "Knop, video, kaart…"
   ],
   "Bouton, vidéo, menu, contact…": [
     "Button, video, menu, contact…",
-    "Botón, vídeo, menú, contacto…"
+    "Botón, vídeo, menú, contacto…",
+    "Knop, video, menu, contact…"
   ],
   "Boutons de partage": [
     "Sharing buttons",
-    "Botones para compartir"
+    "Botones para compartir",
+    "Deelknoppen"
   ],
   "Boutons de partage (minuscules)": [
     "Sharing buttons (tiny)",
-    "Botones para compartir (diminutos)"
+    "Botones para compartir (diminutos)",
+    "Deelknoppen (piepklein)"
   ],
   "Boutons de partage (petits)": [
     "Sharing buttons (small)",
-    "Botones para compartir (pequeños)"
+    "Botones para compartir (pequeños)",
+    "Deelknoppen (klein)"
   ],
   "CSS personnalisé (appliqué au bloc image)": [
     "Custom CSS (applied to the image block)",
-    "CSS personalizado (aplicado al bloque de imagen)"
+    "CSS personalizado (aplicado al bloque de imagen)",
+    "Aangepaste CSS (toegepast op het afbeeldingsblok)"
   ],
   "Calendrier du mois": [
     "Month calendar",
-    "Calendario del mes"
+    "Calendario del mes",
+    "Maandkalender"
   ],
   "Calories": [
     "Calories",
-    "Calorías"
+    "Calorías",
+    "Calorieën"
   ],
   "Candidatures jusqu’au": [
     "Applications until",
-    "Candidaturas hasta el"
+    "Candidaturas hasta el",
+    "Sollicitaties tot"
   ],
   "Carte": [
     "Map",
-    "Mapa"
+    "Mapa",
+    "Kaart"
   ],
   "Carte déplaçable (Leaflet)": [
     "Pannable map (Leaflet)",
-    "Mapa desplazable (Leaflet)"
+    "Mapa desplazable (Leaflet)",
+    "Verschuifbare kaart (Leaflet)"
   ],
   "Carte déplaçable par le visiteur": [
     "Visitors can pan and zoom the map",
-    "El visitante puede mover y ampliar el mapa"
+    "El visitante puede mover y ampliar el mapa",
+    "Bezoekers kunnen de kaart verschuiven en zoomen"
   ],
   "Cartes empilées": [
     "Stacked cards",
-    "Tarjetas apiladas"
+    "Tarjetas apiladas",
+    "Gestapelde kaarten"
   ],
   "Cascade (rangées justifiées)": [
     "Cascade (justified rows)",
-    "Cascada (filas justificadas)"
+    "Cascada (filas justificadas)",
+    "Cascade (uitgevulde rijen)"
   ],
   "Catégorie": [
     "Category",
-    "Categoría"
+    "Categoría",
+    "Categorie"
   ],
   "Ce diaporama n’a aucune vue. Ajoutez-en une pour qu’il montre quelque chose.": [
     "This slideshow has no slides. Add one so that it shows something.",
-    "Este carrusel no tiene vistas. Añada una para que muestre algo."
+    "Este carrusel no tiene vistas. Añada una para que muestre algo.",
+    "Deze diavoorstelling heeft geen enkele weergave. Voeg er een toe zodat ze iets toont."
   ],
   "Ce diaporama n’a pas de réglages dans la page : aucun appel « new Swiper(…) » ne le désigne. Ses images restent modifiables.": [
     "This slideshow has no settings in the page: no “new Swiper(…)” call points at it. Its images remain editable.",
-    "Este carrusel no tiene ajustes en la página: ninguna llamada «new Swiper(…)» lo designa. Sus imágenes siguen siendo editables."
+    "Este carrusel no tiene ajustes en la página: ninguna llamada «new Swiper(…)» lo designa. Sus imágenes siguen siendo editables.",
+    "Deze diavoorstelling heeft geen instellingen in de pagina: geen enkele aanroep « new Swiper(…) » verwijst ernaar. Haar afbeeldingen blijven bewerkbaar."
   ],
   "Ce dossier est vide. Déposez des fichiers ici, ou utilisez « Téléverser… ».": [
     "This folder is empty. Drop files here, or use “Upload…”.",
-    "Esta carpeta está vacía. Suelte archivos aquí o use «Subir…»."
+    "Esta carpeta está vacía. Suelte archivos aquí o use «Subir…».",
+    "Deze map is leeg. Zet hier bestanden neer, of gebruik « Uploaden… »."
   ],
   "Ce que contient une portion.": [
     "What one serving contains.",
-    "Lo que contiene una porción."
+    "Lo que contiene una porción.",
+    "Wat één portie bevat."
   ],
   "Ce que le produit coûte et s’il est en stock. C’est ce bloc qui fait apparaître le prix dans Google.": [
     "What the product costs and whether it is in stock. This block is what makes the price appear in Google.",
-    "Lo que cuesta el producto y si hay existencias. Este bloque es el que hace aparecer el precio en Google."
+    "Lo que cuesta el producto y si hay existencias. Este bloque es el que hace aparecer el precio en Google.",
+    "Wat het product kost en of het op voorraad is. Dit blok laat de prijs in Google verschijnen."
   ],
   "Ce que montre l’image, en une phrase": [
     "What the image shows, in one sentence",
-    "Lo que muestra la imagen, en una frase"
+    "Lo que muestra la imagen, en una frase",
+    "Wat de afbeelding toont, in één zin"
   ],
   "Ce qui est évalué": [
     "What is reviewed",
-    "Lo que se evalúa"
+    "Lo que se evalúa",
+    "Wat beoordeeld wordt"
   ],
   "Ce qu’il faut faire": [
     "What to do",
-    "Lo que hay que hacer"
+    "Lo que hay que hacer",
+    "Wat er te doen staat"
   ],
   "Ce type de fichier n’est pas accepté": [
     "This file type is not accepted",
-    "Este tipo de archivo no se acepta"
+    "Este tipo de archivo no se acepta",
+    "Dit bestandstype wordt niet aanvaard"
   ],
   "Centre": [
     "Centre",
-    "Centro"
+    "Centro",
+    "Midden"
   ],
   "Centrer la vue courante": [
     "Centre the current slide",
-    "Centrar la vista actual"
+    "Centrar la vista actual",
+    "De huidige weergave centreren"
   ],
   "Centré": [
     "Centred",
-    "Centrado"
+    "Centrado",
+    "Gecentreerd"
   ],
   "Ces propriétés sont exigées et restent vides :": [
     "These properties are required and remain empty:",
-    "Estas propiedades son obligatorias y están vacías:"
+    "Estas propiedades son obligatorias y están vacías:",
+    "Deze eigenschappen zijn verplicht en blijven leeg:"
   ],
   "Cet élément n’est pas reconnu par l’éditeur : il sera réécrit tel quel dans la page.": [
     "The editor does not recognise this item: it will be written back to the page unchanged.",
-    "El editor no reconoce este elemento: se escribirá tal cual en la página."
+    "El editor no reconoce este elemento: se escribirá tal cual en la página.",
+    "De editor herkent dit element niet: het wordt onveranderd terug in de pagina geschreven."
   ],
   "Cette action est définitive.": [
     "This cannot be undone.",
-    "Esta acción es definitiva."
+    "Esta acción es definitiva.",
+    "Dit is definitief."
   ],
   "Cette action ne peut pas être annulée.": [
     "This cannot be undone.",
-    "Esta acción no se puede deshacer."
+    "Esta acción no se puede deshacer.",
+    "Dit kan niet ongedaan worden gemaakt."
   ],
   "Cette page contenait plusieurs fiches de référencement. Une seule a été conservée : les moteurs de recherche n’en lisent qu’une, et choisissent au hasard quand il y en a plusieurs.": [
     "This page contained several search-engine records. Only one was kept: search engines read a single one, and pick at random when there are several.",
-    "Esta página contenía varias fichas de posicionamiento. Solo se ha conservado una: los buscadores leen una sola y eligen al azar cuando hay varias."
+    "Esta página contenía varias fichas de posicionamiento. Solo se ha conservado una: los buscadores leen una sola y eligen al azar cuando hay varias.",
+    "Deze pagina bevatte meerdere zoekmachinefiches. Slechts één is bewaard: zoekmachines lezen er maar één, en kiezen willekeurig wanneer er meerdere zijn."
+  ],
+  "Cette valeur est publiée dans toutes les langues. Choisissez une langue pour en écrire une version qui ne paraîtra que dans celle-là.": [
+    "This value is published in every language. Choose a language to write a version that appears only in that one.",
+    "Este valor se publica en todos los idiomas. Elija un idioma para escribir una versión que solo aparezca en ese.",
+    "Deze waarde wordt in alle talen gepubliceerd. Kies een taal om er een versie van te schrijven die alleen in die taal verschijnt."
   ],
   "Cette vue contient autre chose que des images. Elle se modifie directement dans la page.": [
     "This slide contains something other than images. It is edited directly in the page.",
-    "Esta vista contiene algo distinto de imágenes. Se modifica directamente en la página."
+    "Esta vista contiene algo distinto de imágenes. Se modifica directamente en la página.",
+    "Deze weergave bevat iets anders dan afbeeldingen. Ze wordt rechtstreeks in de pagina bewerkt."
   ],
   "Cette vue ne contient pas qu’une image — plusieurs images, ou une mise en page. Elle est déplaçable, mais son contenu n’est pas réécrit.": [
     "This view holds more than a single image — several images, or a layout. It can be moved, but its content is never rewritten.",
-    "Esta vista no contiene solo una imagen: son varias imágenes o una maquetación. Se puede mover, pero su contenido nunca se reescribe."
+    "Esta vista no contiene solo una imagen: son varias imágenes o una maquetación. Se puede mover, pero su contenido nunca se reescribe.",
+    "Deze weergave bevat niet één enkele afbeelding: er zijn er meerdere, of er is een opmaak. Ze kan verplaatst worden, maar haar inhoud wordt nooit herschreven."
   ],
   "Changer cet emoji": [
     "Change this emoji",
-    "Cambiar este emoji"
+    "Cambiar este emoji",
+    "Deze emoji wijzigen"
   ],
   "Changer cette icône": [
     "Change this icon",
-    "Cambiar este icono"
+    "Cambiar este icono",
+    "Dit pictogram wijzigen"
   ],
   "Changer cette image": [
     "Change this image",
-    "Cambiar esta imagen"
+    "Cambiar esta imagen",
+    "Deze afbeelding wijzigen"
   ],
   "Changer de type de contenu…": [
     "Change the content type…",
-    "Cambiar el tipo de contenido…"
+    "Cambiar el tipo de contenido…",
+    "Van inhoudstype veranderen…"
   ],
   "Chaque palier s’applique à partir de la largeur indiquée, et jusqu’au palier suivant. En dessous du premier palier, ce sont les réglages de l’onglet « Affichage » qui s’appliquent.": [
     "Each breakpoint applies from the given width up to the next one. Below the first breakpoint, the settings of the “Display” tab apply.",
-    "Cada umbral se aplica desde el ancho indicado hasta el siguiente. Por debajo del primer umbral se aplican los ajustes de la pestaña «Visualización»."
+    "Cada umbral se aplica desde el ancho indicado hasta el siguiente. Por debajo del primer umbral se aplican los ajustes de la pestaña «Visualización».",
+    "Elk breekpunt geldt vanaf de aangegeven breedte, tot aan het volgende breekpunt. Onder het eerste breekpunt gelden de instellingen van het tabblad « Weergave »."
   ],
   "Chaque version d’un fichier compte pour un fichier.": [
     "Every version of a file counts as one file.",
-    "Cada versión de un archivo cuenta como un archivo."
+    "Cada versión de un archivo cuenta como un archivo.",
+    "Elke versie van een bestand telt als één bestand."
   ],
   "Chaque vue est une image du diaporama. L’ordre de la liste est celui du défilement.": [
     "Each slide is an image of the slideshow. The order of the list is the order of the scrolling.",
-    "Cada vista es una imagen del carrusel. El orden de la lista es el del desplazamiento."
+    "Cada vista es una imagen del carrusel. El orden de la lista es el del desplazamiento.",
+    "Elke weergave is een afbeelding van de diavoorstelling. De volgorde van de lijst is die van het doorlopen."
   ],
   "Chargement asynchrone (async)": [
     "Asynchronous loading (async)",
-    "Carga asíncrona (async)"
+    "Carga asíncrona (async)",
+    "Asynchroon laden (async)"
   ],
   "Chargement du dossier…": [
     "Loading the folder…",
-    "Cargando la carpeta…"
+    "Cargando la carpeta…",
+    "De map wordt geladen…"
   ],
   "Chasse fixe": [
     "Monospace",
-    "Monoespaciada"
+    "Monoespaciada",
+    "Vaste breedte"
+  ],
+  "Chemin du dossier": [
+    "Folder path",
+    "Ruta de la carpeta",
+    "Pad van de map"
+  ],
+  "Choisir cette image dans la médiathèque": [
+    "Choose this image from the media library",
+    "Elegir esta imagen en la mediateca",
+    "Deze afbeelding in de mediabibliotheek kiezen"
   ],
   "Choisir la disposition des colonnes": [
     "Choose the column layout",
-    "Elegir la disposición de las columnas"
+    "Elegir la disposición de las columnas",
+    "De kolomindeling kiezen"
   ],
   "Choisir ou téléverser un média…": [
     "Choose or upload a file…",
-    "Elegir o subir un archivo…"
+    "Elegir o subir un archivo…",
+    "Een bestand kiezen of uploaden…"
   ],
   "Choisir un fichier dans l’explorateur de médias": [
     "Choose a file from the media library",
-    "Elegir un archivo de la biblioteca"
+    "Elegir un archivo de la biblioteca",
+    "Een bestand kiezen in de mediabibliotheek"
   ],
   "Choisir un fichier…": [
     "Choose a file…",
-    "Elegir un archivo…"
+    "Elegir un archivo…",
+    "Een bestand kiezen…"
   ],
   "Choisir une image dans la médiathèque ou en téléverser une": [
     "Choose an image from the library or upload one",
-    "Elegir una imagen de la biblioteca o subir una"
+    "Elegir una imagen de la biblioteca o subir una",
+    "Een afbeelding in de bibliotheek kiezen of er een uploaden"
   ],
   "Choisir une image…": [
     "Choose an image…",
-    "Elegir una imagen…"
+    "Elegir una imagen…",
+    "Een afbeelding kiezen…"
   ],
   "Choisir…": [
     "Choose…",
-    "Elegir…"
+    "Elegir…",
+    "Kiezen…"
   ],
   "Choisissez d’abord ce que décrit cette page : sans type de contenu, les moteurs ne savent pas quoi faire de la fiche.": [
     "First choose what this page describes: without a content type, search engines do not know what to do with the record.",
-    "Elija primero qué describe esta página: sin tipo de contenido, los buscadores no saben qué hacer con la ficha."
+    "Elija primero qué describe esta página: sin tipo de contenido, los buscadores no saben qué hacer con la ficha.",
+    "Kies eerst wat deze pagina beschrijft: zonder inhoudstype weten zoekmachines niet wat ze met de fiche aan moeten."
   ],
   "Choisissez le bloc à ajouter": [
     "Choose the block to add",
-    "Elija el bloque que desea añadir"
+    "Elija el bloque que desea añadir",
+    "Kies het blok dat u wilt toevoegen"
   ],
   "Choisissez le bloc à insérer": [
     "Choose the block to insert",
-    "Elija el bloque que desea insertar"
+    "Elija el bloque que desea insertar",
+    "Kies het blok dat u wilt invoegen"
   ],
   "Choisissez le bon lieu dans la liste :": [
     "Choose the right place from the list:",
-    "Elija el lugar correcto en la lista:"
+    "Elija el lugar correcto en la lista:",
+    "Kies de juiste locatie in de lijst:"
   ],
   "Choisissez le fichier PDF à afficher": [
     "Choose the PDF file to show",
-    "Elija el archivo PDF que desea mostrar"
+    "Elija el archivo PDF que desea mostrar",
+    "Kies het pdf-bestand dat u wilt tonen"
+  ],
+  "Choisissez le mois dans la grille, ou laissez « Mois en cours » pour un calendrier qui se met à jour tout seul.": [
+    "Pick the month in the grid, or leave “Current month” for a calendar that keeps itself up to date.",
+    "Elija el mes en la cuadrícula, o deje «Mes actual» para un calendario que se actualiza solo.",
+    "Kies de maand in het raster, of laat « Huidige maand » staan voor een kalender die zichzelf bijwerkt."
   ],
   "Choisissez l’élément à insérer": [
     "Choose the item to insert",
-    "Elija el elemento que desea insertar"
+    "Elija el elemento que desea insertar",
+    "Kies het element dat u wilt invoegen"
+  ],
+  "Choisissez un pdf dans votre médiathèque, ou donnez l’adresse d’un fichier hébergé ailleurs.": [
+    "Choose a pdf from your media library, or give the address of a file hosted elsewhere.",
+    "Elija un pdf de su mediateca, o indique la dirección de un archivo alojado en otro sitio.",
+    "Kies een pdf in uw mediabibliotheek, of geef het adres op van een bestand dat elders staat."
   ],
   "Choisissez une image": [
     "Choose an image",
-    "Elija una imagen"
+    "Elija una imagen",
+    "Kies een afbeelding"
+  ],
+  "Choisissez une image avant d'enregistrer.": [
+    "Choose an image before saving.",
+    "Elija una imagen antes de guardar.",
+    "Kies een afbeelding voordat u opslaat."
+  ],
+  "Choisissez une image dans votre médiathèque, ou donnez l’adresse d’une image hébergée ailleurs.": [
+    "Choose an image from your media library, or give the address of an image hosted elsewhere.",
+    "Elija una imagen de su mediateca, o indique la dirección de una imagen alojada en otro sitio.",
+    "Kies een afbeelding in uw mediabibliotheek, of geef het adres op van een afbeelding die elders staat."
   ],
   "Chose": [
     "Thing",
-    "Cosa"
+    "Cosa",
+    "Ding"
   ],
   "Cinq par défaut. À préciser si votre échelle est différente.": [
     "Five by default. Set it if your scale is different.",
-    "Cinco por defecto. Indíquelo si su escala es distinta."
+    "Cinco por defecto. Indíquelo si su escala es distinta.",
+    "Standaard vijf. Geef het op als uw schaal anders is."
   ],
   "Citation": [
     "Quotation",
-    "Cita"
+    "Cita",
+    "Citaat"
   ],
   "Classe CSS contenant": [
     "Wrapper CSS class",
-    "Clase CSS contenedora"
+    "Clase CSS contenedora",
+    "CSS-klasse van de omhulling"
   ],
   "Classe CSS du bouton": [
     "Button CSS class",
-    "Clase CSS del botón"
+    "Clase CSS del botón",
+    "CSS-klasse van de knop"
   ],
   "Classe CSS élément": [
     "Item CSS class",
-    "Clase CSS del elemento"
+    "Clase CSS del elemento",
+    "CSS-klasse van het element"
   ],
   "Classe CSS élément actif": [
     "Current item CSS class",
-    "Clase CSS del elemento activo"
+    "Clase CSS del elemento activo",
+    "CSS-klasse van het huidige element"
   ],
   "Classe ajoutée à la page en cours de consultation.": [
     "Class added to the page being viewed.",
-    "Clase añadida a la página que se está viendo."
+    "Clase añadida a la página que se está viendo.",
+    "Klasse toegevoegd aan de pagina die bekeken wordt."
   ],
   "Classe posée sur chaque page du menu.": [
     "Class set on every page of the menu.",
-    "Clase aplicada a cada página del menú."
+    "Clase aplicada a cada página del menú.",
+    "Klasse op elke pagina van het menu."
   ],
   "Classe posée sur la liste qui entoure les pages.": [
     "Class set on the list wrapping the pages.",
-    "Clase aplicada a la lista que envuelve las páginas."
+    "Clase aplicada a la lista que envuelve las páginas.",
+    "Klasse op de lijst rond de pagina's."
   ],
   "Classes CSS": [
     "CSS classes",
-    "Clases CSS"
+    "Clases CSS",
+    "CSS-klassen"
   ],
   "Classes de la feuille de style du site et des autres blocs de la page.": [
     "Classes from the site stylesheet and from the other blocks of the page.",
-    "Clases de la hoja de estilo del sitio y de los demás bloques de la página."
+    "Clases de la hoja de estilo del sitio y de los demás bloques de la página.",
+    "Klassen uit het stijlblad van de site en uit de andere blokken van de pagina."
   ],
   "Classes du site.": [
     "Site classes.",
-    "Clases del sitio."
+    "Clases del sitio.",
+    "Klassen van de site."
   ],
   "Cliquez pour sélectionner ce bloc, puis « Modifier le bloc » pour le régler.": [
     "Click to select this block, then “Edit the block” to set it up.",
-    "Pulse para seleccionar este bloque y después «Editar el bloque» para configurarlo."
+    "Pulse para seleccionar este bloque y después «Editar el bloque» para configurarlo.",
+    "Klik om dit blok te selecteren, en dan op « Het blok bewerken » om het in te stellen."
   ],
   "Cliquez sur un emoji pour l’insérer. Les dessins sont ceux d’OpenMoji : ils s’affichent de la même façon sur tous les appareils.": [
     "Click an emoji to insert it. The drawings come from OpenMoji: they look the same on every device.",
-    "Pulse un emoji para insertarlo. Los dibujos son de OpenMoji: se ven igual en todos los dispositivos."
+    "Pulse un emoji para insertarlo. Los dibujos son de OpenMoji: se ven igual en todos los dispositivos.",
+    "Klik op een emoji om die in te voegen. De tekeningen komen van OpenMoji: ze zien er op elk apparaat hetzelfde uit."
   ],
   "Cliquez sur un fichier pour voir ses informations et les actions possibles. Un double clic le choisit directement.": [
     "Click a file to see its details and what you can do with it. A double click picks it straight away.",
-    "Pulse un archivo para ver sus datos y las acciones posibles. Una doble pulsación lo elige directamente."
+    "Pulse un archivo para ver sus datos y las acciones posibles. Una doble pulsación lo elige directamente.",
+    "Klik op een bestand om de gegevens en de mogelijke acties te zien. Een dubbelklik kiest het meteen."
   ],
   "Cliquez sur une icône pour l’insérer. Elle prend la taille et la couleur du texte qui l’entoure.": [
     "Click an icon to insert it. It takes the size and colour of the surrounding text.",
-    "Pulse un icono para insertarlo. Toma el tamaño y el color del texto que lo rodea."
+    "Pulse un icono para insertarlo. Toma el tamaño y el color del texto que lo rodea.",
+    "Klik op een pictogram om het in te voegen. Het neemt de grootte en de kleur van de omringende tekst over."
   ],
   "Cochez les réseaux à proposer. Si vous n’en cochez aucun, tous seront affichés.": [
     "Tick the networks to offer. If you tick none, all of them are shown.",
-    "Marque las redes que desea ofrecer. Si no marca ninguna, se mostrarán todas."
+    "Marque las redes que desea ofrecer. Si no marca ninguna, se mostrarán todas.",
+    "Vink de netwerken aan die u wilt aanbieden. Vinkt u er geen aan, dan worden ze allemaal getoond."
   ],
   "Code HTML": [
     "HTML code",
-    "Código HTML"
+    "Código HTML",
+    "HTML-code"
   ],
   "Code JavaScript": [
     "JavaScript code",
-    "Código JavaScript"
+    "Código JavaScript",
+    "JavaScript-code"
   ],
   "Code court": [
     "Shortcode",
-    "Código corto"
+    "Código corto",
+    "Shortcode"
   ],
   "Code de la formation": [
     "Course code",
-    "Código del curso"
+    "Código del curso",
+    "Cursuscode"
   ],
   "Code non reconnu : il sera réécrit tel quel dans la page.": [
     "Unrecognised code: it will be written back to the page unchanged.",
-    "Código no reconocido: se escribirá tal cual en la página."
+    "Código no reconocido: se escribirá tal cual en la página.",
+    "Niet-herkende code: die wordt onveranderd terug in de pagina geschreven."
   ],
   "Code postal": [
     "Postcode",
-    "Código postal"
+    "Código postal",
+    "Postcode"
   ],
   "Code source": [
     "Source code",
-    "Código fuente"
+    "Código fuente",
+    "Broncode"
   ],
   "Code source HTML": [
     "HTML source code",
-    "Código fuente HTML"
+    "Código fuente HTML",
+    "HTML-broncode"
   ],
   "Code source HTML...": [
     "HTML source code...",
-    "Código fuente HTML..."
+    "Código fuente HTML...",
+    "HTML-broncode..."
   ],
   "Code-barres (EAN 13)": [
     "Barcode (EAN 13)",
-    "Código de barras (EAN 13)"
+    "Código de barras (EAN 13)",
+    "Streepjescode (EAN 13)"
   ],
   "Colle un code d’intégration fourni par un service tiers": [
     "Paste an embed code given by another service",
-    "Pegue un código de inserción de otro servicio"
+    "Pegue un código de inserción de otro servicio",
+    "Plakt een insluitcode van een andere dienst"
   ],
   "Comment passer commande ?": [
     "How do I place an order?",
-    "¿Cómo hago un pedido?"
+    "¿Cómo hago un pedido?",
+    "Hoe plaats ik een bestelling?"
   ],
   "Commerce": [
     "Commerce",
-    "Comercio"
+    "Comercio",
+    "Handel"
   ],
   "Commerce de proximité": [
     "Local business",
-    "Comercio local"
+    "Comercio local",
+    "Buurtwinkel"
   ],
   "Commercial": [
     "Sales",
-    "Comercial"
+    "Comercial",
+    "Verkoop"
   ],
   "Compléter les langues manquantes": [
     "Add the missing languages",
-    "Añadir los idiomas que faltan"
+    "Añadir los idiomas que faltan",
+    "De ontbrekende talen aanvullen"
   ],
   "Compte PayPal du vendeur": [
     "Seller’s PayPal account",
-    "Cuenta PayPal del vendedor"
+    "Cuenta PayPal del vendedor",
+    "PayPal-rekening van de verkoper"
   ],
   "Conditions de livraison": [
     "Delivery terms",
-    "Condiciones de entrega"
+    "Condiciones de entrega",
+    "Leveringsvoorwaarden"
   ],
   "Conseillées": [
     "Recommended",
-    "Recomendadas"
+    "Recomendadas",
+    "Aanbevolen"
   ],
   "Construction de l’aperçu…": [
     "Building the preview…",
-    "Construyendo la vista previa…"
+    "Construyendo la vista previa…",
+    "Het voorbeeld wordt opgebouwd…"
   ],
   "Contenu": [
     "Content",
-    "Contenido"
+    "Contenido",
+    "Inhoud"
   ],
   "Contenu libre :": [
     "Free content:",
-    "Contenido libre:"
+    "Contenido libre:",
+    "Vrije inhoud:"
   ],
   "Contenus": [
     "Content",
-    "Contenidos"
+    "Contenidos",
+    "Inhoud"
   ],
   "Contour": [
     "Outline",
-    "Contorno"
+    "Contorno",
+    "Omtrek"
   ],
   "Coordonnées géographiques": [
     "Geographic coordinates",
-    "Coordenadas geográficas"
+    "Coordenadas geográficas",
+    "Geografische coördinaten"
   ],
   "Copier": [
     "Copy",
-    "Copiar"
+    "Copiar",
+    "Kopiëren"
   ],
   "Copier vers": [
     "Copy to",
-    "Copiar a"
+    "Copiar a",
+    "Kopiëren naar"
   ],
   "Copier vers…": [
     "Copy to…",
-    "Copiar a…"
+    "Copiar a…",
+    "Kopiëren naar…"
   ],
   "Copie…": [
     "Copying…",
-    "Copiando…"
+    "Copiando…",
+    "Bezig met kopiëren…"
   ],
   "Coque de carte Renault": [
     "Renault key card cover",
-    "Funda de tarjeta Renault"
+    "Funda de tarjeta Renault",
+    "Hoesje voor Renault-kaartsleutel"
   ],
   "Couleur": [
     "Colour",
-    "Color"
+    "Color",
+    "Kleur"
   ],
   "Couleur de fond": [
     "Background colour",
-    "Color de fondo"
+    "Color de fondo",
+    "Achtergrondkleur"
   ],
   "Couleur de l’ombre": [
     "Shadow colour",
-    "Color de la sombra"
+    "Color de la sombra",
+    "Kleur van de schaduw"
   ],
   "Couleur du filet": [
     "Rule colour",
-    "Color de la línea"
+    "Color de la línea",
+    "Kleur van de lijn"
   ],
   "Couleur du texte": [
     "Text colour",
-    "Color del texto"
+    "Color del texto",
+    "Tekstkleur"
   ],
   "Couleur d’accentuation": [
     "Accent colour",
-    "Color de acento"
+    "Color de acento",
+    "Accentkleur"
   ],
   "Création…": [
     "Creating…",
-    "Creando…"
+    "Creando…",
+    "Bezig met aanmaken…"
   ],
   "Créer": [
     "Create",
-    "Crear"
+    "Crear",
+    "Aanmaken"
   ],
   "Créer une image": [
     "Create an image",
-    "Crear una imagen"
+    "Crear una imagen",
+    "Een afbeelding maken"
   ],
   "Cube": [
     "Cube",
-    "Cubo"
+    "Cubo",
+    "Kubus"
   ],
   "Cuisine": [
     "Cuisine",
-    "Cocina"
+    "Cocina",
+    "Keuken"
   ],
   "Date": [
     "Date",
-    "Fecha"
+    "Fecha",
+    "Datum"
   ],
   "Date de création": [
     "Founding date",
-    "Fecha de creación"
+    "Fecha de creación",
+    "Oprichtingsdatum"
   ],
   "Date de dernière mise à jour": [
     "Last updated on",
-    "Fecha de última actualización"
+    "Fecha de última actualización",
+    "Datum van laatste bijwerking"
   ],
   "Date de début": [
     "Start date",
-    "Fecha de inicio"
+    "Fecha de inicio",
+    "Begindatum"
   ],
   "Date de fin": [
     "End date",
-    "Fecha de fin"
+    "Fecha de fin",
+    "Einddatum"
   ],
   "Date de mise en ligne": [
     "Upload date",
-    "Fecha de publicación"
+    "Fecha de publicación",
+    "Datum van publicatie online"
   ],
   "Date de publication": [
     "Publication date",
-    "Fecha de publicación"
+    "Fecha de publicación",
+    "Publicatiedatum"
   ],
   "De « € » à « €€€€ », ou une fourchette : « 15 € – 40 € ».": [
     "From “€” to “€€€€”, or a range: “€15 – €40”.",
-    "De «€» a «€€€€», o un intervalo: «15 € – 40 €»."
+    "De «€» a «€€€€», o un intervalo: «15 € – 40 €».",
+    "Van « € » tot « €€€€ », of een vork: « € 15 – € 40 »."
   ],
   "Dernière vérification": [
     "Last reviewed",
-    "Última verificación"
+    "Última verificación",
+    "Laatst nagekeken"
   ],
   "Descendre": [
     "Move down",
-    "Bajar"
+    "Bajar",
+    "Omlaag"
   ],
   "Descendre cette vue": [
     "Move this slide down",
-    "Bajar esta vista"
+    "Bajar esta vista",
+    "Deze weergave omlaag"
   ],
   "Descendre le bloc": [
     "Move block down",
-    "Bajar el bloque"
+    "Bajar el bloque",
+    "Het blok omlaag"
   ],
   "Description": [
     "Description",
-    "Descripción"
+    "Descripción",
+    "Beschrijving"
   ],
   "Description de la page": [
     "Page description",
-    "Descripción de la página"
+    "Descripción de la página",
+    "Beschrijving van de pagina"
   ],
   "Description pour les moteurs de recherche": [
     "Description for search engines",
-    "Descripción para los buscadores"
+    "Descripción para los buscadores",
+    "Beschrijving voor zoekmachines"
   ],
   "Dessert": [
     "Dessert",
-    "Postre"
+    "Postre",
+    "Nagerecht"
   ],
   "Dessiner une image…": [
     "Draw an image…",
-    "Dibujar una imagen…"
+    "Dibujar una imagen…",
+    "Een afbeelding tekenen…"
   ],
   "Devise": [
     "Currency",
-    "Moneda"
+    "Moneda",
+    "Munteenheid"
   ],
   "Diaporama": [
     "Slideshow",
-    "Carrusel"
+    "Carrusel",
+    "Diavoorstelling"
   ],
   "Diaporama...": [
     "Slideshow...",
-    "Carrusel..."
+    "Carrusel...",
+    "Diavoorstelling..."
   ],
   "Dimanche": [
     "Sunday",
-    "Domingo"
+    "Domingo",
+    "Zondag"
   ],
   "Dimension": [
     "Sizing",
-    "Dimensión"
+    "Dimensión",
+    "Afmeting"
   ],
   "Disponibilité": [
     "Availability",
-    "Disponibilidad"
+    "Disponibilidad",
+    "Beschikbaarheid"
   ],
   "Disposition": [
     "Layout",
-    "Disposición"
+    "Disposición",
+    "Indeling"
   ],
   "Disposition des colonnes": [
     "Column layout",
-    "Disposición de las columnas"
+    "Disposición de las columnas",
+    "Kolomindeling"
   ],
   "Document PDF": [
     "PDF document",
-    "Documento PDF"
+    "Documento PDF",
+    "Pdf-document"
   ],
   "Dollar américain (USD)": [
     "US dollar (USD)",
-    "Dólar estadounidense (USD)"
+    "Dólar estadounidense (USD)",
+    "Amerikaanse dollar (USD)"
   ],
   "Dollar canadien (CAD)": [
     "Canadian dollar (CAD)",
-    "Dólar canadiense (CAD)"
+    "Dólar canadiense (CAD)",
+    "Canadese dollar (CAD)"
   ],
   "Dossier de destination": [
     "Destination folder",
-    "Carpeta de destino"
+    "Carpeta de destino",
+    "Doelmap"
   ],
   "Dossier parent": [
     "Parent folder",
-    "Carpeta superior"
+    "Carpeta superior",
+    "Bovenliggende map"
   ],
   "Droite": [
     "Right",
-    "Derecha"
+    "Derecha",
+    "Rechts"
   ],
   "Dupliquer cet élément": [
     "Duplicate this item",
-    "Duplicar este elemento"
+    "Duplicar este elemento",
+    "Dit element dupliceren"
   ],
   "Dupliquer la ligne": [
     "Duplicate the row",
-    "Duplicar la fila"
+    "Duplicar la fila",
+    "De rij dupliceren"
   ],
   "Dupliquer le bloc": [
     "Duplicate the block",
-    "Duplicar el bloque"
+    "Duplicar el bloque",
+    "Het blok dupliceren"
   ],
   "Durée": [
     "Duration",
-    "Duración"
+    "Duración",
+    "Duur"
   ],
   "Durée totale": [
     "Total duration",
-    "Duración total"
+    "Duración total",
+    "Totale duur"
   ],
   "Début": [
     "Start",
-    "Inicio"
+    "Inicio",
+    "Begin"
   ],
   "Débutant": [
     "Beginner",
-    "Principiante"
+    "Principiante",
+    "Beginner"
   ],
   "Décrire la page pour les moteurs (microdonnées)…": [
     "Describe the page for search engines (microdata)…",
-    "Describir la página para los buscadores (microdatos)…"
+    "Describir la página para los buscadores (microdatos)…",
+    "De pagina beschrijven voor zoekmachines (microdata)…"
   ],
   "Décrivent le contenu de cette page pour les moteurs de recherche. Rien n’en paraît sur le site.": [
     "Describe the content of this page for search engines. None of it appears on the site.",
-    "Describen el contenido de esta página para los buscadores. Nada de ello aparece en el sitio."
+    "Describen el contenido de esta página para los buscadores. Nada de ello aparece en el sitio.",
+    "Beschrijven de inhoud van deze pagina voor zoekmachines. Niets ervan verschijnt op de site."
   ],
   "Décrivez votre offre en une phrase.": [
     "Describe what you offer in one sentence.",
-    "Describa su oferta en una frase."
+    "Describa su oferta en una frase.",
+    "Beschrijf uw aanbod in één zin."
   ],
   "Défilement": [
     "Scrolling",
-    "Desplazamiento"
+    "Desplazamiento",
+    "Doorlopen"
   ],
   "Défilement libre, sans s’aligner sur une vue": [
     "Free scrolling, without snapping to a slide",
-    "Desplazamiento libre, sin alinearse con una vista"
+    "Desplazamiento libre, sin alinearse con una vista",
+    "Vrij doorlopen, zonder op een weergave uit te lijnen"
   ],
   "Définir la langue": [
     "Set the language",
-    "Definir el idioma"
+    "Definir el idioma",
+    "De taal instellen"
   ],
   "Définir la langue de ce bloc": [
     "Set this block’s language",
-    "Definir el idioma de este bloque"
+    "Definir el idioma de este bloque",
+    "De taal van dit blok instellen"
   ],
   "Définir la langue de la sélection": [
     "Set the selection’s language",
-    "Definir el idioma de la selección"
+    "Definir el idioma de la selección",
+    "De taal van de selectie instellen"
   ],
   "Dégradé : angle (°)": [
     "Gradient: angle (°)",
-    "Degradado: ángulo (°)"
+    "Degradado: ángulo (°)",
+    "Verloop: hoek (°)"
   ],
   "Dégradé : arrivée": [
     "Gradient: end",
-    "Degradado: fin"
+    "Degradado: fin",
+    "Verloop: eindpunt"
   ],
   "Dégradé : couleur de départ": [
     "Gradient: start colour",
-    "Degradado: color inicial"
+    "Degradado: color inicial",
+    "Verloop: beginkleur"
   ],
   "Dégradé : couleur d’arrivée": [
     "Gradient: end colour",
-    "Degradado: color final"
+    "Degradado: color final",
+    "Verloop: eindkleur"
   ],
   "Dégradé : départ": [
     "Gradient: start",
-    "Degradado: inicio"
+    "Degradado: inicio",
+    "Verloop: beginpunt"
   ],
   "Délai annoncé": [
     "Announced delay",
-    "Plazo anunciado"
+    "Plazo anunciado",
+    "Aangekondigde termijn"
   ],
   "Déplacement…": [
     "Moving…",
-    "Moviendo…"
+    "Moviendo…",
+    "Bezig met verplaatsen…"
   ],
   "Déplacer": [
     "Move",
-    "Mover"
+    "Mover",
+    "Verplaatsen"
   ],
   "Déplacer cette vue": [
     "Move this view",
-    "Mover esta vista"
+    "Mover esta vista",
+    "Deze weergave verplaatsen"
   ],
   "Déplacer le bloc": [
     "Move the block",
-    "Mover el bloque"
+    "Mover el bloque",
+    "Het blok verplaatsen"
   ],
   "Déplacer vers": [
     "Move to",
-    "Mover a"
+    "Mover a",
+    "Verplaatsen naar"
   ],
   "Déplacer vers…": [
     "Move to…",
-    "Mover a…"
+    "Mover a…",
+    "Verplaatsen naar…"
   ],
   "Déplacé en ligne": [
     "Moved online",
-    "Trasladado a internet"
+    "Trasladado a internet",
+    "Online verplaatst"
   ],
   "Déplier": [
     "Expand",
-    "Desplegar"
+    "Desplegar",
+    "Uitklappen"
   ],
   "Déplié au chargement de la page": [
     "Open when the page loads",
-    "Desplegado al cargar la página"
+    "Desplegado al cargar la página",
+    "Uitgeklapt bij het laden van de pagina"
   ],
   "Déposez vos fichiers pour les téléverser": [
     "Drop your files to upload them",
-    "Suelte sus archivos para subirlos"
+    "Suelte sus archivos para subirlos",
+    "Zet uw bestanden neer om ze te uploaden"
   ],
   "E-mail destinataire": [
     "Recipient e-mail",
-    "Correo del destinatario"
+    "Correo del destinatario",
+    "E-mail van de ontvanger"
   ],
   "Effet de transition": [
     "Transition effect",
-    "Efecto de transición"
+    "Efecto de transición",
+    "Overgangseffect"
   ],
   "Emoji ou icône": [
     "Emoji or icon",
-    "Emoji o icono"
+    "Emoji o icono",
+    "Emoji of pictogram"
   ],
   "Emojis": [
     "Emojis",
-    "Emojis"
+    "Emojis",
+    "Emoji's"
   ],
   "Emojis et icônes": [
     "Emojis and icons",
-    "Emojis e iconos"
+    "Emojis e iconos",
+    "Emoji's en pictogrammen"
   ],
   "Emojis et icônes...": [
     "Emojis and icons...",
-    "Emojis e iconos..."
+    "Emojis e iconos...",
+    "Emoji's en pictogrammen..."
   ],
   "Emojis seuls": [
     "Emojis only",
-    "Solo emojis"
+    "Solo emojis",
+    "Alleen emoji's"
   ],
   "Emojis seuls...": [
     "Emojis only...",
-    "Solo emojis..."
+    "Solo emojis...",
+    "Alleen emoji's..."
   ],
   "Emplacement dans la page": [
     "Position in the page",
-    "Ubicación en la página"
+    "Ubicación en la página",
+    "Plaats in de pagina"
   ],
   "Emplacements": [
     "Places",
-    "Ubicaciones"
+    "Ubicaciones",
+    "Locaties"
   ],
   "Employeur": [
     "Employer",
-    "Empleador"
+    "Empleador",
+    "Werkgever"
   ],
   "En ligne": [
     "Online",
-    "En línea"
+    "En línea",
+    "Online"
   ],
   "En rupture": [
     "Out of stock",
-    "Sin existencias"
+    "Sin existencias",
+    "Niet op voorraad"
   ],
   "En savoir plus": [
     "Find out more",
-    "Saber más"
+    "Saber más",
+    "Meer weten"
   ],
   "En stock": [
     "In stock",
-    "En existencias"
+    "En existencias",
+    "Op voorraad"
   ],
   "En-tête de la page (<head>)": [
     "Page head (<head>)",
-    "Cabecera de la página (<head>)"
+    "Cabecera de la página (<head>)",
+    "Kop van de pagina (<head>)"
   ],
   "Encadré": [
     "Boxed",
-    "Enmarcado"
+    "Enmarcado",
+    "Omkaderd"
   ],
   "Endommagé": [
     "Damaged",
-    "Dañado"
+    "Dañado",
+    "Beschadigd"
   ],
   "Enregistrer": [
     "Save",
-    "Guardar"
+    "Guardar",
+    "Opslaan"
   ],
   "Espace": [
     "Space",
-    "Espacio"
+    "Espacio",
+    "Ruimte"
   ],
   "Espace entre les vignettes (px)": [
     "Gap between thumbnails (px)",
-    "Espacio entre miniaturas (px)"
+    "Espacio entre miniaturas (px)",
+    "Ruimte tussen de miniaturen (px)"
   ],
   "Espace entre les vues (pixels)": [
     "Space between slides (pixels)",
-    "Espacio entre vistas (píxeles)"
+    "Espacio entre vistas (píxeles)",
+    "Ruimte tussen de weergaven (pixels)"
   ],
   "Espace vertical": [
     "Vertical space",
-    "Espacio vertical"
+    "Espacio vertical",
+    "Verticale ruimte"
   ],
   "Euro (EUR)": [
+    "Euro (EUR)",
     "Euro (EUR)",
     "Euro (EUR)"
   ],
   "Exigé": [
     "Required",
-    "Obligatorio"
+    "Obligatorio",
+    "Verplicht"
   ],
   "Explorateur de fichiers": [
     "File browser",
-    "Explorador de archivos"
+    "Explorador de archivos",
+    "Bestandsverkenner"
   ],
   "Explorateur de fichiers...": [
     "File browser...",
-    "Explorador de archivos..."
+    "Explorador de archivos...",
+    "Bestandsverkenner..."
   ],
   "Exécution différée (defer)": [
     "Deferred execution (defer)",
-    "Ejecución diferida (defer)"
+    "Ejecución diferida (defer)",
+    "Uitgestelde uitvoering (defer)"
   ],
   "Facturation": [
     "Billing",
-    "Facturación"
+    "Facturación",
+    "Facturatie"
   ],
   "Faire glisser au doigt ou à la souris": [
     "Drag with a finger or the mouse",
-    "Arrastrar con el dedo o el ratón"
+    "Arrastrar con el dedo o el ratón",
+    "Slepen met de vinger of de muis"
   ],
   "Fermer": [
     "Close",
-    "Cerrar"
+    "Cerrar",
+    "Sluiten"
   ],
   "Fermeture": [
     "Closing",
-    "Cierre"
+    "Cierre",
+    "Sluiting"
   ],
   "Fichier": [
     "File",
-    "Archivo"
+    "Archivo",
+    "Bestand"
   ],
   "Fichier PDF": [
     "PDF file",
-    "Archivo PDF"
+    "Archivo PDF",
+    "Pdf-bestand"
   ],
   "Fichier de l’image": [
     "Image file",
-    "Archivo de la imagen"
+    "Archivo de la imagen",
+    "Bestand van de afbeelding"
   ],
   "Fichier externe (src)": [
     "External file (src)",
-    "Archivo externo (src)"
+    "Archivo externo (src)",
+    "Extern bestand (src)"
   ],
   "Fil d’Ariane": [
     "Breadcrumb",
-    "Ruta de navegación"
+    "Ruta de navegación",
+    "Kruimelpad"
   ],
   "Filet": [
     "Rule",
-    "Línea"
+    "Línea",
+    "Lijn"
   ],
   "Filet simple": [
     "Plain rule",
-    "Línea simple"
+    "Línea simple",
+    "Enkele lijn"
   ],
   "Fin": [
     "End",
-    "Fin"
+    "Fin",
+    "Einde"
   ],
   "Fin de la page (avant </body>)": [
     "End of the page (before </body>)",
-    "Final de la página (antes de </body>)"
+    "Final de la página (antes de </body>)",
+    "Einde van de pagina (voor </body>)"
   ],
   "Fonction": [
     "Job title",
-    "Cargo"
+    "Cargo",
+    "Functie"
   ],
   "Fondu": [
     "Fade",
-    "Fundido"
-  ],
-  "Format": [
-    "Aspect ratio",
-    "Formato"
+    "Fundido",
+    "Vervaging"
   ],
   "Format proportionnel": [
     "Proportional ratio",
-    "Formato proporcional"
+    "Formato proporcional",
+    "Evenredige verhouding"
   ],
   "Formation": [
     "Course",
-    "Formación"
+    "Formación",
+    "Opleiding"
   ],
   "Forme des points": [
     "Shape of the dots",
-    "Forma de los puntos"
+    "Forma de los puntos",
+    "Vorm van de stippen"
   ],
   "Formulaire de contact": [
     "Contact form",
-    "Formulario de contacto"
+    "Formulario de contacto",
+    "Contactformulier"
   ],
   "Formulaire de réservation": [
     "Booking form",
-    "Formulario de reserva"
+    "Formulario de reserva",
+    "Reserveringsformulier"
   ],
   "Formulaires": [
     "Forms",
-    "Formularios"
+    "Formularios",
+    "Formulieren"
   ],
   "Fourchette de prix": [
     "Price range",
-    "Rango de precios"
+    "Rango de precios",
+    "Prijsvork"
   ],
   "Fournitures": [
     "Supplies",
-    "Materiales"
+    "Materiales",
+    "Benodigdheden"
   ],
   "Frais de port": [
     "Shipping cost",
-    "Gastos de envío"
+    "Gastos de envío",
+    "Verzendkosten"
   ],
   "Frais, délais et zone de livraison.": [
     "Cost, delay and delivery area.",
-    "Coste, plazo y zona de entrega."
+    "Coste, plazo y zona de entrega.",
+    "Kosten, termijnen en leveringsgebied."
   ],
   "Franc suisse (CHF)": [
     "Swiss franc (CHF)",
-    "Franco suizo (CHF)"
+    "Franco suizo (CHF)",
+    "Zwitserse frank (CHF)"
   ],
   "Français": [
     "French",
-    "Francés"
+    "Francés",
+    "Frans"
   ],
   "Française": [
     "French",
-    "Francesa"
+    "Francesa",
+    "Frans"
   ],
   "Fuseau horaire": [
     "Time zone",
-    "Zona horaria"
+    "Zona horaria",
+    "Tijdzone"
   ],
   "Galerie d’images": [
     "Image gallery",
-    "Galería de imágenes"
+    "Galería de imágenes",
+    "Afbeeldingsgalerij"
   ],
   "Gauche": [
     "Left",
-    "Izquierda"
+    "Izquierda",
+    "Links"
   ],
   "Glissement (par défaut)": [
     "Slide (default)",
-    "Deslizamiento (por defecto)"
+    "Deslizamiento (por defecto)",
+    "Schuiven (standaard)"
   ],
   "Grande": [
     "Large",
-    "Grande"
+    "Grande",
+    "Groot"
   ],
   "Grille de cellules pour présenter des données": [
     "A grid of cells for presenting data",
-    "Una cuadrícula de celdas para presentar datos"
+    "Una cuadrícula de celdas para presentar datos",
+    "Een raster van cellen om gegevens te presenteren"
   ],
   "Général": [
     "General",
-    "General"
+    "General",
+    "Algemeen"
   ],
   "Gérant": [
     "Manager",
-    "Gerente"
+    "Gerente",
+    "Zaakvoerder"
   ],
   "Haut centre": [
     "Top centre",
-    "Arriba centro"
+    "Arriba centro",
+    "Boven midden"
   ],
   "Haut droite": [
     "Top right",
-    "Arriba derecha"
+    "Arriba derecha",
+    "Boven rechts"
   ],
   "Haut gauche": [
     "Top left",
-    "Arriba izquierda"
+    "Arriba izquierda",
+    "Boven links"
   ],
   "Hauteur": [
     "Height",
-    "Altura"
+    "Altura",
+    "Hoogte"
   ],
   "Hauteur (pixels)": [
     "Height (pixels)",
-    "Alto (píxeles)"
+    "Alto (píxeles)",
+    "Hoogte (pixels)"
   ],
   "Hauteur de la carte": [
     "Map height",
-    "Altura del mapa"
+    "Altura del mapa",
+    "Hoogte van de kaart"
   ],
   "Hauteur de la zone de lecture": [
     "Height of the reading area",
-    "Altura de la zona de lectura"
+    "Altura de la zona de lectura",
+    "Hoogte van het leesvenster"
   ],
   "Hauteur du séparateur": [
     "Spacer height",
-    "Altura del separador"
+    "Altura del separador",
+    "Hoogte van de scheiding"
   ],
   "Hauteur fixe": [
     "Fixed height",
-    "Altura fija"
+    "Altura fija",
+    "Vaste hoogte"
   ],
   "Hauteur maximale (px)": [
     "Maximum height (px)",
-    "Altura máxima (px)"
+    "Altura máxima (px)",
+    "Maximale hoogte (px)"
   ],
   "Hero": [
+    "Hero",
     "Hero",
     "Hero"
   ],
   "Heure": [
     "Time",
-    "Hora"
+    "Hora",
+    "Tijd"
   ],
   "Heure de début": [
     "Start time",
-    "Hora de inicio"
+    "Hora de inicio",
+    "Begintijd"
   ],
   "Heure de fin": [
     "End time",
-    "Hora de fin"
+    "Hora de fin",
+    "Eindtijd"
   ],
   "Horaires d’ouverture": [
     "Opening hours",
-    "Horario de apertura"
+    "Horario de apertura",
+    "Openingsuren"
   ],
   "Horizontal": [
     "Horizontal",
-    "Horizontal"
+    "Horizontal",
+    "Horizontaal"
   ],
   "Icônes": [
     "Icons",
-    "Iconos"
+    "Iconos",
+    "Pictogrammen"
   ],
   "Icônes seules": [
     "Icons only",
-    "Solo iconos"
+    "Solo iconos",
+    "Alleen pictogrammen"
   ],
   "Icônes seules...": [
     "Icons only...",
-    "Solo iconos..."
+    "Solo iconos...",
+    "Alleen pictogrammen..."
   ],
   "Identifiant (ancre)": [
     "Identifier (anchor)",
-    "Identificador (ancla)"
+    "Identificador (ancla)",
+    "Identificatie (anker)"
   ],
   "Identifiant du bloc, utilisable comme ancre": [
     "Identifier of the block, usable as an anchor",
-    "Identificador del bloque, utilizable como ancla"
+    "Identificador del bloque, utilizable como ancla",
+    "Identificatie van het blok, bruikbaar als anker"
   ],
   "Identifiant et classes du bloc": [
     "Identifier and classes of the block",
-    "Identificador y clases del bloque"
+    "Identificador y clases del bloque",
+    "Identificatie en klassen van het blok"
   ],
   "Identité": [
     "Identity",
-    "Identidad"
+    "Identidad",
+    "Identiteit"
   ],
   "Il ne reste de la place que pour": [
     "There is only room left for",
-    "Solo queda espacio para"
+    "Solo queda espacio para",
+    "Er is nog maar plaats voor"
   ],
   "Image": [
     "Image",
-    "Imagen"
+    "Imagen",
+    "Afbeelding"
   ],
   "Image de fond": [
     "Background image",
-    "Imagen de fondo"
+    "Imagen de fondo",
+    "Achtergrondafbeelding"
   ],
   "Image de la bibliothèque": [
     "Image from the library",
-    "Imagen de la biblioteca"
+    "Imagen de la biblioteca",
+    "Afbeelding uit de bibliotheek"
   ],
   "Image d’aperçu": [
     "Preview image",
-    "Imagen de vista previa"
+    "Imagen de vista previa",
+    "Voorbeeldafbeelding"
   ],
   "Image principale": [
     "Main image",
-    "Imagen principal"
+    "Imagen principal",
+    "Hoofdafbeelding"
   ],
   "Image...": [
     "Image...",
-    "Imagen..."
+    "Imagen...",
+    "Afbeelding..."
   ],
   "Images": [
     "Images",
-    "Imágenes"
+    "Imágenes",
+    "Afbeeldingen"
   ],
   "Images de la galerie": [
     "Gallery images",
-    "Imágenes de la galería"
+    "Imágenes de la galería",
+    "Afbeeldingen van de galerij"
   ],
   "Indiquez l’adresse de la page à intégrer": [
     "Enter the address of the page to embed",
-    "Indique la dirección de la página que desea integrar"
+    "Indique la dirección de la página que desea integrar",
+    "Geef het adres op van de pagina die u wilt insluiten"
   ],
   "Indiquez l’adresse de la vidéo": [
     "Enter the video address",
-    "Indique la dirección del vídeo"
+    "Indique la dirección del vídeo",
+    "Geef het adres van de video op"
   ],
   "Indiquez l’adresse de l’agenda": [
     "Enter the calendar address",
-    "Indique la dirección de la agenda"
+    "Indique la dirección de la agenda",
+    "Geef het adres van de agenda op"
   ],
   "Indre-et-Loire": [
     "Indre-et-Loire",
-    "Indre y Loira"
+    "Indre y Loira",
+    "Indre-et-Loire"
   ],
   "Ingrédients": [
     "Ingredients",
-    "Ingredientes"
+    "Ingredientes",
+    "Ingrediënten"
   ],
   "Insérer des colonnes": [
     "Insert columns",
-    "Insertar columnas"
+    "Insertar columnas",
+    "Kolommen invoegen"
   ],
   "Insérer ou modifier un lien": [
     "Insert or edit a link",
-    "Insertar o editar un enlace"
+    "Insertar o editar un enlace",
+    "Een link invoegen of bewerken"
   ],
   "Insérer ou modifier une image": [
     "Insert or edit an image",
-    "Insertar o editar una imagen"
+    "Insertar o editar una imagen",
+    "Een afbeelding invoegen of bewerken"
   ],
   "Insérer un emoji Unicode ou une icône Material Design": [
     "Insert a Unicode emoji or an icon",
-    "Insertar un emoji Unicode o un icono"
+    "Insertar un emoji Unicode o un icono",
+    "Een Unicode-emoji of een pictogram invoegen"
   ],
   "Intervenant": [
     "Performer",
-    "Participante"
+    "Participante",
+    "Uitvoerder"
   ],
   "Intitulé": [
     "Caption",
-    "Título"
+    "Título",
+    "Bijschrift"
   ],
   "Intitulé affiché": [
     "Caption shown",
-    "Título mostrado"
+    "Título mostrado",
+    "Getoond bijschrift"
   ],
   "Intitulé du poste": [
     "Job title",
-    "Título del puesto"
+    "Título del puesto",
+    "Functietitel"
   ],
   "Intègre un agenda public existant (Google Agenda, ICS…)": [
     "Embeds an existing public calendar (Google Calendar, ICS…)",
-    "Integra una agenda pública existente (Google Calendar, ICS…)"
+    "Integra una agenda pública existente (Google Calendar, ICS…)",
+    "Sluit een bestaande openbare agenda in (Google Agenda, ICS…)"
   ],
   "Intérim": [
     "Temporary",
-    "Temporal"
+    "Temporal",
+    "Tijdelijk"
   ],
   "Jeudi": [
     "Thursday",
-    "Jueves"
+    "Jueves",
+    "Donderdag"
   ],
   "Jour": [
     "Day",
-    "Día"
+    "Día",
+    "Dag"
   ],
   "Jour du mois": [
     "Day of the month",
-    "Día del mes"
+    "Día del mes",
+    "Dag van de maand"
   ],
   "La chose dont ce contenu parle.": [
     "The thing this content is about.",
-    "Aquello de lo que trata este contenido."
+    "Aquello de lo que trata este contenido.",
+    "Het ding waarover deze inhoud gaat."
   ],
   "La grille d’un mois, avec vos rendez-vous inscrits jour par jour": [
     "A month grid, with your appointments written in day by day",
-    "La cuadrícula de un mes, con sus citas anotadas día a día"
+    "La cuadrícula de un mes, con sus citas anotadas día a día",
+    "Het raster van een maand, met uw afspraken dag per dag ingeschreven"
   ],
   "La latitude et la longitude du lieu.": [
     "The latitude and longitude of the place.",
-    "La latitud y la longitud del lugar."
+    "La latitud y la longitud del lugar.",
+    "De breedte- en lengtegraad van de locatie."
   ],
   "La marque sous laquelle le produit est vendu.": [
     "The brand the product is sold under.",
-    "La marca bajo la que se vende el producto."
+    "La marca bajo la que se vende el producto.",
+    "Het merk waaronder het product wordt verkocht."
   ],
   "La mise en forme simple est acceptée : gras, liens, listes.": [
     "Simple formatting is accepted: bold, links, lists.",
-    "Se acepta formato sencillo: negrita, enlaces, listas."
+    "Se acepta formato sencillo: negrita, enlaces, listas.",
+    "Eenvoudige opmaak wordt aanvaard: vet, links, lijsten."
   ],
   "La moyenne des avis et leur nombre.": [
     "The average of the reviews and how many there are.",
-    "La media de las reseñas y su número."
+    "La media de las reseñas y su número.",
+    "Het gemiddelde van de beoordelingen en hun aantal."
   ],
   "La moyenne des avis. Ce sont les étoiles affichées sous le résultat.": [
     "The average of the reviews. These are the stars shown under the result.",
-    "La media de las reseñas. Son las estrellas que se muestran bajo el resultado."
+    "La media de las reseñas. Son las estrellas que se muestran bajo el resultado.",
+    "Het gemiddelde van de beoordelingen. Dit zijn de sterren die onder het resultaat worden getoond."
   ],
   "La recherche d’adresse n’a pas abouti. Entrez les coordonnées à la main.": [
     "The address search failed. Enter the coordinates by hand.",
-    "La búsqueda de dirección no funcionó. Introduzca las coordenadas a mano."
+    "La búsqueda de dirección no funcionó. Introduzca las coordenadas a mano.",
+    "Het zoeken op adres is mislukt. Voer de coördinaten met de hand in."
   ],
   "La seconde ligne décrit l’image : elle est lue à voix haute par les lecteurs d’écran et reprise par les moteurs de recherche.": [
     "The second line describes the image: it is read aloud by screen readers and picked up by search engines.",
-    "La segunda línea describe la imagen: los lectores de pantalla la leen en voz alta y los buscadores la recogen."
+    "La segunda línea describe la imagen: los lectores de pantalla la leen en voz alta y los buscadores la recogen.",
+    "De tweede regel beschrijft de afbeelding: schermlezers lezen die hardop voor en zoekmachines nemen die over."
   ],
   "La section du site où l’article paraît : Actualités, Recettes, Juridique.": [
     "The section of the site the article appears in: News, Recipes, Legal.",
-    "La sección del sitio donde aparece el artículo: Noticias, Recetas, Jurídico."
+    "La sección del sitio donde aparece el artículo: Noticias, Recetas, Jurídico.",
+    "De rubriek van de site waarin het artikel verschijnt: Nieuws, Recepten, Juridisch."
   ],
   "La semaine commence le": [
     "The week starts on",
-    "La semana empieza el"
+    "La semana empieza el",
+    "De week begint op"
   ],
   "Laissez vide pour afficher le bouton officiel de PayPal.": [
     "Leave empty to show PayPal’s own button.",
-    "Déjelo vacío para mostrar el botón oficial de PayPal."
+    "Déjelo vacío para mostrar el botón oficial de PayPal.",
+    "Laat leeg om de officiële knop van PayPal te tonen."
   ],
   "Langue": [
     "Language",
-    "Idioma"
+    "Idioma",
+    "Taal"
   ],
   "Langue du bloc": [
     "Block language",
-    "Idioma del bloque"
+    "Idioma del bloque",
+    "Taal van het blok"
   ],
   "Langue du visiteur": [
     "Visitor’s language",
-    "Idioma del visitante"
+    "Idioma del visitante",
+    "Taal van de bezoeker"
   ],
   "Langues": [
     "Languages",
-    "Idiomas"
+    "Idiomas",
+    "Talen"
   ],
   "Langues de la page": [
     "Page languages",
-    "Idiomas de la página"
+    "Idiomas de la página",
+    "Talen van de pagina"
   ],
   "Langues parlées": [
     "Languages spoken",
-    "Idiomas hablados"
+    "Idiomas hablados",
+    "Gesproken talen"
   ],
   "Largeur": [
     "Width",
-    "Anchura"
+    "Anchura",
+    "Breedte"
   ],
   "Largeur (%, rem, vw...)": [
     "Width (%, rem, vw...)",
-    "Anchura (%, rem, vw...)"
+    "Anchura (%, rem, vw...)",
+    "Breedte (%, rem, vw...)"
   ],
   "Largeur (pixels)": [
     "Width (pixels)",
-    "Ancho (píxeles)"
+    "Ancho (píxeles)",
+    "Breedte (pixels)"
   ],
   "Largeur du filet": [
     "Rule width",
-    "Anchura de la línea"
+    "Anchura de la línea",
+    "Breedte van de lijn"
   ],
   "Largeur en pixels": [
     "Width in pixels",
-    "Ancho en píxeles"
+    "Ancho en píxeles",
+    "Breedte in pixels"
   ],
   "Largeur maximale": [
     "Maximum width",
-    "Anchura máxima"
+    "Anchura máxima",
+    "Maximale breedte"
   ],
   "Largeur maximale (px)": [
     "Maximum width (px)",
-    "Anchura máxima (px)"
+    "Anchura máxima (px)",
+    "Maximale breedte (px)"
   ],
   "Latitude": [
     "Latitude",
-    "Latitud"
+    "Latitud",
+    "Breedtegraad"
   ],
   "Le bouton « Ajouter une configuration » en pose une, à la fin de la page, avec les commandes que son html contient déjà.": [
     "The “Add a configuration” button places one at the end of the page, with the controls its html already contains.",
-    "El botón «Añadir una configuración» coloca una al final de la página, con los controles que ya contiene su html."
+    "El botón «Añadir una configuración» coloca una al final de la página, con los controles que ya contiene su html.",
+    "De knop « Een configuratie toevoegen » plaatst er een aan het einde van de pagina, met de bedieningselementen die haar html al bevat."
   ],
   "Le chemin qui mène à cette page depuis l’accueil.": [
     "The path leading to this page from the home page.",
-    "La ruta que lleva a esta página desde la portada."
+    "La ruta que lleva a esta página desde la portada.",
+    "Het pad dat vanaf de startpagina naar deze pagina leidt."
   ],
   "Le chemin qui mène à la page depuis l’accueil.": [
     "The path leading to the page from the home page.",
-    "La ruta que lleva a la página desde la portada."
+    "La ruta que lleva a la página desde la portada.",
+    "Het pad dat vanaf de startpagina naar de pagina leidt."
   ],
   "Le code ci-dessus est affiché tel quel dans l’éditeur ; il est publié sous sa forme active sur la page.": [
     "The code above is shown as-is in the editor; it is published in working form on the page.",
-    "El código anterior se muestra tal cual en el editor; se publica en su forma activa en la página."
+    "El código anterior se muestra tal cual en el editor; se publica en su forma activa en la página.",
+    "De code hierboven wordt onveranderd in de editor getoond; op de pagina wordt hij in werkende vorm gepubliceerd."
   ],
   "Le code de la langue du contenu : fr, en, nl.": [
     "The language code of the content: fr, en, nl.",
-    "El código del idioma del contenido: fr, en, nl."
+    "El código del idioma del contenido: fr, en, nl.",
+    "De taalcode van de inhoud: fr, en, nl."
   ],
   "Le code de l’unité : GRM pour un gramme, KGM pour un kilogramme, CMT pour un centimètre.": [
     "The unit code: GRM for a gram, KGM for a kilogram, CMT for a centimetre.",
-    "El código de la unidad: GRM para un gramo, KGM para un kilogramo, CMT para un centímetro."
+    "El código de la unidad: GRM para un gramo, KGM para un kilogramo, CMT para un centímetro.",
+    "De code van de eenheid: GRM voor een gram, KGM voor een kilogram, CMT voor een centimeter."
   ],
   "Le code du pays livré : FR, BE, NL.": [
     "The code of the delivered country: FR, BE, NL.",
-    "El código del país de entrega: FR, BE, NL."
+    "El código del país de entrega: FR, BE, NL.",
+    "De code van het land van levering: FR, BE, NL."
   ],
   "Le code du pays sur deux lettres : FR, BE, NL.": [
     "The two-letter country code: FR, BE, NL.",
-    "El código del país de dos letras: FR, BE, NL."
+    "El código del país de dos letras: FR, BE, NL.",
+    "De landcode van twee letters: FR, BE, NL."
   ],
   "Le contenu des colonnes est conservé. Une disposition qui en compte moins ramène le contenu des colonnes en trop dans la dernière.": [
     "The content of the columns is kept. A layout with fewer of them moves the content of the extra columns into the last one.",
-    "Se conserva el contenido de las columnas. Una disposición con menos columnas lleva el contenido de las sobrantes a la última."
+    "Se conserva el contenido de las columnas. Una disposición con menos columnas lleva el contenido de las sobrantes a la última.",
+    "De inhoud van de kolommen blijft behouden. Een indeling met minder kolommen brengt de inhoud van de overtollige kolommen onder in de laatste."
   ],
   "Le corps de l’article. Facultatif : les moteurs le lisent déjà dans la page.": [
     "The body of the article. Optional: search engines already read it in the page.",
-    "El cuerpo del artículo. Opcional: los buscadores ya lo leen en la página."
+    "El cuerpo del artículo. Opcional: los buscadores ya lo leen en la página.",
+    "De hoofdtekst van het artikel. Optioneel: zoekmachines lezen die al in de pagina."
   ],
   "Le fichier dépasse la taille maximale autorisée": [
     "The file exceeds the maximum allowed size",
-    "El archivo supera el tamaño máximo permitido"
+    "El archivo supera el tamaño máximo permitido",
+    "Het bestand overschrijdt de toegestane maximumgrootte"
   ],
   "Le fichier dépasse le poids autorisé par votre offre": [
     "The file exceeds the size allowed by your plan",
-    "El archivo supera el peso permitido por su plan"
+    "El archivo supera el peso permitido por su plan",
+    "Het bestand overschrijdt de grootte die uw abonnement toestaat"
   ],
   "Le fuseau dans lequel les heures ci-dessus sont exprimées.": [
     "The time zone the times above are given in.",
-    "La zona horaria en la que se expresan las horas anteriores."
+    "La zona horaria en la que se expresan las horas anteriores.",
+    "De tijdzone waarin de uren hierboven zijn uitgedrukt."
   ],
   "Le jour de la dernière modification. Les moteurs s’en servent pour juger de la fraîcheur.": [
     "The day of the last change. Search engines use it to judge freshness.",
-    "El día de la última modificación. Los buscadores lo usan para juzgar la actualidad."
+    "El día de la última modificación. Los buscadores lo usan para juzgar la actualidad.",
+    "De dag van de laatste wijziging. Zoekmachines gebruiken die om de actualiteit te beoordelen."
   ],
   "Le jour où le contenu a été mis en ligne.": [
     "The day the content was published.",
-    "El día en que se publicó el contenido."
+    "El día en que se publicó el contenido.",
+    "De dag waarop de inhoud online is gezet."
   ],
   "Le jour où le contenu a été relu et confirmé exact.": [
     "The day the content was reviewed and confirmed accurate.",
-    "El día en que se revisó el contenido y se confirmó su exactitud."
+    "El día en que se revisó el contenido y se confirmó su exactitud.",
+    "De dag waarop de inhoud is nagelezen en juist bevonden."
   ],
   "Le logo affiché dans les résultats de recherche. Au moins 112 pixels de côté.": [
     "The logo shown in search results. At least 112 pixels on each side.",
-    "El logotipo que se muestra en los resultados de búsqueda. Al menos 112 píxeles de lado."
+    "El logotipo que se muestra en los resultados de búsqueda. Al menos 112 píxeles de lado.",
+    "Het logo dat in de zoekresultaten wordt getoond. Minstens 112 pixels per zijde."
   ],
   "Le logo enregistré dans les réglages de votre site": [
     "The logo saved in your site settings",
-    "El logotipo guardado en los ajustes de su sitio"
+    "El logotipo guardado en los ajustes de su sitio",
+    "Het logo dat in de instellingen van uw site is opgeslagen"
   ],
   "Le mois en cours, quel qu’il soit au moment de l’affichage.": [
     "The current month, whatever it is when the page is displayed.",
-    "El mes en curso, sea cual sea al mostrarse la página."
+    "El mes en curso, sea cual sea al mostrarse la página.",
+    "De huidige maand, welke die ook is op het ogenblik van weergave."
   ],
   "Le nom du site, affiché par-dessus le logo": [
     "The site name, shown over the logo",
-    "El nombre del sitio, mostrado sobre el logotipo"
+    "El nombre del sitio, mostrado sobre el logotipo",
+    "De naam van de site, getoond over het logo"
   ],
   "Le nom déposé, tel qu’il figure au registre du commerce.": [
     "The registered name, as it appears in the trade register.",
-    "El nombre registrado, tal como figura en el registro mercantil."
+    "El nombre registrado, tal como figura en el registro mercantil.",
+    "De geregistreerde naam, zoals die in het handelsregister staat."
   ],
   "Le nom sous lequel cette chose est connue. C’est ce que les moteurs affichent en titre.": [
     "The name this thing is known by. This is what search engines show as the title.",
-    "El nombre por el que se conoce esta cosa. Es lo que los buscadores muestran como título."
+    "El nombre por el que se conoce esta cosa. Es lo que los buscadores muestran como título.",
+    "De naam waaronder dit ding bekend staat. Dat is wat zoekmachines als titel tonen."
   ],
   "Le plugin des scripts n’est pas chargé : la configuration ne peut pas être ajoutée depuis ici. Écrivez-la dans le gabarit du site.": [
     "The scripts plugin is not loaded: the configuration cannot be added from here. Write it in the site template.",
-    "El complemento de scripts no está cargado: la configuración no puede añadirse desde aquí. Escríbala en la plantilla del sitio."
+    "El complemento de scripts no está cargado: la configuración no puede añadirse desde aquí. Escríbala en la plantilla del sitio.",
+    "De scriptsplug-in is niet geladen: de configuratie kan hiervandaan niet worden toegevoegd. Schrijf ze in het sjabloon van de site."
   ],
   "Le résumé et les mots-clés affichés par Google — invisible sur la page": [
     "The summary and keywords shown by Google — invisible on the page",
-    "El resumen y las palabras clave que muestra Google — invisible en la página"
+    "El resumen y las palabras clave que muestra Google — invisible en la página",
+    "De samenvatting en de trefwoorden die Google toont — onzichtbaar op de pagina"
   ],
   "Le site dans son ensemble. À poser sur la page d’accueil.": [
     "The site as a whole. To be placed on the home page.",
-    "El sitio en su conjunto. Se coloca en la portada."
+    "El sitio en su conjunto. Se coloca en la portada.",
+    "De site in haar geheel. Te plaatsen op de startpagina."
   ],
   "Le texte décrit l’image : il est lu à voix haute par les lecteurs d’écran et repris par les moteurs de recherche.": [
     "The text describes the image: screen readers read it aloud and search engines pick it up.",
-    "El texto describe la imagen: los lectores de pantalla lo leen en voz alta y los motores de búsqueda lo recogen."
+    "El texto describe la imagen: los lectores de pantalla lo leen en voz alta y los motores de búsqueda lo recogen.",
+    "De tekst beschrijft de afbeelding: schermlezers lezen hem hardop voor en zoekmachines nemen hem over."
   ],
   "Le texte d’une réponse.": [
     "The text of an answer.",
-    "El texto de una respuesta."
+    "El texto de una respuesta.",
+    "De tekst van een antwoord."
   ],
   "Le titre du contenu. Restez sous 110 caractères : au-delà, les moteurs le coupent.": [
     "The title of the content. Stay under 110 characters: past that, search engines cut it.",
-    "El título del contenido. No pase de 110 caracteres: más allá, los buscadores lo cortan."
+    "El título del contenido. No pase de 110 caracteres: más allá, los buscadores lo cortan.",
+    "De titel van de inhoud. Blijf onder 110 tekens: daarboven kappen zoekmachines hem af."
   ],
   "Le type le plus général : à n’employer que si aucun autre ne convient.": [
     "The most general type: to be used only if no other fits.",
-    "El tipo más general: solo si ningún otro sirve."
+    "El tipo más general: solo si ningún otro sirve.",
+    "Het meest algemene type: alleen te gebruiken als geen enkel ander past."
   ],
   "Lecture automatique": [
     "Play automatically",
-    "Reproducción automática"
+    "Reproducción automática",
+    "Automatisch afspelen"
   ],
   "Lecture en boucle": [
     "Loop",
-    "Reproducción en bucle"
+    "Reproducción en bucle",
+    "Herhalen"
   ],
   "Les classes de la feuille de style du site n’ont pas pu être lues : elle est servie par un autre domaine, qui n’en autorise pas la lecture. Écrivez le nom de la classe à la main.": [
     "The classes of the site stylesheet could not be read: it is served by another domain, which does not allow reading it. Write the class name by hand.",
-    "No se han podido leer las clases de la hoja de estilo del sitio: la sirve otro dominio que no autoriza su lectura. Escriba el nombre de la clase a mano."
+    "No se han podido leer las clases de la hoja de estilo del sitio: la sirve otro dominio que no autoriza su lectura. Escriba el nombre de la clase a mano.",
+    "De klassen van het stijlblad van de site konden niet worden gelezen: het wordt door een ander domein geleverd, dat het lezen ervan niet toestaat. Schrijf de naam van de klasse met de hand."
   ],
   "Les classes décident de l’allure du bloc. Celles qui sont proposées viennent de la feuille de style de votre site et des autres blocs de la page.": [
     "The classes decide the look of the block. Those offered come from the stylesheet of your site and from the other blocks of the page.",
-    "Las clases deciden el aspecto del bloque. Las que se proponen provienen de la hoja de estilo de su sitio y de los demás bloques de la página."
+    "Las clases deciden el aspecto del bloque. Las que se proponen provienen de la hoja de estilo de su sitio y de los demás bloques de la página.",
+    "De klassen bepalen het uiterlijk van het blok. De voorgestelde klassen komen uit het stijlblad van uw site en uit de andere blokken van de pagina."
   ],
   "Les deux": [
     "Both",
-    "Ambos"
+    "Ambos",
+    "Beide"
   ],
   "Les effets autres que le glissement demandent leur module dans la page. Si le diaporama se fige après un changement d’effet, revenez au glissement.": [
     "Effects other than slide need their module in the page. If the slideshow freezes after an effect change, go back to slide.",
-    "Los efectos distintos del deslizamiento necesitan su módulo en la página. Si el carrusel se congela tras cambiar de efecto, vuelva al deslizamiento."
+    "Los efectos distintos del deslizamiento necesitan su módulo en la página. Si el carrusel se congela tras cambiar de efecto, vuelva al deslizamiento.",
+    "Andere effecten dan schuiven vragen hun module in de pagina. Blijft de diavoorstelling na een effectwissel hangen, keer dan terug naar schuiven."
   ],
   "Les moteurs de recherche affichent un prix, des étoiles ou une date de concert quand la page le leur dit dans un langage qu’ils connaissent. Choisissez ce qui correspond le mieux — vous pourrez en changer.": [
     "Search engines show a price, stars or a concert date when the page tells them so in a language they know. Choose what fits best — you can change it later.",
-    "Los buscadores muestran un precio, estrellas o la fecha de un concierto cuando la página se lo dice en un lenguaje que conocen. Elija lo que mejor encaje: podrá cambiarlo."
+    "Los buscadores muestran un precio, estrellas o la fecha de un concierto cuando la página se lo dice en un lenguaje que conocen. Elija lo que mejor encaje: podrá cambiarlo.",
+    "Zoekmachines tonen een prijs, sterren of een concertdatum wanneer de pagina het hun zegt in een taal die zij kennen. Kies wat het beste past — u kunt het later wijzigen."
   ],
   "Les moteurs de recherche mettent à disposition un outil qui lit une page publiée et dit ce qu’ils y comprennent. Publiez d’abord la page, puis donnez-lui son adresse.": [
     "Search engines provide a tool that reads a published page and says what they understand from it. Publish the page first, then give it its address.",
-    "Los buscadores ofrecen una herramienta que lee una página publicada y dice lo que entienden de ella. Publique primero la página y después indíquele su dirección."
+    "Los buscadores ofrecen una herramienta que lee una página publicada y dice lo que entienden de ella. Publique primero la página y después indíquele su dirección.",
+    "Zoekmachines stellen een hulpmiddel ter beschikking dat een gepubliceerde pagina leest en zegt wat zij erin begrijpen. Publiceer eerst de pagina en geef er dan het adres van op."
   ],
   "Les moteurs ignoreront la fiche tant qu’elles manqueront. L’enregistrer quand même ?": [
     "Search engines will ignore the record while they are missing. Save it anyway?",
-    "Los buscadores ignorarán la ficha mientras falten. ¿Guardarla de todos modos?"
+    "Los buscadores ignorarán la ficha mientras falten. ¿Guardarla de todos modos?",
+    "Zoekmachines negeren de fiche zolang die ontbreken. Toch opslaan?"
   ],
   "Les propriétés marquées « Exigé » doivent être remplies pour que les moteurs acceptent la fiche. Les autres l’enrichissent.": [
     "The properties marked “Required” must be filled in for search engines to accept the record. The others enrich it.",
-    "Las propiedades marcadas «Obligatorio» deben rellenarse para que los buscadores acepten la ficha. Las demás la enriquecen."
+    "Las propiedades marcadas «Obligatorio» deben rellenarse para que los buscadores acepten la ficha. Las demás la enriquecen.",
+    "De eigenschappen met de vermelding « Verplicht » moeten ingevuld zijn opdat zoekmachines de fiche aanvaarden. De andere verrijken ze."
+  ],
+  "Les propriétés marquées « Obligatoire » doivent être remplies pour que les moteurs acceptent la fiche. Les autres l’enrichissent.": [
+    "The properties marked “Required” must be filled in for search engines to accept the record. The others enrich it.",
+    "Las propiedades marcadas «Obligatorio» deben rellenarse para que los buscadores acepten la ficha. Las demás la enriquecen.",
+    "De eigenschappen met de vermelding « Verplicht » moeten ingevuld zijn opdat zoekmachines de fiche aanvaarden. De andere verrijken ze."
   ],
   "Les rendez-vous d’avril": [
     "April’s appointments",
-    "Las citas de abril"
+    "Las citas de abril",
+    "De afspraken van april"
   ],
   "Licence": [
     "Licence",
-    "Licencia"
+    "Licencia",
+    "Licentie"
   ],
   "Lien": [
     "Link",
-    "Enlace"
+    "Enlace",
+    "Link"
   ],
   "Lien du bouton": [
     "Button link",
-    "Enlace del botón"
+    "Enlace del botón",
+    "Link van de knop"
   ],
   "Lien du site": [
     "Site link",
-    "Enlace del sitio"
+    "Enlace del sitio",
+    "Link van de site"
   ],
   "Lien...": [
     "Link...",
-    "Enlace..."
+    "Enlace...",
+    "Link..."
   ],
   "Lieu": [
     "Place",
-    "Lugar"
+    "Lugar",
+    "Locatie"
   ],
   "Lieu affiché": [
     "Place shown",
-    "Lugar mostrado"
+    "Lugar mostrado",
+    "Getoonde locatie"
   ],
   "Lieu choisi. Ajustez le zoom si nécessaire.": [
     "Place chosen. Adjust the zoom if needed.",
-    "Lugar elegido. Ajuste el zoom si es necesario."
+    "Lugar elegido. Ajuste el zoom si es necesario.",
+    "Locatie gekozen. Pas de zoom aan indien nodig."
   ],
   "Lieu de travail": [
     "Place of work",
-    "Lugar de trabajo"
+    "Lugar de trabajo",
+    "Werkplek"
   ],
   "Lieu en ligne": [
     "Online location",
-    "Ubicación en línea"
+    "Ubicación en línea",
+    "Online locatie"
   ],
   "Lieu et date de rédaction": [
     "Place and date of writing",
-    "Lugar y fecha de redacción"
+    "Lugar y fecha de redacción",
+    "Plaats en datum van schrijven"
   ],
   "Liste des pages de votre site": [
     "The list of your site’s pages",
-    "La lista de páginas de su sitio"
+    "La lista de páginas de su sitio",
+    "De lijst van de pagina's van uw site"
   ],
   "Liste numérotée": [
     "Numbered list",
-    "Lista numerada"
+    "Lista numerada",
+    "Genummerde lijst"
   ],
   "Liste à puces": [
     "Bulleted list",
-    "Lista con viñetas"
+    "Lista con viñetas",
+    "Opsommingslijst"
   ],
   "Livraison": [
     "Delivery",
-    "Entrega"
+    "Entrega",
+    "Levering"
   ],
   "Livre sterling (GBP)": [
     "Pound sterling (GBP)",
-    "Libra esterlina (GBP)"
+    "Libra esterlina (GBP)",
+    "Pond sterling (GBP)"
   ],
   "Logo": [
     "Logo",
-    "Logotipo"
+    "Logotipo",
+    "Logo"
   ],
   "Logo du site": [
     "Site logo",
-    "Logotipo del sitio"
+    "Logotipo del sitio",
+    "Logo van de site"
   ],
   "Longitude": [
     "Longitude",
-    "Longitud"
+    "Longitud",
+    "Lengtegraad"
   ],
   "Lundi": [
     "Monday",
-    "Lunes"
+    "Lunes",
+    "Maandag"
   ],
   "Lâchez pour annuler.": [
     "Release to cancel.",
-    "Suelte para cancelar."
+    "Suelte para cancelar.",
+    "Laat los om te annuleren."
   ],
   "Légende": [
     "Caption",
-    "Leyenda"
+    "Leyenda",
+    "Bijschrift"
   ],
   "L’adresse des conditions de réutilisation du contenu.": [
     "The address of the reuse terms of the content.",
-    "La dirección de las condiciones de reutilización del contenido."
+    "La dirección de las condiciones de reutilización del contenido.",
+    "Het adres van de hergebruiksvoorwaarden van de inhoud."
   ],
   "L’adresse du compte PayPal qui recevra le paiement.": [
     "The PayPal account the payment will go to.",
-    "La cuenta PayPal que recibirá el pago."
+    "La cuenta PayPal que recibirá el pago.",
+    "Het adres van de PayPal-rekening die de betaling ontvangt."
   ],
   "L’adresse que l’on met dans un cadre intégré, par exemple celle d’un lecteur YouTube.": [
     "The address put in an embedded frame, for example that of a YouTube player.",
-    "La dirección que se pone en un marco integrado, por ejemplo la de un reproductor de YouTube."
+    "La dirección que se pone en un marco integrado, por ejemplo la de un reproductor de YouTube.",
+    "Het adres dat men in een ingesloten kader zet, bijvoorbeeld dat van een YouTube-speler."
   ],
   "L’adresse à laquelle cette chose est présentée. Le plus souvent, la page courante.": [
     "The address where this thing is presented. Most often, the current page.",
-    "La dirección donde se presenta esta cosa. Casi siempre, la página actual."
+    "La dirección donde se presenta esta cosa. Casi siempre, la página actual.",
+    "Het adres waarop dit ding wordt gepresenteerd. Meestal de huidige pagina."
   ],
   "L’adresse à laquelle l’événement se tient à distance.": [
     "The address where the event takes place remotely.",
-    "La dirección donde se celebra el evento a distancia."
+    "La dirección donde se celebra el evento a distancia.",
+    "Het adres waarop het evenement op afstand plaatsvindt."
   ],
   "L’aperçu n’a pas pu être construit": [
     "The preview could not be built",
-    "No se pudo construir la vista previa"
+    "No se pudo construir la vista previa",
+    "Het voorbeeld kon niet worden opgebouwd"
   ],
   "L’avis d’un client, avec sa note et son texte.": [
     "A customer review, with its rating and its text.",
-    "La reseña de un cliente, con su valoración y su texto."
+    "La reseña de un cliente, con su valoración y su texto.",
+    "De beoordeling van een klant, met de score en de tekst."
   ],
   "L’image montrée avant la lecture.": [
     "The image shown before playback.",
-    "La imagen que se muestra antes de la reproducción."
+    "La imagen que se muestra antes de la reproducción.",
+    "De afbeelding die vóór het afspelen wordt getoond."
   ],
   "Maintenez enfoncé pendant {0} secondes.": [
     "Press and hold for {0} seconds.",
-    "Mantenga pulsado {0} segundos."
+    "Mantenga pulsado {0} segundos.",
+    "Houd {0} seconden ingedrukt."
   ],
   "Maintenez le bouton enfoncé pour supprimer": [
     "Press and hold the button to delete",
-    "Mantenga pulsado el botón para eliminar"
+    "Mantenga pulsado el botón para eliminar",
+    "Houd de knop ingedrukt om te verwijderen"
   ],
   "Maintenu": [
     "Scheduled",
-    "Mantenido"
+    "Mantenido",
+    "Gehandhaafd"
   ],
   "Mardi": [
     "Tuesday",
-    "Martes"
+    "Martes",
+    "Dinsdag"
   ],
   "Marge extérieure (ex : 0 0 1rem)": [
     "Outer margin (e.g. 0 0 1rem)",
-    "Margen exterior (p. ej. 0 0 1rem)"
+    "Margen exterior (p. ej. 0 0 1rem)",
+    "Buitenmarge (bv. 0 0 1rem)"
   ],
   "Marge intérieure (ex : .5rem 1rem)": [
     "Inner padding (e.g. .5rem 1rem)",
-    "Relleno interior (p. ej. .5rem 1rem)"
+    "Relleno interior (p. ej. .5rem 1rem)",
+    "Binnenmarge (bv. .5rem 1rem)"
   ],
   "Marque": [
     "Brand",
-    "Marca"
+    "Marca",
+    "Merk"
   ],
   "Matière": [
     "Material",
-    "Material"
+    "Material",
+    "Materiaal"
   ],
   "Matières grasses": [
     "Fat content",
-    "Grasas"
+    "Grasas",
+    "Vetgehalte"
   ],
   "Maçonnerie (colonnes)": [
     "Masonry (columns)",
-    "Mampostería (columnas)"
+    "Mampostería (columnas)",
+    "Metselwerk (kolommen)"
   ],
   "Menu": [
     "Menu",
-    "Menú"
+    "Menú",
+    "Menu"
   ],
   "Mercredi": [
     "Wednesday",
-    "Miércoles"
+    "Miércoles",
+    "Woensdag"
   ],
   "Mesure": [
     "Measurement",
-    "Medida"
+    "Medida",
+    "Maat"
   ],
   "Met en avant une phrase, avec un filet sur le côté": [
     "Highlights a sentence, with a rule down the side",
-    "Destaca una frase, con una línea al lado"
+    "Destaca una frase, con una línea al lado",
+    "Licht een zin uit, met een lijn aan de zijkant"
   ],
   "Mettre à jour": [
     "Update",
-    "Actualizar"
+    "Actualizar",
+    "Bijwerken"
   ],
   "Microdonnées": [
     "Microdata",
-    "Microdatos"
+    "Microdatos",
+    "Microdata"
   ],
   "Microdonnées de la page": [
     "Microdata of the page",
-    "Microdatos de la página"
+    "Microdatos de la página",
+    "Microdata van de pagina"
   ],
   "Microdonnées incomplètes": [
     "Incomplete microdata",
-    "Microdatos incompletos"
+    "Microdatos incompletos",
+    "Onvolledige microdata"
   ],
   "Milieu droite": [
     "Middle right",
-    "Centro derecha"
+    "Centro derecha",
+    "Midden rechts"
   ],
   "Milieu gauche": [
     "Middle left",
-    "Centro izquierda"
+    "Centro izquierda",
+    "Midden links"
   ],
   "Mise en avant": [
     "Highlights",
-    "Destacados"
+    "Destacados",
+    "Uitgelicht"
   ],
   "Mode de participation": [
     "Attendance mode",
-    "Modo de participación"
+    "Modo de participación",
+    "Wijze van deelname"
   ],
   "Mode d’emploi": [
     "How-to",
-    "Instrucciones"
+    "Instrucciones",
+    "Handleiding"
   ],
   "Modifier cet élément": [
     "Edit this item",
-    "Editar este elemento"
+    "Editar este elemento",
+    "Dit element bewerken"
   ],
   "Modifier dans Pixel•OnlineCreation": [
     "Edit in Pixel•OnlineCreation",
-    "Editar en Pixel•OnlineCreation"
+    "Editar en Pixel•OnlineCreation",
+    "Bewerken in Pixel•OnlineCreation"
   ],
   "Modifier la description pour les moteurs…": [
     "Edit the description for search engines…",
-    "Modificar la descripción para los buscadores…"
+    "Modificar la descripción para los buscadores…",
+    "De beschrijving voor zoekmachines bewerken…"
   ],
   "Modifier le bloc": [
     "Edit the block",
-    "Editar el bloque"
+    "Editar el bloque",
+    "Het blok bewerken"
   ],
   "Modifier le diaporama": [
     "Edit the slideshow",
-    "Modificar el carrusel"
+    "Modificar el carrusel",
+    "De diavoorstelling bewerken"
   ],
   "Modifier le lien": [
     "Edit the link",
-    "Editar el enlace"
+    "Editar el enlace",
+    "De link bewerken"
   ],
   "Modifier le script": [
     "Edit the script",
-    "Editar el script"
+    "Editar el script",
+    "Het script bewerken"
   ],
   "Modifier les microdonnées": [
     "Edit the microdata",
-    "Modificar los microdatos"
+    "Modificar los microdatos",
+    "De microdata bewerken"
   ],
   "Modifier les microdonnées de la page…": [
     "Edit the microdata of the page…",
-    "Modificar los microdatos de la página…"
+    "Modificar los microdatos de la página…",
+    "De microdata van de pagina bewerken…"
   ],
   "Modifier…": [
     "Edit…",
-    "Modificar…"
+    "Modificar…",
+    "Bewerken…"
   ],
   "Mois": [
     "Month",
-    "Mes"
+    "Mes",
+    "Maand"
   ],
   "Mois affiché": [
     "Month shown",
-    "Mes mostrado"
+    "Mes mostrado",
+    "Getoonde maand"
   ],
   "Mois en cours": [
     "Current month",
-    "Mes en curso"
+    "Mes en curso",
+    "Huidige maand"
   ],
   "Montant": [
     "Amount",
-    "Importe"
+    "Importe",
+    "Bedrag"
   ],
   "Monter": [
     "Move up",
-    "Subir"
+    "Subir",
+    "Omhoog"
   ],
   "Monter cette vue": [
     "Move this slide up",
-    "Subir esta vista"
+    "Subir esta vista",
+    "Deze weergave omhoog"
   ],
   "Monter le bloc": [
     "Move block up",
-    "Subir el bloque"
+    "Subir el bloque",
+    "Het blok omhoog"
   ],
   "Mosaïque carrée": [
     "Square mosaic",
-    "Mosaico cuadrado"
+    "Mosaico cuadrado",
+    "Vierkant mozaïek"
   ],
   "Mots-clés": [
     "Keywords",
-    "Palabras clave"
+    "Palabras clave",
+    "Trefwoorden"
   ],
   "Médias": [
     "Media",
-    "Medios"
+    "Medios",
+    "Media"
   ],
   "Médiathèque": [
     "Media library",
-    "Biblioteca de medios"
+    "Biblioteca de medios",
+    "Mediabibliotheek"
   ],
   "Même onglet": [
     "Same tab",
-    "Misma pestaña"
+    "Misma pestaña",
+    "Zelfde tabblad"
   ],
   "Nature de la prestation": [
     "Kind of service",
-    "Naturaleza del servicio"
+    "Naturaleza del servicio",
+    "Aard van de dienst"
   ],
   "Navigation": [
     "Navigation",
-    "Navegación"
+    "Navegación",
+    "Navigatie"
   ],
   "Ne pas supprimer": [
     "Do not delete",
-    "No eliminar"
+    "No eliminar",
+    "Niet verwijderen"
   ],
   "Neuf": [
     "New",
-    "Nuevo"
+    "Nuevo",
+    "Nieuw"
+  ],
+  "Neuf, d’occasion, reconditionné. Les moteurs l’affichent à côté du prix, et une place de marché peut le refuser s’il manque.": [
+    "New, used, refurbished. Search engines show it next to the price, and a marketplace may reject the listing without it.",
+    "Nuevo, usado, reacondicionado. Los buscadores lo muestran junto al precio, y un marketplace puede rechazar la ficha si falta.",
+    "Nieuw, tweedehands, gereviseerd. Zoekmachines tonen het naast de prijs, en een marktplaats kan de fiche weigeren als het ontbreekt."
   ],
   "Niveau": [
     "Level",
-    "Nivel"
+    "Nivel",
+    "Niveau"
   ],
   "Niveau de prix": [
     "Price level",
-    "Nivel de precios"
+    "Nivel de precios",
+    "Prijsniveau"
   ],
   "Nom": [
     "Name",
-    "Nombre"
+    "Nombre",
+    "Naam"
   ],
   "Nom de famille": [
     "Family name",
-    "Apellidos"
+    "Apellidos",
+    "Achternaam"
   ],
   "Nom de l’article": [
     "Item name",
-    "Nombre del artículo"
+    "Nombre del artículo",
+    "Naam van het item"
   ],
   "Nom de l’événement": [
     "Event name",
-    "Nombre del evento"
+    "Nombre del evento",
+    "Naam van het evenement"
   ],
   "Nom du dossier": [
     "Folder name",
-    "Nombre de la carpeta"
+    "Nombre de la carpeta",
+    "Naam van de map"
   ],
   "Nom du widget": [
     "Widget name",
-    "Nombre del widget"
+    "Nombre del widget",
+    "Naam van de widget"
   ],
   "Nom d’une classe, par exemple text-center": [
     "Name of a class, for example text-center",
-    "Nombre de una clase, por ejemplo text-center"
+    "Nombre de una clase, por ejemplo text-center",
+    "Naam van een klasse, bijvoorbeeld text-center"
   ],
   "Nom exact de la propriété schema.org, par exemple award :": [
     "Exact name of the schema.org property, for example award:",
-    "Nombre exacto de la propiedad schema.org, por ejemplo award:"
+    "Nombre exacto de la propiedad schema.org, por ejemplo award:",
+    "Exacte naam van de schema.org-eigenschap, bijvoorbeeld award:"
   ],
   "Nombre de mots": [
     "Word count",
-    "Número de palabras"
+    "Número de palabras",
+    "Aantal woorden"
   ],
   "Nombre de pages affichées (0 = toutes)": [
     "Number of pages shown (0 = all)",
-    "Número de páginas mostradas (0 = todas)"
+    "Número de páginas mostradas (0 = todas)",
+    "Aantal getoonde pagina's (0 = alle)"
   ],
   "Nombre d’avis": [
     "Number of reviews",
-    "Número de reseñas"
+    "Número de reseñas",
+    "Aantal beoordelingen"
   ],
   "Nombre d’offres": [
     "Number of offers",
-    "Número de ofertas"
+    "Número de ofertas",
+    "Aantal aanbiedingen"
   ],
   "Non": [
     "No",
-    "No"
+    "No",
+    "Nee"
   ],
   "Non pour un contenu réservé aux abonnés.": [
     "No for content reserved for subscribers.",
-    "No para un contenido reservado a los suscriptores."
+    "No para un contenido reservado a los suscriptores.",
+    "Nee voor inhoud die aan abonnees is voorbehouden."
   ],
   "Normale": [
     "Normal",
-    "Normal"
+    "Normal",
+    "Normaal"
   ],
   "Nos bureaux": [
     "Our offices",
-    "Nuestras oficinas"
+    "Nuestras oficinas",
+    "Onze kantoren"
   ],
   "Note": [
     "Rating",
-    "Valoración"
+    "Valoración",
+    "Score"
   ],
   "Note donnée": [
     "Rating given",
-    "Valoración dada"
+    "Valoración dada",
+    "Gegeven score"
   ],
   "Note maximale": [
     "Best rating",
-    "Valoración máxima"
+    "Valoración máxima",
+    "Hoogste score"
   ],
   "Note minimale": [
     "Worst rating",
-    "Valoración mínima"
+    "Valoración mínima",
+    "Laagste score"
   ],
   "Note moyenne": [
     "Average rating",
-    "Valoración media"
+    "Valoración media",
+    "Gemiddelde score"
   ],
   "Nouveau dossier": [
     "New folder",
-    "Nueva carpeta"
+    "Nueva carpeta",
+    "Nieuwe map"
   ],
   "Nouveau nom": [
     "New name",
-    "Nuevo nombre"
+    "Nuevo nombre",
+    "Nieuwe naam"
   ],
   "Nouvel onglet": [
     "New tab",
-    "Nueva pestaña"
+    "Nueva pestaña",
+    "Nieuw tabblad"
   ],
   "Numéro de TVA": [
     "VAT number",
-    "Número de IVA"
+    "Número de IVA",
+    "Btw-nummer"
   ],
   "Numéro de vue": [
     "Slide number",
-    "Número de vista"
+    "Número de vista",
+    "Nummer van de weergave"
   ],
   "Numéro d’identification": [
     "Tax identification number",
-    "Número de identificación"
+    "Número de identificación",
+    "Fiscaal identificatienummer"
   ],
   "Numéro et rue": [
     "Number and street",
-    "Número y calle"
+    "Número y calle",
+    "Nummer en straat"
   ],
   "Occasion": [
     "Used",
-    "Usado"
+    "Usado",
+    "Tweedehands"
   ],
   "Offre": [
     "Offer",
-    "Oferta"
+    "Oferta",
+    "Aanbod"
   ],
   "Offre d’emploi": [
     "Job posting",
-    "Oferta de empleo"
+    "Oferta de empleo",
+    "Vacature"
   ],
   "Ombre : X": [
     "Shadow: X",
-    "Sombra: X"
+    "Sombra: X",
+    "Schaduw: X"
   ],
   "Ombre : Y": [
     "Shadow: Y",
-    "Sombra: Y"
+    "Sombra: Y",
+    "Schaduw: Y"
   ],
   "Ombre : couleur": [
     "Shadow: colour",
-    "Sombra: color"
+    "Sombra: color",
+    "Schaduw: kleur"
   ],
   "Ombre : décalage horizontal": [
     "Shadow: horizontal offset",
-    "Sombra: desplazamiento horizontal"
+    "Sombra: desplazamiento horizontal",
+    "Schaduw: horizontale verschuiving"
   ],
   "Ombre : décalage vertical": [
     "Shadow: vertical offset",
-    "Sombra: desplazamiento vertical"
+    "Sombra: desplazamiento vertical",
+    "Schaduw: verticale verschuiving"
   ],
   "Ombre : flou": [
     "Shadow: blur",
-    "Sombra: desenfoque"
+    "Sombra: desenfoque",
+    "Schaduw: vervaging"
   ],
   "Ordinateur": [
     "Desktop",
-    "Ordenador"
+    "Ordenador",
+    "Computer"
   ],
   "Organisateur": [
     "Organiser",
-    "Organizador"
+    "Organizador",
+    "Organisator"
   ],
   "Organisation": [
     "Organisation",
-    "Organización"
+    "Organización",
+    "Organisatie"
   ],
   "Organisme": [
     "Provider",
-    "Organismo"
+    "Organismo",
+    "Aanbieder"
   ],
   "Ou adresse d’une image en ligne (https://…)": [
     "Or the address of an online image (https://…)",
-    "O la dirección de una imagen en línea (https://…)"
+    "O la dirección de una imagen en línea (https://…)",
+    "Of het adres van een online afbeelding (https://…)"
   ],
   "Oui": [
     "Yes",
-    "Sí"
+    "Sí",
+    "Ja"
   ],
   "Outil de test des moteurs…": [
     "Search engine test tool…",
-    "Herramienta de prueba de los buscadores…"
+    "Herramienta de prueba de los buscadores…",
+    "Testhulpmiddel van de zoekmachines…"
   ],
   "Outils de blocs": [
     "Block tools",
-    "Herramientas de bloques"
+    "Herramientas de bloques",
+    "Blokgereedschap"
   ],
   "Outils nécessaires": [
     "Tools needed",
-    "Herramientas necesarias"
+    "Herramientas necesarias",
+    "Benodigd gereedschap"
   ],
   "Ouverture": [
     "Opening",
-    "Apertura"
+    "Apertura",
+    "Opening"
   ],
   "Ouvrir dans": [
     "Open in",
-    "Abrir en"
+    "Abrir en",
+    "Openen in"
   ],
   "Ouvrir le lien": [
     "Open the link",
-    "Abrir el enlace"
+    "Abrir el enlace",
+    "De link openen"
   ],
   "Page Wikipédia, profil Facebook, fiche Google : les adresses qui désignent la même chose ailleurs.": [
     "Wikipedia page, Facebook profile, Google listing: the addresses that name the same thing elsewhere.",
-    "Página de Wikipedia, perfil de Facebook, ficha de Google: las direcciones que designan la misma cosa en otros sitios."
+    "Página de Wikipedia, perfil de Facebook, ficha de Google: las direcciones que designan la misma cosa en otros sitios.",
+    "Wikipedia-pagina, Facebook-profiel, Google-vermelding: de adressen die elders hetzelfde ding aanduiden."
   ],
   "Page actuelle (ancres)": [
     "This page (anchors)",
-    "Esta página (anclas)"
+    "Esta página (anclas)",
+    "Huidige pagina (ankers)"
   ],
   "Page intégrée": [
     "Embedded page",
-    "Página integrada"
+    "Página integrada",
+    "Ingesloten pagina"
   ],
   "Page intégrée (iframe)": [
     "Embedded page (iframe)",
-    "Página integrada (iframe)"
+    "Página integrada (iframe)",
+    "Ingesloten pagina (iframe)"
   ],
   "Page web": [
     "Web page",
-    "Página web"
+    "Página web",
+    "Webpagina"
   ],
   "Paragraphe": [
     "Paragraph",
-    "Párrafo"
+    "Párrafo",
+    "Alinea"
   ],
   "Paragraphe, image, colonnes…": [
     "Paragraph, image, columns…",
-    "Párrafo, imagen, columnas…"
+    "Párrafo, imagen, columnas…",
+    "Alinea, afbeelding, kolommen…"
   ],
   "Parallaxe": [
     "Parallax",
-    "Paralaje"
+    "Paralaje",
+    "Parallax"
   ],
   "Pays": [
     "Country",
-    "País"
+    "País",
+    "Land"
   ],
   "Peintre carrossier": [
     "Vehicle paint sprayer",
-    "Pintor de carrocería"
+    "Pintor de carrocería",
+    "Autospuiter"
   ],
   "Peinture automobile": [
     "Vehicle paint spraying",
-    "Pintura de automóviles"
+    "Pintura de automóviles",
+    "Autospuitwerk"
   ],
   "Personnalisé (adresse)": [
     "Custom (address)",
-    "Personalizado (dirección)"
+    "Personalizado (dirección)",
+    "Aangepast (adres)"
   ],
   "Personnalisées": [
     "Custom",
-    "Personalizadas"
+    "Personalizadas",
+    "Aangepast"
   ],
   "Personne": [
     "Person",
-    "Persona"
+    "Persona",
+    "Persoon"
   ],
   "Perspective": [
     "Coverflow",
-    "Perspectiva"
+    "Perspectiva",
+    "Coverflow"
   ],
   "Petite": [
     "Small",
-    "Pequeña"
+    "Pequeña",
+    "Klein"
   ],
   "Pixels": [
     "Pixels",
-    "Píxeles"
+    "Píxeles",
+    "Pixels"
   ],
   "Pixel•OnlineCreation, l’éditeur d’images": [
     "Pixel•OnlineCreation, the image editor",
-    "Pixel•OnlineCreation, el editor de imágenes"
+    "Pixel•OnlineCreation, el editor de imágenes",
+    "Pixel•OnlineCreation, de afbeeldingseditor"
   ],
   "Plage d’ouverture": [
     "Opening period",
-    "Franja de apertura"
+    "Franja de apertura",
+    "Openingsperiode"
   ],
   "Plan OpenStreetMap": [
     "OpenStreetMap plan",
-    "Plano de OpenStreetMap"
+    "Plano de OpenStreetMap",
+    "OpenStreetMap-plattegrond"
   ],
   "Planning": [
     "Schedule",
-    "Planificación"
+    "Planificación",
+    "Planning"
   ],
   "Pleine largeur": [
     "Full width",
-    "Ancho completo"
+    "Ancho completo",
+    "Volledige breedte"
   ],
   "Plusieurs offres pour le même produit : du moins cher au plus cher.": [
     "Several offers for the same product: from the cheapest to the dearest.",
-    "Varias ofertas para el mismo producto: de la más barata a la más cara."
+    "Varias ofertas para el mismo producto: de la más barata a la más cara.",
+    "Meerdere aanbiedingen voor hetzelfde product: van goedkoop naar duur."
   ],
   "Plusieurs photos présentées en mosaïque, avec agrandissement au clic": [
     "Several photos shown as a mosaic, enlarged on click",
-    "Varias fotos en mosaico, que se amplían al pulsarlas"
+    "Varias fotos en mosaico, que se amplían al pulsarlas",
+    "Meerdere foto's als mozaïek, met vergroting bij een klik"
   ],
   "Poids": [
     "Weight",
-    "Peso"
+    "Peso",
+    "Gewicht"
   ],
   "Point de contact": [
     "Contact point",
-    "Punto de contacto"
+    "Punto de contacto",
+    "Contactpunt"
   ],
   "Points": [
     "Dots",
-    "Puntos"
+    "Puntos",
+    "Stippen"
   ],
   "Police du site": [
     "Site font",
-    "Tipografía del sitio"
+    "Tipografía del sitio",
+    "Lettertype van de site"
   ],
   "Portes ouvertes": [
     "Open day",
-    "Jornada de puertas abiertas"
+    "Jornada de puertas abiertas",
+    "Opendeurdag"
   ],
   "Position sur l’image": [
     "Position on the image",
-    "Posición sobre la imagen"
+    "Posición sobre la imagen",
+    "Positie op de afbeelding"
   ],
   "Pour combien de personnes": [
     "For how many people",
-    "Para cuántas personas"
+    "Para cuántas personas",
+    "Voor hoeveel personen"
   ],
   "Presse": [
     "Press",
-    "Prensa"
+    "Prensa",
+    "Pers"
   ],
   "Prestataire": [
     "Provider",
-    "Proveedor"
+    "Proveedor",
+    "Dienstverlener"
   ],
   "Prestation": [
     "Service",
-    "Servicio"
+    "Servicio",
+    "Dienst"
   ],
   "Principal": [
     "Primary",
-    "Principal"
+    "Principal",
+    "Voornaamste"
   ],
   "Prix": [
     "Price",
-    "Precio"
+    "Precio",
+    "Prijs"
   ],
   "Prix et disponibilité": [
     "Price and availability",
-    "Precio y disponibilidad"
+    "Precio y disponibilidad",
+    "Prijs en beschikbaarheid"
   ],
   "Prix le plus bas": [
     "Lowest price",
-    "Precio más bajo"
+    "Precio más bajo",
+    "Laagste prijs"
   ],
   "Prix le plus haut": [
     "Highest price",
-    "Precio más alto"
+    "Precio más alto",
+    "Hoogste prijs"
   ],
   "Prix valable jusqu’au": [
     "Price valid until",
-    "Precio válido hasta el"
+    "Precio válido hasta el",
+    "Prijs geldig tot"
   ],
   "Produit": [
     "Product",
-    "Producto"
+    "Producto",
+    "Product"
+  ],
+  "Proportions": [
+    "Aspect ratio",
+    "Proporción",
+    "Beeldverhouding"
   ],
   "Proposer le téléchargement du fichier": [
     "Offer the file for download",
-    "Ofrecer la descarga del archivo"
+    "Ofrecer la descarga del archivo",
+    "Het bestand ter download aanbieden"
   ],
   "Propriété écrite à la main : l’éditeur ne la connaît pas et ne peut donc pas la vérifier.": [
     "Property written by hand: the editor does not know it and therefore cannot check it.",
-    "Propiedad escrita a mano: el editor no la conoce y por tanto no puede comprobarla."
+    "Propiedad escrita a mano: el editor no la conoce y por tanto no puede comprobarla.",
+    "Met de hand geschreven eigenschap: de editor kent ze niet en kan ze dus niet controleren."
   ],
   "Propriétés de l’image": [
     "Image properties",
-    "Propiedades de la imagen"
+    "Propiedades de la imagen",
+    "Eigenschappen van de afbeelding"
   ],
   "Propriétés du bloc": [
     "Block properties",
-    "Propiedades del bloque"
+    "Propiedades del bloque",
+    "Eigenschappen van het blok"
   ],
   "Protéines": [
     "Protein content",
-    "Proteínas"
+    "Proteínas",
+    "Eiwitgehalte"
   ],
   "Précommande": [
     "Pre-order",
-    "Reserva"
+    "Reserva",
+    "Voorbestelling"
   ],
   "Prénom": [
     "Given name",
-    "Nombre de pila"
+    "Nombre de pila",
+    "Voornaam"
   ],
   "Présentation": [
     "Presentation",
-    "Presentación"
+    "Presentación",
+    "Presentatie"
   ],
   "Que décrit cette page ?": [
     "What does this page describe?",
-    "¿Qué describe esta página?"
+    "¿Qué describe esta página?",
+    "Wat beschrijft deze pagina?"
   ],
   "Quelques phrases qui décrivent la chose. Souvent reprise sous le titre dans les résultats.": [
     "A few sentences describing the thing. Often shown under the title in results.",
-    "Unas frases que describen la cosa. A menudo se muestra bajo el título en los resultados."
+    "Unas frases que describen la cosa. A menudo se muestra bajo el título en los resultados.",
+    "Enkele zinnen die het ding beschrijven. Vaak getoond onder de titel in de resultaten."
   ],
   "Question": [
     "Question",
-    "Pregunta"
+    "Pregunta",
+    "Vraag"
   ],
   "Questions": [
     "Questions",
-    "Preguntas"
+    "Preguntas",
+    "Vragen"
   ],
   "Questions fréquentes": [
     "Frequently asked questions",
-    "Preguntas frecuentes"
+    "Preguntas frecuentes",
+    "Veelgestelde vragen"
   ],
   "Qui a écrit ce contenu : une personne, ou l’entreprise elle-même.": [
     "Who wrote this content: a person, or the company itself.",
-    "Quién escribió este contenido: una persona o la propia empresa."
+    "Quién escribió este contenido: una persona o la propia empresa.",
+    "Wie deze inhoud heeft geschreven: een persoon, of het bedrijf zelf."
   ],
   "Qui publie ce contenu — le plus souvent votre entreprise.": [
     "Who publishes this content — most often your company.",
-    "Quién publica este contenido, normalmente su empresa."
+    "Quién publica este contenido, normalmente su empresa.",
+    "Wie deze inhoud publiceert — meestal uw bedrijf."
   ],
   "Raison sociale": [
     "Legal name",
-    "Razón social"
+    "Razón social",
+    "Maatschappelijke naam"
   ],
   "Rang": [
     "Position",
-    "Posición"
+    "Posición",
+    "Rangorde"
   ],
   "Rapport": [
     "Ratio",
-    "Relación"
+    "Relación",
+    "Verhouding"
   ],
   "Rapport largeur / hauteur": [
     "Width / height ratio",
-    "Relación ancho / alto"
+    "Relación ancho / alto",
+    "Verhouding breedte / hoogte"
   ],
   "Recette": [
     "Recipe",
-    "Receta"
+    "Receta",
+    "Recept"
   ],
   "Recherche en cours…": [
     "Searching…",
-    "Buscando…"
+    "Buscando…",
+    "Bezig met zoeken…"
   ],
   "Rechercher": [
     "Search",
-    "Buscar"
+    "Buscar",
+    "Zoeken"
   ],
   "Rechercher dans ce dossier": [
     "Search in this folder",
-    "Buscar en esta carpeta"
+    "Buscar en esta carpeta",
+    "Zoeken in deze map"
   ],
   "Rechercher dans ce dossier…": [
     "Search in this folder…",
-    "Buscar en esta carpeta…"
+    "Buscar en esta carpeta…",
+    "Zoeken in deze map…"
   ],
   "Rechercher un bloc": [
     "Search for a block",
-    "Buscar un bloque"
+    "Buscar un bloque",
+    "Een blok zoeken"
   ],
   "Recommandé : un diaporama qui repart tout seul pendant qu’on le regarde est pénible, et empêche de revenir en arrière.": [
     "Recommended: a slideshow that starts again on its own while you are looking at it is annoying, and prevents going back.",
-    "Recomendado: un carrusel que vuelve a arrancar solo mientras se mira resulta molesto e impide retroceder."
+    "Recomendado: un carrusel que vuelve a arrancar solo mientras se mira resulta molesto e impide retroceder.",
+    "Aanbevolen: een diavoorstelling die vanzelf opnieuw start terwijl men ernaar kijkt is hinderlijk, en belet terug te gaan."
   ],
   "Reconditionné": [
     "Refurbished",
-    "Reacondicionado"
+    "Reacondicionado",
+    "Gereviseerd"
   ],
   "Relation (rel)": [
     "Relationship (rel)",
-    "Relación (rel)"
+    "Relación (rel)",
+    "Relatie (rel)"
   ],
   "Rendez-vous du mois": [
     "This month’s appointments",
-    "Citas del mes"
+    "Citas del mes",
+    "Afspraken van de maand"
   ],
   "Renommage…": [
     "Renaming…",
-    "Renombrando…"
+    "Renombrando…",
+    "Bezig met hernoemen…"
   ],
   "Renommer": [
     "Rename",
-    "Renombrar"
+    "Renombrar",
+    "Hernoemen"
   ],
   "Renommer le fichier": [
     "Rename the file",
-    "Renombrar el archivo"
+    "Renombrar el archivo",
+    "Het bestand hernoemen"
   ],
   "Renommer…": [
     "Rename…",
-    "Renombrar…"
+    "Renombrar…",
+    "Hernoemen…"
   ],
   "Repartir au début après la dernière vue": [
     "Start again after the last slide",
-    "Volver al principio tras la última vista"
+    "Volver al principio tras la última vista",
+    "Opnieuw beginnen na de laatste weergave"
   ],
   "Replier": [
     "Collapse",
-    "Plegar"
+    "Plegar",
+    "Inklappen"
   ],
   "Reporté": [
     "Postponed",
-    "Aplazado"
+    "Aplazado",
+    "Uitgesteld"
   ],
   "Restauration…": [
     "Restoring…",
-    "Restaurando…"
+    "Restaurando…",
+    "Bezig met herstellen…"
   ],
   "Restaurer": [
     "Restore",
-    "Restaurar"
+    "Restaurar",
+    "Herstellen"
   ],
   "Retirer": [
     "Remove",
-    "Quitar"
+    "Quitar",
+    "Verwijderen"
   ],
   "Retirer ce palier": [
     "Remove this breakpoint",
-    "Quitar este umbral"
+    "Quitar este umbral",
+    "Dit breekpunt verwijderen"
+  ],
+  "Retirer cette image": [
+    "Remove this image",
+    "Quitar esta imagen",
+    "Deze afbeelding verwijderen"
   ],
   "Retirer cette valeur": [
     "Remove this value",
-    "Quitar este valor"
+    "Quitar este valor",
+    "Deze waarde verwijderen"
   ],
   "Retirer cette vue": [
     "Remove this slide",
-    "Quitar esta vista"
+    "Quitar esta vista",
+    "Deze weergave verwijderen"
   ],
   "Retoucher cette image…": [
     "Retouch this image…",
-    "Retocar esta imagen…"
+    "Retocar esta imagen…",
+    "Deze afbeelding bijwerken…"
   ],
   "Retoucher l’image…": [
     "Retouch the image…",
-    "Retocar la imagen…"
+    "Retocar la imagen…",
+    "De afbeelding bijwerken…"
+  ],
+  "Retour à": [
+    "Back to",
+    "Volver a",
+    "Terug naar"
   ],
   "Retournement": [
     "Flip",
-    "Volteo"
+    "Volteo",
+    "Omslaan"
   ],
   "Rien de renseigné": [
     "Nothing filled in",
-    "Nada rellenado"
+    "Nada rellenado",
+    "Niets ingevuld"
   ],
   "Rubrique": [
     "Section",
-    "Sección"
+    "Sección",
+    "Rubriek"
   ],
   "Rubrique de l’édition papier": [
     "Print section",
-    "Sección de la edición impresa"
+    "Sección de la edición impresa",
+    "Rubriek van de papieren editie"
   ],
   "Réduire": [
     "Shrink",
-    "Reducir"
+    "Reducir",
+    "Verkleinen"
   ],
   "Référence": [
     "Identifier",
-    "Referencia"
+    "Referencia",
+    "Referentie"
   ],
   "Référence (SKU)": [
     "Reference (SKU)",
-    "Referencia (SKU)"
+    "Referencia (SKU)",
+    "Referentie (SKU)"
   ],
   "Référence du fabricant": [
     "Manufacturer reference",
-    "Referencia del fabricante"
+    "Referencia del fabricante",
+    "Referentie van de fabrikant"
   ],
   "Référencement": [
     "Search engines",
-    "Posicionamiento"
+    "Posicionamiento",
+    "Zoekmachines"
   ],
   "Référencement de la page": [
     "Search-engine settings of the page",
-    "Posicionamiento de la página"
+    "Posicionamiento de la página",
+    "Zoekmachine-instellingen van de pagina"
   ],
   "Région ou département": [
     "Region or county",
-    "Región o provincia"
+    "Región o provincia",
+    "Regio of provincie"
   ],
   "Réglages": [
     "Settings",
-    "Ajustes"
+    "Ajustes",
+    "Instellingen"
   ],
   "Rémunération": [
     "Salary",
-    "Remuneración"
+    "Remuneración",
+    "Verloning"
   ],
   "Réponse": [
     "Answer",
-    "Respuesta"
+    "Respuesta",
+    "Antwoord"
   ],
   "Réseaux sociaux": [
     "Social networks",
-    "Redes sociales"
+    "Redes sociales",
+    "Sociale netwerken"
   ],
   "Rétrécir la colonne": [
     "Narrow the column",
-    "Estrechar la columna"
+    "Estrechar la columna",
+    "De kolom versmallen"
   ],
   "Saisissez d’abord une adresse.": [
     "Type an address first.",
-    "Escriba primero una dirección."
+    "Escriba primero una dirección.",
+    "Voer eerst een adres in."
   ],
   "Saisissez une adresse et cliquez sur « Rechercher », ou entrez directement des coordonnées.": [
     "Type an address and click “Search”, or enter coordinates directly.",
-    "Escriba una dirección y pulse «Buscar», o introduzca directamente las coordenadas."
+    "Escriba una dirección y pulse «Buscar», o introduzca directamente las coordenadas.",
+    "Voer een adres in en klik op « Zoeken », of geef rechtstreeks coördinaten op."
   ],
   "Samedi": [
     "Saturday",
-    "Sábado"
+    "Sábado",
+    "Zaterdag"
   ],
   "Sans bordure": [
     "Borderless",
-    "Sin borde"
+    "Sin borde",
+    "Zonder rand"
   ],
   "Sans empattement": [
     "Sans serif",
-    "Sin serifa"
+    "Sin serifa",
+    "Schreefloos"
   ],
   "Sans le son": [
     "Muted",
-    "Sin sonido"
+    "Sin sonido",
+    "Zonder geluid"
   ],
   "Sans symbole ni espace : 28 ou 28.50. La devise est indiquée à côté.": [
     "Without a symbol or a space: 28 or 28.50. The currency is set alongside.",
-    "Sin símbolo ni espacio: 28 o 28.50. La moneda se indica al lado."
+    "Sin símbolo ni espacio: 28 o 28.50. La moneda se indica al lado.",
+    "Zonder symbool of spatie: 28 of 28.50. De munteenheid staat ernaast."
   ],
   "Script JavaScript": [
     "JavaScript script",
-    "Script JavaScript"
+    "Script JavaScript",
+    "JavaScript-script"
   ],
   "Script JavaScript...": [
     "JavaScript script...",
-    "Script JavaScript..."
+    "Script JavaScript...",
+    "JavaScript-script..."
   ],
   "Secondaire": [
     "Secondary",
-    "Secundario"
+    "Secundario",
+    "Secundair"
   ],
   "Section de langue": [
     "Language section",
-    "Sección de idioma"
+    "Sección de idioma",
+    "Taalsectie"
   ],
   "Semaine": [
     "Week",
-    "Semana"
+    "Semana",
+    "Week"
   ],
   "Sens du défilement": [
     "Scrolling direction",
-    "Sentido del desplazamiento"
+    "Sentido del desplazamiento",
+    "Richting van het doorlopen"
   ],
   "Service": [
     "Service",
-    "Servicio"
+    "Servicio",
+    "Dienst"
   ],
   "Service client": [
     "Customer service",
-    "Atención al cliente"
+    "Atención al cliente",
+    "Klantendienst"
   ],
   "Service à contacter": [
     "Service to contact",
-    "Servicio de contacto"
+    "Servicio de contacto",
+    "Te contacteren dienst"
   ],
   "Site web": [
     "Web site",
-    "Sitio web"
+    "Sitio web",
+    "Website"
   ],
   "Situe une adresse sur un plan OpenStreetMap": [
     "Pinpoints an address on an OpenStreetMap map",
-    "Sitúa una dirección en un mapa de OpenStreetMap"
+    "Sitúa una dirección en un mapa de OpenStreetMap",
+    "Wijst een adres aan op een OpenStreetMap-plattegrond"
   ],
   "Sorte de lien": [
     "Kind of link",
-    "Tipo de enlace"
+    "Tipo de enlace",
+    "Soort link"
   ],
   "Souligné": [
     "Underlined",
-    "Subrayado"
+    "Subrayado",
+    "Onderstreept"
   ],
   "Source (lien)": [
     "Source (link)",
-    "Fuente (enlace)"
+    "Fuente (enlace)",
+    "Bron (link)"
   ],
   "Sous-titre": [
     "Subtitle",
-    "Subtítulo"
+    "Subtítulo",
+    "Ondertitel"
   ],
   "Sous-titre à l’intérieur d’une section": [
     "A subheading inside a section",
-    "Un subtítulo dentro de una sección"
+    "Un subtítulo dentro de una sección",
+    "Een tussenkop binnen een sectie"
   ],
   "Stage": [
     "Internship",
-    "Prácticas"
+    "Prácticas",
+    "Stage"
   ],
   "Style": [
     "Style",
-    "Estilo"
+    "Estilo",
+    "Stijl"
   ],
   "Style CSS écrit à même le lien": [
     "CSS style written on the link itself",
-    "Estilo CSS escrito en el propio enlace"
+    "Estilo CSS escrito en el propio enlace",
+    "CSS-stijl rechtstreeks op de link geschreven"
   ],
   "Style du lien": [
     "Link style",
-    "Estilo del enlace"
+    "Estilo del enlace",
+    "Stijl van de link"
   ],
   "Style du texte": [
     "Text style",
-    "Estilo del texto"
+    "Estilo del texto",
+    "Stijl van de tekst"
   ],
   "Style prédéfini": [
     "Ready-made style",
-    "Estilo predefinido"
+    "Estilo predefinido",
+    "Kant-en-klare stijl"
   ],
   "Sujet": [
     "Subject",
-    "Tema"
+    "Tema",
+    "Onderwerp"
   ],
   "Suppression dans {0} secondes": [
     "Deleting in {0} seconds",
-    "Eliminando en {0} segundos"
+    "Eliminando en {0} segundos",
+    "Verwijderen over {0} seconden"
   ],
   "Suppression…": [
     "Deleting…",
-    "Eliminando…"
+    "Eliminando…",
+    "Bezig met verwijderen…"
   ],
   "Supprimer": [
     "Delete",
-    "Eliminar"
+    "Eliminar",
+    "Verwijderen"
   ],
   "Supprimer ce dossier": [
     "Delete this folder",
-    "Eliminar esta carpeta"
+    "Eliminar esta carpeta",
+    "Deze map verwijderen"
   ],
   "Supprimer cet élément": [
     "Delete this item",
-    "Eliminar este elemento"
+    "Eliminar este elemento",
+    "Dit element verwijderen"
   ],
   "Supprimer la colonne": [
     "Delete the column",
-    "Eliminar la columna"
+    "Eliminar la columna",
+    "De kolom verwijderen"
   ],
   "Supprimer la fiche": [
     "Delete the record",
-    "Eliminar la ficha"
+    "Eliminar la ficha",
+    "De fiche verwijderen"
   ],
   "Supprimer la ligne et ses colonnes": [
     "Delete the row and its columns",
-    "Eliminar la fila y sus columnas"
+    "Eliminar la fila y sus columnas",
+    "De rij en haar kolommen verwijderen"
   ],
   "Supprimer le bloc": [
     "Delete the block",
-    "Eliminar el bloque"
+    "Eliminar el bloque",
+    "Het blok verwijderen"
   ],
   "Supprimer le lien": [
     "Remove the link",
-    "Quitar el enlace"
+    "Quitar el enlace",
+    "De link verwijderen"
   ],
   "Supprimer le script": [
     "Delete the script",
-    "Eliminar el script"
+    "Eliminar el script",
+    "Het script verwijderen"
   ],
   "Supprimer le séparateur": [
     "Delete the spacer",
-    "Eliminar el separador"
+    "Eliminar el separador",
+    "De scheiding verwijderen"
   ],
   "Supprimer les microdonnées": [
     "Delete the microdata",
-    "Eliminar los microdatos"
+    "Eliminar los microdatos",
+    "De microdata verwijderen"
   ],
   "Sur commande": [
     "On back order",
-    "Bajo pedido"
+    "Bajo pedido",
+    "Op bestelling"
   ],
   "Sur place": [
     "On site",
-    "Presencial"
+    "Presencial",
+    "Ter plaatse"
+  ],
+  "Survolez le bloc puis cliquez sur « Modifier le diaporama » pour changer les vues et le défilement.": [
+    "Hover over the block, then click “Edit the slideshow” to change the views and the scrolling.",
+    "Pase el ratón por el bloque y haga clic en «Editar el carrusel» para cambiar las vistas y el desplazamiento.",
+    "Beweeg over het blok en klik dan op « De diavoorstelling bewerken » om de weergaven en het doorlopen te wijzigen."
   ],
   "Système": [
     "Operating system",
-    "Sistema"
+    "Sistema",
+    "Besturingssysteem"
   ],
   "Sélectionner le bloc parent": [
     "Select the parent block",
-    "Seleccionar el bloque contenedor"
+    "Seleccionar el bloque contenedor",
+    "Het bovenliggende blok selecteren"
   ],
   "Sélectionnez du texte pour lui donner une langue": [
     "Select some text to give it a language",
-    "Seleccione un texto para asignarle un idioma"
+    "Seleccione un texto para asignarle un idioma",
+    "Selecteer tekst om er een taal aan te geven"
   ],
   "Séparateur": [
     "Spacer",
-    "Separador"
+    "Separador",
+    "Scheiding"
   ],
   "Séparateur réglable": [
     "Adjustable spacer",
-    "Separador ajustable"
+    "Separador ajustable",
+    "Instelbare scheiding"
   ],
   "Séparateur vertical": [
     "Vertical spacer",
-    "Separador vertical"
+    "Separador vertical",
+    "Verticale scheiding"
   ],
   "Séparateur vertical...": [
     "Vertical spacer...",
-    "Separador vertical..."
+    "Separador vertical...",
+    "Verticale scheiding..."
   ],
   "Sépare visuellement deux parties de la page": [
     "Visually separates two parts of the page",
-    "Separa visualmente dos partes de la página"
+    "Separa visualmente dos partes de la página",
+    "Scheidt twee delen van de pagina visueel"
   ],
   "Séparés par des virgules.": [
     "Separated by commas.",
-    "Separadas por comas."
+    "Separadas por comas.",
+    "Gescheiden door komma's."
   ],
   "Séparés par des virgules. Ils décrivent le sujet, pas la page.": [
     "Separated by commas. They describe the subject, not the page.",
-    "Separadas por comas. Describen el tema, no la página."
+    "Separadas por comas. Describen el tema, no la página.",
+    "Gescheiden door komma's. Ze beschrijven het onderwerp, niet de pagina."
   ],
   "S’arrêter dès que le visiteur y touche": [
     "Stop as soon as the visitor touches it",
-    "Detenerse en cuanto el visitante lo toca"
+    "Detenerse en cuanto el visitante lo toca",
+    "Stoppen zodra de bezoeker eraan komt"
   ],
   "Tableau": [
     "Table",
-    "Tabla"
+    "Tabla",
+    "Tabel"
   ],
   "Tablette": [
     "Tablet",
-    "Tableta"
+    "Tableta",
+    "Tablet"
   ],
   "Taille": [
     "Size",
-    "Tamaño"
+    "Tamaño",
+    "Grootte"
   ],
   "Taille des vignettes (px)": [
     "Thumbnail size (px)",
-    "Tamaño de las miniaturas (px)"
+    "Tamaño de las miniaturas (px)",
+    "Grootte van de miniaturen (px)"
   ],
   "Taille du texte (ex : 1.5rem)": [
     "Text size (e.g. 1.5rem)",
-    "Tamaño del texto (p. ej. 1.5rem)"
+    "Tamaño del texto (p. ej. 1.5rem)",
+    "Tekstgrootte (bv. 1.5rem)"
   ],
   "Taille d’une portion": [
     "Serving size",
-    "Tamaño de una porción"
+    "Tamaño de una porción",
+    "Grootte van een portie"
   ],
   "Tailles rapides": [
     "Quick sizes",
-    "Tamaños rápidos"
+    "Tamaños rápidos",
+    "Snelle formaten"
   ],
   "Tarif": [
     "Price",
-    "Tarifa"
+    "Tarifa",
+    "Tarief"
   ],
   "Temps de cuisson": [
     "Cooking time",
-    "Tiempo de cocción"
+    "Tiempo de cocción",
+    "Bereidingstijd"
   ],
   "Temps de préparation": [
     "Preparation time",
-    "Tiempo de preparación"
+    "Tiempo de preparación",
+    "Voorbereidingstijd"
   ],
   "Temps d’arrêt sur chaque vue (millisecondes)": [
     "Pause on each slide (milliseconds)",
-    "Pausa en cada vista (milisegundos)"
+    "Pausa en cada vista (milisegundos)",
+    "Pauze op elke weergave (milliseconden)"
   ],
   "Temps partiel": [
     "Part time",
-    "Tiempo parcial"
+    "Tiempo parcial",
+    "Deeltijds"
   ],
   "Temps plein": [
     "Full time",
-    "Tiempo completo"
+    "Tiempo completo",
+    "Voltijds"
   ],
   "Texte": [
     "Text",
-    "Texto"
+    "Texto",
+    "Tekst"
   ],
   "Texte affiché par-dessus l’image": [
     "Text shown over the image",
-    "Texto mostrado sobre la imagen"
+    "Texto mostrado sobre la imagen",
+    "Tekst getoond over de afbeelding"
   ],
   "Texte alternatif": [
     "Alternative text",
-    "Texto alternativo"
+    "Texto alternativo",
+    "Alternatieve tekst"
   ],
   "Texte alternatif (lu par les lecteurs d’écran)": [
     "Alternative text (read by screen readers)",
-    "Texto alternativo (leído por los lectores de pantalla)"
+    "Texto alternativo (leído por los lectores de pantalla)",
+    "Alternatieve tekst (voorgelezen door schermlezers)"
   ],
   "Texte de la réponse": [
     "Text of the answer",
-    "Texto de la respuesta"
+    "Texto de la respuesta",
+    "Tekst van het antwoord"
   ],
   "Texte de l’article": [
     "Article body",
-    "Texto del artículo"
+    "Texto del artículo",
+    "Tekst van het artikel"
   ],
   "Texte de l’avis": [
     "Review body",
-    "Texto de la reseña"
+    "Texto de la reseña",
+    "Tekst van de beoordeling"
   ],
   "Texte de l’épingle": [
     "Pin text",
-    "Texto del marcador"
+    "Texto del marcador",
+    "Tekst van de speld"
   ],
   "Texte de remplacement": [
     "Alternative text",
-    "Texto alternativo"
+    "Texto alternativo",
+    "Alternatieve tekst"
   ],
   "Texte du bouton": [
     "Button text",
-    "Texto del botón"
+    "Texto del botón",
+    "Tekst van de knop"
   ],
   "Texte déplié": [
     "Text revealed",
-    "Texto desplegado"
+    "Texto desplegado",
+    "Uitgeklapte tekst"
   ],
   "Texte déployable": [
     "Expandable text",
-    "Texto desplegable"
+    "Texto desplegable",
+    "Uitklapbare tekst"
   ],
   "Texte par-dessus": [
     "Text on top",
-    "Texto superpuesto"
+    "Texto superpuesto",
+    "Tekst erover"
   ],
   "Texte à afficher": [
     "Text to show",
-    "Texto que se mostrará"
+    "Texto que se mostrará",
+    "Weer te geven tekst"
   ],
   "Titre": [
     "Title",
-    "Título"
+    "Título",
+    "Titel"
   ],
   "Titre (accessibilité)": [
     "Title (accessibility)",
-    "Título (accesibilidad)"
+    "Título (accesibilidad)",
+    "Titel (toegankelijkheid)"
   ],
   "Titre affiché": [
     "Title shown",
-    "Título mostrado"
+    "Título mostrado",
+    "Getoonde titel"
   ],
   "Titre affiché au survol": [
     "Title shown on hover",
-    "Título mostrado al pasar el ratón"
+    "Título mostrado al pasar el ratón",
+    "Titel getoond bij aanwijzen"
   ],
   "Titre cliquable": [
     "Clickable heading",
-    "Título en el que se puede pulsar"
+    "Título en el que se puede pulsar",
+    "Aanklikbare titel"
   ],
   "Titre de niveau 2": [
     "Heading level 2",
-    "Título de nivel 2"
+    "Título de nivel 2",
+    "Kop niveau 2"
   ],
   "Titre de niveau 3": [
     "Heading level 3",
-    "Título de nivel 3"
+    "Título de nivel 3",
+    "Kop niveau 3"
   ],
   "Titre du lien": [
     "Link title",
-    "Título del enlace"
+    "Título del enlace",
+    "Titel van de link"
   ],
   "Titre du lien (bulle d’aide au survol)": [
     "Link title (tooltip on hover)",
-    "Título del enlace (información al pasar el ratón)"
+    "Título del enlace (información al pasar el ratón)",
+    "Titel van de link (tooltip bij aanwijzen)"
   ],
   "Titre du site avec son logo": [
     "Site name with its logo",
-    "Nombre del sitio con su logotipo"
+    "Nombre del sitio con su logotipo",
+    "Naam van de site met haar logo"
   ],
   "Titre principal d’une section": [
     "The main heading of a section",
-    "El título principal de una sección"
+    "El título principal de una sección",
+    "De hoofdkop van een sectie"
   ],
   "Tours, 14 mars 2026": [
     "Tours, 14 March 2026",
-    "Tours, 14 de marzo de 2026"
+    "Tours, 14 de marzo de 2026",
+    "Utrecht, 14 maart 2026"
   ],
   "Tous": [
     "All",
-    "Todos"
+    "Todos",
+    "Alle"
   ],
   "Tous les réseaux": [
     "All networks",
-    "Todas las redes"
+    "Todas las redes",
+    "Alle netwerken"
   ],
   "Tout ce qu’il contient sera perdu.": [
     "Everything it contains will be lost.",
-    "Se perderá todo su contenido."
+    "Se perderá todo su contenido.",
+    "Alles wat ze bevat gaat verloren."
   ],
   "Tout détruire": [
     "Destroy everything",
-    "Destruirlo todo"
+    "Destruirlo todo",
+    "Alles vernietigen"
   ],
   "Toutes": [
     "All",
-    "Todas"
+    "Todas",
+    "Alle"
   ],
   "Toutes les langues": [
     "All languages",
-    "Todos los idiomas"
+    "Todos los idiomas",
+    "Alle talen"
   ],
   "Toutes ses versions seront perdues.": [
     "All of its versions will be lost.",
-    "Se perderán todas sus versiones."
+    "Se perderán todas sus versiones.",
+    "Al zijn versies gaan verloren."
   ],
   "Trait horizontal": [
     "Horizontal rule",
-    "Línea horizontal"
+    "Línea horizontal",
+    "Horizontale lijn"
   ],
   "Travailler dans une seule langue": [
     "Work in a single language",
-    "Trabajar en un solo idioma"
+    "Trabajar en un solo idioma",
+    "In één enkele taal werken"
   ],
   "Type": [
     "Type",
-    "Tipo"
+    "Tipo",
+    "Type"
   ],
   "Type MIME": [
     "MIME type",
-    "Tipo MIME"
+    "Tipo MIME",
+    "MIME-type"
   ],
   "Type de contrat": [
     "Employment type",
-    "Tipo de contrato"
+    "Tipo de contrato",
+    "Contracttype"
   ],
   "Type de cuisine": [
     "Cuisine served",
-    "Tipo de cocina"
+    "Tipo de cocina",
+    "Soort keuken"
   ],
   "Types acceptés": [
     "Accepted types",
-    "Tipos aceptados"
+    "Tipos aceptados",
+    "Aanvaarde types"
   ],
   "Typographie": [
     "Typeface",
-    "Tipografía"
+    "Tipografía",
+    "Lettertype"
   ],
   "Téléphone": [
     "Phone",
-    "Teléfono"
+    "Teléfono",
+    "Telefoon"
   ],
   "Téléversement…": [
     "Uploading…",
-    "Subiendo…"
+    "Subiendo…",
+    "Bezig met uploaden…"
   ],
   "Téléverser…": [
     "Upload…",
-    "Subir…"
+    "Subir…",
+    "Uploaden…"
   ],
   "Un article d’actualité, daté et signé.": [
     "A news article, dated and signed.",
-    "Un artículo de actualidad, fechado y firmado."
+    "Un artículo de actualidad, fechado y firmado.",
+    "Een nieuwsartikel, gedateerd en ondertekend."
   ],
   "Un article publié au fil de l’eau sur un blog.": [
     "An article published as it comes on a blog.",
-    "Un artículo publicado sobre la marcha en un blog."
+    "Un artículo publicado sobre la marcha en un blog.",
+    "Een artikel dat gaandeweg op een blog verschijnt."
   ],
   "Un article à vendre : son prix, sa disponibilité, ses avis.": [
     "An item for sale: its price, its availability, its reviews.",
-    "Un artículo a la venta: su precio, su disponibilidad, sus reseñas."
+    "Un artículo a la venta: su precio, su disponibilidad, sus reseñas.",
+    "Een artikel te koop: de prijs, de beschikbaarheid, de beoordelingen."
   ],
   "Un bloc de texte courant": [
     "A plain block of text",
-    "Un bloque de texto normal"
+    "Un bloque de texto normal",
+    "Een gewoon tekstblok"
   ],
   "Un bouton qui enregistre votre événement dans l’agenda du visiteur": [
     "A button that saves your event to the visitor’s calendar",
-    "Un botón que guarda su evento en la agenda del visitante"
+    "Un botón que guarda su evento en la agenda del visitante",
+    "Een knop die uw evenement in de agenda van de bezoeker opslaat"
   ],
   "Un bouton qui met en avant l’action principale": [
     "A button that highlights the main action",
-    "Un botón que destaca la acción principal"
+    "Un botón que destaca la acción principal",
+    "Een knop die de belangrijkste actie uitlicht"
   ],
   "Un bouton « Acheter » qui ouvre le paiement PayPal": [
     "A “Buy” button that opens PayPal checkout",
-    "Un botón «Comprar» que abre el pago con PayPal"
+    "Un botón «Comprar» que abre el pago con PayPal",
+    "Een knop « Kopen » die de PayPal-betaling opent"
   ],
   "Un code qui désigne cette chose sans ambiguïté : référence interne, numéro de catalogue.": [
     "A code that names this thing unambiguously: internal reference, catalogue number.",
-    "Un código que designa esta cosa sin ambigüedad: referencia interna, número de catálogo."
+    "Un código que designa esta cosa sin ambigüedad: referencia interna, número de catálogo.",
+    "Een code die dit ding ondubbelzinnig aanduidt: interne referentie, catalogusnummer."
   ],
   "Un contenu créé : texte, image, vidéo, logiciel.": [
     "Created content: text, image, video, software.",
-    "Un contenido creado: texto, imagen, vídeo, software."
+    "Un contenido creado: texto, imagen, vídeo, software.",
+    "Gemaakte inhoud: tekst, afbeelding, video, software."
   ],
   "Un cours ou une formation proposée.": [
     "A course or a training offered.",
-    "Un curso o una formación ofrecida."
+    "Un curso o una formación ofrecida.",
+    "Een aangeboden cursus of opleiding."
   ],
   "Un endroit : salle, monument, parking.": [
     "A place: venue, monument, car park.",
-    "Un lugar: sala, monumento, aparcamiento."
+    "Un lugar: sala, monumento, aparcamiento.",
+    "Een plek: zaal, monument, parking."
   ],
   "Un espace vertical ou un filet de séparation": [
     "Vertical space, or a separating rule",
-    "Un espacio vertical o una línea de separación"
+    "Un espacio vertical o una línea de separación",
+    "Verticale ruimte, of een scheidingslijn"
   ],
   "Un formulaire dont les messages arrivent dans votre boîte mail": [
     "A form whose messages land in your mailbox",
-    "Un formulario cuyos mensajes llegan a su buzón"
+    "Un formulario cuyos mensajes llegan a su buzón",
+    "Een formulier waarvan de berichten in uw mailbox belanden"
   ],
   "Un identifiant commence par une lettre et ne contient ni espace ni accent. Par exemple : tarifs, nos-services, contact2.": [
     "An identifier starts with a letter and contains neither space nor accent. For example: prices, our-services, contact2.",
-    "Un identificador empieza por una letra y no contiene espacios ni acentos. Por ejemplo: tarifas, nuestros-servicios, contacto2."
+    "Un identificador empieza por una letra y no contiene espacios ni acentos. Por ejemplo: tarifas, nuestros-servicios, contacto2.",
+    "Een identificatie begint met een letter en bevat geen spatie of accent. Bijvoorbeeld: tarieven, onze-diensten, contact2."
   ],
   "Un jour ou un groupe de jours, avec l’heure d’ouverture et de fermeture.": [
     "A day or a group of days, with the opening and closing time.",
-    "Un día o un grupo de días, con la hora de apertura y de cierre."
+    "Un día o un grupo de días, con la hora de apertura y de cierre.",
+    "Een dag of een groep dagen, met het openings- en sluitingsuur."
   ],
   "Un logiciel ou une application mobile.": [
     "A piece of software or a mobile application.",
-    "Un software o una aplicación móvil."
+    "Un software o una aplicación móvil.",
+    "Een programma of een mobiele toepassing."
   ],
   "Un mot sans espace, unique dans la page. Un lien pourra y conduire avec « #tarifs », et les scripts du site s’en servent pour retrouver ce bloc.": [
     "One word without a space, unique in the page. A link can lead to it with “#prices”, and the scripts of the site use it to find this block.",
-    "Una palabra sin espacios, única en la página. Un enlace podrá llevar hasta él con «#tarifas», y los scripts del sitio la usan para localizar este bloque."
+    "Una palabra sin espacios, única en la página. Un enlace podrá llevar hasta él con «#tarifas», y los scripts del sitio la usan para localizar este bloque.",
+    "Eén woord zonder spatie, uniek in de pagina. Een link kan er met « #tarieven » naartoe leiden, en de scripts van de site gebruiken het om dit blok terug te vinden."
   ],
   "Un nombre entier (3), un nombre décimal pour laisser deviner la suivante (1.15), ou « auto » pour suivre la largeur de chaque vue.": [
     "A whole number (3), a decimal to hint at the next one (1.15), or “auto” to follow the width of each slide.",
-    "Un número entero (3), un decimal para dejar entrever la siguiente (1.15), o «auto» para seguir el ancho de cada vista."
+    "Un número entero (3), un decimal para dejar entrever la siguiente (1.15), o «auto» para seguir el ancho de cada vista.",
+    "Een geheel getal (3), een decimaal getal om de volgende te laten vermoeden (1.15), of « auto » om de breedte van elke weergave te volgen."
   ],
   "Un poste à pourvoir.": [
     "A position to fill.",
-    "Un puesto vacante."
+    "Un puesto vacante.",
+    "Een openstaande functie."
   ],
   "Un pour l’accueil, deux pour la rubrique, et ainsi de suite.": [
     "One for the home page, two for the section, and so on.",
-    "Uno para la portada, dos para la sección, y así sucesivamente."
+    "Uno para la portada, dos para la sección, y así sucesivamente.",
+    "Eén voor de startpagina, twee voor de rubriek, enzovoort."
   ],
   "Un prix, une devise et une disponibilité.": [
     "A price, a currency and an availability.",
-    "Un precio, una moneda y una disponibilidad."
+    "Un precio, una moneda y una disponibilidad.",
+    "Een prijs, een munteenheid en een beschikbaarheid."
   ],
   "Un second nom sous lequel la chose est aussi connue.": [
     "A second name the thing is also known by.",
-    "Un segundo nombre por el que también se conoce la cosa."
+    "Un segundo nombre por el que también se conoce la cosa.",
+    "Een tweede naam waaronder het ding ook bekend staat."
   ],
   "Un service et la façon de le joindre.": [
     "A department and how to reach it.",
-    "Un servicio y la manera de contactarlo."
+    "Un servicio y la manera de contactarlo.",
+    "Een dienst en hoe die te bereiken is."
   ],
   "Un service proposé plutôt qu’un objet vendu.": [
     "A service offered rather than an object sold.",
-    "Un servicio ofrecido en lugar de un objeto vendido."
+    "Un servicio ofrecido en lugar de un objeto vendido.",
+    "Een aangeboden dienst eerder dan een verkocht voorwerp."
   ],
   "Un texte de fond : billet, dossier, tribune.": [
     "An in-depth text: post, feature, opinion piece.",
-    "Un texto de fondo: entrada, reportaje, tribuna."
+    "Un texto de fondo: entrada, reportaje, tribuna.",
+    "Een diepgaande tekst: bijdrage, dossier, opiniestuk."
   ],
   "Un titre accrocheur": [
     "A headline that catches the eye",
-    "Un título que llama la atención"
+    "Un título que llama la atención",
+    "Een pakkende titel"
   ],
   "Un titre cliquable qui déplie un texte : idéal pour une foire aux questions": [
     "A clickable heading that reveals text: ideal for a FAQ",
-    "Un título en el que se pulsa para desplegar un texto: ideal para preguntas frecuentes"
+    "Un título en el que se pulsa para desplegar un texto: ideal para preguntas frecuentes",
+    "Een aanklikbare titel die een tekst uitklapt: ideaal voor een vragenlijst"
   ],
   "Un titre et un texte éditables directement dans la page": [
     "A heading and text edited straight in the page",
-    "Un título y un texto que se editan directamente en la página"
+    "Un título y un texto que se editan directamente en la página",
+    "Een titel en een tekst die rechtstreeks in de pagina bewerkt worden"
   ],
   "Un établissement où l’on se rend : boutique, cabinet, restaurant.": [
     "A place people go to: shop, practice, restaurant.",
-    "Un establecimiento al que se acude: tienda, consulta, restaurante."
+    "Un establecimiento al que se acude: tienda, consulta, restaurante.",
+    "Een zaak waar men naartoe gaat: winkel, praktijk, restaurant."
   ],
   "Une adresse complète, telle qu’on l’écrit sur une enveloppe.": [
     "A full address, as written on an envelope.",
-    "Una dirección completa, tal como se escribe en un sobre."
+    "Una dirección completa, tal como se escribe en un sobre.",
+    "Een volledig adres, zoals men het op een envelop schrijft."
   ],
   "Une autre propriété, écrite à la main…": [
     "Another property, written by hand…",
-    "Otra propiedad, escrita a mano…"
+    "Otra propiedad, escrita a mano…",
+    "Een andere eigenschap, met de hand geschreven…"
   ],
   "Une citation mise en avant avec son auteur": [
     "A highlighted quotation with its author",
-    "Una cita destacada con su autor"
+    "Una cita destacada con su autor",
+    "Een uitgelicht citaat met de auteur ervan"
   ],
   "Une date à retenir : concert, portes ouvertes, formation.": [
     "A date to remember: concert, open day, training.",
-    "Una fecha a recordar: concierto, jornada de puertas abiertas, formación."
+    "Una fecha a recordar: concierto, jornada de puertas abiertas, formación.",
+    "Een datum om te onthouden: concert, opendeurdag, opleiding."
   ],
   "Une entreprise, une association, une administration.": [
     "A company, an association, a public body.",
-    "Una empresa, una asociación, una administración."
+    "Una empresa, una asociación, una administración.",
+    "Een bedrijf, een vereniging, een overheidsdienst."
   ],
   "Une image avec sa légende et un lien optionnel": [
     "An image with its caption and an optional link",
-    "Una imagen con su leyenda y un enlace opcional"
+    "Una imagen con su leyenda y un enlace opcional",
+    "Een afbeelding met haar bijschrift en een optionele link"
   ],
   "Une image décrite pour elle-même : auteur, licence, dimensions.": [
     "An image described for itself: author, licence, dimensions.",
-    "Una imagen descrita por sí misma: autor, licencia, dimensiones."
+    "Una imagen descrita por sí misma: autor, licencia, dimensiones.",
+    "Een afbeelding op zichzelf beschreven: auteur, licentie, afmetingen."
   ],
   "Une ligne de colonnes côte à côte, qui s’empilent sur mobile": [
     "A row of side-by-side columns that stack on mobile",
-    "Una fila de columnas contiguas que se apilan en el móvil"
+    "Una fila de columnas contiguas que se apilan en el móvil",
+    "Een rij kolommen naast elkaar, die op mobiel onder elkaar komen"
   ],
   "Une marche à suivre, étape par étape.": [
     "A procedure, step by step.",
-    "Un procedimiento, paso a paso."
+    "Un procedimiento, paso a paso.",
+    "Een werkwijze, stap voor stap."
   ],
   "Une note isolée, celle d’un avis.": [
     "A single rating, that of one review.",
-    "Una valoración aislada, la de una reseña."
+    "Una valoración aislada, la de una reseña.",
+    "Een losse score, die van één beoordeling."
   ],
   "Une page de questions-réponses. Les moteurs les affichent dépliables.": [
     "A question and answer page. Search engines show them as expandable.",
-    "Una página de preguntas y respuestas. Los buscadores las muestran desplegables."
+    "Una página de preguntas y respuestas. Los buscadores las muestran desplegables.",
+    "Een pagina met vragen en antwoorden. Zoekmachines tonen ze uitklapbaar."
   ],
   "Une page ordinaire du site : présentation, mentions légales, contact.": [
     "An ordinary page of the site: about, legal notice, contact.",
-    "Una página corriente del sitio: presentación, aviso legal, contacto."
+    "Una página corriente del sitio: presentación, aviso legal, contacto.",
+    "Een gewone pagina van de site: voorstelling, wettelijke vermeldingen, contact."
   ],
   "Une personne : auteur, dirigeant, artisan.": [
     "A person: author, director, craftsperson.",
-    "Una persona: autor, directivo, artesano."
+    "Una persona: autor, directivo, artesano.",
+    "Een persoon: auteur, bestuurder, vakman."
   ],
   "Une photo qui représente la chose. Les moteurs préfèrent une image large, d’au moins 1200 pixels.": [
     "A photo that represents the thing. Search engines prefer a wide image, at least 1200 pixels.",
-    "Una foto que representa la cosa. Los buscadores prefieren una imagen ancha, de al menos 1200 píxeles."
+    "Una foto que representa la cosa. Los buscadores prefieren una imagen ancha, de al menos 1200 píxeles.",
+    "Een foto die het ding voorstelt. Zoekmachines verkiezen een brede afbeelding, van minstens 1200 pixels."
   ],
   "Une phrase qui marque les esprits.": [
     "A sentence people remember.",
-    "Una frase que se recuerda."
+    "Una frase que se recuerda.",
+    "Een zin die men onthoudt."
   ],
   "Une question et sa réponse.": [
     "A question and its answer.",
-    "Una pregunta y su respuesta."
+    "Una pregunta y su respuesta.",
+    "Een vraag en haar antwoord."
   ],
   "Une recette de cuisine, avec ses ingrédients et ses étapes.": [
     "A cooking recipe, with its ingredients and its steps.",
-    "Una receta de cocina, con sus ingredientes y sus pasos."
+    "Una receta de cocina, con sus ingredientes y sus pasos.",
+    "Een kookrecept, met de ingrediënten en de stappen."
   ],
   "Une somme et sa devise.": [
     "An amount and its currency.",
-    "Un importe y su moneda."
+    "Un importe y su moneda.",
+    "Een bedrag en de munteenheid."
   ],
   "Une valeur avec son unité : un poids, une longueur.": [
     "A value with its unit: a weight, a length.",
-    "Un valor con su unidad: un peso, una longitud."
+    "Un valor con su unidad: un peso, una longitud.",
+    "Een waarde met haar eenheid: een gewicht, een lengte."
   ],
   "Une vidéo hébergée ou intégrée dans la page.": [
     "A video hosted or embedded in the page.",
-    "Un vídeo alojado o integrado en la página."
+    "Un vídeo alojado o integrado en la página.",
+    "Een video die in de pagina staat of erin is ingesloten."
   ],
   "Une à deux phrases, environ 160 caractères : c’est le texte affiché sous le titre dans les résultats de recherche.": [
     "One or two sentences, about 160 characters: this is the text shown under the title in search results.",
-    "Una o dos frases, unos 160 caracteres: es el texto que aparece bajo el título en los resultados de búsqueda."
+    "Una o dos frases, unos 160 caracteres: es el texto que aparece bajo el título en los resultados de búsqueda.",
+    "Eén tot twee zinnen, ongeveer 160 tekens: dat is de tekst die onder de titel in de zoekresultaten verschijnt."
   ],
   "Une étape du fil d’Ariane : sa position, son nom et son adresse.": [
     "A step of the breadcrumb: its position, its name and its address.",
-    "Un paso de la ruta de navegación: su posición, su nombre y su dirección."
+    "Un paso de la ruta de navegación: su posición, su nombre y su dirección.",
+    "Een stap van het kruimelpad: de positie, de naam en het adres."
   ],
   "Une étape du mode d’emploi.": [
     "A step of the how-to.",
-    "Un paso de las instrucciones."
+    "Un paso de las instrucciones.",
+    "Een stap van de handleiding."
   ],
   "Unité": [
     "Unit",
-    "Unidad"
+    "Unidad",
+    "Eenheid"
   ],
   "Utiliser ce fichier": [
     "Use this file",
-    "Usar este archivo"
+    "Usar este archivo",
+    "Dit bestand gebruiken"
   ],
   "Utiliser ces fichiers": [
     "Use these files",
-    "Usar estos archivos"
+    "Usar estos archivos",
+    "Deze bestanden gebruiken"
   ],
   "Valeur": [
     "Value",
-    "Valor"
+    "Valor",
+    "Waarde"
   ],
   "Valeurs nutritionnelles": [
     "Nutrition information",
-    "Información nutricional"
+    "Información nutricional",
+    "Voedingswaarden"
   ],
   "Veigné": [
+    "Veigné",
     "Veigné",
     "Veigné"
   ],
   "Vendeur": [
     "Seller",
-    "Vendedor"
+    "Vendedor",
+    "Verkoper"
   ],
   "Vendredi": [
     "Friday",
-    "Viernes"
+    "Viernes",
+    "Vrijdag"
   ],
   "Version": [
     "Version",
-    "Versión"
+    "Versión",
+    "Versie"
   ],
   "Version enregistrée": [
     "Saved version",
-    "Versión guardada"
+    "Versión guardada",
+    "Opgeslagen versie"
+  ],
+  "Version publiée uniquement en": [
+    "Version published only in",
+    "Versión publicada únicamente en",
+    "Versie enkel gepubliceerd in"
   ],
   "Versions": [
     "Versions",
-    "Versiones"
+    "Versiones",
+    "Versies"
   ],
   "Vertical": [
     "Vertical",
-    "Vertical"
+    "Vertical",
+    "Verticaal"
   ],
   "Vider": [
     "Clear",
-    "Vaciar"
+    "Vaciar",
+    "Leegmaken"
+  ],
+  "Videz ce champ pour la retirer.": [
+    "Empty this field to remove it.",
+    "Vacíe este campo para quitarla.",
+    "Maak dit veld leeg om ze te verwijderen."
   ],
   "Vidéo": [
     "Video",
-    "Vídeo"
+    "Vídeo",
+    "Video"
   ],
   "Ville": [
     "Town",
-    "Ciudad"
+    "Ciudad",
+    "Stad"
   ],
   "Vintage": [
+    "Vintage",
     "Vintage",
     "Vintage"
   ],
   "Voile sombre (0 à 100)": [
     "Dark overlay (0 to 100)",
-    "Velo oscuro (0 a 100)"
+    "Velo oscuro (0 a 100)",
+    "Donkere sluier (0 tot 100)"
   ],
   "Votre médiathèque est pleine. Supprimez des fichiers ou d’anciennes versions pour en ajouter.": [
     "Your library is full. Delete files or old versions to add more.",
-    "Su biblioteca está llena. Elimine archivos o versiones antiguas para añadir más."
+    "Su biblioteca está llena. Elimine archivos o versiones antiguas para añadir más.",
+    "Uw mediabibliotheek is vol. Verwijder bestanden of oude versies om er toe te voegen."
   ],
   "Votre référence interne, celle du bon de commande.": [
     "Your internal reference, the one on the order form.",
-    "Su referencia interna, la del pedido."
+    "Su referencia interna, la del pedido.",
+    "Uw interne referentie, die van de bestelbon."
+  ],
+  "Vous modifiez": [
+    "You are editing",
+    "Está editando",
+    "U bewerkt"
   ],
   "Vue": [
     "Slide",
-    "Vista"
+    "Vista",
+    "Weergave"
   ],
   "Vues affichées en même temps": [
     "Slides shown at the same time",
-    "Vistas mostradas a la vez"
+    "Vistas mostradas a la vez",
+    "Weergaven die tegelijk worden getoond"
   ],
   "Vérification des quotas…": [
     "Checking quotas…",
-    "Comprobando las cuotas…"
+    "Comprobando las cuotas…",
+    "Bezig met het nakijken van de quota…"
   ],
   "Vérifier la fiche": [
     "Check the record",
-    "Comprobar la ficha"
+    "Comprobar la ficha",
+    "De fiche nakijken"
   ],
   "Widget HTML": [
     "HTML widget",
-    "Widget HTML"
+    "Widget HTML",
+    "HTML-widget"
   ],
   "YouTube, Vimeo, Dailymotion ou toute autre adresse intégrable": [
     "YouTube, Vimeo, Dailymotion or any other embeddable address",
-    "YouTube, Vimeo, Dailymotion o cualquier otra dirección integrable"
+    "YouTube, Vimeo, Dailymotion o cualquier otra dirección integrable",
+    "YouTube, Vimeo, Dailymotion of elk ander insluitbaar adres"
   ],
   "Zone desservie": [
     "Area served",
-    "Zona atendida"
+    "Zona atendida",
+    "Bediend gebied"
   ],
   "Zone livrée": [
     "Delivery area",
-    "Zona de entrega"
+    "Zona de entrega",
+    "Leveringsgebied"
   ],
   "Zoom (1 = monde, 19 = rue)": [
     "Zoom (1 = world, 19 = street)",
-    "Zoom (1 = mundo, 19 = calle)"
+    "Zoom (1 = mundo, 19 = calle)",
+    "Zoom (1 = wereld, 19 = straat)"
   ],
   "Zoom à la molette de la souris": [
     "Zoom with the mouse wheel",
-    "Zoom con la rueda del ratón"
+    "Zoom con la rueda del ratón",
+    "Zoomen met het muiswiel"
   ],
   "autres : continuez à écrire pour les filtrer.": [
     "more: keep typing to filter them.",
-    "más: siga escribiendo para filtrarlas."
+    "más: siga escribiendo para filtrarlas.",
+    "meer: blijf typen om ze te filteren."
   ],
   "boulangerie, pain bio, Bordeaux": [
     "bakery, organic bread, Manchester",
-    "panadería, pan ecológico, Madrid"
+    "panadería, pan ecológico, Madrid",
+    "bakkerij, biologisch brood, Gent"
   ],
   "fichier(s)": [
     "file(s)",
-    "archivo(s)"
+    "archivo(s)",
+    "bestand(en)"
   ],
   "fichiers": [
     "files",
-    "archivos"
+    "archivos",
+    "bestanden"
   ],
   "fichiers sélectionnés": [
     "files selected",
-    "archivos seleccionados"
+    "archivos seleccionados",
+    "geselecteerde bestanden"
   ],
   "https://exemple.tld/photo.jpg": [
     "https://example.tld/photo.jpg",
-    "https://ejemplo.tld/foto.jpg"
+    "https://ejemplo.tld/foto.jpg",
+    "https://voorbeeld.tld/foto.jpg"
   ],
   "le bloc": [
     "the block",
-    "el bloque"
+    "el bloque",
+    "het blok"
   ],
   "le dossier": [
     "the folder",
-    "la carpeta"
+    "la carpeta",
+    "de map"
   ],
   "le fichier": [
     "the file",
-    "el archivo"
+    "el archivo",
+    "het bestand"
   ],
   "le script": [
     "the script",
-    "el script"
+    "el script",
+    "het script"
   ],
   "les microdonnées de cette page": [
     "the microdata of this page",
-    "los microdatos de esta página"
+    "los microdatos de esta página",
+    "de microdata van deze pagina"
   ],
   "l’élément": [
     "the element",
-    "el elemento"
+    "el elemento",
+    "het element"
   ],
   "maximum": [
     "maximum",
-    "máximo"
+    "máximo",
+    "maximum"
   ],
   "menu, contact, partage…": [
     "menu, contact, sharing…",
-    "menú, contacto, compartir…"
+    "menú, contacto, compartir…",
+    "menu, contact, delen…"
   ],
   "panier, téléphone, flèche…": [
     "basket, phone, arrow…",
-    "cesta, teléfono, flecha…"
+    "cesta, teléfono, flecha…",
+    "winkelmandje, telefoon, pijl…"
   ],
   "propriété": [
     "property",
-    "propiedad"
+    "propiedad",
+    "eigenschap"
   ],
   "propriétés": [
     "properties",
-    "propiedades"
+    "propiedades",
+    "eigenschappen"
   ],
   "return confirm('Quitter la page ?')": [
     "return confirm('Leave the page?')",
-    "return confirm('¿Salir de la página?')"
+    "return confirm('¿Salir de la página?')",
+    "return confirm('Pagina verlaten?')"
+  ],
+  "réglages retrouvés": [
+    "settings found",
+    "ajustes encontrados",
+    "instellingen gevonden"
+  ],
+  "sans réglages dans la page": [
+    "no settings in the page",
+    "sin ajustes en la página",
+    "geen instellingen in de pagina"
   ],
   "script vide": [
     "empty script",
-    "script vacío"
+    "script vacío",
+    "leeg script"
   ],
   "sourire, cœur, drapeau…": [
     "smile, heart, flag…",
-    "sonrisa, corazón, bandera…"
+    "sonrisa, corazón, bandera…",
+    "glimlach, hart, vlag…"
   ],
   "tarifs": [
     "prices",
-    "tarifas"
+    "tarifas",
+    "tarieven"
   ],
   "type inconnu": [
     "unknown type",
-    "tipo desconocido"
+    "tipo desconocido",
+    "onbekend type"
   ],
   "vue n’a pas d’image et ne montrerait rien sur le site. La retirer ?": [
     "slide has no image and would show nothing on the site. Remove it?",
-    "vista no tiene imagen y no mostraría nada en el sitio. ¿Quitarla?"
+    "vista no tiene imagen y no mostraría nada en el sitio. ¿Quitarla?",
+    "weergave heeft geen afbeelding en zou niets op de site tonen. Verwijderen?"
   ],
   "vues n’ont pas d’image et ne montreraient rien sur le site. Les retirer ?": [
     "slides have no image and would show nothing on the site. Remove them?",
-    "vistas no tienen imagen y no mostrarían nada en el sitio. ¿Quitarlas?"
+    "vistas no tienen imagen y no mostrarían nada en el sitio. ¿Quitarlas?",
+    "weergaven hebben geen afbeelding en zouden niets op de site tonen. Verwijderen?"
   ],
   "À l’emplacement du curseur": [
     "Where the cursor is",
-    "En la posición del cursor"
+    "En la posición del cursor",
+    "Op de plaats van de cursor"
   ],
   "À n’activer que sur un diaporama qui occupe l’écran : sinon la molette cesse de faire défiler la page dès qu’on passe dessus.": [
     "Only enable on a slideshow that fills the screen: otherwise the wheel stops scrolling the page as soon as you move over it.",
-    "Actívelo solo en un carrusel que ocupe la pantalla: si no, la rueda deja de desplazar la página en cuanto se pasa por encima."
+    "Actívelo solo en un carrusel que ocupe la pantalla: si no, la rueda deja de desplazar la página en cuanto se pasa por encima.",
+    "Alleen inschakelen op een diavoorstelling die het scherm vult: anders stopt het wiel met het scrollen van de pagina zodra men erover beweegt."
   ],
   "À partir de": [
     "From",
-    "A partir de"
+    "A partir de",
+    "Vanaf"
   ],
   "À renseigner": [
     "To fill in",
-    "Por rellenar"
+    "Por rellenar",
+    "In te vullen"
   ],
   "Écrans": [
     "Screens",
-    "Pantallas"
+    "Pantallas",
+    "Schermen"
   ],
   "Écrire dans toutes les langues": [
     "Write in every language",
-    "Escribir en todos los idiomas"
+    "Escribir en todos los idiomas",
+    "In alle talen schrijven"
   ],
   "Éditeur": [
     "Publisher",
-    "Editor"
+    "Editor",
+    "Uitgever"
   ],
   "Élargir la colonne": [
     "Widen the column",
-    "Ensanchar la columna"
+    "Ensanchar la columna",
+    "De kolom verbreden"
   ],
   "Élément de liste": [
     "List item",
-    "Elemento de lista"
+    "Elemento de lista",
+    "Lijstitem"
   ],
   "Éléments du site": [
     "Site elements",
-    "Elementos del sitio"
+    "Elementos del sitio",
+    "Elementen van de site"
   ],
   "Éléments du site...": [
     "Site elements...",
-    "Elementos del sitio..."
+    "Elementos del sitio...",
+    "Elementen van de site..."
   ],
   "Énumération dont l’ordre compte : étapes, classement": [
     "A list where the order matters: steps, rankings",
-    "Una lista donde el orden importa: pasos, clasificación"
+    "Una lista donde el orden importa: pasos, clasificación",
+    "Een lijst waarin de volgorde telt: stappen, rangschikking"
   ],
   "Énumération sans ordre particulier": [
     "A list in no particular order",
-    "Una lista sin orden particular"
+    "Una lista sin orden particular",
+    "Een lijst zonder bepaalde volgorde"
   ],
   "Épuisé": [
     "Discontinued",
-    "Agotado"
+    "Agotado",
+    "Uit productie"
   ],
   "Étape": [
     "Step",
-    "Paso"
+    "Paso",
+    "Stap"
   ],
   "Étapes": [
     "Steps",
-    "Pasos"
+    "Pasos",
+    "Stappen"
   ],
   "Étapes du chemin": [
     "Steps of the path",
-    "Pasos de la ruta"
+    "Pasos de la ruta",
+    "Stappen van het pad"
   ],
   "État": [
     "Condition",
-    "Estado"
+    "Estado",
+    "Staat"
+  ],
+  "État du produit": [
+    "Condition of the product",
+    "Estado del producto",
+    "Staat van het product"
   ],
   "Événement": [
     "Event",
-    "Evento"
+    "Evento",
+    "Evenement"
   ],
   "Événement non renseigné": [
     "Event not filled in",
-    "Evento sin indicar"
+    "Evento sin indicar",
+    "Evenement niet ingevuld"
   ],
   "Événements": [
     "Events",
-    "Eventos"
+    "Eventos",
+    "Evenementen"
   ],
   "élément": [
     "item",
-    "elemento"
+    "elemento",
+    "element"
   ],
   "éléments": [
     "items",
-    "elementos"
+    "elementos",
+    "elementen"
   ],
   "Œuvre": [
     "Creative work",
-    "Obra"
+    "Obra",
+    "Werk"
   ],
   "— Choisir une ancre —": [
     "— Choose an anchor —",
-    "— Elegir un ancla —"
+    "— Elegir un ancla —",
+    "— Een anker kiezen —"
   ],
   "— choisir —": [
     "— choose —",
-    "— elegir —"
+    "— elegir —",
+    "— kiezen —"
   ],
   "⚠️ DESTRUCTION": [
     "⚠️ DESTRUCTION",
-    "⚠️ DESTRUCCIÓN"
+    "⚠️ DESTRUCCIÓN",
+    "⚠️ VERNIETIGING"
   ]
 }

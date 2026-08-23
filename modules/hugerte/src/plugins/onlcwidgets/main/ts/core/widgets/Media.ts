@@ -82,7 +82,7 @@ const video = (editor: Editor): WidgetDefinition => ({
   fields: [
     { name: 'url', label: 'Adresse de la vidéo', type: 'url', placeholder: 'https://www.youtube.com/watch?v=…' },
     { name: 'title', label: 'Titre (accessibilité)', type: 'text' },
-    { name: 'ratio', label: 'Format', type: 'select', items: Common.ratios, half: true },
+    { name: 'ratio', label: 'Proportions', type: 'select', items: Common.ratios, half: true },
     { name: 'autoplay', label: 'Lecture automatique', type: 'checkbox', half: true },
     { name: 'loop', label: 'Lecture en boucle', type: 'checkbox', half: true },
     { name: 'muted', label: 'Sans le son', type: 'checkbox', half: true }
@@ -124,7 +124,7 @@ const iframe: WidgetDefinition = {
       { text: 'Format proportionnel', value: 'ratio' },
       { text: 'Hauteur fixe', value: 'height' }
     ] },
-    { name: 'ratio', label: 'Format', type: 'select', items: Common.ratios, half: true },
+    { name: 'ratio', label: 'Proportions', type: 'select', items: Common.ratios, half: true },
     { name: 'height', label: 'Hauteur', type: 'text', half: true, placeholder: '480px' },
     { name: 'scrolling', label: 'Défilement', type: 'checkbox', half: true }
   ],

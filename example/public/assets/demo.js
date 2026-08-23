@@ -38,9 +38,17 @@ hugerte.init({
     'lists', 'table', 'searchreplace', 'fullscreen'
   ].join(' '),
 
-  // Le paquet de langue du cœur : sans lui, « Insertion » et « Outils » resteraient en anglais
-  // au-dessus d'une interface écrite en français.
-  language: 'fr',
+  // La langue de l'interface. Le paquet du cœur traduit « Insertion » et « Outils » ; celui de
+  // ONLC traduit les formulaires des plugins. Les deux sont chargés dans la page.
+  //
+  // Elle se choisit ici par l'adresse — « ?lang=nl » — pour que les quatre langues se vérifient
+  // sans toucher au fichier. Un vrai back-office la tient de la préférence de la personne
+  // connectée. Seuls les quatre codes prévus sont acceptés : ce qui vient de l'adresse ne
+  // choisit jamais librement le nom d'un fichier à charger.
+  language: (function () {
+    var demande = new URLSearchParams(window.location.search).get('lang');
+    return [ 'fr', 'en', 'es', 'nl' ].indexOf(demande) === -1 ? 'fr' : demande;
+  })(),
 
   menubar: 'edit insert format table tools',
 

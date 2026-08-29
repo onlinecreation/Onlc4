@@ -1,4 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as Assets from 'hugerte/plugins/onlcshared/Assets';
 import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
@@ -54,11 +55,12 @@ export default (): void => {
     // calendrier, une visionneuse de pdf — et pas la façon de les modifier : la page publiée en a
     // besoin autant que la zone d'écriture, l'aperçu visiteur les reprend donc telles quelles.
     if (Options.shouldInjectStyles(editor)) {
-      editor.contentCSS.push(`${pluginUrl}/css/onlcwidgets.css`);
-      PublishedCss.declareSheets(editor, [ `${pluginUrl}/css/onlcwidgets.css` ]);
+      const feuille = Assets.urlOf(editor, pluginUrl, 'css/onlcwidgets.css');
+      editor.contentCSS.push(feuille);
+      PublishedCss.declareSheets(editor, [ feuille ]);
     }
     if (Options.shouldInjectShortcodeStyles(editor)) {
-      editor.contentCSS.push(`${pluginUrl}/css/onlcshortcodes.css`);
+      editor.contentCSS.push(Assets.urlOf(editor, pluginUrl, 'css/onlcshortcodes.css'));
     }
 
     // Les iframes du contenu sont mises en bac à sable par le cœur : les hôtes de nos

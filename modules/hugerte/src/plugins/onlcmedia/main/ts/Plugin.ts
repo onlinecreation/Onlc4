@@ -1,4 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as Assets from 'hugerte/plugins/onlcshared/Assets';
 import * as LinkOptions from 'hugerte/plugins/onlcshared/link/Options';
 import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
@@ -43,8 +44,9 @@ export default (): void => {
     // La parallaxe, les légendes posées sur l'image et les cadres d'intégration sont du décor de
     // page, pas d'éditeur : la feuille suit le contenu jusqu'à l'aperçu et au html rendu.
     if (Options.shouldInjectStyles(editor)) {
-      editor.contentCSS.push(`${pluginUrl}/css/onlcmedia.css`);
-      PublishedCss.declareSheets(editor, [ `${pluginUrl}/css/onlcmedia.css` ]);
+      const feuille = Assets.urlOf(editor, pluginUrl, 'css/onlcmedia.css');
+      editor.contentCSS.push(feuille);
+      PublishedCss.declareSheets(editor, [ feuille ]);
     }
 
     // Take over the image button of the core so that `image` toolbars keep working

@@ -2,6 +2,7 @@ import { Arr, Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
 import { EditorOptions } from 'hugerte/core/api/OptionTypes';
+import * as Assets from 'hugerte/plugins/onlcshared/Assets';
 
 export interface UserIconEntry {
   readonly name: string;
@@ -36,7 +37,7 @@ const register = (editor: Editor, pluginUrl: string): void => {
   // la version lisible d'un fichier de 190 Ko.
   registerOption('onlc_icons_emoji_database_url', {
     processor: 'string',
-    default: `${pluginUrl}/js/emojis${editor.suffix}.js`
+    default: Assets.urlOf(editor, pluginUrl, `js/emojis${editor.suffix}.js`)
   });
 
   registerOption('onlc_icons_emoji_database_id', {
@@ -93,15 +94,16 @@ const register = (editor: Editor, pluginUrl: string): void => {
 
   /* Emojis dessinés ------------------------------------------------------- */
 
-  // Dossier des dessins OpenMoji. Le site publié doit servir les mêmes fichiers à cette adresse.
+  // Dossier des dessins OpenMoji. Le site publié doit servir les mêmes fichiers à cette adresse
+  // — c'est cette adresse-là qui est écrite dans le `src` de chaque emoji enregistré.
   registerOption('onlc_icons_openmoji_url', {
     processor: 'string',
-    default: `${pluginUrl}/openmoji`
+    default: Assets.urlOf(editor, pluginUrl, 'openmoji')
   });
 
   registerOption('onlc_icons_openmoji_index_url', {
     processor: 'string',
-    default: `${pluginUrl}/js/openmoji${editor.suffix}.js`
+    default: Assets.urlOf(editor, pluginUrl, `js/openmoji${editor.suffix}.js`)
   });
 
   // Transforme automatiquement les emojis tapés ou collés en dessins OpenMoji.

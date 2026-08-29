@@ -323,6 +323,20 @@ empaqueteur, une injection, un \`import()\` — indiquez l'adresse à la main :
 hugerte.init({ selector: '#contenu', base_url: 'https://cdn.exemple.fr/onlc4/${version}', suffix: '.min' });
 \`\`\`
 
+## Ne mettre sur le CDN que les ressources
+
+L'inverse se règle aussi : garder l'éditeur sur votre serveur, et ne faire porter au CDN que les
+ressources statiques des plugins — les polices d'icônes, les 4 495 dessins d'emoji, les
+dictionnaires, les feuilles. C'est là que sont les 20 Mo.
+
+\`\`\`js
+hugerte.init({ selector: '#contenu', onlc_cdn_url: 'https://cdn.exemple.fr/onlc4/${version}' });
+\`\`\`
+
+Déposez le dossier des deux côtés, ou seulement son sous-dossier \`plugins/\` sur le CDN : les
+adresses gardent leur \`plugins/<nom>/…\`, seule la base change. Les en-têtes ci-dessous restent
+nécessaires sur le CDN.
+
 ## Ce que le serveur doit envoyer
 
 | Chemin | En-tête | Pourquoi |

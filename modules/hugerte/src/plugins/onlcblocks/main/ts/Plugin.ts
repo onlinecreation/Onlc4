@@ -1,6 +1,7 @@
 import { Optional } from '@ephox/katamari';
 
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as Assets from 'hugerte/plugins/onlcshared/Assets';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 import * as SiteCss from 'hugerte/plugins/onlcshared/SiteCss';
@@ -76,7 +77,7 @@ export default (): void => {
     });
 
     if (Options.shouldInjectStyles(editor)) {
-      editor.contentCSS.push(`${pluginUrl}/css/onlcblocks.css`);
+      editor.contentCSS.push(Assets.urlOf(editor, pluginUrl, 'css/onlcblocks.css'));
     }
 
     // Grille du site (Bootstrap par exemple) : sans elle, les lignes et les colonnes

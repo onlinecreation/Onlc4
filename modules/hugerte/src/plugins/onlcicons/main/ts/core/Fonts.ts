@@ -1,6 +1,7 @@
 import { Arr } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
+import * as Assets from 'hugerte/plugins/onlcshared/Assets';
 import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 
 import * as Options from '../api/Options';
@@ -26,15 +27,17 @@ const stylesheetsOf = (editor: Editor, pluginUrl: string): string[] => {
   const families = Options.getFamilies(editor);
   const sheets: string[] = [];
 
+  const asset = (path: string) => Assets.urlOf(editor, pluginUrl, path);
+
   if (Arr.contains(families, 'material')) {
-    sheets.push(`${pluginUrl}/css/material-icons.css`);
+    sheets.push(asset('css/material-icons.css'));
   }
   if (Arr.contains(families, 'fontawesome')) {
-    sheets.push(`${pluginUrl}/css/fontawesome.css`);
+    sheets.push(asset('css/fontawesome.css'));
   }
 
   // Feuille de styles des emojis et des icônes insérés dans la page.
-  sheets.push(`${pluginUrl}/css/onlcicons.css`);
+  sheets.push(asset('css/onlcicons.css'));
 
   const extra = Options.getStylesheetUrl(editor);
   if (extra !== '') {

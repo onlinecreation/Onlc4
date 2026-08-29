@@ -1,6 +1,7 @@
 import { Throttler } from '@ephox/katamari';
 
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as Assets from 'hugerte/plugins/onlcshared/Assets';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
 import * as Commands from './api/Commands';
@@ -53,7 +54,7 @@ export default (): void => {
     DialogStyles.setup(editor);
 
     if (Options.shouldInjectStyles(editor)) {
-      editor.contentCSS.push(`${pluginUrl}/css/onlcswiper.css`);
+      editor.contentCSS.push(Assets.urlOf(editor, pluginUrl, 'css/onlcswiper.css'));
       // La hauteur des vues est la **seule** dimension imposée : la largeur suit le rapport de
       // l'image, pour que les vues s'alignent comme elles le feront sur le site.
       editor.contentStyles.push(

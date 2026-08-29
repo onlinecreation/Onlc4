@@ -25,7 +25,8 @@ non modifiable d'un bloc.
 
 Les 4 495 dessins sont **embarqués dans le plugin** (`main/openmoji/`, environ 14 Mo). Rien n'est
 chargé depuis un service extérieur ; le site publié doit servir les mêmes fichiers, à l'adresse
-donnée par `onlc_icons_openmoji_url`.
+donnée par `onlc_icons_openmoji_url` — ou par `onlc_cdn_url`, qui la déplace sans qu'on ait à la
+nommer.
 
 > **Attribution obligatoire.** OpenMoji est publié sous licence CC BY-SA 4.0 : toute page qui
 > affiche ces dessins doit créditer OpenMoji. Voir
@@ -85,9 +86,9 @@ C'est l'attribut `data-onlc-emoji` qui les distingue.
 |---|---|---|---|
 | `onlc_icons_families` | `string[]` | `['material', 'fontawesome']` | familles proposées ; retirez-en une pour ne charger ni sa feuille ni son catalogue |
 | `onlc_icons_rewrite_emoji` | `boolean` | `true` | transforme les emojis tapés en dessins OpenMoji |
-| `onlc_icons_openmoji_url` | `string` | `<pluginUrl>/openmoji` | dossier des dessins |
-| `onlc_icons_openmoji_index_url` | `string` | `<pluginUrl>/js/openmoji.js` | liste des dessins disponibles |
-| `onlc_icons_emoji_database_url` | `string` | `<pluginUrl>/js/emojis.js` | base des emojis (partagée avec `emoticons`) |
+| `onlc_icons_openmoji_url` | `string` | `<base>/plugins/onlcicons/openmoji` | dossier des dessins |
+| `onlc_icons_openmoji_index_url` | `string` | `<base>/plugins/onlcicons/js/openmoji.js` | liste des dessins disponibles |
+| `onlc_icons_emoji_database_url` | `string` | `<base>/plugins/onlcicons/js/emojis.js` | base des emojis (partagée avec `emoticons`) |
 | `onlc_icons_emoji_append` | `object` | `{}` | emojis ajoutés par le projet |
 | `onlc_icons_material_url` | `string` | `''` | catalogue d'icônes servi par une api ([doc](../api/onlc-icons-api.md)) |
 | `onlc_icons_material_append` | `object[]` | `[]` | icônes ajoutées en dur |
@@ -97,6 +98,30 @@ C'est l'attribut `data-onlc-emoji` qui les distingue.
 | `onlc_icons_emoji_trigger` | `string` | `:` | déclencheur du complément emoji |
 | `onlc_icons_icon_trigger` | `string` | `::` | déclencheur du complément icône |
 | `onlc_icons_results_limit` | `number` | `300` | nombre de résultats affichés |
+
+`<base>` est le dossier d'où l'éditeur a été chargé, ou l'adresse donnée par `onlc_cdn_url` —
+voir « Servir les ressources depuis un CDN » ci-dessous. Les trois options ci-dessus restent
+prioritaires : les régler à la main l'emporte sur `onlc_cdn_url`.
+
+## Servir les ressources depuis un CDN
+
+Ce plugin est le plus lourd du lot : 14 Mo de dessins, 400 Ko de polices d'icônes, 200 Ko de
+dictionnaires. Un projet qui pose l'éditeur sur son propre serveur mais préfère faire porter ces
+fichiers par un CDN indique où il a déposé le paquet :
+
+```js
+hugerte.init({ onlc_cdn_url: 'https://cdn.exemple.fr/onlc4/1.0.12' });
+```
+
+Les polices, les dessins, les dictionnaires et les feuilles partent alors de là ; l'éditeur, son
+thème et ses langues restent servis par le dossier d'où il a été chargé. Voir
+[cdn.md](../cdn.md) pour ce que le CDN doit renvoyer comme en-têtes — sans
+`Access-Control-Allow-Origin`, les polices d'icônes sont refusées.
+
+> **L'adresse des dessins part dans les pages.** Chaque emoji est enregistré comme
+> `<img src="<onlc_icons_openmoji_url>/1F600.svg">`. Changer d'adresse plus tard ne réécrit pas
+> les pages déjà enregistrées : gardez la même, ou faites servir l'ancienne en parallèle. C'est
+> l'argument pour un dossier versionné (`/onlc4/1.0.12/`) qu'on ne remplace jamais.
 
 ## N'utiliser qu'une seule famille
 

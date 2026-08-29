@@ -23,6 +23,11 @@ hugerte.init({
 
   // L'éditeur compilé est servi par le serveur d'exemple sous /hugerte
   base_url: '/hugerte',
+
+  // Pour faire porter les ressources statiques des plugins — polices d'icônes, dessins d'emoji,
+  // dictionnaires, feuilles de style — par un CDN plutôt que par ce serveur :
+  //   onlc_cdn_url: 'https://cdn.exemple.fr/onlc4/1.0.12',
+  // L'éditeur, son thème et ses langues continuent de venir de `base_url`. Voir docs/cdn.md.
   height: 760,
   branding: false,
   promotion: false,

@@ -70,6 +70,68 @@ l'adresse elle-même :
 hugerte.init({ base_url: 'https://cdn.exemple.fr/onlc4/1.0.12', suffix: '.min' });
 ```
 
+## Servir les ressources depuis un serveur tiers
+
+Le paquet ci-dessus suppose que tout part du même endroit : la page appelle `onlc4.min.js` sur le
+CDN, et l'éditeur en déduit où chercher le reste. Un projet peut vouloir couper cela en deux —
+l'éditeur sur son propre serveur, et les **ressources statiques des plugins** sur un CDN, parce
+que ce sont elles qui pèsent (20 Mo, dont 13 Mo de dessins d'emoji). C'est ce que fait
+`onlc_cdn_url` :
+
+```js
+hugerte.init({
+  selector: '#contenu',
+  onlc_cdn_url: 'https://cdn.exemple.fr/onlc4/1.0.12'
+});
+```
+
+| Ce qui vient d'où | Sans `onlc_cdn_url` | Avec |
+|---|---|---|
+| l'éditeur, le thème, le modèle, les icônes de l'interface, l'habillage, les langues | dossier de `onlc4.min.js` | dossier de `onlc4.min.js` |
+| les feuilles des plugins ONLC | dossier de `onlc4.min.js` | **le CDN** |
+| les polices d'icônes, les dessins d'emoji, les dictionnaires | dossier de `onlc4.min.js` | **le CDN** |
+
+**La bascule ne réarrange rien.** Elle remplace la base de l'adresse et garde le `plugins/<nom>/…`
+qui suit :
+
+```
+  https://exemple.fr/editeur/plugins/onlcicons/openmoji
+  https://cdn.exemple.fr/onlc4/1.0.12/plugins/onlcicons/openmoji
+```
+
+C'est l'arborescence que produit l'empaquetage : déposer le paquet et indiquer où il est suffit.
+Aucun nom de plugin n'est inscrit nulle part — un plugin nouveau en profite sans qu'on y touche —
+et une adresse dont la forme n'est pas celle-là, un plugin chargé d'un emplacement inhabituel, est
+laissée telle quelle : mieux vaut le dossier d'origine, qui fonctionne, qu'une adresse recomposée
+au jugé.
+
+Les options par ressource restent prioritaires (`onlc_icons_openmoji_url`,
+`onlc_icons_emoji_database_url`, `onlc_icons_stylesheet_url`…) : elles sont l'échappatoire pour
+qui range ses fichiers autrement.
+
+### Ce que l'option ne couvre pas
+
+Le cœur va chercher son thème, son habillage et ses langues **tout seul**, à côté du fichier d'où
+il a été chargé. C'est `base_url` qui commande cela, pas `onlc_cdn_url` — et si le tout doit venir
+du CDN, il suffit d'y charger `onlc4.min.js`.
+
+### La valeur donnée
+
+Elle finit dans un `href` de feuille de style et dans le `src` de chaque emoji dessiné,
+c'est-à-dire dans le html enregistré. Seul ce qui désigne un serveur est accepté : `http`,
+`https`, une adresse sans protocole (`//cdn.exemple.fr/…`) ou un chemin (`/statique/onlc4`). Une
+valeur d'un autre protocole est écartée avec un avertissement en console, et les ressources
+repartent du dossier du plugin.
+
+> **L'adresse des dessins part dans les pages.** Un emoji est enregistré comme
+> `<img src="<cdn>/plugins/onlcicons/openmoji/1F600.svg">`. Changer `onlc_cdn_url` plus tard ne
+> réécrit pas les pages déjà enregistrées : gardez l'ancienne adresse servie en parallèle. C'est
+> l'argument, à nouveau, pour un dossier versionné qu'on ne remplace jamais.
+
+En contrepartie, le **site publié** en profite sans rien faire : les feuilles que l'éditeur
+déclare comme nécessaires à la page (`PublishedCss`) portent déjà l'adresse du CDN, et l'aperçu
+visiteur les reprend telles quelles.
+
 ## Le contrôle des renvois
 
 Une feuille de style qui cite un fichier absent du paquet est une panne différée : le navigateur

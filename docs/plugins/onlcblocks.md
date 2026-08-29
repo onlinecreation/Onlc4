@@ -414,6 +414,7 @@ Le point de rupture est `sm` par défaut : une ligne produit `col-sm-4`, `col-sm
 | `onlc_blocks_inject_styles` | `true` | Charge `onlcblocks.css` dans la zone d'édition |
 | `onlc_site_css` | `[]` | Feuilles de style du site — écriture, aperçu et suggestions de classes |
 | `onlc_site_css_proxy` | `''` | Relais de lecture d'une feuille servie par un autre domaine |
+| `onlc_cdn_url` | `''` | Adresse de base des ressources statiques des plugins ONLC, sur un serveur tiers ([cdn.md](../cdn.md)) |
 
 ### Ajouter un contenu au panneau d'insertion
 

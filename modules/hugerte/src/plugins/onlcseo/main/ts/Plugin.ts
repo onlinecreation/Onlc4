@@ -1,4 +1,5 @@
 import PluginManager from 'hugerte/core/api/PluginManager';
+import * as Assets from 'hugerte/plugins/onlcshared/Assets';
 import * as ScriptTypes from 'hugerte/plugins/onlcshared/ScriptTypes';
 import * as DialogStyles from 'hugerte/plugins/onlcshared/ui/DialogStyles';
 
@@ -54,7 +55,7 @@ export default (): void => {
 
     DialogStyles.setup(editor);
 
-    editor.contentCSS.push(`${pluginUrl}/css/onlcseo.css`);
+    editor.contentCSS.push(Assets.urlOf(editor, pluginUrl, 'css/onlcseo.css'));
 
     // Une fiche de microdonnées est une donnée, pas du code : elle ne doit pas revenir dans
     // l'éditeur sous la forme d'un jeton « Script JavaScript ». Le registre partagé le dit à

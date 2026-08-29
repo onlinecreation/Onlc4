@@ -151,7 +151,12 @@ describe('Paquets de langue — génération', () => {
     generate({ 'fr_FR.js': 'tinymce.addI18n("fr_FR", {});' }, (target) => {
       const readme = fs.readFileSync(path.join(target, 'README.md'), 'utf8');
       assert.includes(readme, 'language:');
-      assert.includes(readme, 'langs/onlc/');
+      // Le mode d'emploi doit renvoyer au second générateur, celui qui complète ces mêmes
+      // fichiers : ce dossier-ci est effacé à chaque passage, et l'oublier laisse l'interface
+      // des plugins en français sous une interface traduite.
+      assert.includes(readme, 'build-i18n.js');
+      // Et surtout pas inviter à charger un second paquet : il n'y en a plus qu'un par langue.
+      assert.notIncludes(readme, 'langs/onlc/');
     });
   });
 

@@ -36,7 +36,9 @@
     "bedrock": "bedrock --customRoutes modules/hugerte/src/core/test/json/routes.json",
     "test-one": "yarn tsc && yarn bedrock-auto -b chrome-headless -f",
     "example-build": "npm-run-all -p oxide-icons-build oxide-build -s tsc hugerte-rollup",
-    "example": "node example/server.js"
+    "example": "node example/server.js",
+    "build-cdn": "run-s \"hugerte-grunt prodBuild\" build-cdn-only",
+    "build-cdn-only": "node modules/hugerte/tools/cdn/build.js"
   },
   "devDependencies": {
     "@ephox/bedrock-client": "^15.0.0",
@@ -51,6 +53,7 @@
     "@types/prismjs": "^1.16.6",
     "chai": "^4.4.1",
     "chalk": "^4.1.0",
+    "clean-css": "4.2.3",
     "emojilib": "^2.4.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "fast-check": "^2.23.0",

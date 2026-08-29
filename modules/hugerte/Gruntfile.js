@@ -269,7 +269,9 @@ module.exports = function (grunt) {
             { src: 'src/plugins/emoticons/main/js/emojiimages.js', dest: 'js/hugerte/plugins/emoticons/js/emojiimages.min.js' }
           ],
           onlcicons: [
-            { src: 'src/plugins/emoticons/main/js/emojis.js', dest: 'js/hugerte/plugins/onlcicons/js/emojis.min.js' }
+            { src: 'src/plugins/emoticons/main/js/emojis.js', dest: 'js/hugerte/plugins/onlcicons/js/emojis.min.js' },
+            // L'index des dessins OpenMoji : `copy:onlc-plugins` l'a déjà posé à côté.
+            { src: 'js/hugerte/plugins/onlcicons/js/openmoji.js', dest: 'js/hugerte/plugins/onlcicons/js/openmoji.min.js' }
           ]
         };
         return {

@@ -87,6 +87,8 @@ node example/test/run.js     # la même chose
 | `example/test/site-css-api.test.js` | le relais de feuilles de style : protocoles, domaines, réseau interne |
 | `example/test/branding.test.js` | l'habillage Pixel•OnlineCreation de Pixie : marque, thème, traductions |
 | `example/test/build-langs.test.js` | conversion des paquets TinyMCE, alias de code court, génération bout à bout |
+| `example/test/i18n.test.js` | couverture module par module, les quatre langues, collisions de clés |
+| `example/test/cdn.test.js` | le paquet statique : tri des fichiers, renvois des feuilles, minification, manifeste |
 
 Ces tests décrivent le **contrat** que doit tenir n'importe quelle implémentation, pas seulement
 la simulation : lisez-les comme un complément à `docs/api/`.

@@ -31,9 +31,12 @@ const knownFamilies = [ 'material', 'fontawesome' ];
 const register = (editor: Editor, pluginUrl: string): void => {
   const registerOption = editor.options.register;
 
+  // `editor.suffix` vaut `.min` quand l'éditeur a été chargé sous son nom minifié : les
+  // dictionnaires suivent alors le reste du paquet, au lieu d'imposer au CDN de servir aussi
+  // la version lisible d'un fichier de 190 Ko.
   registerOption('onlc_icons_emoji_database_url', {
     processor: 'string',
-    default: `${pluginUrl}/js/emojis.js`
+    default: `${pluginUrl}/js/emojis${editor.suffix}.js`
   });
 
   registerOption('onlc_icons_emoji_database_id', {
@@ -98,7 +101,7 @@ const register = (editor: Editor, pluginUrl: string): void => {
 
   registerOption('onlc_icons_openmoji_index_url', {
     processor: 'string',
-    default: `${pluginUrl}/js/openmoji.js`
+    default: `${pluginUrl}/js/openmoji${editor.suffix}.js`
   });
 
   // Transforme automatiquement les emojis tapés ou collés en dessins OpenMoji.

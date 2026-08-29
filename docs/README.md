@@ -39,6 +39,7 @@ qui dépend de cet ordre échoue en silence.
 | Langues de l'interface (cœur, thème et plugins) | [i18n.md](i18n.md) |
 | Sécurité, neutralisation des scripts et des intégrations | [securite.md](securite.md) |
 | Tests : où ils vivent, comment les lancer, comment en ajouter | [tests.md](tests.md) |
+| Mettre l'éditeur en ligne : paquet statique minifié pour un CDN | [cdn.md](cdn.md) |
 
 > **`onlcshortcodes` n'existe plus comme plugin.** Les codes courts font partie de
 > `onlcwidgets`, avec une seule bibliothèque pour les blocs et les éléments du site. Le nom

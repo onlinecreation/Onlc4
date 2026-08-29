@@ -22,7 +22,9 @@
  * mention de provenance est écrite en tête de chaque fichier produit.
  *
  * Les traductions de l'interface **ONLC** sont produites séparément, par
- * `tools/openmoji/build-i18n.js`, et vont dans `langs/onlc/`.
+ * `tools/openmoji/build-i18n.js`. Celui-ci les **ajoute aux fichiers écrits ici**, entre deux
+ * bornes en commentaire, et en dépose au passage une copie isolée dans `langs/onlc/`. Comme ce
+ * script-ci efface le dossier avant de le réécrire, relancez toujours l'autre après lui.
  */
 
 const fs = require('fs');
@@ -146,8 +148,10 @@ const main = () => {
     'Le fichier est chargé tout seul depuis `langs/<code>.js`. Les codes régionaux (`fr_FR`,\n' +
     '`pt_BR`…) ont un alias sur leur code court quand celui-ci est libre : `fr` et `fr_FR`\n' +
     'fonctionnent donc l’un comme l’autre.\n\n' +
-    'Les intitulés des **plugins ONLC** sont traduits à part, par les paquets de `langs/onlc/`\n' +
-    '(voir `docs/i18n.md`). Chargez les deux pour une interface entièrement traduite.\n\n' +
+    'Les intitulés des **plugins ONLC** sont ensuite **ajoutés à ces mêmes fichiers** par\n' +
+    '`tools/openmoji/build-i18n.js`, entre deux bornes en commentaire. Un paquet suffit donc à\n' +
+    'traduire toute l’interface, et il n’y a pas de second script à inclure (voir\n' +
+    '`docs/i18n.md`). Relancez toujours ce générateur-là après celui-ci, qui efface le dossier.\n\n' +
     'Ne modifiez pas ces fichiers à la main : ils sont réécrits à chaque génération. Pour\n' +
     'corriger une traduction de l’interface du cœur, passez par le projet amont :\n' +
     'https://crowdin.com/project/hugerte\n',

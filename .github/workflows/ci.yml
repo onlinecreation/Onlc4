@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    types: [ opened, synchronize, reopened, labeled ]
   workflow_dispatch:
     inputs:
       run_tests:
@@ -18,6 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    # On label events only run when the change is relevant (adding/removing the
+    # run-headless label), otherwise skip to avoid burning a build on e.g. a
+    # dependabot label.
+    if: >
+      github.event_name != 'pull_request' ||
+      github.event.action != 'labeled' ||
+      contains(github.event.pull_request.labels.*.name, 'run-headless')
 
     steps:
       - name: Checkout
@@ -44,10 +52,12 @@ jobs:
     needs: build-and-lint
     permissions:
       contents: read
-    # Run on pushes to main branches, or when manually triggered with run_tests=true
+    # Run on pushes to main, on manual dispatch with run_tests=true, or on a PR
+    # explicitly labeled 'run-headless' (add the label to opt a PR in).
     if: >
       github.event_name == 'push' ||
-      (github.event_name == 'workflow_dispatch' && inputs.run_tests == true)
+      (github.event_name == 'workflow_dispatch' && inputs.run_tests == true) ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'run-headless'))
     timeout-minutes: 30
 
     steps:

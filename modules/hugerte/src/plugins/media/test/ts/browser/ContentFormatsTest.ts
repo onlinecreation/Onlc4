@@ -168,20 +168,20 @@ describe('browser.hugerte.plugins.media.ContentFormatsTest', () => {
     testXss('<p><audio><img src="javascript:alert(1)"></audio>', '<p><audio><img></audio></p>');
     testXss(
       '<p><video><noscript><svg onload="javascript:alert(1)"></svg></noscript></video>',
-      '<p><video width="300" height="150"><noscript></noscript></video></p>'
-    );
-    testXss(
-      '<p><video><script><svg onload="javascript:alert(1)"></svg></s' + 'cript></video>',
       '<p><video width="300" height="150"></video></p>'
     );
     testXss(
+      '<p><video><script><svg onload="javascript:alert(1)"></svg></s' + 'cript></video>',
+      '<p><video width="300" height="150">\n<script><svg onload="javascript:alert(1)"></svg></script>\n</video></p>'
+    );
+    testXss(
       '<p><audio><noscript><svg onload="javascript:alert(1)"></svg></noscript></audio>',
-      '<p><audio><noscript></noscript></audio></p>'
+      '<p><audio></audio></p>'
     );
     testXss(
       '<p><audio><script><svg onload="javascript:alert(1)"></svg></s' + 'cript></audio>',
-      '<p><audio></audio></p>'
+      '<p><audio>\n<script><svg onload="javascript:alert(1)"></svg></script>\n</audio></p>'
     );
-    testXss('<p><audio><script><svg></svg></script></audio>', '<p><audio></audio></p>');
+    testXss('<p><audio><script><svg></svg></script></audio>', '<p><audio>\n<script><svg></svg></script>\n</audio></p>');
   });
 });

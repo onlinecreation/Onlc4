@@ -193,9 +193,11 @@ l'arborescence, les types MIME et les en-têtes CORS sont bons.
 
 ## Versions
 
-Déposez chaque version dans son propre dossier (`/onlc4/1.0.12/`) plutôt que d'écraser la
-précédente : les pages déjà servies continuent de fonctionner, et le cache long ci-dessus devient
-sans danger. Le numéro vient de `modules/hugerte/package.json`.
+Déposez chaque version dans son propre dossier plutôt que d'écraser la précédente : les pages
+déjà servies continuent de fonctionner, et le cache long ci-dessus devient sans danger. Le numéro
+vient de `modules/hugerte/package.json` ; l'empaquetage l'inscrit dans `manifest.json` et dans la
+notice qui part avec le dossier. Les `1.0.12` des exemples ci-dessus ne sont que des exemples —
+lisez le vôtre dans le manifeste.
 
 ## Tests
 

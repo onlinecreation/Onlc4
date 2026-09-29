@@ -1,13 +1,13 @@
 import { Arr } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
-import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 import * as Jsonld from '../core/Jsonld';
 import * as Meta from '../core/Meta';

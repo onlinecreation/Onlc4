@@ -1,9 +1,9 @@
 import Editor from 'hugerte/core/api/Editor';
-import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 import * as Dom from '../../core/shortcodes/Dom';
 

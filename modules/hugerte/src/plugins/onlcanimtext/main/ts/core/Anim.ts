@@ -53,8 +53,16 @@ const isKind = (value: unknown): value is AnimKind =>
   Type.isString(value) && Arr.contains(kinds, value as AnimKind);
 
 /** Durée par défaut d'un cycle, par sorte d'animation. */
-export const defaultDuration = (kind: AnimKind): number =>
-  kind === 'scroll' ? 12 : (kind === 'blink' ? 1.4 : 6);
+const defaultDurations: Record<AnimKind, number> = {
+  // Le temps qu'un texte traverse l'écran sans qu'on ait à courir après.
+  scroll: 12,
+  // Un clignotement plus lent ne se lit plus comme un clignotement.
+  blink: 1.4,
+  // Le temps de lire un mot avant que le suivant le remplace.
+  rotate: 6
+};
+
+export const defaultDuration = (kind: AnimKind): number => defaultDurations[kind];
 
 /**
  * Une durée utilisable : un nombre de secondes, borné.

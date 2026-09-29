@@ -1,13 +1,13 @@
 import { Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
-import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import { Toolbar } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as LinkActions from 'hugerte/plugins/onlcshared/link/LinkActions';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 const isInAnchor = (editor: Editor): boolean => LinkActions.getSelectedAnchor(editor).isSome();
 

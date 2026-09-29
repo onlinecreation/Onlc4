@@ -3,8 +3,8 @@ import { Arr, Optional, Type } from '@ephox/katamari';
 import Editor from 'hugerte/core/api/Editor';
 import { Menu } from 'hugerte/core/api/ui/Ui';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
-import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 import * as Options from '../api/Options';
 import * as Actions from '../core/Actions';

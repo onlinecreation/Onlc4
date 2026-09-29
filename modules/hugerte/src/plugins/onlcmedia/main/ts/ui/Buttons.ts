@@ -1,9 +1,9 @@
 import { Type } from '@ephox/katamari';
 
 import Editor from 'hugerte/core/api/Editor';
-import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 import * as ImageHtml from '../core/ImageHtml';
 

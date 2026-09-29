@@ -99,134 +99,134 @@ export interface PreviewControls {
 
 const create = (editor: Editor, controls: PreviewControls = { toggleFullscreen: Fun.noop }) =>
   (element: HTMLElement): Promise<Dialog.CustomEditorInit> => {
-  const doc = element.ownerDocument;
-  injectStyles(doc);
+    const doc = element.ownerDocument;
+    injectStyles(doc);
 
-  const t = (text: string): string => editor.translate(text) as string;
+    const t = (text: string): string => editor.translate(text) as string;
 
-  element.className = 'onlc-pagepreview';
-  element.innerHTML = '';
+    element.className = 'onlc-pagepreview';
+    element.innerHTML = '';
 
-  const bar = doc.createElement('div');
-  bar.className = 'onlc-pagepreview__bar';
+    const bar = doc.createElement('div');
+    bar.className = 'onlc-pagepreview__bar';
 
-  const stage = doc.createElement('div');
-  stage.className = 'onlc-pagepreview__stage';
+    const stage = doc.createElement('div');
+    stage.className = 'onlc-pagepreview__stage';
 
-  element.appendChild(bar);
-  element.appendChild(stage);
+    element.appendChild(bar);
+    element.appendChild(stage);
 
-  let width = 0;
-  let frame: HTMLIFrameElement | null = null;
+    let width = 0;
+    let frame: HTMLIFrameElement | null = null;
 
-  const buttons = devices.map((device) => {
-    const button = doc.createElement('button');
-    button.type = 'button';
-    button.className = 'onlc-pagepreview__device';
-    button.textContent = t(device.label);
-    button.addEventListener('click', () => {
-      width = device.width;
-      apply();
+    const buttons = devices.map((device) => {
+      const button = doc.createElement('button');
+      button.type = 'button';
+      button.className = 'onlc-pagepreview__device';
+      button.textContent = t(device.label);
+      button.addEventListener('click', () => {
+        width = device.width;
+        apply();
+      });
+      bar.appendChild(button);
+      return button;
     });
-    bar.appendChild(button);
-    return button;
-  });
 
-  /**
+    /**
    * Les langues de la page, quand elle en porte plusieurs.
    *
    * Un visiteur ne voit qu'une langue : l'aperçu en montre donc une seule, et dit laquelle.
    * Sans le plugin polyglotte — ou sur une page monolingue — la bande reste telle qu'elle était.
    */
-  const languages = Multilang.languagesOf(editor);
-  let language = languages.length === 0 ? '' : languages[0].code;
+    const languages = Multilang.languagesOf(editor);
+    let language = languages.length === 0 ? '' : languages[0].code;
 
-  const languageButtons = languages.length < 2 ? [] : Arr.map(languages, (entry) => {
-    const button = doc.createElement('button');
-    button.type = 'button';
-    button.className = 'onlc-pagepreview__device';
-    button.textContent = entry.label;
-    button.addEventListener('click', () => {
-      language = entry.code;
-      apply();
-      rebuild();
+    const languageButtons = languages.length < 2 ? [] : Arr.map(languages, (entry) => {
+      const button = doc.createElement('button');
+      button.type = 'button';
+      button.className = 'onlc-pagepreview__device';
+      button.textContent = entry.label;
+      button.addEventListener('click', () => {
+        language = entry.code;
+        apply();
+        rebuild();
+      });
+      return button;
     });
-    return button;
-  });
 
-  /**
+    /**
    * Le plein écran : voir la page dans les conditions du visiteur.
    *
    * Une fenêtre d'éditeur mesure quelques centaines de pixels de haut. Une page d'accueil s'y
    * juge mal — et certaines techniques ne s'y voient pas du tout : une parallaxe faite d'un
    * calque fixé se règle sur la hauteur du cadre, et un cadre court la montre de travers.
    */
-  let fullscreen = false;
-  const fullscreenButton = doc.createElement('button');
-  fullscreenButton.type = 'button';
-  fullscreenButton.className = 'onlc-pagepreview__device';
+    let fullscreen = false;
+    const fullscreenButton = doc.createElement('button');
+    fullscreenButton.type = 'button';
+    fullscreenButton.className = 'onlc-pagepreview__device';
 
-  const refreshFullscreen = () => {
-    fullscreenButton.textContent = t(fullscreen ? 'Quitter le plein écran' : 'Plein écran');
-    fullscreenButton.setAttribute('aria-pressed', fullscreen ? 'true' : 'false');
-  };
+    const refreshFullscreen = () => {
+      fullscreenButton.textContent = t(fullscreen ? 'Quitter le plein écran' : 'Plein écran');
+      fullscreenButton.setAttribute('aria-pressed', fullscreen ? 'true' : 'false');
+    };
 
-  fullscreenButton.addEventListener('click', () => {
-    fullscreen = !fullscreen;
+    fullscreenButton.addEventListener('click', () => {
+      fullscreen = !fullscreen;
+      refreshFullscreen();
+      controls.toggleFullscreen();
+    });
     refreshFullscreen();
-    controls.toggleFullscreen();
-  });
-  refreshFullscreen();
-  bar.appendChild(fullscreenButton);
+    bar.appendChild(fullscreenButton);
 
-  if (languageButtons.length > 0) {
-    const spacer = doc.createElement('span');
-    spacer.className = 'onlc-pagepreview__spacer';
+    if (languageButtons.length > 0) {
+      const spacer = doc.createElement('span');
+      spacer.className = 'onlc-pagepreview__spacer';
 
-    const legend = doc.createElement('span');
-    legend.className = 'onlc-pagepreview__legend';
-    legend.textContent = `${t('Langue du visiteur')} :`;
+      const legend = doc.createElement('span');
+      legend.className = 'onlc-pagepreview__legend';
+      legend.textContent = `${t('Langue du visiteur')} :`;
 
-    const group = doc.createElement('span');
-    group.className = 'onlc-pagepreview__group';
-    group.appendChild(legend);
-    languageButtons.forEach((button) => group.appendChild(button));
+      const group = doc.createElement('span');
+      group.className = 'onlc-pagepreview__group';
+      group.appendChild(legend);
+      languageButtons.forEach((button) => group.appendChild(button));
 
-    bar.appendChild(spacer);
-    bar.appendChild(group);
-  }
-
-  const apply = () => {
-    if (frame !== null) {
-      frame.style.maxWidth = width === 0 ? '100%' : `${width}px`;
+      bar.appendChild(spacer);
+      bar.appendChild(group);
     }
-    buttons.forEach((button, index) => {
-      button.setAttribute('aria-pressed', devices[index].width === width ? 'true' : 'false');
-    });
-    languageButtons.forEach((button, index) => {
-      button.setAttribute('aria-pressed', languages[index].code === language ? 'true' : 'false');
-    });
-  };
 
-  const message = (text: string) => {
-    const paragraph = doc.createElement('p');
-    paragraph.className = 'onlc-pagepreview__message';
-    paragraph.textContent = t(text);
-    stage.innerHTML = '';
-    stage.appendChild(paragraph);
-  };
+    const apply = () => {
+      if (frame !== null) {
+        frame.style.maxWidth = width === 0 ? '100%' : `${width}px`;
+      }
+      buttons.forEach((button, index) => {
+        button.setAttribute('aria-pressed', devices[index].width === width ? 'true' : 'false');
+      });
+      languageButtons.forEach((button, index) => {
+        button.setAttribute('aria-pressed', languages[index].code === language ? 'true' : 'false');
+      });
+    };
 
-  /** Adresse `blob:` du document affiché, révoquée dès qu'une autre prend sa place. */
-  let objectUrl = '';
+    const message = (text: string) => {
+      const paragraph = doc.createElement('p');
+      paragraph.className = 'onlc-pagepreview__message';
+      paragraph.textContent = t(text);
+      stage.innerHTML = '';
+      stage.appendChild(paragraph);
+    };
 
-  const releaseUrl = () => {
-    if (objectUrl !== '') {
-      URL.revokeObjectURL(objectUrl);
-      objectUrl = '';
-    }
-  };
+    /** Adresse `blob:` du document affiché, révoquée dès qu'une autre prend sa place. */
+    let objectUrl = '';
 
-  /**
+    const releaseUrl = () => {
+      if (objectUrl !== '') {
+        URL.revokeObjectURL(objectUrl);
+        objectUrl = '';
+      }
+    };
+
+    /**
    * Le cadre est construit **une fois la page prête**, avec son adresse déjà posée.
    *
    * Il n'est attaché qu'une seule fois et n'est plus jamais déplacé : sortir un iframe du dom puis
@@ -234,85 +234,85 @@ const create = (editor: Editor, controls: PreviewControls = { toggleFullscreen: 
    * d'attente est donc un élément à part, posé par-dessus, que l'on retire au lieu de vider la
    * scène.
    */
-  const show = (html: string) => {
-    releaseUrl();
-    objectUrl = URL.createObjectURL(new Blob([ html ], { type: 'text/html;charset=utf-8' }));
+    const show = (html: string) => {
+      releaseUrl();
+      objectUrl = URL.createObjectURL(new Blob([ html ], { type: 'text/html;charset=utf-8' }));
 
-    const created = doc.createElement('iframe');
-    created.className = 'onlc-pagepreview__frame';
-    created.setAttribute('sandbox', Options.getPreviewSandbox(editor));
-    created.setAttribute('title', t('Aperçu de la page'));
-    // Le gabarit charge ses feuilles et ses scripts depuis les serveurs du site : le référent
-    // n'a pas à leur apprendre d'où l'on écrit.
-    created.setAttribute('referrerpolicy', 'no-referrer');
-    created.setAttribute('src', objectUrl);
+      const created = doc.createElement('iframe');
+      created.className = 'onlc-pagepreview__frame';
+      created.setAttribute('sandbox', Options.getPreviewSandbox(editor));
+      created.setAttribute('title', t('Aperçu de la page'));
+      // Le gabarit charge ses feuilles et ses scripts depuis les serveurs du site : le référent
+      // n'a pas à leur apprendre d'où l'on écrit.
+      created.setAttribute('referrerpolicy', 'no-referrer');
+      created.setAttribute('src', objectUrl);
 
-    // Le cadre est adopté tout de suite, avant même d'avoir peint : une largeur choisie pendant
-    // le chargement doit s'appliquer, pas se perdre.
-    frame = created;
+      // Le cadre est adopté tout de suite, avant même d'avoir peint : une largeur choisie pendant
+      // le chargement doit s'appliquer, pas se perdre.
+      frame = created;
 
-    // Le gabarit charge ses feuilles de style avant de peindre quoi que ce soit : sur une
-    // connexion lente, le cadre reste blanc plusieurs secondes. Le message d'attente reste donc
-    // affiché par-dessus, et le cadre travaille dessous.
-    const waiting = doc.createElement('p');
-    waiting.className = 'onlc-pagepreview__message onlc-pagepreview__message--over';
-    waiting.textContent = t('Construction de l’aperçu…');
+      // Le gabarit charge ses feuilles de style avant de peindre quoi que ce soit : sur une
+      // connexion lente, le cadre reste blanc plusieurs secondes. Le message d'attente reste donc
+      // affiché par-dessus, et le cadre travaille dessous.
+      const waiting = doc.createElement('p');
+      waiting.className = 'onlc-pagepreview__message onlc-pagepreview__message--over';
+      waiting.textContent = t('Construction de l’aperçu…');
 
-    stage.innerHTML = '';
-    stage.appendChild(created);
-    stage.appendChild(waiting);
-    apply();
+      stage.innerHTML = '';
+      stage.appendChild(created);
+      stage.appendChild(waiting);
+      apply();
 
-    let shown = false;
-    const reveal = () => {
-      if (shown) {
-        return;
-      }
-      shown = true;
-      if (waiting.parentNode !== null) {
-        waiting.parentNode.removeChild(waiting);
-      }
+      let shown = false;
+      const reveal = () => {
+        if (shown) {
+          return;
+        }
+        shown = true;
+        if (waiting.parentNode !== null) {
+          waiting.parentNode.removeChild(waiting);
+        }
+      };
+
+      created.addEventListener('load', reveal, { once: true });
+
+      // `load` attend **toutes** les ressources du gabarit — chaque feuille, chaque police, chaque
+      // image. Une seule qui ne répond pas, et l'aperçu ne s'affiche jamais : c'est ce qui arrive
+      // derrière un filtrage d'entreprise ou quand un cdn est injoignable. Passé ce délai, on
+      // montre donc ce qui est là. Les feuilles du site, elles, sont servies par le site : ce qui
+      // manque à l'écran est ce qui manquerait aussi au visiteur.
+      const deadline = element.ownerDocument.defaultView?.setTimeout(reveal, revealDelay);
+      created.addEventListener('load', () => {
+        element.ownerDocument.defaultView?.clearTimeout(deadline);
+      }, { once: true });
     };
 
-    created.addEventListener('load', reveal, { once: true });
+    /** Construit — ou reconstruit — l'aperçu pour la langue choisie. */
+    const rebuild = (): void => {
+      frame = null;
+      message('Construction de l’aperçu…');
 
-    // `load` attend **toutes** les ressources du gabarit — chaque feuille, chaque police, chaque
-    // image. Une seule qui ne répond pas, et l'aperçu ne s'affiche jamais : c'est ce qui arrive
-    // derrière un filtrage d'entreprise ou quand un cdn est injoignable. Passé ce délai, on
-    // montre donc ce qui est là. Les feuilles du site, elles, sont servies par le site : ce qui
-    // manque à l'écran est ce qui manquerait aussi au visiteur.
-    const deadline = element.ownerDocument.defaultView?.setTimeout(reveal, revealDelay);
-    created.addEventListener('load', () => {
-      element.ownerDocument.defaultView?.clearTimeout(deadline);
-    }, { once: true });
-  };
+      PagePreview.render(editor, language === '' ? undefined : language).then(show, (err: unknown) => {
+        releaseUrl();
+        message(`${t('L’aperçu n’a pas pu être construit')} : ${err instanceof Error ? err.message : String(err)}`);
+      });
+    };
 
-  /** Construit — ou reconstruit — l'aperçu pour la langue choisie. */
-  const rebuild = (): void => {
-    frame = null;
-    message('Construction de l’aperçu…');
+    // L'état des trois largeurs est posé d'emblée : il ne dépend pas du chargement de la page, et
+    // une bande de boutons dont aucun n'est marqué ne dit rien de ce qui est affiché.
+    apply();
+    rebuild();
 
-    PagePreview.render(editor, language === '' ? undefined : language).then(show, (err: unknown) => {
-      releaseUrl();
-      message(`${t('L’aperçu n’a pas pu être construit')} : ${err instanceof Error ? err.message : String(err)}`);
+    return Promise.resolve({
+    // La fenêtre ne renvoie rien : c'est un aperçu, pas un formulaire.
+      getValue: Fun.constant(''),
+      setValue: Fun.noop,
+      destroy: () => {
+        releaseUrl();
+        element.innerHTML = '';
+      }
     });
   };
-
-  // L'état des trois largeurs est posé d'emblée : il ne dépend pas du chargement de la page, et
-  // une bande de boutons dont aucun n'est marqué ne dit rien de ce qui est affiché.
-  apply();
-  rebuild();
-
-  return Promise.resolve({
-    // La fenêtre ne renvoie rien : c'est un aperçu, pas un formulaire.
-    getValue: Fun.constant(''),
-    setValue: Fun.noop,
-    destroy: () => {
-      releaseUrl();
-      element.innerHTML = '';
-    }
-  });
-};
 
 const open = (editor: Editor): void => {
   // La fenêtre n'existe pas encore quand son contenu est décrit : le basculement est posé dans

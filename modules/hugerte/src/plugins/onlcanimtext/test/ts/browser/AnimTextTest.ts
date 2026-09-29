@@ -3,11 +3,11 @@ import { TinyHooks } from '@ephox/wrap-mcagar';
 import { assert } from 'chai';
 
 import Editor from 'hugerte/core/api/Editor';
-import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 import * as Anim from 'hugerte/plugins/onlcanimtext/core/Anim';
 import * as Markup from 'hugerte/plugins/onlcanimtext/core/Markup';
 import * as Styles from 'hugerte/plugins/onlcanimtext/core/Styles';
 import AnimTextPlugin from 'hugerte/plugins/onlcanimtext/Plugin';
+import * as PublishedCss from 'hugerte/plugins/onlcshared/PublishedCss';
 
 /**
  * Le texte animé : ce qu'il reconnaît, ce qu'il écrit, et ce qu'il laisse dans la page.
@@ -63,7 +63,7 @@ describe('browser.hugerte.plugins.onlcanimtext.AnimTextTest', () => {
   it('écrit un passage lisible même sans la feuille', () => {
     const editor = hook.editor();
     editor.setContent('<p>x</p>');
-    const element = Markup.create(editor, { kind: 'rotate', duration: 6, items: [ 'Un', 'Deux' ]});
+    const element = Markup.create(editor, { kind: 'rotate', duration: 6, items: [ 'Un', 'Deux' ] });
 
     assert.equal(element.textContent, 'UnDeux',
       'les mots se suivent en texte ordinaire : un lecteur d’écran les lit');
@@ -115,7 +115,7 @@ describe('browser.hugerte.plugins.onlcanimtext.AnimTextTest', () => {
   it('donne à chaque mot son rang dans la ronde', () => {
     const editor = hook.editor();
     editor.setContent('<p>x</p>');
-    const element = Markup.create(editor, { kind: 'rotate', duration: 4, items: [ 'A', 'B', 'C' ]});
+    const element = Markup.create(editor, { kind: 'rotate', duration: 4, items: [ 'A', 'B', 'C' ] });
 
     const mots = element.querySelectorAll<HTMLElement>(`.${Anim.itemClass}`);
     assert.lengthOf(mots, 3);

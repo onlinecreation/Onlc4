@@ -1,10 +1,10 @@
 import Editor from 'hugerte/core/api/Editor';
-import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 import * as BlockActions from 'hugerte/plugins/onlcshared/BlockActions';
 import * as BlockAtoms from 'hugerte/plugins/onlcshared/BlockAtoms';
 import * as BlockKinds from 'hugerte/plugins/onlcshared/BlockKinds';
 import * as ActionIcons from 'hugerte/plugins/onlcshared/ui/ActionIcons';
 import * as KindIcons from 'hugerte/plugins/onlcshared/ui/KindIcons';
+import * as MenuEntries from 'hugerte/plugins/onlcshared/ui/MenuEntries';
 
 import * as Script from '../core/Script';
 import * as WidgetDom from '../core/WidgetDom';

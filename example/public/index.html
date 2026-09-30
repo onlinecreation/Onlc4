@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23006ce7'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E">
+    <title>ONLC 4 — démonstration</title>
+
+    <!--
+      Polices Google utilisées par les sites Online Création. Le chargement différé
+      (`preload` puis bascule en `stylesheet`) évite de retarder l'affichage de la page.
+      Les mêmes familles sont proposées dans le sélecteur de typographie de l'éditeur.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Asar|Concert+One|Cinzel|Gloria+Hallelujah|Indie+Flower|Josefin+Sans:400,400i,700,700i|Lato:300,300i,400,400i|Lobster|Macondo|Cormorant+Garamond:400%2C700|Montserrat:400,400i,700,700i|Open+Sans+Condensed:300,300i,700|Open+Sans:400,400i,700,700i|Oswald:400,700|Pacifico|Playfair+Display:400,400i,700|Quicksand:400,700|Raleway:400,400i,700,700i|Roboto+Condensed:400,400i,700,700i|Roboto:400,400i,700,700i|Rubik+Mono+One|Sacramento|Source+Sans+Pro:400,400i,700,700i|Spirax|UnifrakturCook:700&amp;subset=latin-ext&amp;display=swap"
+          rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|Lobster|Montserrat|Open+Sans|Oswald|Pacifico|Playfair+Display|Quicksand|Raleway|Roboto&amp;subset=latin-ext&amp;display=swap">
+    </noscript>
+
+    <link rel="stylesheet" href="/assets/demo.css">
+  </head>
+  <body>
+    <header class="entete">
+      <div>
+        <h1>ONLC 4 — démonstration</h1>
+        <p>Tous les plugins ONLC branchés sur des API simulées : médias, liens, icônes et éditeur d’images.</p>
+      </div>
+      <nav class="entete__liens">
+        <a href="/api/media/list?path=/" target="_blank" rel="noopener">API médias</a>
+        <a href="/api/links" target="_blank" rel="noopener">API liens</a>
+        <a href="/api/icons" target="_blank" rel="noopener">API icônes</a>
+        <a href="/pixie/" target="_blank" rel="noopener">Pixel•OnlineCreation</a>
+        <a href="/lmparts.html">Page d’accueil d’un site réel</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="carte carte--astuces">
+        <h2>Que tester ?</h2>
+        <ul>
+          <li><strong>Blocs</strong> : survolez un paragraphe, déplacez-le avec la poignée, utilisez les « + » pour insérer une ligne de colonnes.</li>
+          <li><strong>Colonnes</strong> : cliquez dans une colonne — la barre de la ligne propose les sept dispositions, sous forme de schémas.</li>
+          <li><strong>Médiathèque</strong> : bouton <em>Bibliothèque</em> — barre latérale, fil d’Ariane, glisser-déposer, retouche dans Pixel.</li>
+          <li><strong>Images</strong> : la première utilise l’effet parallaxe, la seconde une largeur en pourcentage — le HTML enregistré ne contient ni <code>width</code> ni <code>height</code>.</li>
+          <li><strong>Médias inertes</strong> : vidéo, page intégrée, carte, PDF et galerie s’affichent en vignette. Un clic sélectionne le bloc, « Modifier le bloc » l’ouvre.</li>
+          <li><strong>Carte</strong> : le formulaire cherche une adresse (Nominatim), l’aperçu est un damier de tuiles OpenStreetMap, la page publiée reçoit Leaflet et ses imports CDNJS.</li>
+          <li><strong>Calendrier</strong> : grille du mois d’avril 2026 avec ses rendez-vous, modifiables ligne par ligne.</li>
+          <li><strong>Codes courts</strong> : <code>[MenuSite]</code>, <code>[Contact]</code>, <code>[SocialButtons]</code>… s’affichent en blocs explicites et repartent à l’identique.</li>
+          <li><strong>Polyglotte</strong> : les passages <code>[LG]</code> et <code>&lt;multilang&gt;</code> deviennent des sections encadrées et nommées. Survolez un bloc et cliquez le globe de sa barre d’outils pour lui donner une langue ; le menu <em>Langues</em> fait de même pour une sélection de texte, complète les traductions manquantes et n’affiche qu’une langue à la fois.</li>
+          <li><strong>Emojis</strong> : tapez un emoji — il devient un dessin OpenMoji, identique sur tous les appareils.</li>
+          <li><strong>Script &amp; source</strong> : le contenu contient <code>alert("hello")</code> — aucune alerte ne s’affiche, le jeton jaune montre les trois premières lignes.</li>
+          <li><strong>Langues</strong> : ajoutez <code>&lt;script src="/hugerte/langs/onlc/es.js"&gt;&lt;/script&gt;</code> et <code>language: 'es'</code> pour passer l’interface en espagnol.</li>
+        </ul>
+      </section>
+
+      <textarea id="contenu" aria-label="Contenu de la page"></textarea>
+
+      <section class="carte">
+        <div class="carte__entete">
+          <h2>HTML enregistré</h2>
+          <div>
+            <button type="button" id="enregistrer">Enregistrer</button>
+            <button type="button" id="rafraichir">Rafraîchir l’aperçu</button>
+          </div>
+        </div>
+        <p class="carte__note" id="statut">Le contenu envoyé au serveur s’affiche ici, tel qu’il serait stocké en base.</p>
+        <pre id="sortie"><code>—</code></pre>
+      </section>
+    </main>
+
+    <script src="/hugerte/hugerte.js"></script>
+    <!--
+      Aucun paquet de langue à inclure : `language:` s'en charge.
+
+      Chaque `langs/<code>.js` porte les chaînes du cœur **et** celles des plugins ONLC ; le
+      cœur va le chercher tout seul. Ajoutez « ?lang=nl » à l'adresse pour voir l'interface en
+      néerlandais, « ?lang=en » ou « ?lang=es » pour les deux autres.
+    -->
+    <script src="/assets/demo.js"></script>
+  </body>
+</html>

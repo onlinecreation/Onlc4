@@ -1,0 +1,150 @@
+/**
+ * Les diaporamas dans la zone d'écriture.
+ *
+ * Cette feuille ne décrit **que** l'édition, et n'est pas déclarée au registre des styles de
+ * publication : sur le site, c'est Swiper qui met les vues côte à côte et la feuille du design qui
+ * les habille. Ici, aucun script du contenu ne s'exécute — c'est la règle qui protège le
+ * back-office — et un diaporama de huit photos s'empilerait sur huit écrans.
+ *
+ * Le rendu d'écriture est donc une **bande qui défile horizontalement** : on voit les vues dans
+ * leur ordre, on peut faire défiler pour les compter, et le reste de la page reste atteignable.
+ * Ce n'est pas un aperçu fidèle, et cela ne prétend pas l'être ; l'aperçu visiteur, lui, exécute
+ * la vraie bibliothèque.
+ */
+
+/**
+ * L'aperçu : un bandeau qui nomme le bloc, un cadre, une mention qui dit comment le régler.
+ *
+ * Le bandeau et la mention sont des nœuds **fantômes** — `data-mce-bogus="all"` — posés par
+ * `core/Card`. Le cœur les retire à l'enregistrement : rien de ce décor ne touche le html du
+ * rédacteur, dont ce plugin n'est jamais propriétaire.
+ *
+ * Le cadre est dessiné sur le bandeau et sur la piste plutôt que sur le conteneur, qui appartient
+ * lui aussi au rédacteur et ne doit recevoir ni classe ni style de notre fait.
+ */
+.onlc-swiper-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  align-items: baseline;
+  box-sizing: border-box;
+  /* Le retrait à gauche dégage la pastille du type, que l'espace de travail dessine dans l'angle
+     du contour pendant le survol : sans lui, elle recouvrait le début du bandeau. */
+  padding: 6px 10px 6px 24px;
+  color: #22303c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  background: #eef2f6;
+  border: 1px solid #dde3ea;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  user-select: none;
+}
+
+.onlc-swiper-head__name {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.onlc-swiper-head__detail {
+  color: #5a6570;
+}
+
+.onlc-swiper-foot {
+  box-sizing: border-box;
+  padding: 5px 10px;
+  color: #5a6570;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  background: #f8fafc;
+  border: 1px solid #dde3ea;
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+  user-select: none;
+}
+
+/* La piste devient le corps de la vignette dès qu'un bandeau la précède. */
+.onlc-swiper-head + .swiper-wrapper {
+  background: #fff;
+  border-right: 1px solid #dde3ea;
+  border-left: 1px solid #dde3ea;
+}
+
+.swiper-wrapper {
+  display: flex;
+  gap: 8px;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0;
+  /**
+   * La piste **ne défile pas**.
+   *
+   * Elle l'a fait, avec `overflow-x: auto`, pour qu'on puisse compter les vues. Mais un
+   * conteneur à défilement porte une barre : sur les systèmes qui les superposent, elle
+   * apparaissait au passage du pointeur et s'attardait deux bonnes secondes après son départ,
+   * clignotant au milieu de la page pour rien.
+   *
+   * Elle n'a plus lieu d'être : le diaporama se manipule d'une pièce, ses vues se comptent dans
+   * le bandeau — « 8 vues » — et se réordonnent dans le formulaire, où elles sont toutes
+   * visibles. Ce qui dépasse est simplement estompé.
+   */
+  overflow: hidden;
+  /* Sans cela, une piste posée dans une colonne étroite pousse la colonne au lieu d'être coupée. */
+  min-width: 0;
+  /* Rien ne se sélectionne : le contenu du diaporama ne se modifie que par son formulaire. */
+  user-select: none;
+  -webkit-user-select: none;
+  mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent 100%);
+}
+
+/**
+ * Une vue garde sa **largeur naturelle**.
+ *
+ * Seule la hauteur est bornée — c'est `onlc_swiper_edit_height` qui la fixe, et c'est elle qui
+ * empêche un diaporama de huit photos d'occuper huit écrans. La largeur, elle, découle du rapport
+ * de l'image : les vues s'alignent alors comme sur le site, dans leurs proportions.
+ *
+ * Elle était auparavant plafonnée à 60 % de la piste, ce qui donnait, sur un diaporama d'avis en
+ * pleine largeur, des vues de six cents pixels de large autour d'une image de deux cents : un
+ * espace vide démesuré de part et d'autre, qui ne ressemblait à rien de ce que le visiteur verra.
+ */
+.swiper-wrapper > .swiper-slide {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  /* La largeur vient du contenu ; le plafond ne sert qu'aux vues libres, dont le texte s'étirerait
+     sur une seule ligne interminable. */
+  width: auto;
+  /* Un plancher, pour qu'une image encore en cours de chargement — ou introuvable — n'écrase pas
+     la vue à zéro pixel de large : la piste deviendrait illisible le temps du chargement. */
+  min-width: 90px;
+  max-width: 420px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.swiper-wrapper > .swiper-slide img {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: 100%;
+}
+
+/**
+ * Les commandes de Swiper — flèches, points, barre — n'ont rien à commander tant que la
+ * bibliothèque ne tourne pas. Elles sont montrées estompées : les cacher ferait croire qu'elles
+ * n'existent pas, et le formulaire propose justement de les activer ou non.
+ */
+.swiper-button-next,
+.swiper-button-prev,
+.swiper-pagination,
+.swiper-scrollbar {
+  opacity: 0.35;
+}

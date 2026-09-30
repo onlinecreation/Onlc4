@@ -19,6 +19,13 @@ export interface MenuRegistry {
 
 const defaultMenubar = 'file edit view insert format tools table help';
 
+/**
+ * Les listes montrées par chaque menu de la barre, quand le projet n'en décrit pas lui-même.
+ *
+ * Exportée pour que les plugins qui **complètent** l'option `menu` — plutôt que de la remplacer —
+ * puissent vérifier que leur copie de ces listes n'a pas dérivé. Voir
+ * `plugins/onlcshared/ui/MenuEntries`.
+ */
 const defaultMenus: Record<string, MenuSpec> = {
   file: { title: 'File', items: 'newdocument restoredraft | preview | importword exportpdf exportword | export print | deleteallconversations' },
   edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
@@ -83,4 +90,4 @@ const identifyMenus = (editor: Editor, registry: MenuRegistry): MenubarItemSpec[
   });
 };
 
-export { identifyMenus };
+export { defaultMenus, identifyMenus };

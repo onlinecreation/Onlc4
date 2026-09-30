@@ -218,8 +218,15 @@ const EditorManager: EditorManager = {
         // hugerte.js hugerte.min.js hugerte.dev.js
         // hugerte.jquery.js hugerte.jquery.min.js hugerte.jquery.dev.js
         // hugerte.full.js hugerte.full.min.js hugerte.full.dev.js
+        // onlc4.js onlc4.min.js onlc4.dev.js
+        //
+        // C'est ce nom de fichier qui donne à l'éditeur son dossier d'installation et son
+        // suffixe : plugins, thème, modèle et habillage sont ensuite demandés à côté de lui.
+        // Le paquet CDN livre l'éditeur sous le nom `onlc4.min.js` ; sans cette variante, le
+        // dossier ne serait deviné que par `document.currentScript`, qui vaut `null` dès que le
+        // script est chargé autrement que par une balise classique (module, injection).
         const srcScript = src.substring(src.lastIndexOf('/'));
-        if (/hugerte(\.full|\.jquery|)(\.min|\.dev|)\.js/.test(src)) {
+        if (/(hugerte|onlc4)(\.full|\.jquery|)(\.min|\.dev|)\.js/.test(src)) {
           if (srcScript.indexOf('.min') !== -1) {
             suffix = '.min';
           }

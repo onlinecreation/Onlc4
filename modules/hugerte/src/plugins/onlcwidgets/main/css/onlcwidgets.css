@@ -1,0 +1,606 @@
+/**
+ * Content styles of the onlcwidgets plugin. They are loaded in the editable area so that the
+ * predefined blocks and the script chips look like what they will be once published. Projects
+ * usually ship their own front-end css: everything here is deliberately neutral.
+ */
+
+.onlc-widget {
+  position: relative;
+  margin: 0 0 16px;
+}
+
+.onlc-widget__inner {
+  padding: 4px 0;
+}
+
+.onlc-widget__static {
+  user-select: none;
+}
+
+.onlc-widget__empty {
+  padding: 24px;
+  color: #5a6570;
+  text-align: center;
+  background: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03) 8px, transparent 8px, transparent 16px);
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.onlc-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #006ce7;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.onlc-btn.btn-secondary {
+  background-color: #5a6570;
+}
+
+.onlc-btn.btn-outline-primary {
+  color: #006ce7;
+  background-color: transparent;
+  border-color: #006ce7;
+}
+
+.onlc-btn.btn-link {
+  padding: 0;
+  color: #006ce7;
+  text-decoration: underline;
+  background: none;
+}
+
+.onlc-btn.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.875em;
+}
+
+.onlc-btn.btn-lg {
+  padding: 14px 30px;
+  font-size: 1.125em;
+}
+
+.onlc-btn.w-100 {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Hero ------------------------------------------------------------------- */
+
+.onlc-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 24px;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+
+.onlc-hero__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.onlc-hero__content {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.onlc-hero__title {
+  margin: 0 0 12px;
+  font-size: 2em;
+}
+
+.onlc-hero__subtitle {
+  margin: 0 0 20px;
+  font-size: 1.125em;
+}
+
+/* Embeds ----------------------------------------------------------------- */
+
+.onlc-embed {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  background: #eef1f4;
+  border-radius: 4px;
+}
+
+.onlc-embed--fixed {
+  height: auto;
+  padding-bottom: 0;
+}
+
+.onlc-embed__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.onlc-embed--fixed .onlc-embed__frame {
+  position: static;
+}
+
+/* Html widget ------------------------------------------------------------ */
+
+.onlc-widget__html {
+  padding: 12px;
+  background: #f4f6f8;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.onlc-widget__html-name {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.8125em;
+  font-weight: 700;
+  color: #5a6570;
+  text-transform: uppercase;
+}
+
+.onlc-widget__html-hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.75em;
+  color: #8a949e;
+}
+
+.onlc-widget__html-code {
+  max-height: 160px;
+  margin: 0;
+  overflow: auto;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.8125em;
+  white-space: pre-wrap;
+}
+
+/* Quote ------------------------------------------------------------------ */
+
+.onlc-quote {
+  margin: 0;
+  padding: 16px 24px;
+  border-left: 4px solid #006ce7;
+}
+
+.onlc-quote blockquote {
+  margin: 0;
+  font-size: 1.125em;
+  font-style: italic;
+}
+
+.onlc-quote__author {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.onlc-quote__source {
+  font-size: 0.875em;
+}
+
+/* Jeton de script ---------------------------------------------------------- */
+
+/* Le contenu de la page décide de son propre `box-sizing` ; les décorations de l'éditeur
+   décident du leur. Sans cette règle, un jeton large de 100 % plus son retrait et son filet
+   dépassait de vingt-six pixels dans tout document dont la feuille de style ne pose pas de
+   règle globale `border-box` — c'est-à-dire la plupart. La zone d'écriture montrait alors une
+   barre de défilement horizontale dès que la fenêtre se resserrait. */
+
+.onlc-script,
+.onlc-script * {
+  box-sizing: border-box;
+}
+
+.onlc-script {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 100%;
+  padding: 8px 12px;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.8125em;
+  color: #22303c;
+  vertical-align: top;
+  background: #fff8e1;
+  border: 1px solid #e0b300;
+  border-radius: 8px;
+}
+
+.onlc-script__head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.onlc-script__badge {
+  padding: 2px 8px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #e0b300;
+  border-radius: 999px;
+}
+
+.onlc-script__title {
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.onlc-script__code {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: #4a5560;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+.onlc-script[data-mce-selected] {
+  outline: 2px solid #006ce7;
+}
+
+/* Carte publiée ------------------------------------------------------------ */
+
+.onlc-leaflet {
+  width: 100%;
+  min-height: 200px;
+  background: #eef1f4;
+  border-radius: 4px;
+}
+
+.onlc-map__credit {
+  margin: 6px 0 0;
+  font-size: 0.75em;
+  color: #5a6570;
+}
+
+.onlc-widget__note {
+  margin: 8px 0 0;
+  font-size: 0.8125em;
+  color: #5a6570;
+}
+
+/* Aperçus inertes des blocs média ------------------------------------------ */
+
+.onlc-preview {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(34, 47, 62, 0.18);
+  border-radius: 8px;
+}
+
+.onlc-preview__frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: #2b3440;
+  background-position: center;
+  background-size: cover;
+}
+
+.onlc-preview__glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 50%;
+}
+
+.onlc-preview__meta {
+  display: block;
+  padding: 10px 14px;
+}
+
+.onlc-preview__kind {
+  display: block;
+  font-size: 0.6875em;
+  font-weight: 700;
+  color: #006ce7;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.onlc-preview__title {
+  display: block;
+  overflow: hidden;
+  font-weight: 600;
+  color: #22303c;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.onlc-preview__detail {
+  display: block;
+  overflow: hidden;
+  font-size: 0.8125em;
+  color: #5a6570;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.onlc-preview__hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75em;
+  color: #8a949e;
+}
+
+.onlc-preview__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-content: flex-start;
+  padding: 10px;
+}
+
+.onlc-preview__thumb {
+  display: block;
+  background: #dfe6ec center/cover no-repeat;
+  border-radius: 3px;
+}
+
+.onlc-preview__map {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #dfe6ec;
+}
+
+.onlc-preview__tiles {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.onlc-preview__tile {
+  position: absolute;
+  width: 256px;
+  height: 256px;
+  background-repeat: no-repeat;
+  background-size: 256px 256px;
+}
+
+.onlc-preview__pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -18px 0 0 -9px;
+  background: #e0007a;
+  border: 3px solid #ffffff;
+  border-radius: 50% 50% 50% 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  transform: rotate(-45deg);
+}
+
+.onlc-preview__credit {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  color: #22303c;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+}
+
+/* Texte déployable --------------------------------------------------------- */
+
+.onlc-details {
+  margin: 0 0 12px;
+}
+
+.onlc-details--boxed {
+  padding: 4px 16px;
+  background: #f7f9fb;
+  border: 1px solid rgba(34, 47, 62, 0.15);
+  border-radius: 8px;
+}
+
+.onlc-details--plain {
+  border-bottom: 1px solid rgba(34, 47, 62, 0.15);
+}
+
+/**
+ * Le chevron du titre déployable.
+ *
+ * Il est **dessiné ici**, et le marqueur natif est retiré. Trois raisons, et la troisième est
+ * celle qui a fait le bug : le marqueur natif n'a pas la même forme d'un navigateur à l'autre, il
+ * ne se style pas de la même façon (`::marker` d'un côté, `::-webkit-details-marker` de l'autre),
+ * et surtout **n'importe quelle feuille de style du site le fait disparaître** — il suffit d'un
+ * `summary { display: block }` ou d'un `list-style: none` dans le thème. Le titre devenait alors
+ * un texte en gras sur lequel rien n'invitait à cliquer.
+ *
+ * Le triangle est tracé avec des bordures : ni police, ni image, ni caractère. Il prend la couleur
+ * du texte, et pivote d'un quart de tour quand le bloc est déplié.
+ */
+.onlc-details__summary {
+  padding: 12px 0;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.onlc-details__summary::-webkit-details-marker {
+  display: none;
+}
+
+.onlc-details__summary::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 10px;
+  vertical-align: 0.05em;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid currentColor;
+  transition: transform 0.15s ease-in-out;
+}
+
+.onlc-details[open] > .onlc-details__summary::before {
+  transform: rotate(90deg);
+}
+
+.onlc-details__body {
+  padding-bottom: 12px;
+}
+
+/* Calendrier du mois ------------------------------------------------------- */
+
+.onlc-cal {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(34, 47, 62, 0.15);
+  border-radius: 12px;
+}
+
+.onlc-cal__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid rgba(34, 47, 62, 0.1);
+}
+
+.onlc-cal__month {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: #22303c;
+}
+
+.onlc-cal__year {
+  font-size: 0.8125em;
+  color: #8a949e;
+  text-transform: capitalize;
+}
+
+.onlc-cal__weekdays,
+.onlc-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.onlc-cal__weekday {
+  padding: 8px 4px;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: #8a949e;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.onlc-cal__day {
+  display: block;
+  min-height: 92px;
+  padding: 6px;
+  border-top: 1px solid rgba(34, 47, 62, 0.08);
+  border-left: 1px solid rgba(34, 47, 62, 0.08);
+}
+
+.onlc-cal__day:nth-child(7n + 1) {
+  border-left: 0;
+}
+
+.onlc-cal__day--empty {
+  background: #fafbfc;
+}
+
+.onlc-cal__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  font-size: 0.875em;
+  font-weight: 600;
+  color: #22303c;
+}
+
+.onlc-cal__number--today {
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.onlc-cal__event {
+  display: flex;
+  gap: 4px;
+  align-items: baseline;
+  margin-top: 3px;
+  font-size: 0.75em;
+  line-height: 1.35;
+}
+
+.onlc-cal__dot {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.onlc-cal__time {
+  flex: 0 0 auto;
+  font-weight: 600;
+  color: #5a6570;
+}
+
+.onlc-cal__label {
+  color: #22303c;
+}
+
+/* Document pdf ------------------------------------------------------------- */
+
+.onlc-pdf {
+  display: block;
+  overflow-y: auto;
+  background: #eef1f4;
+  border-radius: 6px;
+}
+
+.onlc-pdf__page {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+.onlc-pdf__title {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.onlc-pdf__download {
+  margin: 8px 0 0;
+  font-size: 0.875em;
+}
+
+/* Galerie ------------------------------------------------------------------ */
+
+.onlc-gallery {
+  min-height: 60px;
+}

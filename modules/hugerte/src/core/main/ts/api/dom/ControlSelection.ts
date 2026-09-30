@@ -459,6 +459,10 @@ const ControlSelection = (selection: EditorSelection, editor: Editor): ControlSe
     Obj.each(resizeHandles, (handle) => {
       if (handle.elm) {
         dom.unbind(handle.elm);
+        // `ResizeHandle` est un tuple doublé d'un `{ elm?: Element }`, ce qui suffit à faire
+        // croire à la règle qu'on supprime un élément de tableau. `elm` est une propriété
+        // nommée : la retirer ne laisse pas de trou et ne touche pas à `length`.
+        // eslint-disable-next-line @typescript-eslint/no-array-delete
         delete handle.elm;
       }
     });

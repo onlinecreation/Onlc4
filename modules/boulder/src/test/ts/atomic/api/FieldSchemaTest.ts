@@ -15,7 +15,9 @@ UnitTest.test('Atomic Test: api.FieldSchemaTest', () => {
 
     StructureSchema.asRaw('spec', schema, input).fold(
       (err) => {
-        throw err;
+        // `asRawOrDie` jette de la même façon : sans le formatteur, l'échec s'afficherait
+        // « [object Object] » au lieu de dire quel champ ne va pas.
+        throw new Error(StructureSchema.formatError(err));
       },
       (value) => Assert.eq(label, expected, value)
     );

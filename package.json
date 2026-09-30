@@ -23,7 +23,9 @@
     "ci-all": "npm-run-all -p eslint ci -s hugerte-rollup",
     "ci-all-seq": "npm-run-all -p eslint ci-seq -s hugerte-rollup",
     "local-ci": "run-s -s ci-all test",
-    "test": "run-s headless-test browser-test",
+    "test": "run-s test-node headless-test browser-test",
+    "test-node": "node example/test/run.js",
+    "test-onlc": "yarn tsc && yarn test-node && grunt --gruntfile modules/hugerte/Gruntfile.js bedrock-auto:onlc",
     "build": "npm-run-all -p oxide-icons-ci oxide-ci -s hugerte-grunt",
     "prepublishOnly": "run-s oxide-icons-ci",
     "browser-test": "grunt browser-auto",
@@ -32,7 +34,11 @@
     "headless-test-firefox": "grunt headless-auto --bedrock-browser=firefox-headless",
     "headless-test-manual": "grunt headless-manual",
     "bedrock": "bedrock --customRoutes modules/hugerte/src/core/test/json/routes.json",
-    "test-one": "yarn tsc && yarn bedrock-auto -b chrome-headless -f"
+    "test-one": "yarn tsc && yarn bedrock-auto -b chrome-headless -f",
+    "example-build": "npm-run-all -p oxide-icons-build oxide-build -s tsc hugerte-rollup",
+    "example": "node example/server.js",
+    "build-cdn": "run-s \"hugerte-grunt prodBuild\" build-cdn-only",
+    "build-cdn-only": "node modules/hugerte/tools/cdn/build.js"
   },
   "devDependencies": {
     "@ephox/bedrock-client": "^15.0.0",
@@ -47,6 +53,7 @@
     "@types/prismjs": "^1.16.6",
     "chai": "^4.4.1",
     "chalk": "^4.1.0",
+    "clean-css": "4.2.3",
     "emojilib": "^2.4.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "fast-check": "^2.23.0",
@@ -85,6 +92,18 @@
     "webpack": "^5.74.0",
     "webpack-cli": "^7.2.3",
     "webpack-dev-server": "^5.2.0"
+  },
+  "resolutions": {
+    "baseline-browser-mapping": "2.11.0",
+    "basic-ftp": "5.3.1",
+    "body-parser": "1.20.6",
+    "diff": "5.2.2",
+    "fast-xml-parser": "4.5.7",
+    "lodash": "4.18.0",
+    "qs": "6.16.0",
+    "serve-static": "1.16.3",
+    "tar-fs": "3.1.1",
+    "ws": "8.21.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

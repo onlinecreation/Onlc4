@@ -29,11 +29,19 @@ const DOM = DOMUtils.DOM;
 
 const hasSkipLoadPrefix = (name: string) => name.charAt(0) === '-';
 
+/**
+ * Charge le paquet de langue, sauf s'il est déjà là.
+ *
+ * Le cas de l'anglais était traité à part : TinyMCE n'en livre aucun paquet, l'anglais étant la
+ * langue dans laquelle son interface est écrite. Cette distribution, elle, en livre un — les
+ * plugins ONLC sont écrits en français, et c'est donc l'anglais qui a besoin d'être traduit. Le
+ * cas particulier est retiré : `language: 'en'` charge maintenant `langs/en.js` comme les autres.
+ */
 const loadLanguage = (scriptLoader: ScriptLoader, editor: Editor) => {
   const languageCode = Options.getLanguageCode(editor);
   const languageUrl = Options.getLanguageUrl(editor);
 
-  if (!I18n.hasCode(languageCode) && languageCode !== 'en') {
+  if (!I18n.hasCode(languageCode)) {
     const url = Strings.isNotEmpty(languageUrl) ? languageUrl : `${editor.editorManager.baseURL}/langs/${languageCode}.js`;
 
     scriptLoader.add(url).catch(() => {

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" width="480" height="300" role="img" aria-label="Montage de la coque">
+  <rect width="480" height="300" fill="#eef1f5"/>
+  <rect x="90" y="90" width="140" height="120" rx="14" fill="#5a6570"/>
+  <rect x="250" y="90" width="140" height="120" rx="14" fill="#c0392b"/>
+  <path d="M236 150h12" stroke="#22303c" stroke-width="4" stroke-linecap="round"/>
+  <text x="240" y="252" font-family="sans-serif" font-size="18" fill="#22303c" text-anchor="middle">Clac</text>
+</svg>

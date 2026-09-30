@@ -60,14 +60,22 @@ export const renderImagePreview = (spec: ImagePreviewSpec, initialData: Optional
     ]
   });
 
-  const setValue = (frameComponent: AlloyComponent, data: ImagePreviewDataSpec) => {
+  const setValue = (frameComponent: AlloyComponent, data: ImagePreviewDataSpec | Dialog.ImagePreviewData) => {
+    // TINY-8393: the value can arrive either validated - optional fields as `Optional` - or raw.
+    // A tab panel, for instance, reads the value of its fields with `getValue` (raw shape) and
+    // writes it back with `setValue` when the tab is displayed again, so both shapes must work.
+    const asOptional = <T>(value: Optional<T> | T | undefined): Optional<T> =>
+      Type.isObject(value) && Type.isFunction((value as Optional<T>).each)
+        ? value as Optional<T>
+        : Optional.from(value as T | undefined);
+
     const translatedData: Dialog.ImagePreviewData = {
       url: data.url
     };
     // update properties that are set by the data
-    data.zoom.each((z) => translatedData.zoom = z);
-    data.cachedWidth.each((z) => translatedData.cachedWidth = z);
-    data.cachedHeight.each((z) => translatedData.cachedHeight = z);
+    asOptional(data.zoom).each((z) => translatedData.zoom = z);
+    asOptional(data.cachedWidth).each((z) => translatedData.cachedWidth = z);
+    asOptional(data.cachedHeight).each((z) => translatedData.cachedHeight = z);
     cachedData.set(translatedData);
 
     const applyFramePositioning = () => {

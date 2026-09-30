@@ -8,6 +8,8 @@
 *.zip binary
 *.eot binary
 *.woff binary
+*.woff2 binary
+*.pdf binary
 *.ttf binary
 *.mov binary
 *.avi binary

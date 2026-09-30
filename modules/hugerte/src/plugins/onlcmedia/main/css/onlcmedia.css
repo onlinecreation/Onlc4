@@ -1,0 +1,132 @@
+/**
+ * Styles of the images produced by the onlcmedia plugin.
+ *
+ * The file is loaded inside the editor when `onlc_media_inject_styles` is enabled, and must also
+ * be included in the front end of the site so that the rendering matches.
+ */
+
+.onlc-image {
+  position: relative;
+  margin: 0 0 1rem;
+}
+
+.onlc-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Pleine largeur */
+.onlc-image--fullwidth {
+  width: 100%;
+}
+
+.onlc-image--fullwidth img {
+  width: 100%;
+}
+
+/* Ajustement à la taille de l'écran */
+.onlc-image--cover-screen img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+/**
+ * Parallaxe : l'image reste immobile pendant que la page défile.
+ *
+ * L'effet est porté par le fond de la figure — `background-attachment: fixed` — et non par
+ * l'`<img>` : un élément en `position: fixed` est capturé par le premier ancêtre qui crée un
+ * bloc conteneur (une transformation, un filtre, un `clip-path`), et se cale alors dans un coin
+ * du cadre au lieu de rester fixe. L'adresse de l'image est écrite en style dans la figure au
+ * moment de l'enregistrement.
+ *
+ * L'`<img>` est conservé mais masqué visuellement : son texte alternatif reste disponible pour
+ * les lecteurs d'écran et les moteurs de recherche.
+ */
+.onlc-image--parallax {
+  min-height: 60vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.onlc-image--parallax img {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* iOS et la plupart des navigateurs mobiles ignorent `background-attachment: fixed` : le fond
+   y défile normalement, ce qui reste un rendu correct. */
+@media (max-width: 768px) {
+  .onlc-image--parallax {
+    min-height: 45vh;
+    background-attachment: scroll;
+  }
+}
+
+/* Texte par-dessus l'image */
+.onlc-image__overlay {
+  position: absolute;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.onlc-image__overlay--top-left {
+  top: 0;
+  left: 0;
+}
+
+.onlc-image__overlay--top-center {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.onlc-image__overlay--top-right {
+  top: 0;
+  right: 0;
+}
+
+.onlc-image__overlay--middle-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.onlc-image__overlay--middle-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.onlc-image__overlay--middle-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.onlc-image__overlay--bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.onlc-image__overlay--bottom-center {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.onlc-image__overlay--bottom-right {
+  bottom: 0;
+  right: 0;
+}

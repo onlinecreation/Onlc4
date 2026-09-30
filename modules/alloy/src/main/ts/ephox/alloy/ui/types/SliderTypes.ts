@@ -17,6 +17,10 @@ export interface SliderValueXY {
   readonly y: number;
 }
 
+// `SliderValueX` et `SliderValueY` valent tous deux `number` : la règle voit donc un doublon
+// dans l'union. Les trois noms restent parce qu'ils disent les trois sortes de curseur, et que
+// les retirer laisserait « X ou XY », qui a l'air d'exclure l'axe Y.
+// eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents
 export type SliderValue = SliderValueX | SliderValueY | SliderValueXY;
 
 export interface SliderUpdateEvent extends CustomEvent {
@@ -33,13 +37,13 @@ export interface SliderModelDetailParts {
 
 export interface EdgeActions {
   'top-left': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
-  'top': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
+  top: Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
   'top-right': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
-  'right': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
+  right: Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
   'bottom-right': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
-  'bottom': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
+  bottom: Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
   'bottom-left': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
-  'left': Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
+  left: Optional<(edge: AlloyComponent, detail: SliderDetail) => void>;
 }
 
 export interface Manager {

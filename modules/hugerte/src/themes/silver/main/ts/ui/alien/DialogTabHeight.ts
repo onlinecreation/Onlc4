@@ -50,7 +50,25 @@ const getMaxTabviewHeight = (dialog: SugarElement<HTMLElement>, tabview: SugarEl
   const dialogHeight = Height.get(dialog) + dialogTopMargin + dialogBottomMargin;
 
   const chromeHeight = dialogHeight - currentTabHeight;
-  return maxHeight - chromeHeight;
+  const viewportBased = maxHeight - chromeHeight;
+
+  // A dialog can have a height of its own - `size: 'large'` is 650px - which the calculation
+  // above, based on the viewport, ignores. The tab view would then be taller than the room the
+  // dialog has, and the footer - with the save and cancel buttons - would be clipped by the
+  // `overflow: hidden` of the dialog. The room actually left for the tabs is therefore measured
+  // from the dialog itself, minus its header, its footer and the padding of its body.
+  const outerHeightOf = (selector: string) => SelectorFind.descendant<HTMLElement>(dialog, selector)
+    .map((element) => Height.getOuter(element))
+    .getOr(0);
+
+  const bodyPadding = SelectorFind.descendant<HTMLElement>(dialog, '.tox-dialog__body-content')
+    .map((content) => Height.getOuter(content) - Height.get(content))
+    .getOr(0);
+
+  const roomInDialog = dialog.dom.clientHeight - outerHeightOf('.tox-dialog__header') -
+    outerHeightOf('.tox-dialog__footer') - bodyPadding;
+
+  return roomInDialog > 0 ? Math.min(viewportBased, roomInDialog) : viewportBased;
 };
 
 const showTab = (allTabs: TabbarTypes.TabButtonWithViewSpec[], comp: AlloyComponent) => {

@@ -1,0 +1,30 @@
+/*!
+ * Material Icons — https://github.com/google/material-design-icons
+ * Fonte et dessins : licence Apache 2.0, Copyright Google LLC.
+ * Fichier écrit pour ONLC 4 : la fonte est servie depuis ../fonts/ (voir main/LICENCES.md).
+ */
+
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../fonts/material-icons.woff2") format("woff2");
+}
+
+.material-icons {
+  display: inline-block;
+  font-family: "Material Icons", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  vertical-align: -0.15em;
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}

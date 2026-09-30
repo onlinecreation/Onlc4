@@ -101,14 +101,36 @@ const fetchLernaProjects = (log, runAllTests) => {
   // This has to be sync because grunt can't do async config
   var exec = require('child_process').execSync;
 
-  // if JSON parse fails, well, grunt will just fail /shrug
+  // lerna écrit la liste JSON sur la sortie standard et ses messages sur la sortie d'erreur. La
+  // version d'origine les fusionnait (`2>&1`), ce qui marchait tant que rien d'autre ne parlait
+  // sur la sortie d'erreur ; depuis Node 22, l'avertissement « (node:…) [DEP0040]
+  // DeprecationWarning: The `punycode` module is deprecated » s'y ajoute et `JSON.parse` s'y
+  // arrête : le Gruntfile ne se chargeait plus du tout, donc aucune épreuve ne pouvait être
+  // lancée. On garde les deux sorties séparées et on ne lit que celle qui porte la liste. La
+  // sortie d'erreur reste capturée pour ne pas polluer le terminal, et on la joint au message
+  // en cas d'échec pour que la cause reste visible.
   const parseLernaList = (cmd) => {
     try {
-      return JSON.parse(exec(`yarn -s lerna ${cmd} -a --json --loglevel warn 2>&1`));
+      const sortie = exec(
+        `yarn -s lerna ${cmd} -a --json --loglevel warn`,
+        { stdio: [ 'ignore', 'pipe', 'pipe' ] }
+      ).toString();
+      try {
+        return JSON.parse(sortie);
+      } catch (erreurJson) {
+        throw new Error(
+          `Liste lerna illisible pour « ${cmd} » : ${erreurJson.message}\n` +
+          `Sortie obtenue : ${sortie.trim().slice(0, 500)}`
+        );
+      }
     } catch (e) {
       // If no changes are found, then lerna returns an exit code of 1, so deal with that gracefully
       if (e.status === 1) {
         return [];
+      } else if (e.stderr) {
+        // `e.stderr` n'existe que pour les échecs de la commande elle-même, et sans ce rappel la
+        // seule trace serait « Command failed », sans dire pourquoi.
+        throw new Error(`${e.message}\n${e.stderr.toString().trim()}`);
       } else {
         throw e;
       }

@@ -1,13 +1,14 @@
 # Tests
 
-Deux suites, qui ne tournent pas au même endroit et ne coûtent pas le même temps.
+Trois suites, qui ne tournent pas au même endroit et ne coûtent pas le même temps.
 
 | Suite | Ce qu'elle couvre | Commande | Durée |
 |---|---|---|---|
-| **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs, la couverture des traductions | `yarn test-node` | 102 épreuves, ~2 s |
-| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | 386 épreuves, ~95 s |
+| **Node** | les simulations d'api, l'habillage de l'éditeur d'images, les générateurs, la couverture des traductions | `yarn test-node` | 127 épreuves, ~2 s |
+| **Navigateur** | les plugins ONLC : logique pure et interfaces | `yarn test-onlc` | 396 épreuves, ~95 s |
+| **@ephox** | les bibliothèques héritées de TinyMCE : alloy, katamari, jax, mcagar | voir plus bas | 784 épreuves, ~20 min |
 
-`yarn test` enchaîne les deux, plus les tests d'origine de HugeRTE.
+`yarn test` enchaîne les deux premières, plus les tests d'origine de HugeRTE.
 
 ## La suite navigateur
 
@@ -97,6 +98,79 @@ Le banc d'essai tient dans `example/test/harness.js`, une centaine de lignes. L'
 aucune dépendance npm — c'est ce qui permet de le lire comme une spécification exécutable — et
 lui en ajouter une pour trois fonctions (`describe`, `it`, des assertions) aurait coûté plus que
 de les écrire.
+
+## La suite @ephox
+
+Les modules `modules/alloy`, `modules/katamari`, `modules/jax` et `modules/mcagar` viennent de
+TinyMCE et portent leurs propres épreuves. Le fork n'y touche pas, mais une mise au propre qui
+traverse onze modules a besoin de les rejouer.
+
+Le Gruntfile de la racine sait les lancer :
+
+```sh
+npx grunt headless-auto --bedrock-browser=chrome-headless --ignore-lerna-changed
+```
+
+Sans `--ignore-lerna-changed`, grunt demande à lerna quels paquets ont changé et ne teste que
+ceux-là.
+
+Cette commande veut cependant un **Selenium** sur `127.0.0.1:4444` : la configuration du
+Gruntfile pose `useSelenium: true`, pensée pour le conteneur de l'intégration continue. En local,
+on appelle bedrock directement, ce qui lance chromedriver sans Selenium :
+
+```sh
+# La même sélection que le Gruntfile : quatre modules, quatre types d'épreuves.
+# Les autres dossiers de `src/test/ts` — `module/`, `mock/`, `touch/` — portent du
+# code d'appui et une épreuve tactile que grunt ne retient pas non plus.
+for m in alloy jax katamari mcagar; do
+  for t in atomic browser headless webdriver; do
+    find "modules/$m/src/test/ts/$t" -name '*Test.ts' -type f 2>/dev/null
+  done
+done > /tmp/epreuves.txt        # 263 fichiers
+
+npx bedrock-auto \
+  --browser chrome-headless \
+  --config tsconfig.json \
+  --customRoutes modules/hugerte/src/core/test/json/routes.json \
+  --name headless-tests --totalTimeout 180000 --singleTimeout 60000 --retries 3 \
+  --files $(tr '\n' ' ' < /tmp/epreuves.txt)
+```
+
+Deux précautions valent d'être connues :
+
+- **`npx tsc -b` doit avoir tourné avant.** Bedrock vérifie les types de tout le programme, pas
+  seulement des fichiers listés ; sans les déclarations produites par tsc, il échoue sur des
+  `Cannot find module 'hugerte/plugins/…'` qui n'ont rien à voir avec les épreuves demandées.
+- **`--files` doit recevoir des chemins, pas des motifs.** Bedrock refuse un motif qui ne
+  correspond à aucun fichier, et le shell développe `**` autrement que grunt — sans `globstar`,
+  `browser/**/*Test.ts` ne voit pas les fichiers posés directement dans `browser/`. D'où le
+  `find`.
+- **Videz `scratch/compiled` entre deux sélections différentes**, faute de quoi bedrock repart de
+  la liste précédente.
+
+Le résultat est écrit dans `scratch/TEST-<nom>.xml`. Pour le résumer :
+
+```sh
+python3 -c "
+import xml.etree.ElementTree as ET
+r = ET.parse('scratch/TEST-headless-tests.xml').getroot()
+s = [r] if r.tag == 'testsuite' else r.findall('.//testsuite')
+print(sum(int(x.get('tests', 0)) for x in s), 'épreuves,',
+      sum(int(x.get('failures', 0)) for x in s), 'échecs')
+"
+```
+
+### Deux échecs connus, antérieurs au fork
+
+`alloy/…/position/SelectionInFramePositionTest` et `NodeInFramePositionTest` échouent tous deux
+sur la même étape : « Ensuring that the popup is inside window viewport », après un défilement de
+2000 pixels. L'assertion compare la position de la bulle à `window.innerHeight` — elle dépend donc
+de la hauteur de la fenêtre, et un navigateur sans affichage en donne une plus courte que celle
+que l'épreuve suppose. Les mêmes étapes passent sans défilement.
+
+Vérifié en rejouant les deux fichiers sur l'état du dépôt d'avant les corrections lint : ils
+échouent à l'identique. Ce ne sont donc pas des régressions, et aucun des fichiers en cause n'a
+été modifié ici.
 
 ## Ajouter un test
 

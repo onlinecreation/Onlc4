@@ -17,6 +17,21 @@ body.onlc-blocks-enabled {
   position: relative;
 }
 
+/**
+ * Cette couche vit dans le document du site, dont la feuille est chargée telle quelle : les
+ * règles que le site écrit sur des **noms d'éléments** — `button`, `div`, `svg` — atteignent donc
+ * les commandes des blocs, sans jamais les viser. La feuille ci-dessous redit par conséquent tout
+ * ce dont les commandes ont besoin plutôt que de compter sur les valeurs par défaut du
+ * navigateur, comme le fait déjà l'interface des dialogues.
+ *
+ * Deux propriétés manquaient à l'appel, trouvées en mesurant la barre sous une feuille qui pose
+ * `button { float: left; text-transform: uppercase }` : la casse remontait jusqu'au code de
+ * langue du bouton polyglotte et à l'identifiant de la pastille, qui s'affichaient en capitales.
+ *
+ * Les deux sont redites sur les éléments eux-mêmes, et non sur cette couche : une règle qui vise
+ * directement l'élément — ce que fait `button { … }` — bat toujours une valeur héritée, si bien
+ * qu'une déclaration posée ici ne l'aurait pas arrêtée. Vérifié en mesurant les deux façons.
+ */
 .onlc-blocks-ui {
   position: absolute;
   top: 0;
@@ -26,6 +41,17 @@ body.onlc-blocks-enabled {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 13px;
   line-height: 1;
+}
+
+/* Voir ci-dessus : l'intitulé du menu des langues garde sa capitalisation, qui est voulue. */
+.onlc-blocks-btn,
+.onlc-blocks-add,
+.onlc-blocks-edge,
+.onlc-blocks-langitem,
+.onlc-blocks-outline__kind,
+.onlc-blocks-outline__id {
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .onlc-blocks-ui * {
@@ -75,6 +101,12 @@ body.onlc-blocks-enabled {
 
 .onlc-blocks-outline__kind svg {
   display: block;
+  /* Seize pixels écrits ici, et pas seulement portés par les attributs du dessin : c'était le
+     seul svg de la couche sans taille déclarée, et un site qui pose `svg { width: 100% }` pour
+     ses illustrations le faisait grandir jusqu'aux dix-huit pixels de la pastille, dont il
+     remplissait alors le fond bord à bord. */
+  width: 16px;
+  height: 16px;
 }
 
 /**
@@ -126,6 +158,7 @@ body.onlc-blocks-enabled {
   width: 50px;
   height: 50px;
   padding: 0;
+  float: none;
   align-items: center;
   justify-content: center;
   color: #222f3e;
@@ -364,6 +397,11 @@ body.onlc-blocks-enabled {
 .onlc-blocks-add svg,
 .onlc-blocks-edge__plus svg {
   display: block;
+  /* Seize pixels écrits ici comme la variante tactile écrit les siens plus bas : sans taille
+     déclarée, le dessin ne tenait que des attributs du fichier, et un site qui pose
+     `svg { width: 100% }` l'étirait aux vingt-quatre pixels disponibles dans le bouton. */
+  width: 16px;
+  height: 16px;
 }
 
 .onlc-blocks-edge:hover,

@@ -27,6 +27,22 @@ import * as PropertiesDialog from './ui/PropertiesDialog';
  */
 
 export interface OnlcBlocksApi {
+  /**
+   * Couper ou rétablir l'affichage automatique de la barre d'un bloc.
+   *
+   * À vrai — la valeur de départ —, la barre suit le survol et le curseur. À faux, elle n'apparaît
+   * plus d'elle-même : c'est à l'appelant de la commander par `showFor` et `hide`. Une application
+   * qui intègre l'éditeur s'en sert pour imposer sa propre règle d'activation — n'ouvrir les outils
+   * que sur le bloc sélectionné, par exemple — sans réécrire les actions des boutons.
+   *
+   * Attention : couper sans rien commander ensuite donne un éditeur dont les blocs n'ont jamais
+   * d'outils, ce qui ressemble à une panne.
+   */
+  readonly setAutoActivation: (enabled: boolean) => void;
+  /** Afficher la barre pour le bloc qui entoure ce nœud. Un nœud hors bloc laisse l'affichage en place. */
+  readonly showFor: (node: Node | null) => void;
+  /** Masquer la barre, le contour et les boutons d'ajout. */
+  readonly hide: () => void;
   readonly isEnabled: () => boolean;
   readonly toggle: () => void;
   readonly getActiveBlock: () => Optional<HTMLElement>;
@@ -157,6 +173,9 @@ export default (): void => {
     Buttons.register(editor, controller);
 
     return {
+      setAutoActivation: (value) => controller.setAutoActivation(value),
+      showFor: (node) => controller.showFor(node),
+      hide: () => controller.hide(),
       isEnabled: () => controller.isEnabled(),
       toggle: () => controller.toggle(),
       getActiveBlock: () => controller.getActive(),

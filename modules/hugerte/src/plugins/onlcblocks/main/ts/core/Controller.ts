@@ -16,6 +16,9 @@ import * as Multilang from './Multilang';
  */
 
 export interface Controller {
+  readonly setAutoActivation: (enabled: boolean) => void;
+  readonly showFor: (node: Node | null) => void;
+  readonly hide: () => void;
   readonly isEnabled: () => boolean;
   readonly enable: () => void;
   readonly disable: () => void;
@@ -28,6 +31,16 @@ export interface Controller {
 
 const setup = (editor: Editor): Controller => {
   let enabled = Options.isEnabled(editor);
+  /**
+   * La barre suit-elle le pointeur et le curseur d'elle-même ?
+   *
+   * Vrai par défaut, et rien dans le plugin ne le change : c'est le comportement normal. Une
+   * application qui intègre l'éditeur peut vouloir une autre règle — n'afficher la barre que sur
+   * le bloc *sélectionné*, par exemple, plutôt que sur celui qu'on survole. Elle le met alors à
+   * faux et pilote l'affichage elle-même, sans avoir à réécrire ce qui suit : les actions, la
+   * sélection, l'annulation et le nettoyage restent ici.
+   */
+  let autoActivation = true;
   let overlay: Overlay.Overlay | null = null;
 
   const getOverlay = (): Overlay.Overlay => {
@@ -133,12 +146,16 @@ const setup = (editor: Editor): Controller => {
 
   const bindEvents = () => {
     editor.on('mouseover', (e) => {
+      // Le drapeau est relevé même quand l'affichage automatique est coupé : il sert aussi à
+      // savoir sur quel bloc un bouton de la barre doit agir.
       overUi = Blocks.isUi(editor, e.target as Node);
-      showFor(e.target as Node);
+      if (autoActivation) {
+        showFor(e.target as Node);
+      }
     });
     // Le curseur ne commande l'overlay que si le pointeur n'a pas déjà la main.
     editor.on('NodeChange', (e) => {
-      if (!overUi) {
+      if (autoActivation && !overUi) {
         showFor(e.element);
       }
     });
@@ -179,6 +196,17 @@ const setup = (editor: Editor): Controller => {
   };
 
   return {
+    setAutoActivation: (value) => {
+      autoActivation = value;
+    },
+    showFor,
+    // `getOverlay()` créerait la couche pour la masquer aussitôt : on ne touche qu'à une couche
+    // déjà construite.
+    hide: () => {
+      if (Type.isNonNullable(overlay)) {
+        overlay.hide();
+      }
+    },
     isEnabled: () => enabled,
     enable,
     disable,

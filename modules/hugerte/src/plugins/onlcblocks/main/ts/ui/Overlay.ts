@@ -451,20 +451,6 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
       height: `${rect.height}px`
     });
 
-    // Les tailles viennent de la feuille de styles, qui les augmente sur écran tactile : on les
-    // mesure au lieu de les redire ici, pour que les deux ne puissent pas diverger.
-    const toolbar = part('toolbar');
-    if (Type.isNonNullable(toolbar)) {
-      setVisible(toolbar, true);
-      updateLanguageButton(toolbar, block);
-      updateProperties(toolbar, block);
-      const height = toolbar.offsetHeight > 0 ? toolbar.offsetHeight : 30;
-      setPosition(toolbar, {
-        top: `${Math.max(0, rect.y - height - 2)}px`,
-        left: `${clampLeft(rect.x, toolbar.offsetWidth)}px`
-      });
-    }
-
     // Les boutons + sont centrés sur le bord haut et sur le bord bas du bloc. Celui du haut
     // n'apparaît que sur le premier bloc d'un conteneur : ailleurs, le bouton du bas du bloc
     // précédent occupe déjà le même espace.
@@ -487,6 +473,20 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
     ).getOr(addButtonSize);
     const half = measured / 2;
     const centre = clampLeft(rect.x + rect.width / 2 - half, measured);
+
+    // Les tailles viennent de la feuille de styles, qui les augmente sur écran tactile : on les
+    // mesure au lieu de les redire ici, pour que les deux ne puissent pas diverger.
+    const toolbar = part('toolbar');
+    if (Type.isNonNullable(toolbar)) {
+      setVisible(toolbar, true);
+      updateLanguageButton(toolbar, block);
+      updateProperties(toolbar, block);
+      const height = toolbar.offsetHeight > 0 ? toolbar.offsetHeight : 30;
+      setPosition(toolbar, {
+        top: `${Math.max(0, rect.y - height - 2)}px`,
+        left: `${clampLeft(rect.x, toolbar.offsetWidth)}px`
+      });
+    }
 
     setPosition(before, {
       top: `${Math.max(0, rect.y - half)}px`,
@@ -560,8 +560,12 @@ const create = (editor: Editor, handlers: OverlayHandlers): Overlay => {
       return;
     }
     active = Optional.some(block);
-    positionForBlock(block);
+    // Les zones d'ajout **avant** le placement, comme dans `refresh`. La zone du début est
+    // insérée en tête du corps : la créer pousse tout le contenu vers le bas de sa hauteur. En
+    // plaçant la barre d'abord, on la calait sur des coordonnées périmées — mesuré à quarante
+    // pixels trop haut sur le premier affichage qui suit un changement de contenu.
     ensureEdges();
+    positionForBlock(block);
   };
 
   const hide = () => {

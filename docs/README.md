@@ -246,6 +246,17 @@ pour faciliter une remontée éventuelle en amont.
   contenu réel : un `[LG=fr]…[/LG]` dans une valeur json, qui rendait la fiche illisible ; le même
   dans un attribut `class`, qui disloquait la balise ; et un `[l]` du mouchard Google Tag Manager
   d'un gabarit, pris pour un code court et effacé.
+- **Rien qui dépende de la feuille du site** : la couche d'outils des blocs vit, elle, dans le
+  document du site, dont la feuille est chargée telle quelle pour que la page ressemble à ce
+  qu'elle sera. Une règle que cette feuille écrit sur un **nom d'élément** — `button`, `div`,
+  `svg` — atteint donc les commandes des blocs, sans jamais les viser : personne n'écrit une
+  feuille de site en pensant à un éditeur. Chaque commande redit par conséquent sa taille, sa
+  casse, son fond et son flottement plutôt que de compter sur les valeurs par défaut. Trois
+  oublis ont été trouvés en opposant à la barre une feuille qui pose
+  `button { float: left; text-transform: uppercase }` et `svg { width: 100% }` : la casse
+  remontait au code de langue et à l'identifiant du bloc, et les deux seuls `svg` de la couche
+  sans taille déclarée — la pastille de type et les boutons « + » — s'étiraient jusqu'au bord de
+  leur bouton. `BlockUiIsolationTest` rejoue cette feuille à chaque épreuve.
 - **Rien qui dépende de la page d'accueil** : les dialogues vivent dans le document du
   back-office, pas dans un cadre à part. Une règle css que cette page écrit sur un **nom
   d'élément** — `pre`, `textarea`, `summary`, `iframe` — atteint donc l'interface de l'éditeur.

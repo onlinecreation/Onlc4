@@ -87,6 +87,16 @@ const styles =
   `.tox .tox-dialog__footer .tox-button { min-width: ${minimum}px; min-height: ${minimum}px; padding: 0 20px; }` +
   `.tox .tox-dialog .tox-browse-url { min-width: ${minimum}px; min-height: ${minimum}px; }` +
   `.tox .tox-dialog .tox-collection__item { min-height: ${minimum}px; }` +
+  // L'intitulé d'un champ tient sur plusieurs lignes s'il le faut.
+  //
+  // L'habillage pose `white-space: nowrap` sur `.tox-label`, sans `overflow: hidden` : un
+  // intitulé plus large que sa colonne ne se coupe pas, il déborde. La mesure a été prise sur de
+  // l'anglais, et le français est plus long — mesuré sur une fenêtre de 390 pixels,
+  // « Emplacement dans la page » sortait de sa colonne dans la fenêtre du script. Mieux vaut deux
+  // lignes qu'un intitulé qui chevauche son voisin. `break-word` et non `anywhere` : on coupe
+  // entre les mots, pas au milieu d'un mot, qui se relit mal.
+  '.tox .tox-dialog .tox-label, .tox .tox-dialog .tox-toolbar-label {' +
+  ' white-space: normal; overflow-wrap: break-word; }' +
   // Les champs ne sont pas des boutons, mais viser un champ de trente pixels au doigt est tout
   // aussi pénible : ils suivent la même règle, en un peu plus bas.
   '.tox .tox-dialog .tox-textfield, .tox .tox-dialog .tox-listbox, .tox .tox-dialog .tox-listboxfield > .tox-listbox--select { min-height: 44px; }' +

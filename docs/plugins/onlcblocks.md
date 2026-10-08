@@ -471,8 +471,59 @@ blocks.toggle();
 blocks.listBlocks();     // blocs de premier niveau
 blocks.insertRow([ 6, 6 ]);
 blocks.blockAt(nœud);    // le bloc manipulable qui entoure ce nœud, ou null
+blocks.getActiveBlock(); // Optional du bloc dont la barre est affichée
+
+// Commander l'affichage soi-même (voir plus bas).
+blocks.setAutoActivation(false);
+blocks.showFor(nœud);
+blocks.hide();
 ```
 
 `blockAt` sert aux autres plugins : c'est par elle qu'ils savent si la barre des blocs prend déjà
 un élément en charge, et donc s'ils doivent ouvrir leur propre bulle. C'est aussi elle que
 `BlockActions.openFor` interroge pour savoir quoi ouvrir sur un double clic.
+
+### Commander l'affichage de la barre depuis l'application
+
+Par défaut, la barre d'un bloc suit le **survol** et le **curseur** : on passe la souris sur un
+bloc, sa barre apparaît. C'est le comportement de l'éditeur seul, et rien dans le plugin ne le
+change.
+
+Une application qui intègre l'éditeur dans son back-office peut vouloir une autre règle. Le cas
+rencontré : n'ouvrir les outils que sur le bloc **sélectionné**, parce que l'application affiche
+par ailleurs ses propres palettes et que deux jeux d'outils qui apparaissent au survol se gênent.
+Trois fonctions suffisent alors, et elles ne demandent pas de réécrire quoi que ce soit : les
+actions des boutons, la sélection, l'annulation et le nettoyage restent dans le plugin.
+
+| Fonction | Effet |
+| --- | --- |
+| `setAutoActivation(false)` | La barre n'apparaît plus d'elle-même. Rien d'autre ne change. |
+| `showFor(nœud)` | Affiche la barre du bloc qui entoure ce nœud. Un nœud hors bloc laisse l'affichage en place. |
+| `hide()` | Masque barre, contour et boutons d'ajout. |
+| `setAutoActivation(true)` | Rend la main : le survol et le curseur commandent à nouveau. |
+
+```js
+editor.on('init', () => {
+  const blocks = editor.plugins.onlcblocks;
+  blocks.setAutoActivation(false);
+
+  const suivreLaSelection = () => {
+    if (!editor.hasFocus() || editor.mode.isReadOnly()) {
+      blocks.hide();
+    } else {
+      blocks.showFor(editor.selection.getNode());
+    }
+  };
+
+  editor.on('NodeChange focus SwitchMode', suivreLaSelection);
+  editor.on('blur', () => blocks.hide());
+  suivreLaSelection();
+});
+```
+
+> **À couper, il faut commander.** `setAutoActivation(false)` sans rien afficher ensuite donne un
+> éditeur dont aucun bloc n'a jamais d'outils — ce qui ressemble à une panne plutôt qu'à un
+> réglage. Les deux appels vont ensemble.
+
+`hide()` ne construit rien : sur un éditeur dont personne n'a encore affiché de barre, la couche
+d'interface n'existe pas et il n'y a rien à fermer.
